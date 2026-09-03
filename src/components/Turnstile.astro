@@ -26,6 +26,7 @@ const SITEKEY = '0x4AAAAAAEjuiFvjTq5K7Aln';
 
       var form = el.closest('form');
       var waitingToSubmit = false;
+      var spent = false;
 
       var id = window.turnstile.render(el, {
         sitekey: el.dataset.sitekey,
@@ -37,6 +38,7 @@ const SITEKEY = '0x4AAAAAAEjuiFvjTq5K7Aln';
         callback: function () {
           if (waitingToSubmit && form) {
             waitingToSubmit = false;
+            spent = true;
             form.submit();
           }
         },
@@ -44,15 +46,28 @@ const SITEKEY = '0x4AAAAAAEjuiFvjTq5K7Aln';
 
       if (!form) return;
 
-      // A token dies after five minutes, and a backgrounded tab can sleep through the
-      // automatic refresh. Someone who leaves a form open while they think about what to
-      // write would otherwise post a stale token and get a page of raw JSON instead of
-      // sending their enquiry. Hold the submission, fetch a fresh token, then send it.
+      // A token is single use and dies after five minutes, and a backgrounded tab can sleep
+      // through the automatic refresh. Someone who leaves a form open while they think about
+      // what to write, presses submit twice, or comes back to a sent form would otherwise post
+      // a stale or already-redeemed token and get a page of raw JSON instead of sending their
+      // enquiry. Cloudflare rejects both cases the same way, as timeout-or-duplicate. Hold the
+      // submission, fetch a fresh token, then send it.
       form.addEventListener('submit', function (e) {
         var input = form.querySelector('input[name="cf-turnstile-response"]');
-        if (input && input.value && !window.turnstile.isExpired(id)) return;
+        if (!spent && input && input.value && !window.turnstile.isExpired(id)) {
+          spent = true;
+          return;
+        }
         e.preventDefault();
         waitingToSubmit = true;
+        window.turnstile.reset(id);
+      });
+
+      // Back button and bfcache restore the form with the token it already spent, so retire it.
+      window.addEventListener('pageshow', function (e) {
+        if (!e.persisted) return;
+        spent = false;
+        waitingToSubmit = false;
         window.turnstile.reset(id);
       });
     });
