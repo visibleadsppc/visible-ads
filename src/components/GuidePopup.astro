@@ -14,11 +14,14 @@ const GUIDE_TITLE = '5 Golden Quarter Google Ads Tactics for Q4';
   aria-modal="true"
   aria-labelledby="guide-popup-title"
 >
-  <div id="guide-popup-backdrop" class="absolute inset-0 bg-navy/70 backdrop-blur-sm"></div>
+  <div
+    id="guide-popup-backdrop"
+    class="absolute inset-0 bg-navy/70 backdrop-blur-sm opacity-0 transition-opacity duration-300 ease-out motion-reduce:transition-none"
+  ></div>
 
   <div
     id="guide-popup-card"
-    class="relative w-full max-w-3xl bg-white rounded-2xl shadow-2xl ring-1 ring-navy/10 overflow-hidden max-h-[92vh] overflow-y-auto"
+    class="relative w-full max-w-3xl bg-white rounded-2xl shadow-2xl ring-1 ring-navy/10 overflow-hidden max-h-[92vh] overflow-y-auto opacity-0 translate-y-4 scale-[0.98] transition-[opacity,translate,scale] duration-300 ease-out motion-reduce:transition-none motion-reduce:translate-y-0 motion-reduce:scale-100"
   >
     <button
       id="guide-popup-close"
@@ -175,13 +178,17 @@ const GUIDE_TITLE = '5 Golden Quarter Google Ads Tactics for Q4';
   interface GuideState {
     open: boolean;
     timer: number | null;
+    closeTimer: number | null;
   }
 
   function state(): GuideState {
     const w = window as any;
-    if (!w.__vaGuide) w.__vaGuide = { open: false, timer: null };
+    if (!w.__vaGuide) w.__vaGuide = { open: false, timer: null, closeTimer: null };
     return w.__vaGuide;
   }
+
+  const FADE_MS = 300;
+  const HIDDEN_CARD = ['opacity-0', 'translate-y-4', 'scale-[0.98]'];
 
   function popup(): HTMLElement | null {
     return document.getElementById('guide-popup');
@@ -193,10 +200,26 @@ const GUIDE_TITLE = '5 Golden Quarter Google Ads Tactics for Q4';
     if (!el || s.open || alreadyHandled() || suppressedHere()) return;
 
     s.open = true;
+    if (s.closeTimer) {
+      window.clearTimeout(s.closeTimer);
+      s.closeTimer = null;
+    }
     el.classList.remove('hidden');
     el.classList.add('flex');
     document.body.style.overflow = 'hidden';
     remember(SEEN_KEY, String(Date.now()));
+
+    // A transition cannot run from display:none, so the element has to be laid out for a
+    // frame before the faded-out classes come off. Two frames, because a single one still
+    // lands in the same style recalculation in Safari and the popup snaps in.
+    const backdrop = document.getElementById('guide-popup-backdrop');
+    const card = document.getElementById('guide-popup-card');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        backdrop?.classList.remove('opacity-0');
+        card?.classList.remove(...HIDDEN_CARD);
+      });
+    });
 
     const source = document.getElementById('guide-popup-source') as HTMLInputElement | null;
     if (source) source.value = window.location.pathname;
@@ -217,9 +240,20 @@ const GUIDE_TITLE = '5 Golden Quarter Google Ads Tactics for Q4';
     const s = state();
     if (!el || !s.open) return;
     s.open = false;
-    el.classList.add('hidden');
-    el.classList.remove('flex');
     document.body.style.overflow = '';
+
+    document.getElementById('guide-popup-backdrop')?.classList.add('opacity-0');
+    document.getElementById('guide-popup-card')?.classList.add(...HIDDEN_CARD);
+
+    // Hold display:flex until the fade has finished, then take it out of the layout so it
+    // cannot catch clicks. Reopening in the meantime clears this in open().
+    if (s.closeTimer) window.clearTimeout(s.closeTimer);
+    s.closeTimer = window.setTimeout(() => {
+      s.closeTimer = null;
+      if (state().open) return;
+      el.classList.add('hidden');
+      el.classList.remove('flex');
+    }, FADE_MS);
   }
 
   // Bound once. `document` and `window` survive a view transition, so re-binding on every
@@ -250,8 +284,13 @@ const GUIDE_TITLE = '5 Golden Quarter Google Ads Tactics for Q4';
       window.clearTimeout(s.timer);
       s.timer = null;
     }
-    // A navigation swaps the body, so the popup element is new and nothing is on screen.
+    // A navigation swaps the body, so the popup element is new, already carrying its
+    // faded-out classes, and nothing is on screen.
     s.open = false;
+    if (s.closeTimer) {
+      window.clearTimeout(s.closeTimer);
+      s.closeTimer = null;
+    }
     document.body.style.overflow = '';
 
     if (alreadyHandled() || suppressedHere()) return;
