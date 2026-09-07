@@ -130,6 +130,10 @@ const GUIDE_TITLE = '5 Golden Quarter Google Ads Tactics for Q4';
     '/free-ads-audit',
     '/free-bing-ads-audit',
     '/guide-sent',
+    // Someone who opens the confirmation link on their phone arrives in a fresh browser with
+    // no va_guide_done set, so without this the popup would offer them the guide they are
+    // standing on the download page for.
+    '/playbook',
   ];
 
   const SEEN_KEY = 'va_guide_seen';
