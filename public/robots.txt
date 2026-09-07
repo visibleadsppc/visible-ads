@@ -5,6 +5,10 @@
 # --- Default: all standard search crawlers welcome ---
 User-agent: *
 Allow: /
+# Gated lead magnets: the PDF and its thank-you page stay out of the index so the
+# download is reached through the form rather than found around it.
+Disallow: /guides/
+Disallow: /guide-sent
 
 # --- AI ANSWER / CITATION crawlers: ALLOWED (these cite you in answers) ---
 User-agent: OAI-SearchBot

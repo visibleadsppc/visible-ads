@@ -1,0 +1,113 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Where the guide popup lands after a successful submit. It carries a direct download as
+// well as the "check your inbox" line, so a slow or blocked delivery never leaves someone
+// with nothing after they have handed over an address.
+const GUIDE_PATH = '/guides/5-golden-quarter-google-ads-tactics-q4.pdf';
+---
+
+<Layout
+  title="Your Q4 Playbook Is On Its Way | Visible Ads"
+  description="Your copy of the 5 Golden Quarter Google Ads Tactics playbook is on its way to your inbox."
+  noindex={true}
+>
+  <section class="bg-white px-4 py-20 sm:py-28">
+    <div class="max-w-3xl mx-auto">
+      <div class="grid sm:grid-cols-[auto_minmax(0,1fr)] gap-8 items-start">
+        <img
+          src="/images/guides/q4-playbook-cover.png"
+          alt="Cover of the 5 Golden Quarter Google Ads Tactics playbook"
+          width="1191"
+          height="1685"
+          class="w-40 sm:w-48 rounded-lg shadow-xl ring-1 ring-navy/10"
+        />
+
+        <div>
+          <div id="guide-sent-ok">
+            <div class="inline-flex items-center gap-2 text-sm font-semibold text-success bg-success/10 px-3 py-1.5 rounded-full mb-5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              Check your inbox
+            </div>
+
+            <h1 class="font-heading text-3xl sm:text-4xl font-bold text-navy leading-tight mb-4">
+              Your playbook is on its way
+            </h1>
+            <p class="text-gray-700 text-lg leading-relaxed mb-3">
+              We have emailed you a link to <strong>5 Golden Quarter Google Ads Tactics for Q4</strong>.
+              It usually lands within a minute.
+            </p>
+            <p class="text-slate text-base leading-relaxed mb-8">
+              If it is not there, check the promotions or spam folder. Or just grab it here.
+            </p>
+          </div>
+
+          <!-- The worker redirects here with delivery=failed when the guide email did not
+               go out, so the page must not claim it did. The download below still works. -->
+          <div id="guide-sent-failed" class="hidden">
+            <div class="inline-flex items-center gap-2 text-sm font-semibold text-amber bg-amber/10 px-3 py-1.5 rounded-full mb-5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" /></svg>
+              Download it here
+            </div>
+
+            <h1 class="font-heading text-3xl sm:text-4xl font-bold text-navy leading-tight mb-4">
+              Here is your playbook
+            </h1>
+            <p class="text-gray-700 text-lg leading-relaxed mb-3">
+              We could not get the email out just now, so grab
+              <strong>5 Golden Quarter Google Ads Tactics for Q4</strong> straight from the
+              button below.
+            </p>
+            <p class="text-slate text-base leading-relaxed mb-8">
+              We have your details, so we will follow up and make sure a copy reaches your inbox too.
+            </p>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a
+              href={GUIDE_PATH}
+              download
+              class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-colors shadow-lg"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" /></svg>
+              Download the playbook
+            </a>
+            <a
+              href="/free-ads-audit"
+              class="inline-flex items-center justify-center px-6 py-3.5 bg-white text-navy font-semibold rounded-lg border border-gray-200 hover:border-electric hover:text-electric transition-colors"
+            >
+              Book a profit audit
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-16 pt-10 border-t border-gray-200">
+        <h2 class="font-heading text-xl font-bold text-navy mb-3">While you are here</h2>
+        <p class="text-gray-700 leading-relaxed mb-5">
+          The playbook covers the structure. If you want the numbers behind it, these two go
+          deeper on running Q4 for profit rather than revenue.
+        </p>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <a href="/roas-vs-profit" class="block p-5 rounded-xl border border-gray-200 hover:border-electric hover:shadow-md transition-all">
+            <p class="font-heading font-bold text-navy mb-1">ROAS vs profit</p>
+            <p class="text-sm text-slate leading-relaxed">Why a 4x ROAS can still lose money, and the POAS calculator that shows it.</p>
+          </a>
+          <a href="/blog/break-even-roas" class="block p-5 rounded-xl border border-gray-200 hover:border-electric hover:shadow-md transition-all">
+            <p class="font-heading font-bold text-navy mb-1">Break-even ROAS by margin</p>
+            <p class="text-sm text-slate leading-relaxed">The number to cap Black Friday bidding against, worked out from your own margin.</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    if (window.location.pathname.replace(/\/+$/, '') !== '/guide-sent') return;
+    const failed = new URLSearchParams(window.location.search).get('delivery') === 'failed';
+    document.getElementById('guide-sent-ok')?.classList.toggle('hidden', failed);
+    document.getElementById('guide-sent-failed')?.classList.toggle('hidden', !failed);
+  });
+</script>

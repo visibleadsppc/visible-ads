@@ -1,0 +1,275 @@
+---
+// Exit-intent email capture for the Q4 playbook. Posts to /api/guide on the forms worker,
+// which emails the visitor the download link and notifies Boh. Mounted site-wide from
+// Layout.astro, so everything here has to survive a client-side navigation.
+import Turnstile from './Turnstile.astro';
+
+const GUIDE_TITLE = '5 Golden Quarter Google Ads Tactics for Q4';
+---
+
+<div
+  id="guide-popup"
+  class="hidden fixed inset-0 z-50 items-center justify-center p-4 sm:p-6"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="guide-popup-title"
+>
+  <div id="guide-popup-backdrop" class="absolute inset-0 bg-navy/70 backdrop-blur-sm"></div>
+
+  <div
+    id="guide-popup-card"
+    class="relative w-full max-w-3xl bg-white rounded-2xl shadow-2xl ring-1 ring-navy/10 overflow-hidden max-h-[92vh] overflow-y-auto"
+  >
+    <button
+      id="guide-popup-close"
+      type="button"
+      aria-label="Close"
+      class="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/90 text-slate hover:text-navy hover:bg-gray-100 flex items-center justify-center transition-colors"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <div class="grid md:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)]">
+      <div class="hidden md:flex items-center justify-center bg-sky-tint p-8">
+        <img
+          src="/images/guides/q4-playbook-cover.png"
+          alt={`Cover of the ${GUIDE_TITLE} playbook`}
+          width="1191"
+          height="1685"
+          loading="lazy"
+          class="w-full max-w-[240px] rounded-lg shadow-xl ring-1 ring-navy/10"
+        />
+      </div>
+
+      <div class="p-6 sm:p-8">
+        <span class="inline-block text-xs font-semibold tracking-wide uppercase text-cta bg-cta/10 px-3 py-1 rounded-full mb-4">
+          Free playbook
+        </span>
+        <h2 id="guide-popup-title" class="font-heading text-2xl sm:text-[28px] leading-tight font-bold text-navy mb-3">
+          {GUIDE_TITLE}
+        </h2>
+        <p class="text-slate text-sm leading-relaxed mb-5">
+          The 14-page playbook we use to turn peak-season ad spend into profit: feed
+          segmentation, curated bundles and disciplined bidding. We will email it straight over.
+        </p>
+
+        <ul class="space-y-2 mb-6">
+          <li class="flex items-start gap-2.5 text-sm text-slate-dark">
+            <svg class="w-4 h-4 mt-0.5 shrink-0 text-success" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+            Segment Performance Max by margin, not by category
+          </li>
+          <li class="flex items-start gap-2.5 text-sm text-slate-dark">
+            <svg class="w-4 h-4 mt-0.5 shrink-0 text-success" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+            Get Smart Bidding ahead of Black Friday instead of behind it
+          </li>
+          <li class="flex items-start gap-2.5 text-sm text-slate-dark">
+            <svg class="w-4 h-4 mt-0.5 shrink-0 text-success" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+            Stop low-margin SKUs eating the Q4 budget
+          </li>
+        </ul>
+
+        <form id="guide-popup-form" action="/api/guide" method="POST" data-astro-reload class="space-y-3">
+          <input type="hidden" name="_form" value="guide" />
+          <input type="hidden" name="_guide" value="q4-playbook" />
+          <input type="hidden" name="_next" value="https://visible-ads.com/guide-sent" />
+          <input type="hidden" id="guide-popup-source" name="source_page" value="" />
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;pointer-events:none" />
+
+          <div>
+            <label for="guide-name" class="sr-only">Name</label>
+            <input
+              type="text"
+              id="guide-name"
+              name="name"
+              required
+              autocomplete="name"
+              placeholder="Your first name"
+              class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-electric focus:ring-2 focus:ring-electric/20 outline-none transition-all text-gray-700"
+            />
+          </div>
+          <div>
+            <label for="guide-email" class="sr-only">Email</label>
+            <input
+              type="email"
+              id="guide-email"
+              name="email"
+              required
+              autocomplete="email"
+              placeholder="you@company.com"
+              class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-electric focus:ring-2 focus:ring-electric/20 outline-none transition-all text-gray-700"
+            />
+          </div>
+
+          <Turnstile />
+
+          <button
+            type="submit"
+            class="w-full px-6 py-3.5 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-cta/25"
+          >
+            Send Me the Playbook
+          </button>
+        </form>
+
+        <p class="mt-4 text-xs leading-relaxed text-slate-light">
+          We will email you the playbook and may follow up once to see if it was useful. Tell
+          us to stop at any time. See our <a href="/privacy-policy" class="underline hover:text-electric">privacy policy</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Pages where the popup would land on top of a form someone is already filling in, or
+  // where they have just been through this exact flow.
+  const SUPPRESSED = [
+    '/contact',
+    '/free-ads-audit',
+    '/free-bing-ads-audit',
+    '/guide-sent',
+  ];
+
+  const SEEN_KEY = 'va_guide_seen';
+  const DONE_KEY = 'va_guide_done';
+  const SEEN_DAYS = 30;
+  const MOBILE_DELAY_MS = 30000;
+
+  // localStorage throws outright in some privacy modes, so a failed read must mean "show it",
+  // never a crash that takes the rest of the page script with it.
+  function store(key: string): string | null {
+    try {
+      return window.localStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  }
+
+  function remember(key: string, value: string) {
+    try {
+      window.localStorage.setItem(key, value);
+    } catch {
+      /* private browsing, nothing to do */
+    }
+  }
+
+  function alreadyHandled(): boolean {
+    if (store(DONE_KEY)) return true;
+    const seen = store(SEEN_KEY);
+    if (!seen) return false;
+    const age = Date.now() - Number(seen);
+    return Number.isFinite(age) && age < SEEN_DAYS * 86400000;
+  }
+
+  function suppressedHere(): boolean {
+    const path = window.location.pathname.replace(/\/+$/, '') || '/';
+    return SUPPRESSED.some((p) => path === p);
+  }
+
+  interface GuideState {
+    open: boolean;
+    timer: number | null;
+  }
+
+  function state(): GuideState {
+    const w = window as any;
+    if (!w.__vaGuide) w.__vaGuide = { open: false, timer: null };
+    return w.__vaGuide;
+  }
+
+  function popup(): HTMLElement | null {
+    return document.getElementById('guide-popup');
+  }
+
+  function open() {
+    const el = popup();
+    const s = state();
+    if (!el || s.open || alreadyHandled() || suppressedHere()) return;
+
+    s.open = true;
+    el.classList.remove('hidden');
+    el.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    remember(SEEN_KEY, String(Date.now()));
+
+    const source = document.getElementById('guide-popup-source') as HTMLInputElement | null;
+    if (source) source.value = window.location.pathname;
+
+    // The widget is skipped while the popup is display:none, exactly like the wizard's
+    // hidden step 4, so it has to be rendered the moment the popup becomes visible.
+    (window as any).vaRenderTurnstile?.();
+
+    document.getElementById('guide-name')?.focus();
+
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', 'guide_popup_shown', { page_path: window.location.pathname });
+    }
+  }
+
+  function close() {
+    const el = popup();
+    const s = state();
+    if (!el || !s.open) return;
+    s.open = false;
+    el.classList.add('hidden');
+    el.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  // Bound once. `document` and `window` survive a view transition, so re-binding on every
+  // page load would stack a fresh copy of each of these on every click through the site.
+  function bindGlobalsOnce() {
+    const w = window as any;
+    if (w.__vaGuideBound) return;
+    w.__vaGuideBound = true;
+
+    // Exit intent, desktop only: the pointer leaving through the top of the viewport.
+    document.addEventListener('mouseout', (e) => {
+      const ev = e as MouseEvent;
+      if (ev.relatedTarget || (ev as any).toElement) return;
+      if (ev.clientY > 0) return;
+      open();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Escape') close();
+    });
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    bindGlobalsOnce();
+
+    const s = state();
+    if (s.timer) {
+      window.clearTimeout(s.timer);
+      s.timer = null;
+    }
+    // A navigation swaps the body, so the popup element is new and nothing is on screen.
+    s.open = false;
+    document.body.style.overflow = '';
+
+    if (alreadyHandled() || suppressedHere()) return;
+
+    // Touch devices have no exit intent, so they get a dwell timer instead.
+    if (window.matchMedia('(hover: none)').matches) {
+      s.timer = window.setTimeout(open, MOBILE_DELAY_MS);
+    }
+
+    document.getElementById('guide-popup-close')?.addEventListener('click', close);
+    document.getElementById('guide-popup-backdrop')?.addEventListener('click', close);
+
+    // Mark it done on submit rather than on the thank-you page: the popup can be used from
+    // any page, and Turnstile may hold the submission back for a fresh token, which lands
+    // here again a moment later.
+    document.getElementById('guide-popup-form')?.addEventListener('submit', () => {
+      remember(DONE_KEY, String(Date.now()));
+      if (typeof (window as any).gtag === 'function') {
+        (window as any).gtag('event', 'generate_lead', {
+          form: 'guide_popup',
+          guide: 'q4-playbook',
+        });
+      }
+    });
+  });
+</script>
