@@ -1,0 +1,119 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Where /api/confirm sends someone once their token checks out. The worker does the
+// verifying, so this page only renders the outcome: the download, or the expired-link state
+// it redirects to when a token is forged, altered or older than 30 days.
+const GUIDE_PATH = '/guides/5-golden-quarter-google-ads-tactics-q4.pdf';
+---
+
+<Layout
+  title="Your Q4 Playbook | Visible Ads"
+  description="Your confirmed copy of the 5 Golden Quarter Google Ads Tactics playbook."
+  noindex={true}
+>
+  <section class="bg-white px-4 py-20 sm:py-28">
+    <div class="max-w-3xl mx-auto">
+      <div class="grid sm:grid-cols-[auto_minmax(0,1fr)] gap-8 items-start">
+        <img
+          src="/images/guides/q4-playbook-cover.png"
+          alt="Cover of the 5 Golden Quarter Google Ads Tactics playbook"
+          width="1191"
+          height="1685"
+          class="w-40 sm:w-48 rounded-lg shadow-xl ring-1 ring-navy/10"
+        />
+
+        <div>
+          <div id="playbook-ready">
+            <div class="inline-flex items-center gap-2 text-sm font-semibold text-success bg-success/10 px-3 py-1.5 rounded-full mb-5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              Email confirmed
+            </div>
+
+            <h1 class="font-heading text-3xl sm:text-4xl font-bold text-navy leading-tight mb-4">
+              Here is your playbook
+            </h1>
+            <p class="text-gray-700 text-lg leading-relaxed mb-8">
+              Thanks for confirming. <strong>5 Golden Quarter Google Ads Tactics for Q4</strong>
+              is ready. The link in your email keeps working, so you can come back to it.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+              <a
+                href={GUIDE_PATH}
+                download
+                class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-colors shadow-lg"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" /></svg>
+                Download the playbook
+              </a>
+              <a
+                href="/free-ads-audit"
+                class="inline-flex items-center justify-center px-6 py-3.5 bg-white text-navy font-semibold rounded-lg border border-gray-200 hover:border-electric hover:text-electric transition-colors"
+              >
+                Book a profit audit
+              </a>
+            </div>
+          </div>
+
+          <div id="playbook-expired" class="hidden">
+            <div class="inline-flex items-center gap-2 text-sm font-semibold text-amber bg-amber/10 px-3 py-1.5 rounded-full mb-5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              Link expired
+            </div>
+
+            <h1 class="font-heading text-3xl sm:text-4xl font-bold text-navy leading-tight mb-4">
+              That link has expired
+            </h1>
+            <p class="text-gray-700 text-lg leading-relaxed mb-4">
+              Confirmation links last 30 days, and this one is past that or has been altered
+              somewhere along the way.
+            </p>
+            <p class="text-gray-700 leading-relaxed mb-8">
+              Email <a href="mailto:hello@visible-ads.com" class="text-electric underline">hello@visible-ads.com</a>
+              and we will send a fresh copy straight over.
+            </p>
+
+            <a
+              href="/contact"
+              class="inline-flex items-center justify-center px-6 py-3.5 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-colors shadow-lg"
+            >
+              Ask for a new link
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-16 pt-10 border-t border-gray-200">
+        <h2 class="font-heading text-xl font-bold text-navy mb-3">Read next</h2>
+        <p class="text-gray-700 leading-relaxed mb-5">
+          The playbook covers the structure. These two go deeper on running Q4 for profit
+          rather than revenue.
+        </p>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <a href="/roas-vs-profit" class="block p-5 rounded-xl border border-gray-200 hover:border-electric hover:shadow-md transition-all">
+            <p class="font-heading font-bold text-navy mb-1">ROAS vs profit</p>
+            <p class="text-sm text-slate leading-relaxed">Why a 4x ROAS can still lose money, and the POAS calculator that shows it.</p>
+          </a>
+          <a href="/blog/break-even-roas" class="block p-5 rounded-xl border border-gray-200 hover:border-electric hover:shadow-md transition-all">
+            <p class="font-heading font-bold text-navy mb-1">Break-even ROAS by margin</p>
+            <p class="text-sm text-slate leading-relaxed">The number to cap Black Friday bidding against, worked out from your own margin.</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    if (window.location.pathname.replace(/\/+$/, '') !== '/playbook') return;
+    const expired = new URLSearchParams(window.location.search).get('status') === 'expired';
+    document.getElementById('playbook-ready')?.classList.toggle('hidden', expired);
+    document.getElementById('playbook-expired')?.classList.toggle('hidden', !expired);
+
+    if (!expired && typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', 'guide_email_confirmed', { guide: 'q4-playbook' });
+    }
+  });
+</script>

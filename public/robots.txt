@@ -9,6 +9,7 @@ Allow: /
 # download is reached through the form rather than found around it.
 Disallow: /guides/
 Disallow: /guide-sent
+Disallow: /playbook
 
 # --- AI ANSWER / CITATION crawlers: ALLOWED (these cite you in answers) ---
 User-agent: OAI-SearchBot

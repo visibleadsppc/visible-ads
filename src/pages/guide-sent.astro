@@ -1,15 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// Where the guide popup lands after a successful submit. It carries a direct download as
-// well as the "check your inbox" line, so a slow or blocked delivery never leaves someone
-// with nothing after they have handed over an address.
-const GUIDE_PATH = '/guides/5-golden-quarter-google-ads-tactics-q4.pdf';
+// Where the guide popup lands after a successful submit. Deliberately carries NO download:
+// the playbook is behind the confirmation link in the email, and this URL is reachable by
+// anyone who types it, so a download button here would be a way straight past the gate.
 ---
 
 <Layout
-  title="Your Q4 Playbook Is On Its Way | Visible Ads"
-  description="Your copy of the 5 Golden Quarter Google Ads Tactics playbook is on its way to your inbox."
+  title="Confirm Your Email to Get the Q4 Playbook | Visible Ads"
+  description="One quick step. Confirm your email address and the Golden Quarter playbook opens straight away."
   noindex={true}
 >
   <section class="bg-white px-4 py-20 sm:py-28">
@@ -25,58 +24,77 @@ const GUIDE_PATH = '/guides/5-golden-quarter-google-ads-tactics-q4.pdf';
 
         <div>
           <div id="guide-sent-ok">
-            <div class="inline-flex items-center gap-2 text-sm font-semibold text-success bg-success/10 px-3 py-1.5 rounded-full mb-5">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-              Check your inbox
+            <div class="inline-flex items-center gap-2 text-sm font-semibold text-electric bg-electric/10 px-3 py-1.5 rounded-full mb-5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+              One step left
             </div>
 
             <h1 class="font-heading text-3xl sm:text-4xl font-bold text-navy leading-tight mb-4">
-              Your playbook is on its way
+              Check your inbox to confirm
             </h1>
-            <p class="text-gray-700 text-lg leading-relaxed mb-3">
-              We have emailed you a link to <strong>5 Golden Quarter Google Ads Tactics for Q4</strong>.
-              It usually lands within a minute.
+            <p class="text-gray-700 text-lg leading-relaxed mb-8">
+              We have sent you an email. Confirming it tells us the address is right, and the
+              playbook opens the moment you do.
             </p>
-            <p class="text-slate text-base leading-relaxed mb-8">
-              If it is not there, check the promotions or spam folder. Or just grab it here.
-            </p>
+
+            <ol class="space-y-4 mb-8">
+              <li class="flex items-start gap-3.5">
+                <span class="shrink-0 w-7 h-7 rounded-full bg-navy text-white text-sm font-semibold flex items-center justify-center">1</span>
+                <span class="text-gray-700 leading-relaxed pt-0.5">
+                  Open the email from <strong class="text-navy">Visible Ads</strong>, subject
+                  "Confirm your email to get: 5 Golden Quarter Google Ads Tactics for Q4".
+                </span>
+              </li>
+              <li class="flex items-start gap-3.5">
+                <span class="shrink-0 w-7 h-7 rounded-full bg-navy text-white text-sm font-semibold flex items-center justify-center">2</span>
+                <span class="text-gray-700 leading-relaxed pt-0.5">
+                  Click <strong class="text-navy">Confirm and open the playbook</strong>.
+                </span>
+              </li>
+              <li class="flex items-start gap-3.5">
+                <span class="shrink-0 w-7 h-7 rounded-full bg-navy text-white text-sm font-semibold flex items-center justify-center">3</span>
+                <span class="text-gray-700 leading-relaxed pt-0.5">
+                  The playbook opens straight away, ready to download.
+                </span>
+              </li>
+            </ol>
+
+            <div class="p-5 rounded-xl bg-gray-50 border border-gray-200">
+              <p class="text-sm text-slate-dark leading-relaxed">
+                <strong class="text-navy">Nothing yet?</strong> Give it a minute, then check the
+                promotions and spam folders. If it still has not arrived, email
+                <a href="mailto:hello@visible-ads.com" class="text-electric underline">hello@visible-ads.com</a>
+                and we will send it over by hand.
+              </p>
+            </div>
           </div>
 
-          <!-- The worker redirects here with delivery=failed when the guide email did not
-               go out, so the page must not claim it did. The download below still works. -->
+          <!-- The worker redirects here with delivery=failed when the guide email did not go
+               out. There is no confirmation link to click in that case, so this state points
+               at a human rather than at a download. -->
           <div id="guide-sent-failed" class="hidden">
             <div class="inline-flex items-center gap-2 text-sm font-semibold text-amber bg-amber/10 px-3 py-1.5 rounded-full mb-5">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" /></svg>
-              Download it here
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" /></svg>
+              Something went wrong
             </div>
 
             <h1 class="font-heading text-3xl sm:text-4xl font-bold text-navy leading-tight mb-4">
-              Here is your playbook
+              We could not send that email
             </h1>
-            <p class="text-gray-700 text-lg leading-relaxed mb-3">
-              We could not get the email out just now, so grab
-              <strong>5 Golden Quarter Google Ads Tactics for Q4</strong> straight from the
-              button below.
+            <p class="text-gray-700 text-lg leading-relaxed mb-4">
+              Your details reached us, so nothing is lost, but the email carrying the playbook
+              did not go out.
             </p>
-            <p class="text-slate text-base leading-relaxed mb-8">
-              We have your details, so we will follow up and make sure a copy reaches your inbox too.
+            <p class="text-gray-700 leading-relaxed mb-8">
+              Email <a href="mailto:hello@visible-ads.com" class="text-electric underline">hello@visible-ads.com</a>
+              and we will send the playbook straight over. We are also looking at it this end.
             </p>
-          </div>
 
-          <div class="flex flex-col sm:flex-row gap-3">
             <a
-              href={GUIDE_PATH}
-              download
-              class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-colors shadow-lg"
+              href="/contact"
+              class="inline-flex items-center justify-center px-6 py-3.5 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-colors shadow-lg"
             >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" /></svg>
-              Download the playbook
-            </a>
-            <a
-              href="/free-ads-audit"
-              class="inline-flex items-center justify-center px-6 py-3.5 bg-white text-navy font-semibold rounded-lg border border-gray-200 hover:border-electric hover:text-electric transition-colors"
-            >
-              Book a profit audit
+              Get in touch
             </a>
           </div>
         </div>
