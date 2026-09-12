@@ -20,7 +20,7 @@ const schema = {
     {
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type": "Question", "name": "How long does the audit take?", "acceptedAnswer": { "@type": "Answer", "text": "We typically deliver your audit report within 5 working days. The follow-up call is scheduled at a time that suits you." } },
+        { "@type": "Question", "name": "How long does the audit take?", "acceptedAnswer": { "@type": "Answer", "text": "We deliver the audit within 5 working days of getting access. The walkthrough call is booked at a time that suits you." } },
         { "@type": "Question", "name": "Is there really no obligation?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely none. The audit is genuinely free. We use it to demonstrate the value we can bring. If you choose to work with us afterwards, great. If not, you still walk away with actionable insights you can implement yourself." } },
         { "@type": "Question", "name": "What platforms do you audit?", "acceptedAnswer": { "@type": "Answer", "text": "We audit Google Ads, Bing Ads, Amazon Advertising, Meta Ads, and any other paid media platform you are running. If you are advertising on it, we can audit it." } }
       ]
@@ -38,7 +38,7 @@ const schema = {
 const faqs = [
   {
     question: 'How long does the audit take?',
-    answer: 'We typically deliver your audit report within 5 working days. The follow-up call is scheduled at a time that suits you.',
+    answer: 'We deliver the audit within 5 working days of getting access. The walkthrough call is booked at a time that suits you.',
   },
   {
     question: 'Is there really no obligation?',
@@ -62,7 +62,7 @@ const faqs = [
 
         <div class="lg:pt-4">
           <h1 class="text-4xl sm:text-5xl font-heading font-extrabold text-navy mb-6 leading-tight">Book Your Free Profit Audit</h1>
-          <p class="text-lg text-gray-700 leading-relaxed mb-8">A comprehensive, no-obligation review of your advertising performance with actionable recommendations you can use immediately, whether you work with us or not.</p>
+          <p class="text-lg text-gray-700 leading-relaxed mb-8">A comprehensive, no-obligation review of your Google Ads, Bing Ads, Amazon Advertising or Paid Social campaigns. The audit is free for qualifying accounts, with actionable recommendations you keep whether you work with us or not.</p>
 
           <div class="space-y-5 mb-10">
             <div class="flex items-start gap-4">
@@ -112,6 +112,7 @@ const faqs = [
 
         <div class="bg-white rounded-2xl p-8 sm:p-10 shadow-xl border border-gray-200 ring-1 ring-electric/10">
           <h2 class="text-2xl font-heading font-bold text-navy mb-6">Request Your Audit</h2>
+          <p class="text-gray-700 leading-relaxed mb-6">We take read-only access to your advertising account and, ideally, a view of your product margins. We never make changes during an audit. You see every finding before anything is touched. We deliver the audit within 5 working days of getting access. The walkthrough call is booked at a time that suits you.</p>
           <form id="audit-form" action="/api/submit" method="POST" data-astro-reload class="space-y-5">
             <input type="hidden" name="_form" value="audit" />
             <input type="hidden" name="_next" value="https://visible-ads.com/free-ads-audit?thanks=1" />
@@ -143,8 +144,9 @@ const faqs = [
               </select>
             </div>
             <div>
-              <label for="message" class="block text-sm font-medium text-navy mb-1.5">Message</label>
-              <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-electric focus:ring-2 focus:ring-electric/20 outline-none transition-all text-gray-700 resize-none" placeholder="Tell us about your goals and current challenges..."></textarea>
+              <label for="message" class="block text-sm font-medium text-navy mb-1.5">Buyer type, channels and goals</label>
+              <p id="message-help" class="text-sm text-gray-700 mb-2">Are you the advertiser, or an agency or professional-services buyer acting on their behalf? Which channels do you run: Google Ads, Bing Ads, Amazon Advertising or Paid Social? Include all that apply, plus your goals and current challenges.</p>
+              <textarea id="message" name="message" rows="6" required aria-describedby="message-help" class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-electric focus:ring-2 focus:ring-electric/20 outline-none transition-colors text-gray-700 resize-none" placeholder="Buyer type: ... Channels: ... Goals and challenges: ..."></textarea>
             </div>
             <Turnstile />
             <button type="submit" class="w-full px-6 py-4 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-cta/25 text-lg">
@@ -154,7 +156,7 @@ const faqs = [
           <script>
             if (window.location.search.includes('thanks=1')) {
               const form = document.getElementById('audit-form');
-              if (form) form.innerHTML = '<div class="text-center py-12"><div class="w-16 h-16 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><h3 class="text-xl font-heading font-bold text-navy mb-2">Thank You!</h3><p class="text-gray-700">We\'ve received your request. Boh will be in touch within 24 hours with your personalised audit.</p></div>';
+              if (form) form.innerHTML = '<div class="text-center py-12"><div class="w-16 h-16 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><h3 class="text-xl font-heading font-bold text-navy mb-2">Thank You!</h3><p class="text-gray-700">We\'ve received your request. We deliver the audit within 5 working days of getting access. The walkthrough call is booked at a time that suits you.</p></div>';
             }
           </script>
         </div>

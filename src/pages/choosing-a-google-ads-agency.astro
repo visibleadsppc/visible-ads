@@ -16,8 +16,8 @@ const schema = {
     {
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type": "Question", "name": "How much does a Google Ads agency cost in the UK?", "acceptedAnswer": { "@type": "Answer", "text": "Most UK Google Ads agencies charge either a fixed monthly management fee or a percentage of your ad spend, typically 10% to 20%. Fixed fees usually range from around £500 to £2,000+ per month depending on account size and channels. A fixed fee is better aligned to your interests than a percentage of spend, because a percentage rewards the agency for spending more of your money rather than for making you a profit." } },
-        { "@type": "Question", "name": "Should I pay an agency a percentage of ad spend?", "acceptedAnswer": { "@type": "Answer", "text": "Be cautious. A percentage-of-spend fee gives the agency a direct incentive to increase your budget, even when scaling down would make you more profit. A fixed management fee keeps the agency focused on your results rather than your spend. Ask any agency to explain how their fee model is aligned to your profit." } },
+        { "@type": "Question", "name": "How much does a Google Ads agency cost in the UK?", "acceptedAnswer": { "@type": "Answer", "text": "Visible Ads offers these tiers per channel managed: SILVER GBP 1,000/mo (ad budget up to GBP 3,000, 10 hours/mo); GOLD GBP 1,500/mo (up to GBP 20,000, 20 hours/mo); PLATINUM GBP 2,000/mo + 5% (GBP 20,000+ budget, 35 hours/mo, click-fraud protection); PERFORMANCE: reduced or zero retainer with a revenue-share component, by application, individually negotiated. All plus VAT/month, excluding creative and a one-off GBP 1,000 tracking setup fee, 3-month minimum then rolling monthly with 30 days notice." } },
+        { "@type": "Question", "name": "Should I pay an agency a percentage of ad spend?", "acceptedAnswer": { "@type": "Answer", "text": "Check the agreed tier and fee calculation. These tiers apply per channel managed. PLATINUM GBP 2,000/mo + 5% (GBP 20,000+ budget, 35 hours/mo, click-fraud protection). PERFORMANCE: reduced or zero retainer with a revenue-share component, by application, individually negotiated." } },
         { "@type": "Question", "name": "What questions should I ask a Google Ads agency before hiring?", "acceptedAnswer": { "@type": "Answer", "text": "Ask whether they bid to your profit margins or just to ROAS, how their fees are structured, whether you will own the account and data, who manages your account day to day, what happens when a campaign stops being profitable, how often they report and on what metrics, and what the minimum term and notice period are." } },
         { "@type": "Question", "name": "Is a big agency or a small specialist better for Google Ads?", "acceptedAnswer": { "@type": "Answer", "text": "It depends on accountability, not size. Large agencies have breadth but often hand day-to-day work to junior staff, with your account one of hundreds. A focused, founder-led specialist typically gives you senior attention and clearer ownership of results. Ask who will actually manage your account, not just who is in the pitch." } },
         { "@type": "Question", "name": "Should a Google Ads agency report on ROAS or profit?", "acceptedAnswer": { "@type": "Answer", "text": "Both, but profit is the one that matters. ROAS is a useful lever, yet a high ROAS on a low-margin product can still lose you money. A good agency ties bidding to your contribution margin and break-even ROAS and reports on the profit their work generates, not just the revenue." } }
@@ -35,7 +35,7 @@ const schema = {
 
 const questions = [
   { q: 'Do you bid to my profit margins, or just to ROAS?', why: 'A high ROAS on a thin-margin product can still lose money. The right answer maps each product to its real margin and bids to your break-even ROAS, not a vanity target.' },
-  { q: 'How are your fees structured?', why: 'A percentage of ad spend rewards the agency for spending more of your money. A fixed fee keeps them focused on your profit. Ask them to explain the alignment.' },
+  { q: 'How are your fees structured?', why: 'Ask which fees are fixed, which vary with spend or revenue, and what the minimum term, notice period and exclusions are.' },
   { q: 'Will I own the account, the data and the conversions?', why: 'You should own your Google Ads account and its history outright. If an agency keeps the account in their own name, leaving them means starting from zero.' },
   { q: 'Who actually manages my account, day to day?', why: 'In a large agency the person in the pitch is rarely the person doing the work. Ask for the name and seniority of who runs your account each week.' },
   { q: 'What happens when a campaign stops being profitable?', why: 'The honest answer is that it gets scaled down or switched off, not left running because the budget was there. Ask for the exact rule they follow.' },
@@ -48,11 +48,11 @@ const options = [
   { type: 'In-house hire', cost: 'Salary plus tools and training', results: 'You own it, but on one person', margin: 'Depends entirely on the hire', risk: 'Single point of failure; slow to replace' },
   { type: 'Freelancer', cost: 'Low, hourly or small retainer', results: 'Direct, but limited capacity', margin: 'Varies; often ROAS-led', risk: 'Availability and cover; hard to scale' },
   { type: 'Large full-service agency', cost: 'Higher; often % of spend', results: 'Broad, but you are one of many', margin: 'Frequently reports ROAS, not profit', risk: 'Junior day-to-day; incentive to grow spend' },
-  { type: 'Focused profit-first partner', cost: 'Fixed monthly fee', results: 'Senior, founder-led ownership', margin: 'Bids to your contribution margin', risk: 'Smaller team, so fit and focus matter', highlight: true },
+  { type: 'Focused profit-first partner', cost: 'Fixed, spend-based or revenue-share terms', results: 'Senior, founder-led ownership', margin: 'Bids to your contribution margin', risk: 'Smaller team, so fit and focus matter', highlight: true },
 ];
 
 const redFlags = [
-  { flag: 'Fees charged as a percentage of ad spend', body: 'It pays the agency to spend more of your budget, exactly when scaling down might make you more profit.' },
+  { flag: 'Unclear fee calculations', body: 'Ask which fees vary with spend or revenue and how they are calculated before agreeing terms.' },
   { flag: 'ROAS-only reporting with no view of margin', body: 'Revenue-per-pound looks impressive and tells you nothing about whether you actually made money.' },
   { flag: 'Long lock-in contracts', body: 'A twelve-month tie-in protects the agency from being judged on results. Good work earns the next month.' },
   { flag: 'The account is not in your name', body: 'If you do not own the account, you do not own the data or the history you paid to build.' },
@@ -61,7 +61,7 @@ const redFlags = [
 
 const good = [
   { title: 'Profit before ROAS', body: 'Spend follows real margin. A campaign that is not profitable gets scaled down, not left running to flatter the report.' },
-  { title: 'Fixed fees, never a slice of spend', body: 'The fee does not rise with your budget, so the agency is never rewarded for spending more of your money.' },
+  { title: 'Clear tier and fee terms', body: 'These tiers apply per channel managed. SILVER and GOLD have fixed retainers. PLATINUM includes 5%. PERFORMANCE includes a revenue-share component, by application, individually negotiated.' },
   { title: 'You own everything', body: 'Your account, your data, your conversions. Full transparency into what is being done and why.' },
   { title: 'Senior, accountable people', body: 'The person who wins your business is the person who runs it. Founder-led attention, not a junior on account number three hundred.' },
 ];
@@ -90,7 +90,7 @@ const good = [
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-sky-tint rounded-2xl p-8 border border-electric/10">
         <h2 class="text-xl font-heading font-bold text-navy mb-4">The short answer</h2>
-        <p class="text-gray-700 leading-relaxed mb-4">To choose a Google Ads agency in the UK, judge four things: how their fee is aligned to your profit, whether they bid to your margins or just to ROAS, who actually manages your account, and whether you own the account and data. Prefer a fixed monthly fee over a percentage of ad spend, ask for a short notice period, and expect reporting on profit against a baseline, not a dashboard of vanity metrics.</p>
+        <p class="text-gray-700 leading-relaxed mb-4">To choose a Google Ads agency in the UK, judge four things: how their fee is aligned to your profit, whether they bid to your margins or just to ROAS, who actually manages your account, and whether you own the account and data. Check how fees change with spend or revenue, ask for the minimum term and notice period, and expect reporting on profit against a baseline, not a dashboard of vanity metrics.</p>
         <p class="text-gray-700 leading-relaxed">The rest of this guide gives you the exact questions, a side-by-side of your options, the red flags, and what good looks like.</p>
       </div>
     </div>
@@ -202,7 +202,7 @@ const good = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       <div class="max-w-3xl mx-auto text-center">
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">Where Visible Ads fits</h2>
-        <p class="text-lg text-slate-light leading-relaxed mb-6">We are the focused, founder-led option: a Google, Microsoft, Amazon and Meta partner, award-winning at the UK Search Awards, that treats your profit and loss as the scoreboard, not your ROAS. We are not the biggest agency you will speak to, which is exactly why your account gets senior attention and a fixed fee that never rises just because your spend does.</p>
+        <p class="text-lg text-slate-light leading-relaxed mb-6">We are the focused, founder-led option: a Google, Microsoft, Amazon and Meta partner, award-winning at the UK Search Awards, that treats your profit and loss as the scoreboard, not your ROAS. We are not the biggest agency you will speak to, which is exactly why your account gets senior attention and the tier options below.</p>
         <p class="text-lg text-slate-light leading-relaxed mb-8">Because we are the challenger, we try harder. The audit is free, the report is yours to keep, and if the numbers do not support working together, we will tell you.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a href="/free-ads-audit" class="px-8 py-4 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-lg">Book a Profit Audit</a>
@@ -229,11 +229,11 @@ const good = [
       <div class="space-y-6">
         <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-100">
           <h3 class="text-lg font-heading font-bold text-navy mb-3">How much does a Google Ads agency cost in the UK?</h3>
-          <p class="text-gray-700 leading-relaxed">Most UK agencies charge either a fixed monthly management fee or a percentage of ad spend, typically 10% to 20%. Fixed fees usually run from around £500 to £2,000+ per month depending on account size and channels. A fixed fee is better aligned to your interests than a percentage of spend, because a percentage rewards the agency for spending more of your money rather than for making you a profit.</p>
+          <p class="text-gray-700 leading-relaxed">Visible Ads offers these tiers per channel managed: SILVER GBP 1,000/mo (ad budget up to GBP 3,000, 10 hours/mo); GOLD GBP 1,500/mo (up to GBP 20,000, 20 hours/mo); PLATINUM GBP 2,000/mo + 5% (GBP 20,000+ budget, 35 hours/mo, click-fraud protection); PERFORMANCE: reduced or zero retainer with a revenue-share component, by application, individually negotiated. All plus VAT/month, excluding creative and a one-off GBP 1,000 tracking setup fee, 3-month minimum then rolling monthly with 30 days notice.</p>
         </div>
         <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-100">
           <h3 class="text-lg font-heading font-bold text-navy mb-3">Should I pay an agency a percentage of ad spend?</h3>
-          <p class="text-gray-700 leading-relaxed">Be cautious. A percentage-of-spend fee gives the agency a direct incentive to increase your budget, even when scaling down would make you more profit. A fixed management fee keeps the focus on your results rather than your spend. Ask any agency to explain how their fee model is aligned to your profit.</p>
+          <p class="text-gray-700 leading-relaxed">Check the agreed tier and fee calculation. These tiers apply per channel managed. PLATINUM GBP 2,000/mo + 5% (GBP 20,000+ budget, 35 hours/mo, click-fraud protection). PERFORMANCE: reduced or zero retainer with a revenue-share component, by application, individually negotiated.</p>
         </div>
         <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-100">
           <h3 class="text-lg font-heading font-bold text-navy mb-3">Is a big agency or a small specialist better for Google Ads?</h3>

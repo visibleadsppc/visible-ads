@@ -22,7 +22,7 @@ const schema = {
         {
           "@type": "Question",
           "name": "What is Quality Score in Google Ads and why does it matter?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Quality Score is Google's 1-10 rating of how well your ads, keywords, and landing pages serve users' search intent. It is based on expected click-through rate, ad relevance, and landing page experience. A higher Quality Score directly reduces your cost-per-click, improves your ad position, and enhances your return on investment, meaning you get more results for the same budget." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Quality Score is Google's 1-10 rating of how well your ads, keywords, and landing pages serve users' search intent. It is based on expected click-through rate, ad relevance, and landing page experience. Quality Score is a diagnostic signal for improving your ads, keywords and landing pages. The score itself is not an auction input and does not directly determine your cost-per-click or ad position." }
         },
         {
           "@type": "Question",
@@ -73,7 +73,7 @@ const schema = {
   <section class="py-16 lg:py-20 bg-white" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">The Auction and Quality Score</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">At the heart of <a href="/google-ads" class="text-electric underline hover:text-electric-dark">Google Ads</a> lies an auction system where your ad's visibility is determined by a complex interplay of your bid and Quality Score. It is not simply about who pays the most, Quality Score is Google's evaluation of how well your ads, keywords, and landing pages serve users' search intent.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">The <a href="/google-ads" class="text-electric underline hover:text-electric-dark">Google Ads</a> auction uses auction-time inputs, including your bid and assessments of ad quality. Quality Score is a diagnostic for reviewing ad and landing page quality. The reported score itself is not an auction input.</p>
       <h3 class="text-xl font-heading font-bold text-navy mb-4">Key Quality Score Factors</h3>
       <ul class="list-disc list-inside text-lg text-gray-700 mb-6 space-y-3 leading-relaxed">
         <li><strong>Expected Click-Through Rate (CTR):</strong> How likely users are to click your ad when shown. Compelling ad copy and relevant extensions boost your expected CTR</li>
@@ -81,7 +81,7 @@ const schema = {
         <li><strong>Landing Page Experience:</strong> How relevant, user-friendly, and informative your landing page is. Page speed, mobile-friendliness, and content clarity all factor in</li>
       </ul>
       <h3 class="text-xl font-heading font-bold text-navy mb-4">Why Quality Score Matters</h3>
-      <p class="text-lg text-gray-700 leading-relaxed">A higher Quality Score directly reduces your cost-per-click, improves your ad position, and enhances your return on investment. Even with a lower bid, a high Quality Score can secure top ad positions. This is not a static metric, regularly monitoring and optimising it is essential for sustained campaign success.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">Quality Score helps identify opportunities to improve your ads, keywords and landing pages. The score itself does not directly determine your cost-per-click or ad position. <a href="https://support.google.com/google-ads/answer/6167118?hl=en" class="text-electric underline hover:text-electric-dark">Google's Quality Score documentation</a> distinguishes this diagnostic from the auction-time inputs used to rank ads.</p>
     </div>
   </section>
 
@@ -149,7 +149,7 @@ const schema = {
             What is Quality Score in Google Ads and why does it matter?
             <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Quality Score is Google's 1-10 rating of how well your ads, keywords, and landing pages serve users' search intent. It is based on expected click-through rate, ad relevance, and landing page experience. A higher Quality Score directly reduces your cost-per-click, improves your ad position, and enhances your return on investment, meaning you get more results for the same budget.</div>
+          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Quality Score is Google's 1-10 rating of how well your ads, keywords, and landing pages serve users' search intent. It is based on expected click-through rate, ad relevance, and landing page experience. Quality Score is a diagnostic signal for improving your ads, keywords and landing pages. The score itself is not an auction input and does not directly determine your cost-per-click or ad position.</div>
         </details>
         <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
           <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
