@@ -1,0 +1,224 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = 'PPC for Professional Services & Agencies | Visible Ads';
+const description = 'PPC and paid social for professional-services enquiries, plus white-label delivery for agencies. Discuss channel fit and your brief with Visible Ads.';
+const pageUrl = 'https://visible-ads.com/ppc-for-professional-services/';
+const faqs = [
+  {
+    question: 'Can I work with Visible Ads directly or through my agency?',
+    answer: 'Both routes are open for discussion. Professional-services businesses can enquire directly about their own campaigns. Agencies can discuss white-label or subcontracted delivery with Visible Ads doing the work while the partner agency keeps the client relationship.'
+  },
+  {
+    question: 'Which channels should a professional-services business consider?',
+    answer: 'Start with the service you want to promote and the buyer you need to reach. Google Ads and Microsoft Advertising can address search demand. Paid social can support audience targeting and follow-up activity. Channel selection depends on your brief, budget and current account data.'
+  },
+  {
+    question: 'Does Amazon Advertising suit a business selling services?',
+    answer: 'Amazon needs a separate fit assessment. Our existing Amazon service covers sponsored campaigns and listing optimisation for product sellers. A firm seeking appointments or project enquiries should discuss search and paid social first. Tell us if your business also sells products on Amazon.'
+  },
+  {
+    question: 'How should we assess lead quality?',
+    answer: 'Define a qualified enquiry before judging campaign performance. Useful inputs include the service requested, the areas you serve and whether an enquiry becomes a customer. Share how you record those outcomes so the measurement scope can be discussed alongside campaign management.'
+  },
+  {
+    question: 'What are the white-label fees and reporting arrangements?',
+    answer: 'Exact terms are scoped to your specific arrangement. The channels, client accounts, delivery responsibilities, reporting and communication requirements need to be discussed before terms are agreed. Get in touch with your agency brief to explore the arrangement.'
+  },
+  {
+    question: 'What should I include in my enquiry?',
+    answer: 'Use the free ads audit form and tell us whether you are the advertiser or an agency/professional-services buyer acting on their behalf. Include your channels, goals and current challenges. The audit is free for qualifying accounts; use the same form to discuss a new brief or agency arrangement.'
+  }
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': pageUrl,
+      name: title,
+      description,
+      url: pageUrl,
+      mainEntity: { '@id': `${pageUrl}#service` },
+      publisher: { '@type': 'Organization', name: 'Visible Ads', url: 'https://visible-ads.com' }
+    },
+    {
+      '@type': 'Service',
+      '@id': `${pageUrl}#service`,
+      name: 'PPC for Professional Services and Agency Partners',
+      description,
+      url: pageUrl,
+      serviceType: 'PPC and Paid Social Management',
+      areaServed: 'GB',
+      provider: { '@type': 'Organization', name: 'Visible Ads', url: 'https://visible-ads.com' }
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(({ question, answer }) => ({
+        '@type': 'Question',
+        name: question,
+        acceptedAnswer: { '@type': 'Answer', text: answer }
+      }))
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://visible-ads.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Professional Services & Agencies', item: pageUrl }
+      ]
+    }
+  ]
+};
+---
+
+<Layout title={title} description={description} schema={schema}>
+  <div class="professional-services-page">
+    <section class="bg-navy py-12 sm:py-16 lg:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav aria-label="Breadcrumb" class="text-sm text-slate-light mb-8">
+          <a href="/" class="underline underline-offset-4 hover:text-white">Home</a>
+          <span aria-hidden="true" class="mx-2">/</span>
+          <span class="text-white" aria-current="page">Professional Services &amp; Agencies</span>
+        </nav>
+        <div class="grid lg:grid-cols-3 gap-10 lg:gap-16 items-end">
+          <div class="lg:col-span-2">
+            <p class="text-slate-light font-semibold mb-4">Founder-led paid search and social</p>
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-heading font-extrabold text-white leading-tight mb-6">PPC for professional services.<br /><span class="text-sky-light">Delivery for agency partners.</span></h1>
+            <p class="text-lg sm:text-xl text-slate-light leading-relaxed max-w-2xl">Bring us your own lead-generation brief or the campaigns you need delivered for a client. Choose the route that describes your business.</p>
+          </div>
+          <nav aria-label="Choose your buyer type" class="border-y border-white/25 divide-y divide-white/25">
+            <a href="#direct-clients" class="block py-6 text-white hover:bg-white/5 transition-colors">
+              <span class="block text-lg font-heading font-bold mb-2">I want leads for my business</span>
+              <span class="text-slate-light">Explore direct client support <span aria-hidden="true">&darr;</span></span>
+            </a>
+            <a href="#agency-partners" class="block py-6 text-white hover:bg-white/5 transition-colors">
+              <span class="block text-lg font-heading font-bold mb-2">I need delivery for my agency</span>
+              <span class="text-slate-light">Explore white-label support <span aria-hidden="true">&darr;</span></span>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <section id="direct-clients" class="py-16 lg:py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-3 gap-10 lg:gap-16">
+          <div>
+            <p class="text-electric font-semibold mb-3">For your own business</p>
+            <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Build the brief around a qualified enquiry</h2>
+            <p class="text-gray-700 leading-relaxed">A law firm, accountancy or consultancy needs enquiries that match the services it can deliver. Start with the service, the buyer and the outcome you want from an advertising campaign.</p>
+            <p class="text-gray-700 leading-relaxed mt-5">Visible Ads brings its existing PPC management, conversion tracking and paid social capabilities to that discussion. The channel choice should follow your business needs.</p>
+          </div>
+          <div class="lg:col-span-2 divide-y divide-gray-200 border-y border-gray-200">
+            <div class="py-6">
+              <h3 class="text-xl font-heading font-bold text-navy mb-3">Google Ads: capture relevant searches</h3>
+              <p class="text-gray-700 leading-relaxed mb-3">Keyword strategy, search-term review, ad copy and conversion tracking connect a search campaign to the services you want to promote. Landing-page relevance matters when the next step is an enquiry.</p>
+              <a href="/google-ads/" class="text-electric font-semibold underline underline-offset-4 hover:text-electric-dark">Explore PPC management</a>
+            </div>
+            <div class="py-6">
+              <h3 class="text-xl font-heading font-bold text-navy mb-3">Microsoft Advertising: assess another search route</h3>
+              <p class="text-gray-700 leading-relaxed mb-3">Bing Ads management includes reviewing campaign structure, bids and targeting for Microsoft's audience. Existing Google account data can inform whether another search channel belongs in your lead-generation plan.</p>
+              <a href="/bing-ads/" class="text-electric font-semibold underline underline-offset-4 hover:text-electric-dark">Explore Bing Ads management</a>
+            </div>
+            <div class="py-6">
+              <h3 class="text-xl font-heading font-bold text-navy mb-3">Paid social: connect the offer to the audience</h3>
+              <p class="text-gray-700 leading-relaxed mb-3">Our paid social service includes Meta campaigns and LinkedIn advertising for B2B and professional-services buyers. Audience targeting, creative testing and retargeting provide ways to introduce an offer and follow up interest.</p>
+              <a href="/paid-social/" class="text-electric font-semibold underline underline-offset-4 hover:text-electric-dark">Explore paid social management</a>
+            </div>
+            <div class="py-6">
+              <h3 class="text-xl font-heading font-bold text-navy mb-3">Amazon Advertising: check product fit</h3>
+              <p class="text-gray-700 leading-relaxed mb-3">Our Amazon capability covers sponsored campaigns and listing optimisation for product sellers. Include Amazon in the discussion if your business also sells products there. Search and paid social are the starting points to discuss for appointments or project enquiries.</p>
+              <a href="/amazon/" class="text-electric font-semibold underline underline-offset-4 hover:text-electric-dark">Explore Amazon Advertising</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12 lg:py-16 bg-sky-tint">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 lg:gap-16">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-5">Make lead quality part of the brief</h2>
+          <p class="text-gray-700 leading-relaxed mb-5">Define what makes an enquiry useful before deciding how to judge the campaign. Share the services and locations you cover, how enquiries are handled and what you know about their eventual value.</p>
+          <p class="text-gray-700 leading-relaxed">Profit is the objective. ROAS is a budget-management lever where revenue can be measured. A form submission alone does not establish revenue or profit.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-heading font-bold text-navy mb-4">Existing expertise, clearly scoped</h3>
+          <p class="text-gray-700 leading-relaxed mb-5">Visible Ads is a London-based, founder-led agency in Kingston-upon-Thames. Its platform credentials cover the core advertising channels:</p>
+          <ul class="grid sm:grid-cols-2 gap-x-6 gap-y-3 text-navy font-semibold list-disc pl-5">
+            <li>Google Partner</li>
+            <li>Microsoft Advertising Partner</li>
+            <li>Amazon Ads Verified Partner</li>
+            <li>Meta Business Partner</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="agency-partners" class="py-16 lg:py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-3 gap-10 lg:gap-16">
+        <div>
+          <p class="text-electric font-semibold mb-3">For your agency's clients</p>
+          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">White-label or subcontracted delivery</h2>
+          <p class="text-gray-700 leading-relaxed">Visible Ads delivers the agreed advertising work while your agency keeps the client relationship. Bring us the channels and delivery support you need to offer your clients.</p>
+          <p class="text-gray-700 leading-relaxed mt-5">PPC, Microsoft Advertising, paid social and Amazon product advertising can be discussed within the same brief. Exact terms are scoped to your specific arrangement.</p>
+        </div>
+        <div class="lg:col-span-2 bg-navy rounded-2xl p-6 sm:p-10">
+          <h3 class="text-2xl font-heading font-bold text-white mb-6">What to bring to the discussion</h3>
+          <dl class="divide-y divide-white/20">
+            <div class="pb-5">
+              <dt class="font-heading font-bold text-white mb-2">Client brief and channel scope</dt>
+              <dd class="text-slate-light leading-relaxed">Which client accounts need support, which channels are involved and what the campaigns need to achieve.</dd>
+            </div>
+            <div class="py-5">
+              <dt class="font-heading font-bold text-white mb-2">Delivery and client communication</dt>
+              <dd class="text-slate-light leading-relaxed">The work you want Visible Ads to deliver and how you want approvals, reporting and client communication to operate.</dd>
+            </div>
+            <div class="pt-5">
+              <dt class="font-heading font-bold text-white mb-2">Access, responsibilities and commercial terms</dt>
+              <dd class="text-slate-light leading-relaxed">Your account-access requirements, the responsibilities to agree and the commercial arrangement you want to explore.</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 lg:py-24 bg-sky-tint">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-8">Professional-services and agency FAQs</h2>
+        <div class="space-y-4">
+          {faqs.map(({ question, answer }) => (
+            <details class="group bg-white border border-gray-200 rounded-xl">
+              <summary class="flex items-center justify-between gap-4 cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 rounded-xl transition-colors">
+                {question}
+                <span aria-hidden="true" class="text-electric shrink-0 group-open:rotate-180 transition-transform">&darr;</span>
+              </summary>
+              <p class="px-6 pb-6 text-gray-700 leading-relaxed">{answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 lg:py-24 bg-navy" data-hide-sticky-cta>
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">Tell us whose campaigns you need help with</h2>
+        <p class="text-lg text-slate-light leading-relaxed mb-5">Use the audit and enquiry form to share your brief. Identify yourself as the advertiser for your own campaigns, or as an agency/professional-services buyer acting on a client's behalf. Include the channels, goals and current challenges.</p>
+        <p class="text-slate-light leading-relaxed mb-8">The audit is free for qualifying accounts. The same form is the contact path for a new campaign brief or a white-label discussion.</p>
+        <a href="/free-ads-audit/" class="inline-flex items-center justify-center w-full sm:w-auto bg-cta-dark text-white font-heading font-bold px-8 py-4 rounded-xl hover:bg-electric active:bg-electric-dark transition-colors">Discuss your brief</a>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .professional-services-page :is(a, summary):focus-visible {
+    outline: 3px solid currentColor;
+    outline-offset: 5px;
+  }
+  .professional-services-page [id] { scroll-margin-top: 7rem; }
+  @media (prefers-reduced-motion: reduce) {
+    .professional-services-page :is(a, summary, summary span) { transition: none; }
+  }
+</style>
