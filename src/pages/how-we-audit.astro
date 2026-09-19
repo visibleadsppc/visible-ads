@@ -25,7 +25,7 @@ const schema = {
     {
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type": "Question", "name": "What is the Profit Contribution Framework?", "acceptedAnswer": { "@type": "Answer", "text": "The Profit Contribution Framework (PCF) is how we judge a Google Ads account. Instead of optimising to ROAS, we map the true profit of each product, bid to your contribution margin and break-even ROAS, then pace spend against your P&L. It means a campaign that is not profitable gets scaled down, not left running." } },
+        { "@type": "Question", "name": "What is the Profit Contribution Framework?", "acceptedAnswer": { "@type": "Answer", "text": "The Profit Contribution Framework (PCF) is how we judge a Google Ads account. We map the contribution of each product, set a break-even ROAS floor, then pace spend against your P&L. A campaign that is not profitable is reduced or switched off under the weekly rulebook." } },
         { "@type": "Question", "name": "How long does the audit take?", "acceptedAnswer": { "@type": "Answer", "text": "We deliver the audit within 5 working days of getting access. The walkthrough call is booked at a time that suits you." } },
         { "@type": "Question", "name": "Do you charge for the audit?", "acceptedAnswer": { "@type": "Answer", "text": "No. The audit is free for qualifying accounts. We review the account first to check there is a genuine profit opportunity. If there is not, we tell you straight, rather than force an engagement that does not make commercial sense." } },
         { "@type": "Question", "name": "What access do you need?", "acceptedAnswer": { "@type": "Answer", "text": "Read access to your Google Ads account and, ideally, a view of your product margins. We never make changes during an audit. You see every finding before anything is touched." } }
@@ -55,7 +55,7 @@ const pillars = [
   {
     letter: 'F',
     title: 'Forecast and control',
-    body: 'We pace spend against your P&L and scale anything below break-even down, not off a cliff. The account stays profitable because nothing is left running at a loss while no one is looking.',
+    body: 'We pace spend against your P&L. We reduce spend before losses compound and switch off campaigns below the weekly rulebook threshold.',
   },
 ];
 
@@ -98,7 +98,7 @@ const values = [
 ];
 
 const faqs = [
-  { question: 'What is the Profit Contribution Framework?', answer: 'It is how we judge a Google Ads account. Instead of optimising to ROAS, we map the true profit of each product, bid to your contribution margin and break-even ROAS, then pace spend against your P&L. A campaign that is not profitable gets scaled down, not left running.' },
+  { question: 'What is the Profit Contribution Framework?', answer: 'It is how we judge a Google Ads account. We map the contribution of each product, set a break-even ROAS floor, then pace spend against your P&L. A campaign that is not profitable is reduced or switched off under the weekly rulebook.' },
   { question: 'How long does the audit take?', answer: 'We deliver the audit within 5 working days of getting access. The walkthrough call is booked at a time that suits you.' },
   { question: 'Do you charge for the audit?', answer: 'No. The audit is free for qualifying accounts. We review the account first to check there is a genuine profit opportunity. If there is not, we tell you straight, rather than force an engagement that does not make commercial sense.' },
   { question: 'What access do you need?', answer: 'Read access to your Google Ads account and, ideally, a view of your product margins. We never make changes during an audit. You see every finding before anything is touched.' },
@@ -147,7 +147,7 @@ const faqs = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mx-auto text-center mb-12">
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">How we keep your spend profitable</h2>
-        <p class="text-lg text-gray-700 leading-relaxed">Every week we check each campaign's ROAS against your contribution margin. Winners get more budget. Underperformers are cut before the losses compound. Here is the exact rulebook we follow.</p>
+        <p class="text-lg text-gray-700 leading-relaxed">Every week we check each campaign's revenue ROAS against its contribution-margin floor. Winners get more budget. Underperformers are cut before the losses compound. Here is the exact rulebook we follow.</p>
       </div>
       <div class="max-w-2xl mx-auto">
         <div class="overflow-hidden rounded-2xl border border-gray-200 shadow-sm">

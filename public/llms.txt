@@ -11,7 +11,7 @@
 - SEO — /seo
 
 ## Key Results
-- 1,165% Google Ads ROAS for CFW
+- £6M return from £500K Google Ads spend for CFW (12x ROAS)
 - £2.31M ad-driven revenue for Sephra Europe
 - 450% sales growth for iWholesales
 - 12x lead volume for Luxury Architecture firm
@@ -42,7 +42,7 @@ We follow our proven 4-phase Blueprint: Discover → Strategise → Execute → 
 
 ## Pages
 - Home: /
-- Google Ads (Hub): /google-ads
+- Google Ads: /google-ads
 - Bing Ads: /bing-ads
 - Paid Social: /paid-social
 - Amazon: /amazon
@@ -58,7 +58,11 @@ We follow our proven 4-phase Blueprint: Discover → Strategise → Execute → 
 - Contact: /contact
 - Free Ads Audit: /free-ads-audit
 - PPC London: /ppc-london
+- Professional Services & Agencies: /ppc-for-professional-services
 - Kingston-Upon-Thames: /kingston-upon-thames
 - Google Ads + SEO: /google-ads-seo
 - Amazon + Google Ads: /amazon-google-ads
 - Blog: /blog
+- Meta Ads and GA4 Revenue Reconciliation: /meta-ads-ga4-revenue-mismatch
+- ChatGPT Ads and Commerce Readiness: /chatgpt-ads-ecommerce
+- ChatGPT Ads and Shopping Guide: /blog/chatgpt-ads

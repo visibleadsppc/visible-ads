@@ -22,27 +22,27 @@ const schema = {
         {
           "@type": "Question",
           "name": "What is profit-first PPC?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Profit-first PPC is a way of managing paid search where the target is gross profit, not revenue. Instead of optimising to a revenue-based ROAS goal, you feed each product's real margin into the account and manage to POAS (profit on ad spend) and break-even ROAS. The result is that budget flows to the products and campaigns that actually contribute profit, not just the ones that report the highest revenue." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Profit-first PPC manages paid search against contribution, not revenue alone. Start with the direct costs attached to each sale, set a revenue ROAS floor from that contribution margin, and use contribution-valued conversion data only when the account can report it accurately. Budget then flows to products and campaigns that contribute profit." }
         },
         {
           "@type": "Question",
           "name": "Why does a high ROAS still lose money?",
-          "acceptedAnswer": { "@type": "Answer", "text": "ROAS measures revenue returned per pound of spend, and revenue is not profit. A 4x ROAS on a product with a 20 percent gross margin loses money on every extra sale once you subtract cost of goods, fees and the ad spend itself. Because Google optimises to the conversion value you give it, a revenue-only feed tells the platform to chase low-margin volume. Switching the target to profit fixes the incentive." }
+          "acceptedAnswer": { "@type": "Answer", "text": "ROAS measures revenue returned per pound of spend, and revenue is not profit. A 4x ROAS on a product with a 20 percent contribution-margin rate can lose money once direct costs and ad spend are included. Revenue-only conversion values can favour low-margin volume; contribution-valued conversion data gives the platform a more useful signal." }
         },
         {
           "@type": "Question",
           "name": "How do I set a profit target for Google Ads?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Start with your contribution margin per product, which is the selling price minus cost of goods, payment fees, shipping and returns. Your break-even ROAS is 1 divided by that margin: a 40 percent margin needs a 2.5x ROAS just to break even. Set your target ROAS above break-even by the profit margin you want to keep, then use margin-adjusted conversion values so the platform bids to profit rather than revenue." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Start with contribution amount: revenue less direct costs such as cost of goods, payment fees, shipping and returns. Divide it by revenue to calculate the contribution-margin rate. If Google Ads receives revenue as conversion value, break-even ROAS is 1 divided by that rate: a 40 percent contribution margin needs a 2.5x revenue ROAS. If it receives contribution before ad spend as conversion value, break-even is 1x. Set a higher target for overhead and desired profit." }
         },
         {
           "@type": "Question",
           "name": "What is break-even ROAS?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Break-even ROAS is the revenue-per-pound-of-spend figure at which your ad campaign makes neither a profit nor a loss. It equals 1 divided by your gross margin. At a 25 percent margin you need a 4x ROAS to break even; at a 50 percent margin you need 2x. Any campaign running below its break-even ROAS is subsidising sales out of your own pocket." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Break-even ROAS is the return-per-pound-of-spend figure at which advertising spend is covered by the contribution remaining after the included direct costs. For revenue-valued conversions, it equals 1 divided by the contribution-margin rate: a 25 percent rate needs a 4x revenue ROAS and a 50 percent rate needs 2x. For contribution-before-ad-spend conversion values, break-even is 1x. Set a higher target for overhead and desired profit." }
         },
         {
           "@type": "Question",
           "name": "When should I scale a profitable campaign?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Scale on a weekly cadence tied to profit, not on a single good day. Our rulebook increases budget by 20 percent a week when ROAS is comfortably above target, holds steady in the middle band, reduces spend when it slips below target, and pauses only when a campaign is clearly below break-even. Scaling in controlled weekly steps lets the bidding algorithm relearn without shocking performance." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Scale on a weekly cadence tied to profit, not on a single good day. Our rulebook increases budget by 20 percent a week above 1,200 percent ROAS, by 10 percent between 900 and 1,100 percent, holds between 600 and 800 percent, reduces spend between 300 and 500 percent, and switches off below 300 percent. Apply the rule alongside the account's verified contribution-margin floor." }
         }
       ]
     },
@@ -89,11 +89,11 @@ const schema = {
 
       <figure class="content-visual mt-10">
         <svg role="img" aria-labelledby="chart-title-1 chart-desc-1" viewBox="0 0 720 430" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px;height:auto;">
-          <title id="chart-title-1">A 4x ROAS can still lose money on a 20 percent gross margin</title>
-          <desc id="chart-desc-1">On 1,000 pounds of ad spend a 4x ROAS returns 4,000 pounds of revenue, but a 20 percent gross margin leaves only 800 pounds of gross profit. After the 1,000 pounds of ad spend is paid, the campaign is 200 pounds in the red.</desc>
+          <title id="chart-title-1">A 4x ROAS can still lose money on a 20 percent contribution margin</title>
+          <desc id="chart-desc-1">On 1,000 pounds of ad spend a 4x ROAS returns 4,000 pounds of revenue, but a 20 percent contribution margin leaves only 800 pounds after direct costs. After the 1,000 pounds of ad spend is paid, the campaign is 200 pounds in the red.</desc>
           <rect width="720" height="430" fill="#EFF6FF"/>
           <text x="360" y="36" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#0A1628">A 4x ROAS can still lose money</text>
-          <text x="360" y="60" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#64748B">1,000 pounds ad spend, 4x ROAS, 20 percent gross margin</text>
+          <text x="360" y="60" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#64748B">1,000 pounds ad spend, 4x ROAS, 20 percent contribution margin</text>
           <line x1="70" y1="350" x2="660" y2="350" stroke="#94A3B8" stroke-width="1.5"/>
           <text x="64" y="354" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#94A3B8">0</text>
           <!-- Revenue -->
@@ -120,8 +120,8 @@ const schema = {
   <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">What profit-first PPC actually means</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Profit-first PPC rests on one substitution: replace ROAS as your north star with POAS. ROAS is return on ad spend, revenue divided by cost. POAS is profit on ad spend, gross profit divided by cost. It is a small change in the maths and a large change in behaviour, because POAS is the only version of the number that reflects whether the campaign made you money.</p>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">The two numbers can tell opposite stories on the same account. A 4x ROAS looks like a win, yet on a product carrying a 20 percent gross margin it is a loss once the ad spend is paid. We walk through that exact scenario in <a href="/roas-vs-profit" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">ROAS vs profit: why a high ROAS can still lose money</a>, with a calculator you can run against your own figures. That page makes the gap between the two numbers concrete in about thirty seconds.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Profit-first PPC uses ROAS as a control metric, not a substitute for profit. ROAS is revenue divided by ad cost. First calculate contribution before advertising: revenue less direct costs such as cost of goods, fees, fulfilment and returns. In this guide, POAS means that pre-ad contribution divided by ad spend. Report the contribution remaining after ad spend separately, rather than treating it as the same metric.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">The two numbers can tell opposite stories on the same account. A 4x ROAS looks like a win, yet on a product carrying a 20 percent contribution margin it is a loss once the ad spend is paid. We walk through that exact scenario in <a href="/roas-vs-profit" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">ROAS vs profit: why a high ROAS can still lose money</a>, with a calculator you can run against your own figures. That page makes the gap between the two numbers concrete in about thirty seconds.</p>
       <p class="text-lg text-gray-700 leading-relaxed">Everything that follows in this guide is about turning that single idea into an operating system: the numbers you need before you spend, how to feed profit into the platform, how to scale on it, and how to structure an account so the profitable products get the budget.</p>
     </div>
   </section>
@@ -143,18 +143,18 @@ const schema = {
           <tbody class="text-gray-700">
             <tr class="bg-white border-b border-gray-100">
               <td class="px-5 py-4 font-semibold text-navy">Contribution margin</td>
-              <td class="px-5 py-4">Price minus cost of goods, fees, shipping and returns</td>
+              <td class="px-5 py-4">Contribution amount: price minus direct costs; contribution-margin rate: that amount divided by price</td>
               <td class="px-5 py-4">The real money left to cover ads and profit</td>
             </tr>
             <tr class="bg-gray-50 border-b border-gray-100">
               <td class="px-5 py-4 font-semibold text-navy">Break-even ROAS</td>
-              <td class="px-5 py-4">1 divided by your gross margin</td>
-              <td class="px-5 py-4">The floor: below it, every extra sale loses money</td>
+              <td class="px-5 py-4">For revenue-valued conversions: 1 divided by contribution-margin rate (as a decimal)</td>
+              <td class="px-5 py-4">The floor for the direct costs included in the calculation; set a higher target for overhead and desired profit</td>
             </tr>
             <tr class="bg-white border-b border-gray-100">
               <td class="px-5 py-4 font-semibold text-navy">Target POAS</td>
-              <td class="px-5 py-4">The profit-on-spend you want to keep</td>
-              <td class="px-5 py-4">The goal the platform should bid towards</td>
+              <td class="px-5 py-4">Contribution before ad spend divided by ad spend</td>
+              <td class="px-5 py-4">A value-aligned efficiency metric; post-ad contribution is reported separately</td>
             </tr>
             <tr class="bg-gray-50">
               <td class="px-5 py-4 font-semibold text-navy">CAC to LTV</td>
@@ -164,7 +164,7 @@ const schema = {
           </tbody>
         </table>
       </div>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Break-even ROAS is the one most accounts skip, and it is pure arithmetic. Divide one by your gross margin. A 25 percent margin needs a 4x ROAS just to stand still. A 50 percent margin needs only 2x. Until you know that floor for each product group, you cannot tell a winning campaign from a subsidised one.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Break-even ROAS depends on the value sent to Google Ads. When the conversion value is revenue, divide one by the contribution-margin rate: a 25 percent rate needs a 4x revenue ROAS and a 50 percent rate needs 2x. When the conversion value is contribution before ad spend, break-even is 1x because the margin is already inside the value. These are floors for the direct costs included in the calculation; set a higher target for overhead and desired profit.</p>
       <p class="text-lg text-gray-700 leading-relaxed">The CAC-to-LTV number is what lets profit-first accounts spend aggressively where it is justified. If a first order breaks even but the customer typically comes back three times, you can afford to bid up front and collect the profit on the repeat orders. Revenue-only accounts never see this, because they treat every sale as a one-off.</p>
     </div>
   </section>
@@ -178,10 +178,10 @@ const schema = {
 
       <figure class="content-visual mt-10">
         <svg role="img" aria-labelledby="chart-title-2 chart-desc-2" viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px;height:auto;">
-          <title id="chart-title-2">Break-even ROAS by gross margin</title>
-          <desc id="chart-desc-2">Break-even ROAS is one divided by gross margin. A 20 percent margin needs a 5x ROAS just to break even, a 25 percent margin needs 4x, a 40 percent margin needs 2.5x, and a 50 percent margin needs only 2x. Lower margins need a far higher ROAS to avoid losing money.</desc>
+          <title id="chart-title-2">Revenue ROAS break-even by contribution margin</title>
+          <desc id="chart-desc-2">Revenue ROAS break-even is one divided by contribution margin. A 20 percent margin needs a 5x ROAS just to break even, a 25 percent margin needs 4x, a 40 percent margin needs 2.5x, and a 50 percent margin needs only 2x. Lower margins need a far higher ROAS to avoid losing money.</desc>
           <rect width="720" height="360" fill="#FFFFFF"/>
-          <text x="360" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#0A1628">Break-even ROAS by gross margin</text>
+          <text x="360" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#0A1628">Revenue ROAS break-even by contribution margin</text>
           <text x="360" y="56" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#64748B">The ROAS you need just to break even, before any profit</text>
           <!-- 20% margin -> 5.0x -->
           <text x="140" y="103" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#0A1628">20% margin</text>
@@ -200,7 +200,7 @@ const schema = {
           <rect x="150" y="248" width="204" height="30" fill="#34A853"/>
           <text x="366" y="269" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#2E8B4A">2.0x</text>
           <line x1="150" y1="86" x2="150" y2="278" stroke="#94A3B8" stroke-width="1.5"/>
-          <text x="360" y="322" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#64748B">Break-even ROAS = 1 divided by gross margin</text>
+          <text x="360" y="322" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#64748B">Revenue ROAS break-even = 1 divided by contribution-margin rate</text>
         </svg>
         <figcaption>The thinner your margin, the higher the ROAS you need just to break even, which is why a blended account-wide target hides where the money is really made and lost.</figcaption>
       </figure>
@@ -214,8 +214,8 @@ const schema = {
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">Google Ads bids to the conversion value you send it. If that value is revenue, it optimises to revenue. The single most powerful move in profit-first PPC is to change what the platform sees, so its automated bidding works for you instead of against you.</p>
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">There are three practical levers, in rough order of impact:</p>
       <ul class="space-y-4 mb-6 text-lg text-gray-700">
-        <li class="flex gap-3"><span class="text-electric font-bold shrink-0">1.</span><span><strong class="text-navy">Margin-adjusted conversion values.</strong> Pass gross profit as the conversion value instead of order revenue. Now a high-margin sale is worth more to the algorithm than a low-margin one of the same price, and it bids accordingly.</span></li>
-        <li class="flex gap-3"><span class="text-electric font-bold shrink-0">2.</span><span><strong class="text-navy">Target ROAS set above break-even.</strong> With profit values feeding in, set a target that clears your break-even floor by the margin you want to keep. The bid strategy then chases profit, not cheap revenue.</span></li>
+        <li class="flex gap-3"><span class="text-electric font-bold shrink-0">1.</span><span><strong class="text-navy">Contribution-valued conversion data.</strong> Pass contribution before ad spend as the conversion value when direct cost data is accurate. A high-margin sale then carries more value than a low-margin sale of the same price.</span></li>
+        <li class="flex gap-3"><span class="text-electric font-bold shrink-0">2.</span><span><strong class="text-navy">A target that matches the conversion value.</strong> Revenue-valued conversions need a target above their margin-derived revenue ROAS floor. Contribution-valued conversions break even at 1x, so their target needs to sit above 1x by the contribution you want to retain.</span></li>
         <li class="flex gap-3"><span class="text-electric font-bold shrink-0">3.</span><span><strong class="text-navy">Clean conversion tracking.</strong> None of the above works if the data is wrong. Deduplicated conversions, accurate values and a sensible attribution window are the foundation everything else sits on.</span></li>
       </ul>
       <p class="text-lg text-gray-700 leading-relaxed">This is also where profit-first PPC meets conversion rate optimisation. Every extra point of conversion rate lowers your effective cost per sale and lifts POAS without spending a penny more. We cover that side of the equation in <a href="/blog/what-is-ecro" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">what is eCRO</a>.</p>
@@ -231,20 +231,20 @@ const schema = {
         <table class="w-full text-left border-collapse">
           <thead>
             <tr class="bg-navy text-white">
-              <th class="px-5 py-4 font-heading font-semibold text-sm">Weekly ROAS vs target</th>
+              <th class="px-5 py-4 font-heading font-semibold text-sm">Weekly revenue ROAS</th>
               <th class="px-5 py-4 font-heading font-semibold text-sm">Action</th>
             </tr>
           </thead>
           <tbody class="text-gray-700">
-            <tr class="bg-white border-b border-gray-100"><td class="px-5 py-4 font-semibold text-navy">Well above target</td><td class="px-5 py-4">Increase budget by 20 percent</td></tr>
-            <tr class="bg-gray-50 border-b border-gray-100"><td class="px-5 py-4 font-semibold text-navy">Comfortably above target</td><td class="px-5 py-4">Increase budget by 10 percent</td></tr>
-            <tr class="bg-white border-b border-gray-100"><td class="px-5 py-4 font-semibold text-navy">On target</td><td class="px-5 py-4">Hold and let it stabilise</td></tr>
-            <tr class="bg-gray-50 border-b border-gray-100"><td class="px-5 py-4 font-semibold text-navy">Below target</td><td class="px-5 py-4">Reduce budget by 20 percent</td></tr>
-            <tr class="bg-white"><td class="px-5 py-4 font-semibold text-navy">Below break-even</td><td class="px-5 py-4">Cap spend and rebuild, do not just switch off</td></tr>
+            <tr class="bg-white border-b border-gray-100"><td class="px-5 py-4 font-semibold text-navy">Above 1,200%</td><td class="px-5 py-4">Increase budget by 20 percent</td></tr>
+            <tr class="bg-gray-50 border-b border-gray-100"><td class="px-5 py-4 font-semibold text-navy">900% to 1,100%</td><td class="px-5 py-4">Increase budget by 10 percent</td></tr>
+            <tr class="bg-white border-b border-gray-100"><td class="px-5 py-4 font-semibold text-navy">600% to 800%</td><td class="px-5 py-4">Hold and let it stabilise</td></tr>
+            <tr class="bg-gray-50 border-b border-gray-100"><td class="px-5 py-4 font-semibold text-navy">300% to 500%</td><td class="px-5 py-4">Reduce budget by 20 percent</td></tr>
+            <tr class="bg-white"><td class="px-5 py-4 font-semibold text-navy">Below 300%</td><td class="px-5 py-4">Switch off and rebuild</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="text-lg text-gray-700 leading-relaxed">The point of the rulebook is discipline. It scales winners fast enough to matter but slowly enough for the algorithm to relearn, and it protects profit on the way down by cutting spend before a soft week becomes a bad month. When a campaign drops below break-even, the fix is to cap and rebuild rather than pausing outright, so you keep the learning and the history.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">The rulebook keeps budget changes controlled and protects profit before a soft week becomes a bad month. The thresholds apply to revenue ROAS, so each decision must also clear the account's verified contribution-margin floor. Results between the stated bands need an account review before budget changes. Campaigns below 300 percent are switched off and rebuilt.</p>
     </div>
   </section>
 
@@ -283,35 +283,35 @@ const schema = {
             What is profit-first PPC?
             <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Profit-first PPC is a way of managing paid search where the target is gross profit, not revenue. Instead of optimising to a revenue-based ROAS goal, you feed each product's real margin into the account and manage to POAS and break-even ROAS. Budget then flows to the products and campaigns that actually contribute profit, not just the ones that report the highest revenue.</div>
+          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Profit-first PPC manages paid search against contribution, not revenue alone. Start with the direct costs attached to each sale, set a revenue ROAS floor from that contribution margin, and use contribution-valued conversion data only when the account can report it accurately. Budget then flows to products and campaigns that contribute profit.</div>
         </details>
         <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
           <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
             Why does a high ROAS still lose money?
             <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">ROAS measures revenue returned per pound of spend, and revenue is not profit. A 4x ROAS on a product with a 20 percent gross margin loses money on every extra sale once you subtract cost of goods, fees and the ad spend itself. Because Google optimises to the conversion value you give it, a revenue-only feed tells the platform to chase low-margin volume. Switching the target to profit fixes the incentive.</div>
+          <div class="px-6 pb-6 text-gray-700 leading-relaxed">ROAS measures revenue returned per pound of spend, and revenue is not profit. A 4x ROAS on a product with a 20 percent contribution-margin rate can lose money once direct costs and ad spend are included. Because Google optimises to the conversion value you give it, a revenue-only feed can favour low-margin volume. Contribution-valued conversion data gives it a more useful signal.</div>
         </details>
         <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
           <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
             How do I set a profit target for Google Ads?
             <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Start with your contribution margin per product, which is the selling price minus cost of goods, payment fees, shipping and returns. Your break-even ROAS is 1 divided by that margin: a 40 percent margin needs a 2.5x ROAS just to break even. Set your target ROAS above break-even by the profit margin you want to keep, then use margin-adjusted conversion values so the platform bids to profit rather than revenue.</div>
+          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Start with contribution amount: revenue less direct costs such as cost of goods, payment fees, shipping and returns. Divide it by revenue to calculate the contribution-margin rate. If Google Ads receives revenue as conversion value, break-even ROAS is 1 divided by that rate: a 40 percent contribution margin needs a 2.5x revenue ROAS. If it receives contribution before ad spend as conversion value, break-even is 1x. Set a higher target for overhead and desired profit.</div>
         </details>
         <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
           <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
             What is break-even ROAS?
             <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Break-even ROAS is the revenue-per-pound-of-spend figure at which your campaign makes neither a profit nor a loss. It equals 1 divided by your gross margin. At a 25 percent margin you need a 4x ROAS to break even; at a 50 percent margin you need 2x. Any campaign running below its break-even ROAS is subsidising sales out of your own pocket.</div>
+          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Break-even ROAS is the return-per-pound-of-spend figure at which advertising spend is covered by the contribution remaining after the included direct costs. For revenue-valued conversions, it equals 1 divided by the contribution-margin rate: a 25 percent rate needs a 4x revenue ROAS and a 50 percent rate needs 2x. For contribution-before-ad-spend conversion values, break-even is 1x. Set a higher target for overhead and desired profit.</div>
         </details>
         <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
           <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
             When should I scale a profitable campaign?
             <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Scale on a weekly cadence tied to profit, not on a single good day. Our rulebook increases budget by 20 percent a week when ROAS is comfortably above target, holds steady in the middle band, reduces spend when it slips below target, and caps spend when a campaign is clearly below break-even. Scaling in controlled weekly steps lets the bidding algorithm relearn without shocking performance.</div>
+          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Scale on a weekly cadence tied to profit, not on a single good day. Our rulebook increases budget by 20 percent a week above 1,200 percent ROAS, by 10 percent between 900 and 1,100 percent, holds between 600 and 800 percent, reduces spend between 300 and 500 percent, and switches off below 300 percent. Apply the rule alongside the account's verified contribution-margin floor.</div>
         </details>
       </div>
     </div>
