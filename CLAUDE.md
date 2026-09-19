@@ -72,6 +72,16 @@ Boh supplied GA4 measurement ID G-ZZ6RF754RW. Installed in `src/layouts/Layout.a
 - New feature (Boh's side, live): exit-intent popup (`GuidePopup.astro`) gating a Q4 playbook PDF behind an emailed confirmation link, routes `/playbook/` and `/guide-sent/`.
 - Deploy: 🔴 NOT git-connected (`wrangler pages project list` shows Git Provider: No, confirmed 2026-08-27). Manual deploy required after every push: `npm install` (if fresh clone) → `npm run build` → `npx wrangler pages deploy dist --project-name visible-ads --commit-dirty=true` (wrangler OAuth login, sunnypat81 CF account `aba0a6722a4510842ca473315a8ba13e` — no valid API token needed, `cfut_143a...` is dead).
 
+## Next month's content plan — AI price-intent white-label queries (added Sep 19, not started)
+
+Trigger: a ChatGPT-sourced lead searched "UK white label digital agencies" and quoted £300/mo, below Boh's stated £250/mo partner floor but clearly anchored low — signal that AI answer engines are surfacing Visible Ads for white-label queries and searchers are price-shopping before contact. Plan: spread the net for this query shape, filtered so only right-fit leads reach Boh.
+
+1. Add a real minimum-engagement line to `/ppc-for-professional-services/`'s "What are the white-label fees and reporting arrangements?" FAQ (currently dodges price entirely, line 25-27) and to `public/llms.txt`, using the documented £250/mo partner floor (line 91 below) so AI citations pre-qualify budget instead of forwarding sub-floor enquiries.
+2. Build 1-2 new AI-citable pages targeting the exact query shape ("white label PPC/SEO agency pricing UK", "how much does white-label digital marketing cost UK") — FAQPage schema, real numbers, same build pattern as `/chatgpt-ads-ecommerce/` and `/meta-ads-ga4-revenue-mismatch/` (shipped `5b539ef`).
+3. Every page: build → Codex adversarial cross-check → fix pass, before commit (per [[feedback_codex-second-pass-full-file-required]] / [[feedback_codex-proofing-required]]). No exceptions.
+
+Confirm the £250 floor is still current with Boh before publishing it (this note is from the Jul/Sep pricing ladder, may be stale).
+
 ## Sep 12 2026 — content architecture audit, two-phase safe-fix ship, tracker cleanup (LIVE)
 
 ⭐ **Key deliverables this month (site changes, not just this session's work):**
