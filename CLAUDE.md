@@ -72,6 +72,19 @@ Boh supplied GA4 measurement ID G-ZZ6RF754RW. Installed in `src/layouts/Layout.a
 - New feature (Boh's side, live): exit-intent popup (`GuidePopup.astro`) gating a Q4 playbook PDF behind an emailed confirmation link, routes `/playbook/` and `/guide-sent/`.
 - Deploy: 🔴 NOT git-connected (`wrangler pages project list` shows Git Provider: No, confirmed 2026-08-27). Manual deploy required after every push: `npm install` (if fresh clone) → `npm run build` → `npx wrangler pages deploy dist --project-name visible-ads --commit-dirty=true` (wrangler OAuth login, sunnypat81 CF account `aba0a6722a4510842ca473315a8ba13e` — no valid API token needed, `cfut_143a...` is dead).
 
+## Sep 19 2026 — all open "For Boh" blockers closed, one plan reversal
+
+Boh answered all outstanding questions on the tracker's "For Boh" tab; closed every row:
+- **KPI fork: BOTH.** Boh wants UK leads AND AI visibility, not one over the other (earlier internal read was "UK leads primary, AI-visibility supporting" - that was never actually relayed to him; his real answer is both, treat as co-equal, not one subordinate to the other).
+- Yo-Yo Desk ROAS (2.5-5x) and logos: use as-is, no further sign-off needed.
+- POAS vs ROAS wording: keep the existing copy as-is.
+- **London/Surrey: REVERSED.** Boh wants to keep investing there for leads, not stop. Cancelled the M2 plan's `/ppc-london` noindex and Kingston/Richmond/Surrey consolidation (Action plan 4.1/4.2, sheet-cancelled) - do NOT build that if it resurfaces from an old plan doc.
+- Local-page pricing figures, UK Search Awards 2022 claim: skipped, not chasing further - leave the content as it currently stands either way.
+- Tracker editor email access: no change requested, closed as-is.
+- FMCG names and ChatGPT-ads material: already moot (FMCG claim removed 12 Sep instead of naming clients; ChatGPT pages built from verified OpenAI docs instead of waiting on his email).
+
+**Standing instruction from Sunny:** close open questions to Boh unless he comes back with an answer first - don't leave them open-ended waiting on him indefinitely.
+
 ## Next month's content plan — AI price-intent white-label queries (added Sep 19, not started)
 
 Trigger: a ChatGPT-sourced lead searched "UK white label digital agencies" and quoted £300/mo, below Boh's stated £250/mo partner floor but clearly anchored low — signal that AI answer engines are surfacing Visible Ads for white-label queries and searchers are price-shopping before contact. Plan: spread the net for this query shape, filtered so only right-fit leads reach Boh.
