@@ -80,7 +80,7 @@ Trigger: a ChatGPT-sourced lead searched "UK white label digital agencies" and q
 2. Build 1-2 new AI-citable pages targeting the exact query shape ("white label PPC/SEO agency pricing UK", "how much does white-label digital marketing cost UK") — FAQPage schema, real numbers, same build pattern as `/chatgpt-ads-ecommerce/` and `/meta-ads-ga4-revenue-mismatch/` (shipped `5b539ef`).
 3. Every page: build → Codex adversarial cross-check → fix pass, before commit (per [[feedback_codex-second-pass-full-file-required]] / [[feedback_codex-proofing-required]]). No exceptions.
 
-Confirm the £250 floor is still current with Boh before publishing it (this note is from the Jul/Sep pricing ladder, may be stale).
+✅ DONE 19 Sep: Boh confirmed the real floor is £500/mo (not £250, that Jul/Sep pricing-ladder note was stale). Shipped: FAQ line on `/ppc-for-professional-services`, `llms.txt` White-Label section, and new page `/white-label-ppc-seo-pricing-uk` (Service+FAQPage+Breadcrumb schema) - commit `38e166d`, live, 200 verified. Still open: item 2's second page ("how much does white-label digital marketing cost UK" as a distinct page) was folded into the one page above instead of built separately, to avoid thin/cannibalising content - revisit only if the single page doesn't get cited.
 
 ## Sep 12 2026 — content architecture audit, two-phase safe-fix ship, tracker cleanup (LIVE)
 
@@ -98,7 +98,7 @@ Full audit: `CONTENT-AUDIT-2026-09-12.md` at repo root (not committed, internal 
 Both phases: build → independent adversarial Codex cross-check → narrow fix-pass for whatever the cross-check caught (found real issues both times — worth repeating this pattern, don't skip the cross-check step even under time pressure). Full before/after in `BUILD-LOG-2026-09-12.md` and `PHASE2-JUDGMENT-LOG-2026-09-12.md` (repo root, not committed).
 
 **Tracker cleanup:** the Google Sheet tracker (`https://docs.google.com/spreadsheets/d/1dg-827ZRhE_VIL8VkD86zcWCVn4QIDSqPHHwiMEfFNM/edit`) had several stale rows dating back to 16 Jul that were never corrected despite being flagged wrong on 22 Aug (`/free-bing-ads-audit/` and `/display-advertising/` shown as "Built, not live" when both have been live since 17 Jul; 3 Action Plan items shown "Not started" when done; 3 Published Content H1s stale after today's fixes; Growth Clusters still said the professional-services page needed building). All corrected 12 Sep. **Lesson: this tracker drifts from reality and isn't self-correcting — spot-check it against the live site periodically, don't trust it at face value.**
-- Pricing (de-salesed): pilot £350 standard / £250 partner; retainer £400 / £250/mo partner (£250 = floor; partner resells at standard, keeps margin).
+- Pricing (de-salesed): pilot £350 standard / £250 partner; retainer £400 direct. 🔴 White-label partner floor CORRECTED 19 Sep: £500/mo per client account (was recorded here as £250, confirmed stale - see the Sep 19 white-label pricing entry below for the fix that shipped against the real number).
 
 ## Pilot scope (agenda)
 4 AEO pages + homepage sections (team-values block, "Find your path" role selector). Framework name = **PCF™ (Profit Contribution Framework)** = entity anchor (mirrors judeluxe's BOI®). About + gated Pricing Guide = retainer/add-on, NOT pilot.
