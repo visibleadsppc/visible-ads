@@ -33,6 +33,51 @@ import '../styles/global.css';
     gtag('js', new Date());
     gtag('config', 'G-ZZ6RF754RW', { send_page_view: false });
   </script>
+  <!-- Diginius Lead Intelligence Begins -->
+  <script is:inline>
+    // Guarded because Astro's view-transition router re-runs this script on every
+    // navigation. Unguarded, each click built a second tracker and a second listener, so
+    // one visit sent every pageview twice, one copy under the previous page's URL.
+    if (!window.__diginiusInit) {
+      window.__diginiusInit = true;
+
+      ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
+      p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
+      };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
+      n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1hsde1uwi6p0a.cloudfront.net/version/hq9xnghz.js","diginius"));
+
+      window.diginius('newTracker', 'cf', 'd2zinxbvgvxnpa.cloudfront.net', {
+        appId: 'ie4qOXqrtOTqUqT6BaT6dHXPLC22',
+        platform: 'web',
+        contexts: {
+          geolocation: false,
+          performanceTiming: true,
+          gaCookies: true
+        }
+      });
+
+      window.diginius('enableLinkClickTracking');
+      window.diginius('enableActivityTracking', 5, 10);
+
+      // The pageview fires here rather than on script load. astro:page-load runs on the
+      // first load and again after every view transition, so internal clicks are counted,
+      // not just entry pages. A view transition never creates a new document, so the
+      // referrer has to be set by hand: left alone every internal pageview arrives with
+      // no referrer and the visit reads as a series of unconnected entries rather than
+      // one journey through the site.
+      var diginiusLastUrl = null;
+      document.addEventListener('astro:page-load', function () {
+        var href = window.location.href;
+        window.diginius('setCustomUrl', href);
+        window.diginius('setDocumentTitle', document.title);
+        if (diginiusLastUrl) window.diginius('setReferrerUrl', diginiusLastUrl);
+        window.diginius('refreshLinkClickTracking');
+        window.diginius('trackPageView');
+        diginiusLastUrl = href;
+      });
+    }
+  </script>
+  <!-- Diginius Lead Intelligence Ends -->
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
