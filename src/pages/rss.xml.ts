@@ -2,10 +2,11 @@ import type { APIRoute } from 'astro';
 
 export const GET: APIRoute = () => {
   const posts = [
+    { title: 'Multi-Channel Attribution for Budget Decisions', slug: 'multi-channel-attribution', date: '2026-10-04' },
     { title: 'Sephra Europe: 1149% ROAS Through Google & Amazon Ads', slug: 'sephra-europe-case-study', date: '2026-03-14' },
     { title: 'F&B eCommerce Brand: 1118% ROAS Case Study', slug: 'food-beverage-case-study', date: '2026-02-18' },
     { title: 'Luxury Architecture: £255 to £16 Cost Per Lead', slug: 'luxury-architecture-case-study', date: '2026-02-18' },
-    { title: 'ChatGPT Ads: What Marketers Need to Know', slug: 'chatgpt-ads', date: '2025-07-17' },
+    { title: 'ChatGPT Ads in the UK: Availability and Test Guide', slug: 'chatgpt-ads', date: '2025-07-17' },
     { title: 'Ads in the Age of AI Summaries', slug: 'ads-in-the-age-of-ai-summaries', date: '2025-07-17' },
     { title: 'Meta Ads vs Google Ads for eCommerce', slug: 'meta-ads-vs-google-ads-ecommerce', date: '2025-05-08' },
     { title: 'Google Ads vs Bing Ads: Which Platform Delivers Better ROI?', slug: 'google-ads-vs-bing-ads', date: '2025-05-08' },

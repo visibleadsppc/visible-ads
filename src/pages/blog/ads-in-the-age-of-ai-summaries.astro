@@ -2,176 +2,34 @@
 import Layout from '../../layouts/Layout.astro';
 import PartnerBadges from '../../components/PartnerBadges.astro';
 
+const faqs = [
+  { question: 'Does a citation in an AI answer mean my page ranks first?', answer: 'No. Bing Webmaster Tools AI Performance reports citation activity across supported AI experiences. Microsoft says those counts do not indicate ranking, authority or placement in an answer.' },
+  { question: 'Does Search Console report sales from AI features?', answer: 'No. Google describes its generative AI reports as visibility reporting for URLs shown in AI features in Search and Discover. Sales need a separate business and analytics readout.' },
+  { question: 'Does the GA4 AI Assistant channel show every AI-influenced visit?', answer: 'No. Google assigns the channel when a referrer matches a recognised AI assistant. Visits without that matching referral and later effects are outside that channel count.' }
+];
 const schema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Article",
-      "headline": "Ads in the Age of AI Summaries",
-      "description": "How advertising is evolving within AI-generated summaries from Google, Microsoft, and ChatGPT, current state, future formats, and what advertisers need to prepare for.",
-      "url": "https://visible-ads.com/blog/ads-in-the-age-of-ai-summaries",
-      "datePublished": "2025-05-15",
-      "dateModified": "2025-05-19",
-      "author": { "@type": "Organization", "name": "Visible Ads", "url": "https://visible-ads.com" },
-      "publisher": { "@type": "Organization", "name": "Visible Ads", "url": "https://visible-ads.com" },
-      "image": "https://visible-ads.com/images/visible-ads-og.png"
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Are there ads in Google's AI Overviews?",
-          "acceptedAnswer": { "@type": "Answer", "text": "As of May 2025, Google is testing advertisements within its AI Overviews feature, primarily visible to a subset of mobile users in the United States. These tests are gathering data on user interaction and ad effectiveness. The ads have not yet been widely observed in regions like Europe, suggesting any future rollout will be gradual and region-specific." }
-        },
-        {
-          "@type": "Question",
-          "name": "Will AI summaries reduce click-through rates for advertisers?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Potentially yes. If AI summaries provide comprehensive answers, users may have less incentive to click through to websites, leading to more zero-click experiences. This could lead to lower CTRs for traditional ad formats. However, ads placed within AI summaries could command premium positioning and higher relevance, offsetting this with better conversion quality." }
-        },
-        {
-          "@type": "Question",
-          "name": "What is AI Summary Share?",
-          "acceptedAnswer": { "@type": "Answer", "text": "AI Summary Share is an emerging metric that represents the percentage of times a brand's ads appear within relevant AI summaries. It could become the new holy grail for advertisers, similar to how Absolute Top Search Impression Share is valued today. Capturing this prime real estate will be highly competitive." }
-        }
-      ]
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://visible-ads.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://visible-ads.com/blog" },
-        { "@type": "ListItem", "position": 3, "name": "Ads in AI Summaries", "item": "https://visible-ads.com/blog/ads-in-the-age-of-ai-summaries" }
-      ]
-    }
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Article', headline: 'Ads in the Age of AI Summaries', description: 'A guide to paid placements, organic links, citations and the current reporting limits of AI search.', url: 'https://visible-ads.com/blog/ads-in-the-age-of-ai-summaries', datePublished: '2025-05-15', dateModified: '2026-10-04', author: { '@type': 'Organization', name: 'Visible Ads', url: 'https://visible-ads.com' }, publisher: { '@type': 'Organization', name: 'Visible Ads', url: 'https://visible-ads.com' }, image: 'https://visible-ads.com/images/visible-ads-og.png' },
+    { '@type': 'FAQPage', mainEntity: faqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })) },
+    { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://visible-ads.com/' }, { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://visible-ads.com/blog' }, { '@type': 'ListItem', position: 3, name: 'Ads in AI Summaries', item: 'https://visible-ads.com/blog/ads-in-the-age-of-ai-summaries' }] }
   ]
 };
 ---
 
-<Layout title="Ads in the Age of AI Summaries | Visible Ads" description="How advertising is evolving within AI-generated summaries from Google, Microsoft, and ChatGPT. Current state, future formats, and what advertisers need to know." schema={schema}>
+<Layout title="Ads in the Age of AI Summaries | Visible Ads" description="Separate paid placements, organic links and citations in AI search, then read each reporting tool within its limits." schema={schema}>
+  <section class="py-20 lg:py-28 bg-gradient-to-br from-navy to-navy-light relative overflow-hidden" data-animate><div class="absolute inset-0 dot-pattern opacity-5"></div><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"><nav class="text-sm text-slate-light mb-8"><a href="/" class="hover:text-white">Home</a><span class="mx-2">/</span><a href="/blog/" class="hover:text-white">Blog</a><span class="mx-2">/</span><span class="text-white">AI summaries</span></nav><div class="max-w-3xl"><span class="inline-block px-4 py-1.5 bg-electric/20 text-electric-light text-sm font-medium rounded-full mb-6">AI search measurement</span><h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-6">Ads in the age of AI summaries</h1><p class="text-lg sm:text-xl text-slate-light leading-relaxed">An ad, an organic link and a citation can appear around an AI answer. Each has a different owner, reporting method and commercial meaning.</p></div></div></section>
 
-  <!-- Hero -->
-  <section class="py-20 lg:py-28 bg-gradient-to-br from-navy to-navy-light relative overflow-hidden" data-animate>
-    <div class="absolute inset-0 dot-pattern opacity-5"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-      <nav class="text-sm text-slate-light mb-8">
-        <a href="/" class="hover:text-white transition-colors">Home</a>
-        <span class="mx-2">/</span>
-        <a href="/blog" class="hover:text-white transition-colors">Blog</a>
-        <span class="mx-2">/</span>
-        <span class="text-white">Ads in AI Summaries</span>
-      </nav>
-      <div class="max-w-3xl">
-        <span class="inline-block px-4 py-1.5 bg-electric/20 text-electric-light text-sm font-medium rounded-full mb-6">AI & Advertising</span>
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-6">Ads in the Age of AI Summaries</h1>
-        <p class="text-lg sm:text-xl text-slate-light leading-relaxed">Navigating the new frontier of advertising within AI-generated summaries from Google, Microsoft, ChatGPT, Gemini, and beyond.</p>
-      </div>
-    </div>
-  </section>
+  <section class="py-16 lg:py-20 bg-white" data-animate><div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Three appearances to record separately</h2><p class="text-lg text-gray-700 mb-6 leading-relaxed"><strong>Paid placements</strong> are advertising inventory governed by a platform's campaign, auction, eligibility and policy rules. Microsoft documents ads within Copilot responses for specific eligible campaign and ad types. OpenAI says ChatGPT ads are clearly labelled, separate from answers and shown to eligible users on supported plans. A placement requires platform approval and delivery; being eligible does not promise either.</p><p class="text-lg text-gray-700 mb-6 leading-relaxed"><strong>Organic links</strong> are links to pages surfaced as part of an unpaid search experience. They can produce a visit when someone clicks through. Their visibility depends on the search product, page and query, not on a media purchase.</p><p class="text-lg text-gray-700 leading-relaxed"><strong>Citations</strong> identify source material referenced by a generated answer. A citation may be visible even when the reader does not visit the source. A citation count is therefore a visibility measure. It does not show an ad impression, a search ranking or a sale. Keep these three categories separate in the report and in the budget discussion.</p></div></section>
 
-  <!-- Current State -->
-  <section class="py-16 lg:py-20 bg-white" data-animate>
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">The Current State: Experimentation Is Key</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">As of May 2025, neither Google nor Microsoft has fully launched comprehensive advertising solutions within their mainstream AI-powered search summaries. Instead, the approach is characterised by ongoing experiments and limited rollouts.</p>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Google has been testing advertisements within its AI Overviews, the feature that provides AI-generated summaries at the top of search results. These tests are primarily visible to a subset of mobile users in the United States, serving as a crucial test bed for understanding how users interact with ads in an AI-driven format.</p>
-      <p class="text-lg text-gray-700 leading-relaxed">Microsoft, while heavily investing in AI for <a href="/bing-ads" class="text-electric underline hover:text-electric-dark">Bing search</a> (now often referred to as Copilot), has been less public about specific ad integrations within AI summaries. Crucially, these AI summary ad formats have not yet been widely observed in Europe, suggesting any future rollout will be gradual and subject to regional regulatory considerations.</p>
-    </div>
-  </section>
+  <section class="py-16 lg:py-20 bg-sky-tint" data-animate><div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">What each reporting tool measures</h2><div class="overflow-x-auto rounded-2xl border border-gray-200 bg-white"><table class="w-full text-left text-sm"><caption class="sr-only">AI search reporting tools and limits</caption><thead class="bg-navy text-white"><tr><th scope="col" class="p-4">Tool</th><th scope="col" class="p-4">Current signal</th><th scope="col" class="p-4">What it cannot establish</th></tr></thead><tbody class="text-gray-700"><tr class="border-t"><th scope="row" class="p-4 font-semibold text-navy">Bing Webmaster Tools AI Performance</th><td class="p-4">Citation counts, cited pages, grounding query samples and trends across supported AI experiences.</td><td class="p-4">Ranking, authority, exact placement or a commercial result.</td></tr><tr class="border-t bg-sky-tint/40"><th scope="row" class="p-4 font-semibold text-navy">Google Search Console</th><td class="p-4">URL impressions in generative AI features in Search and Discover, with page and country views.</td><td class="p-4">Paid delivery or a conversion caused by an AI feature.</td></tr><tr class="border-t"><th scope="row" class="p-4 font-semibold text-navy">Google Analytics AI Assistant channel</th><td class="p-4">Visits whose referrer matches a recognised AI assistant.</td><td class="p-4">All AI influence, including visits with no matching referrer.</td></tr><tr class="border-t bg-sky-tint/40"><th scope="row" class="p-4 font-semibold text-navy">Ad platform reporting</th><td class="p-4">The platform's campaign delivery and attributed outcomes where available.</td><td class="p-4">Incremental sales by itself. Microsoft currently has no Copilot-specific ad metrics.</td></tr></tbody></table></div></div></section>
 
-  <!-- What Could Ads Look Like -->
-  <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">What Could Ads in AI Summaries Look Like?</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Based on current experiments and industry discussions, ads within AI summaries could take several forms, always with the crucial caveat that they must be clearly distinguishable from organic AI-generated content:</p>
-      <ul class="list-disc list-inside text-lg text-gray-700 mb-6 space-y-3 leading-relaxed">
-        <li><strong>Contextual Sponsored Links:</strong> Similar to traditional search ads, but placed within or alongside the AI summary, directly relevant to the user's query</li>
-        <li><strong>Product Carousels or Listings:</strong> For commercial queries, AI summaries might be accompanied by scrollable product ads</li>
-        <li><strong>Clearly Labelled Sponsored Sections:</strong> Distinct blocks of text or rich media clearly identified as advertising</li>
-      </ul>
-    </div>
-  </section>
+  <section class="py-16 lg:py-20 bg-white" data-animate><div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Bing citations and Copilot ads answer different questions</h2><p class="text-lg text-gray-700 mb-6 leading-relaxed">Microsoft introduced AI Performance in Bing Webmaster Tools as a public preview in February 2026. It covers citations across Microsoft Copilot, AI-generated Bing summaries and selected partner experiences. The report identifies cited pages and samples grounding queries. Microsoft explicitly says citation counts do not indicate ranking or placement within an answer.</p><p class="text-lg text-gray-700 mb-6 leading-relaxed">The <a href="/bing-ads/" class="text-electric underline">Microsoft Ads service page</a> explains paid Copilot eligibility and the campaign checks needed to assess it. Microsoft says eligible ad types are automatically opted in, yet there is no guaranteed display and no current Copilot-specific ad metric. Keep Webmaster citations and paid campaign results in separate columns. Neither tells you the site's share of all possible AI answers.</p><p class="text-lg text-gray-700 leading-relaxed">Our <a href="/blog/chatgpt-ads/" class="text-electric underline">ChatGPT ads guide</a> covers UK advertiser access and a controlled test. ChatGPT's labelled ads are also separate from citations or product results in an answer.</p></div></section>
 
-  <!-- Why Advertisers Are Watching -->
-  <section class="py-16 lg:py-20 bg-white" data-animate>
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Why Advertisers Are Watching Closely</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Despite the cautious rollout, the potential benefits keep advertisers and platforms keenly interested:</p>
-      <ul class="list-disc list-inside text-lg text-gray-700 mb-6 space-y-3 leading-relaxed">
-        <li><strong>Hyper-Contextual Targeting:</strong> Delivering ads precisely when a user is actively seeking related information offers a powerful opportunity for relevance</li>
-        <li><strong>Engaged Audiences:</strong> Users interacting with AI for answers are often deeply engaged, potentially making them more receptive to well-matched solutions</li>
-        <li><strong>New Ad Inventory:</strong> For platforms like <a href="/google-ads" class="text-electric underline hover:text-electric-dark">Google</a> and Microsoft, this opens up valuable new advertising real estate, crucial for funding ongoing AI development</li>
-      </ul>
-    </div>
-  </section>
+  <section class="py-16 lg:py-20 bg-sky-tint" data-animate><div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">A sensible monthly review</h2><div class="grid md:grid-cols-3 gap-6"><div class="bg-white border border-gray-200 rounded-2xl p-6"><h3 class="text-xl font-heading font-bold text-navy mb-3">Visibility</h3><p class="text-gray-700">Track cited URLs and Search Console AI impressions by page and country. Mark which product supplied each signal.</p></div><div class="bg-white border border-gray-200 rounded-2xl p-6"><h3 class="text-xl font-heading font-bold text-navy mb-3">Visits</h3><p class="text-gray-700">Review recognised AI assistant referrals and organic landing pages. Record gaps in referrer and tracking coverage.</p></div><div class="bg-white border border-gray-200 rounded-2xl p-6"><h3 class="text-xl font-heading font-bold text-navy mb-3">Business outcome</h3><p class="text-gray-700">Reconcile leads or orders with campaign costs and contribution. Use a defined test before crediting a budget change with growth.</p></div></div><p class="mt-8 text-gray-700 leading-relaxed">The <a href="/blog/multi-channel-attribution/" class="text-electric underline">attribution guide</a> sets out a reporting and test process. Our <a href="/multi-channel-services/" class="text-electric underline">multi-channel service</a> connects those decisions with active campaigns. Visibility trends are worth reviewing, but an ad budget should follow measured commercial outcomes.</p></div></section>
 
-  <!-- Hurdles and Concerns -->
-  <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">The Hurdles: Costs, CTR, and Zero-Click Experiences</h2>
-      <h3 class="text-xl font-heading font-bold text-navy mb-4">User Experience and Trust</h3>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">A primary concern is that AI ads could feel more intrusive than traditional formats, potentially disrupting the utility of a summary. Users must trust that the AI's primary summary is not biased by advertising. Transparency and clear disclosure of ad placements cannot be overstated.</p>
-      <h3 class="text-xl font-heading font-bold text-navy mb-4">Lower CTRs and Zero-Click Experiences</h3>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">If AI summaries provide comprehensive answers, users might have less incentive to click through to websites, staying within the AI conversation. This could lead to significantly more zero-click experiences, great for user convenience, but a challenge for website-dependent businesses. There is also speculation that platforms like Google might facilitate more on-platform checkouts, further reducing clicks to external sites.</p>
-      <h3 class="text-xl font-heading font-bold text-navy mb-4">Premium Pricing and New Metrics</h3>
-      <p class="text-lg text-gray-700 leading-relaxed">Given the potential for high relevance, ad placements within AI summaries could command premium pricing, leading to higher CPCs. A new key performance indicator may emerge: AI Summary Share, the percentage of times a brand's ads appear within relevant AI summaries, potentially becoming the new holy grail for advertisers.</p>
-    </div>
-  </section>
-
-  <!-- The Broader Ecosystem -->
-  <section class="py-16 lg:py-20 bg-white" data-animate>
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">The Broader Ecosystem and the Long Road Ahead</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">While search giants are a primary focus, the broader landscape of conversational AI tools, ChatGPT, Gemini, Perplexity, Grok, and others, also face questions about monetisation. Some may opt for subscription models, while others might explore forms of advertising or partnerships.</p>
-      <p class="text-lg text-gray-700 leading-relaxed">The integration of ads into AI summaries is not an overnight revolution but an evolution that will likely take years to fully materialise and stabilise. The current experimental phase and limited geographic rollout suggest a gradual, iterative approach from tech companies. For advertisers, this means staying informed, testing early where possible, and ensuring your <a href="/google-ads" class="text-electric underline hover:text-electric-dark">Google Ads</a> and <a href="/seo" class="text-electric underline hover:text-electric-dark">SEO strategies</a> remain robust as the landscape shifts.</p>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Frequently Asked Questions</h2>
-      <div class="space-y-4">
-        <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-          <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-            Are there ads in Google's AI Overviews?
-            <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">As of May 2025, Google is testing advertisements within its AI Overviews feature, primarily visible to a subset of mobile users in the United States. These tests are gathering data on user interaction and ad effectiveness. The ads have not yet been widely observed in regions like Europe, suggesting any future rollout will be gradual and region-specific.</div>
-        </details>
-        <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-          <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-            Will AI summaries reduce click-through rates for advertisers?
-            <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Potentially yes. If AI summaries provide comprehensive answers, users may have less incentive to click through to websites, leading to more zero-click experiences. This could lead to lower CTRs for traditional ad formats. However, ads placed within AI summaries could command premium positioning and higher relevance, offsetting this with better conversion quality.</div>
-        </details>
-        <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-          <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-            What is AI Summary Share?
-            <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">AI Summary Share is an emerging metric that represents the percentage of times a brand's ads appear within relevant AI summaries. It could become the new holy grail for advertisers, similar to how Absolute Top Search Impression Share is valued today. Capturing this prime real estate will be highly competitive.</div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- Partner Badges -->
-  <section class="py-12 bg-sky-tint border-y border-gray-100" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <PartnerBadges compact />
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="relative py-20 lg:py-28 bg-navy" data-animate>
-    <div class="absolute inset-0 dot-pattern opacity-5"></div>
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">Future-Proof Your Advertising Strategy</h2>
-      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">Get a free audit of your paid search campaigns and discover how to stay ahead as AI reshapes the advertising landscape.</p>
-      <a href="/free-ads-audit" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Get Your Free Ads Audit</a>
-    </div>
-  </section>
-
+  <section class="py-16 lg:py-20 bg-white" data-animate><div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Frequently asked questions</h2><div class="space-y-4">{faqs.map((faq) => <details class="group border border-gray-200 rounded-xl p-6"><summary class="cursor-pointer font-heading font-semibold text-navy">{faq.question}</summary><p class="mt-4 text-gray-700 leading-relaxed">{faq.answer}</p></details>)}</div></div></section>
+  <section class="py-10 bg-sky-tint"><div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-xl font-heading font-bold text-navy mb-4">Sources</h2><ul class="list-disc pl-6 space-y-2 text-gray-700"><li><a href="https://blogs.bing.com/webmaster/2026/2/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview/" class="text-electric underline">Bing Webmaster Blog: AI Performance</a>, citation metrics and their limits.</li><li><a href="https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports" class="text-electric underline">Google Search Central: generative AI performance reports</a>, Search and Discover visibility scope.</li><li><a href="https://support.google.com/analytics/answer/9164320" class="text-electric underline">Google Analytics release notes</a>, recognised AI assistant referrals.</li><li><a href="https://learn.microsoft.com/en-us/advertising/msa-help/hlp_ba_conc_adsforcopilot" class="text-electric underline">Microsoft Advertising: Ads in Copilot</a>, eligibility and reporting limits.</li><li><a href="https://help.openai.com/en-us/articles/20001047-ads-in-chatgpt" class="text-electric underline">OpenAI: Ads in ChatGPT</a>, labels, placement and eligibility.</li></ul></div></section>
+  <section class="py-12 bg-sky-tint border-y border-gray-100" data-animate><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><PartnerBadges compact /></div></section>
+  <section class="relative py-20 lg:py-28 bg-navy" data-animate><div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"><h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">Review paid search with clearer evidence</h2><p class="text-lg text-slate-light mb-8">Check the campaigns, conversion definitions and business outcomes together.</p><a href="/free-bing-ads-audit/" class="inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Request a Bing Ads audit</a></div></section>
 </Layout>
