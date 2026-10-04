@@ -4,6 +4,8 @@ import PartnerBadges from '../components/PartnerBadges.astro';
 import ClientLogos from '../components/ClientLogos.astro';
 import ServiceLinks from '../components/ServiceLinks.astro';
 
+const priceAnswer = 'The same tier ladder applies to Bing management. These tiers apply per channel managed. SILVER GBP 1,000/mo (ad budget up to GBP 3,000, 10 hours/mo); GOLD GBP 1,500/mo (up to GBP 20,000, 20 hours/mo); PLATINUM GBP 2,000/mo + 5% (GBP 20,000+ budget, 35 hours/mo, click-fraud protection); PERFORMANCE: reduced or zero retainer with a revenue-share component, by application, individually negotiated. All plus VAT/month, excluding creative and a one-off GBP 1,000 tracking setup fee, 3-month minimum then rolling monthly with 30 days notice.';
+
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -18,12 +20,13 @@ const schema = {
       "description": "Microsoft Advertising management for Bing and the Microsoft Search Network, planned around your market, conversion data and profitability targets.",
       "url": "https://visible-ads.com/bing-ads",
       "serviceType": "Microsoft Advertising Management",
-      "areaServed": "GB"
+      "areaServed": "GB",
+      "dateModified": "2026-10-04"
     },
     {
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type": "Question", "name": "How much does Bing Ads management cost?", "acceptedAnswer": { "@type": "Answer", "text": "The same tier ladder applies to Bing management. These tiers apply per channel managed. SILVER GBP 1,000/mo (ad budget up to GBP 3,000, 10 hours/mo); GOLD GBP 1,500/mo (up to GBP 20,000, 20 hours/mo); PLATINUM GBP 2,000/mo + 5% (GBP 20,000+ budget, 35 hours/mo, click-fraud protection); PERFORMANCE: reduced or zero retainer with a revenue-share component, by application, individually negotiated. All plus VAT/month, excluding creative and a one-off GBP 1,000 tracking setup fee, 3-month minimum then rolling monthly with 30 days notice." } },
+        { "@type": "Question", "name": "How much does Bing Ads management cost?", "acceptedAnswer": { "@type": "Answer", "text": priceAnswer } },
         {
           "@type": "Question",
           "name": "How does Bing Ads compare to Google Ads?",
@@ -97,6 +100,26 @@ const schema = {
     </div>
   </section>
 
+  <!-- Copilot eligibility -->
+  <section class="py-16 lg:py-20 bg-white" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-10">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Microsoft Ads in Copilot: what your account can reach</h2>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">Microsoft serves paid ads within Copilot responses using existing campaign text and images. Its documented eligible types include Multimedia Ads, Product Ads from Shopping and Performance Max, and selected Search Ads with a logo. These placements use the Microsoft Advertising account you already manage. Our Microsoft Advertising Partner status supports our platform work, but it gives us no special placement or access.</p>
+        <p class="text-lg text-gray-700 leading-relaxed">Microsoft says eligible campaign and ad types are automatically opted in. That means an eligible ad can be considered for Copilot. It does not mean every campaign qualifies or that an eligible ad will appear. Microsoft also says advertisers cannot opt out of Copilot separately.</p>
+      </div>
+      <div class="overflow-x-auto rounded-2xl border border-gray-200 bg-sky-tint mb-10">
+        <table class="w-full text-left text-sm"><caption class="sr-only">Copilot campaign review checklist</caption><thead class="bg-navy text-white"><tr><th scope="col" class="p-4">Check</th><th scope="col" class="p-4">Why it matters</th></tr></thead><tbody class="text-gray-700"><tr class="border-t"><th scope="row" class="p-4 font-semibold text-navy">Ad assets and feeds</th><td class="p-4">Review Search ad logos, images, product titles, availability and landing pages for the eligible formats.</td></tr><tr class="border-t bg-white"><th scope="row" class="p-4 font-semibold text-navy">Relevance and controls</th><td class="p-4">Check search terms, negative keywords, audience settings and policy status. Microsoft says existing negative keyword matching applies in Copilot.</td></tr><tr class="border-t"><th scope="row" class="p-4 font-semibold text-navy">Measurement</th><td class="p-4">Check the UET tag and agreed conversion definitions before comparing spend with orders or qualified leads.</td></tr></tbody></table>
+      </div>
+      <div class="max-w-3xl">
+        <h3 class="text-xl font-heading font-bold text-navy mb-3">How to read delivery</h3>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">Microsoft currently provides no Copilot-specific ad metrics. Read standard campaign delivery and conversion reports with that limit stated clearly. Compare attributed conversions with your own order or lead records and contribution margin before changing budget. The <a href="/blog/multi-channel-attribution/" class="text-electric underline hover:text-electric-dark">multi-channel attribution guide</a> explains how to reconcile those views; our <a href="/blog/google-ads-vs-bing-ads/" class="text-electric underline hover:text-electric-dark">Google Ads and Bing Ads comparison</a> covers the wider channel decision.</p>
+        <a href="/free-bing-ads-audit/" class="inline-flex items-center justify-center bg-cta text-white font-semibold px-8 py-4 rounded-xl hover:bg-electric transition-colors">Request a Bing Ads audit</a>
+      </div>
+    </div>
+  </section>
+  <section class="py-10 bg-sky-tint"><div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-xl font-heading font-bold text-navy mb-4">Sources</h2><ul class="list-disc pl-6 text-gray-700 space-y-2"><li><a class="text-electric underline" href="https://learn.microsoft.com/en-us/advertising/msa-help/hlp_ba_conc_adsforcopilot">Microsoft Advertising: About ads in Copilot</a>, eligible formats, opt-in, controls and reporting limits.</li></ul></div></section>
+
   <!-- What We Do -->
   <section class="py-20 lg:py-28 bg-white" data-animate>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -114,7 +137,7 @@ const schema = {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">Our Approach</h2>
-        <p class="text-lg text-gray-700 max-w-2xl mx-auto">A methodical process to unlock Bing's full potential for your business.</p>
+        <p class="text-lg text-gray-700 max-w-2xl mx-auto">A step-by-step process for getting more from Bing Ads.</p>
         <p class="text-lg text-gray-700 mt-6 leading-relaxed">For a platform comparison before you plan your campaigns, read <a href="/blog/google-ads-vs-bing-ads/" class="text-electric underline hover:text-electric-dark">Google Ads vs Bing Ads</a>.</p>
       </div>
       <div class="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -179,14 +202,7 @@ const schema = {
           <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
             <summary class="cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">How much does Bing Ads management cost?</summary>
             <div class="px-6 pb-6 text-gray-700 leading-relaxed">
-              <p class="mb-4">The same tier ladder applies to Bing management. These tiers apply per channel managed.</p>
-              <ul class="list-disc pl-5 space-y-2 mb-4">
-                <li>SILVER GBP 1,000/mo (ad budget up to GBP 3,000, 10 hours/mo)</li>
-                <li>GOLD GBP 1,500/mo (up to GBP 20,000, 20 hours/mo)</li>
-                <li>PLATINUM GBP 2,000/mo + 5% (GBP 20,000+ budget, 35 hours/mo, click-fraud protection)</li>
-                <li>PERFORMANCE: reduced or zero retainer with a revenue-share component, by application, individually negotiated</li>
-              </ul>
-              <p>All plus VAT/month, excluding creative and a one-off GBP 1,000 tracking setup fee, 3-month minimum then rolling monthly with 30 days notice.</p>
+              <p>{priceAnswer}</p>
             </div>
           </details>
           <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
