@@ -1,14 +1,14 @@
-# Visible Ads — Award-Winning PPC & SEM Consultancy
+# Visible Ads : Award-Winning PPC & SEM Consultancy
 
 > Visible Ads is a boutique search engine marketing consultancy based in Kingston-Upon-Thames, UK. We specialise in Google Ads, Bing Ads, Amazon Advertising, Paid Social, eCRO, and SEO for businesses generating £1M+ revenue.
 
 ## Core Services
-- Google Ads Management (our flagship service) — /google-ads
-- Bing Ads Management — /bing-ads
-- Paid Social (Meta, LinkedIn, TikTok) — /paid-social
-- Amazon Advertising — /amazon
-- eCommerce Conversion Rate Optimisation (eCRO) — /ecro
-- SEO — /seo
+- Google Ads Management (our flagship service) : /google-ads
+- Bing Ads Management : /bing-ads
+- Paid Social (Meta, LinkedIn, TikTok) : /paid-social
+- Amazon Advertising : /amazon
+- eCommerce Conversion Rate Optimisation (eCRO) : /ecro
+- SEO : /seo
 
 ## Key Results
 - £6M return from £500K Google Ads spend for CFW (12x ROAS)
@@ -17,7 +17,7 @@
 - 12x lead volume for Luxury Architecture firm
 
 ## White-Label / Agency Partnerships
-Visible Ads delivers white-label PPC, paid social and SEO for agencies reselling to their own clients. White-label delivery starts from £500 per month per client account; the agency keeps the client relationship. — /ppc-for-professional-services
+Visible Ads delivers white-label PPC, paid social and SEO for agencies reselling to their own clients. White-label delivery starts from £500 per month per client account; the agency keeps the client relationship. : /ppc-for-professional-services
 
 ## Methodology
 We follow our proven 4-phase Blueprint: Discover → Strategise → Execute → Optimise
@@ -32,10 +32,10 @@ We follow our proven 4-phase Blueprint: Discover → Strategise → Execute → 
 - 5.0 Google Reviews rating
 
 ## Team
-- Boh — Founder & PPC Specialist (20+ years digital media)
-- Joe — Digital Marketing Manager (SEO + CRO + Google Ads)
-- Nicolas Whipp — Meta Ads Specialist
-- Tom — Search Advertising Specialist (15+ years, 100+ niches)
+- Boh : Founder & PPC Specialist (20+ years digital media)
+- Joe : Digital Marketing Manager (SEO + CRO + Google Ads)
+- Nicolas Whipp : Meta Ads Specialist
+- Tom : Search Advertising Specialist (15+ years, 100+ niches)
 
 ## Contact
 - Email: Boh@Visible-Ads.com
@@ -68,5 +68,6 @@ We follow our proven 4-phase Blueprint: Discover → Strategise → Execute → 
 - Blog: /blog
 - Meta Ads and GA4 Revenue Reconciliation: /meta-ads-ga4-revenue-mismatch
 - ChatGPT Ads and Commerce Readiness: /chatgpt-ads-ecommerce
-- ChatGPT Ads and Shopping Guide: /blog/chatgpt-ads
+- ChatGPT Ads UK Guide: /blog/chatgpt-ads
+- Multi-Channel Attribution Guide: /blog/multi-channel-attribution
 - White-Label PPC & SEO Pricing UK: /white-label-ppc-seo-pricing-uk
