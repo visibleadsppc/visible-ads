@@ -4,9 +4,16 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://visible-ads.com',
-  // /guide-sent is noindex (it is the gated playbook's thank-you page), so keep it out of
-  // the sitemap rather than asking Google to crawl a page we then tell it to drop.
-  integrations: [sitemap({ filter: (page) => !/\/(guide-sent|playbook)\//.test(page) })],
+  // The gated pages are all noindex, so keep them out of the sitemap rather than asking Google
+  // to crawl a page we then tell it to drop. The Golden Quarter landing page itself IS indexed:
+  // it is the one doing the lead capture. Only its thank-you and download pages are excluded.
+  integrations: [
+    sitemap({
+      filter: (page) =>
+        !/\/(guide-sent|playbook)\//.test(page) &&
+        !/\/tools\/golden-quarter-tactics\/(sent|downloads)\//.test(page),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()]
   }

@@ -1,0 +1,174 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { GOLDEN_QUARTER_GUIDES } from '../../../data/golden-quarter-guides';
+
+// Where /api/confirm sends somebody once their token checks out. This page verifies nothing: it
+// holds no secret, so it could not. The worker does the checking, on this page's arrival and
+// again on every download, and the buttons simply carry the token back to it.
+//
+// That is why each button's static href has no token on it. Clicked with JavaScript off, it
+// reaches /api/download without one and the worker redirects to the expired state below, which
+// is the correct answer rather than a broken link.
+---
+
+<Layout
+  title="Your Golden Quarter Guides | Visible Ads"
+  description="Your confirmed copies of the four Golden Quarter guides for e-commerce brands."
+  noindex={true}
+>
+  <section class="bg-white px-4 py-20 sm:py-28">
+    <div class="max-w-4xl mx-auto">
+      <div id="gq-ready">
+        <div class="inline-flex items-center gap-2 text-sm font-semibold text-success bg-success/10 px-3 py-1.5 rounded-full mb-5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+          Email confirmed
+        </div>
+
+        <h1 class="font-heading text-3xl sm:text-4xl font-bold text-navy leading-tight mb-4">
+          Here are your guides
+        </h1>
+        <p class="text-gray-700 text-lg leading-relaxed mb-10 max-w-2xl">
+          Thanks for confirming. All four are yours, and the link in your email keeps working for
+          30 days, so you can come back for the rest whenever you like.
+        </p>
+
+        <div class="grid sm:grid-cols-2 gap-6 mb-12">
+          {GOLDEN_QUARTER_GUIDES.map((g) => (
+            <article
+              class="gq-card flex gap-5 p-5 rounded-2xl border border-gray-200 bg-gray-50 transition-all duration-200"
+              data-guide={g.slug}
+            >
+              <img
+                src={g.cover}
+                alt={`Cover of ${g.title}`}
+                width="1191"
+                height="1685"
+                loading="lazy"
+                class="w-24 shrink-0 self-start rounded-lg shadow-lg ring-1 ring-navy/10"
+              />
+              <div class="flex flex-col min-w-0">
+                <div class="flex flex-wrap items-center gap-2 mb-2">
+                  <span class="text-xs font-semibold tracking-wide uppercase text-electric bg-electric/10 px-2.5 py-1 rounded-full">
+                    {g.channel}
+                  </span>
+                  <span
+                    class="gq-asked hidden text-xs font-semibold tracking-wide uppercase text-cta bg-cta/10 px-2.5 py-1 rounded-full"
+                  >
+                    Your pick
+                  </span>
+                </div>
+                <h2 class="font-heading font-bold text-navy leading-snug mb-1">{g.title}</h2>
+                <p class="text-xs text-slate mb-4">{g.pages} pages &middot; PDF</p>
+                <a
+                  href={`/api/download?g=${g.slug}`}
+                  data-guide={g.slug}
+                  class="gq-download mt-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-cta text-white text-sm font-semibold rounded-lg hover:bg-electric transition-colors shadow"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" /></svg>
+                  Download
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="p-6 rounded-2xl bg-sky-tint border border-sky-light">
+          <h2 class="font-heading text-xl font-bold text-navy mb-2">Want this done on your account?</h2>
+          <p class="text-gray-700 leading-relaxed mb-5">
+            Send us the account and we will run a free profit audit against your real margins, then
+            tell you which of these would move the number most before peak.
+          </p>
+          <a
+            href="/free-ads-audit"
+            class="inline-flex items-center justify-center px-6 py-3.5 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-colors shadow-lg"
+          >
+            Book a profit audit
+          </a>
+        </div>
+      </div>
+
+      <!-- No token on the URL, or the worker rejected one. Either way there is nothing to
+           download, so this points at a person rather than pretending to be broken. -->
+      <div id="gq-expired" class="hidden max-w-2xl">
+        <div class="inline-flex items-center gap-2 text-sm font-semibold text-amber bg-amber/10 px-3 py-1.5 rounded-full mb-5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          Link expired
+        </div>
+
+        <h1 class="font-heading text-3xl sm:text-4xl font-bold text-navy leading-tight mb-4">
+          That link has expired
+        </h1>
+        <p class="text-gray-700 text-lg leading-relaxed mb-4">
+          Confirmation links last 30 days, and this one is past that or has been altered somewhere
+          along the way.
+        </p>
+        <p class="text-gray-700 leading-relaxed mb-8">
+          Ask for the guides again and a fresh link comes straight back, or email
+          <a href="mailto:hello@visible-ads.com" class="text-electric underline">hello@visible-ads.com</a>
+          and we will send them over by hand.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a
+            href="/tools/golden-quarter-tactics"
+            class="inline-flex items-center justify-center px-6 py-3.5 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-colors shadow-lg"
+          >
+            Get a fresh link
+          </a>
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center px-6 py-3.5 bg-white text-navy font-semibold rounded-lg border border-gray-200 hover:border-electric hover:text-electric transition-colors"
+          >
+            Get in touch
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    if (!/\/tools\/golden-quarter-tactics\/downloads\/?$/.test(window.location.pathname)) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('t') || '';
+    const asked = params.get('g') || '';
+
+    // The worker sends status=expired when it rejected a token outright. No token at all means
+    // somebody reached this URL without going through the email, which comes to the same thing.
+    const expired = params.get('status') === 'expired' || !token;
+
+    document.getElementById('gq-ready')?.classList.toggle('hidden', expired);
+    document.getElementById('gq-expired')?.classList.toggle('hidden', !expired);
+    if (expired) return;
+
+    document.querySelectorAll<HTMLAnchorElement>('.gq-download').forEach((a) => {
+      const slug = a.dataset.guide;
+      if (!slug) return;
+      a.href = `/api/download?g=${encodeURIComponent(slug)}&t=${encodeURIComponent(token)}`;
+    });
+
+    // Mark the one they actually asked for, so a page of four does not lose it.
+    document.querySelectorAll<HTMLElement>('.gq-card').forEach((card) => {
+      if (card.dataset.guide !== asked) return;
+      card.classList.add('border-cta', 'bg-cta/5');
+      card.classList.remove('border-gray-200', 'bg-gray-50');
+      card.querySelector('.gq-asked')?.classList.remove('hidden');
+    });
+
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', 'guide_email_confirmed', { guide: asked || 'unknown' });
+    }
+
+    document.querySelectorAll<HTMLAnchorElement>('.gq-download').forEach((a) => {
+      a.addEventListener('click', () => {
+        if (typeof (window as any).gtag !== 'function') return;
+        (window as any).gtag('event', 'file_download', {
+          file_name: a.dataset.guide,
+          link_text: 'Golden Quarter guide',
+        });
+      });
+    });
+  });
+</script>

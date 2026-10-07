@@ -1,3 +1,9 @@
+# The Q4 playbook page and its public PDF were removed on 7 Oct 2026. The PDF is now served
+# only by /api/download against a signed token, and every guide lands on the Golden Quarter
+# download page instead, so send anyone holding an old link to the page they can re-request from.
+/playbook /tools/golden-quarter-tactics 301
+/guides/5-golden-quarter-google-ads-tactics-q4.pdf /tools/golden-quarter-tactics 301
+
 /google-ppc /google-ads 301
 /ppc /google-ads 301
 /post/cfw-amazon-google-ad-strategy-from-stagnation-to-success /case-studies/cfw 301

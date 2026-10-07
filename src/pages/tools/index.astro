@@ -1,0 +1,191 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { GOLDEN_QUARTER_GUIDES } from '../../data/golden-quarter-guides';
+
+// The Tools section. Everything listed here exists: nothing is a placeholder, because a hub of
+// "coming soon" cards is worse than a short hub.
+const calculators = [
+  {
+    title: 'ROAS vs profit calculator',
+    href: '/roas-vs-profit',
+    kind: 'Calculator',
+    body: 'Put in your margin, ad spend and revenue and see whether the campaign actually made money. A 4x ROAS on a 25% margin makes nothing at all.',
+  },
+  {
+    title: 'Break-even ROAS by margin',
+    href: '/blog/break-even-roas',
+    kind: 'Reference',
+    body: 'The ROAS you need just to stand still, at every margin from 20% to 60%. The number to cap Black Friday bidding against.',
+  },
+  {
+    title: 'Target ROAS by margin',
+    href: '/blog/target-roas-by-margin',
+    kind: 'Reference',
+    body: 'Break-even is the floor, not the target. How to set a tROAS that leaves a real profit once overheads and returns are in.',
+  },
+  {
+    title: 'How we audit',
+    href: '/how-we-audit',
+    kind: 'Framework',
+    body: 'The Profit Contribution Framework we hold every account up to, and the checks behind it. Run it yourself or let us do it.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      name: 'Tools and guides for e-commerce advertisers',
+      description:
+        'Free calculators, references and downloadable guides for e-commerce brands running Google Ads, Amazon, Meta Ads and SEO.',
+      url: 'https://visible-ads.com/tools',
+      publisher: { '@type': 'Organization', name: 'Visible Ads' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://visible-ads.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://visible-ads.com/tools' },
+      ],
+    },
+  ],
+};
+
+const totalPages = GOLDEN_QUARTER_GUIDES.reduce((sum, g) => sum + g.pages, 0);
+---
+
+<Layout
+  title="Tools and Guides for Ecommerce Advertisers | Visible Ads"
+  description="Free calculators, references and downloadable guides for e-commerce brands running Google Ads, Amazon, Meta Ads and SEO. Built around profit, not ROAS."
+  schema={schema}
+>
+  <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Tools' }]} />
+
+  <!-- Hero -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-navy to-navy-light relative overflow-hidden" data-animate>
+    <div class="absolute inset-0 dot-pattern opacity-5"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="max-w-3xl">
+        <span class="inline-block text-electric-light font-heading font-semibold text-sm tracking-wide uppercase mb-4">
+          Tools
+        </span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white mb-6 leading-tight">
+          The things we use, free to use yourself
+        </h1>
+        <p class="text-lg sm:text-xl text-slate-light leading-relaxed">
+          Calculators, reference tables and the playbooks we work from. All of it built around the
+          same idea: ROAS tells you about revenue, and revenue is not what you bank.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured: the Golden Quarter guides -->
+  <section class="py-20 lg:py-28 bg-white" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-10">Downloadable guides</h2>
+
+      <a
+        href="/tools/golden-quarter-tactics"
+        class="group block rounded-2xl border border-gray-200 bg-gray-50 p-7 sm:p-10 hover:border-electric hover:shadow-lg transition-all duration-200"
+      >
+        <div class="grid lg:grid-cols-[minmax(0,1fr)_auto] gap-10 items-center">
+          <div>
+            <span class="inline-block text-xs font-semibold tracking-wide uppercase text-cta bg-cta/10 px-2.5 py-1 rounded-full mb-4">
+              4 guides &middot; free
+            </span>
+            <h3 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-3 group-hover:text-electric transition-colors">
+              Golden Quarter Tactics
+            </h3>
+            <p class="text-gray-700 leading-relaxed mb-5 max-w-2xl">
+              Four playbooks for peak season, {totalPages} pages in total, one per channel: Google
+              Ads, Amazon, Meta Ads and SEO. Written for e-commerce brands that are already
+              spending and want more profit out of it.
+            </p>
+            <ul class="flex flex-wrap gap-2 mb-6">
+              {GOLDEN_QUARTER_GUIDES.map((g) => (
+                <li class="text-xs font-semibold text-electric bg-electric/10 px-2.5 py-1 rounded-full">
+                  {g.channel}
+                </li>
+              ))}
+            </ul>
+            <span class="inline-flex items-center gap-2 font-semibold text-navy group-hover:text-electric transition-colors">
+              Get all four guides
+              <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </span>
+          </div>
+
+          <div class="hidden lg:block relative w-[350px] h-[300px] shrink-0" aria-hidden="true">
+            {GOLDEN_QUARTER_GUIDES.map((g, i) => (
+              <img
+                src={g.cover}
+                alt=""
+                width="1191"
+                height="1685"
+                loading="lazy"
+                class="absolute w-[160px] rounded-lg shadow-xl ring-1 ring-navy/10"
+                style={`left:${i * 62}px; top:${i * 12}px; z-index:${i};`}
+              />
+            ))}
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Calculators and references -->
+  <section class="py-20 lg:py-28 bg-sky-tint" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">
+          Calculators and references
+        </h2>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          No email needed for any of these. Open them, use them, close the tab.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        {calculators.map((c) => (
+          <a
+            href={c.href}
+            class="group block p-7 rounded-2xl bg-white border border-gray-100 shadow-sm hover:border-electric hover:shadow-lg transition-all duration-200"
+          >
+            <span class="inline-block text-xs font-semibold tracking-wide uppercase text-slate bg-gray-100 px-2.5 py-1 rounded-full mb-4">
+              {c.kind}
+            </span>
+            <h3 class="text-xl font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">
+              {c.title}
+            </h3>
+            <p class="text-gray-700 leading-relaxed text-sm mb-4">{c.body}</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-navy group-hover:text-electric transition-colors">
+              Open
+              <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 lg:py-20 bg-navy" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-4">
+        Or we can run the numbers for you
+      </h2>
+      <p class="text-lg text-slate-light leading-relaxed mb-8">
+        A free profit audit against your real margins: where the spend is leaking, what it is
+        costing you, and what we would change first.
+      </p>
+      <a
+        href="/free-ads-audit"
+        class="inline-flex items-center justify-center px-8 py-4 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-lg hover:shadow-xl"
+      >
+        Book a profit audit
+      </a>
+    </div>
+  </section>
+</Layout>

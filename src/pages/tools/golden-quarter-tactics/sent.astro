@@ -1,29 +1,36 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
+import { GOLDEN_QUARTER_GUIDES } from '../../../data/golden-quarter-guides';
 
-// Where the guide popup lands after a successful submit. Deliberately carries NO download:
-// the playbook is behind the confirmation link in the email, and this URL is reachable by
-// anyone who types it, so a download button here would be a way straight past the gate.
+// Where the landing page form lands after a successful submit. Deliberately carries NO
+// download: the guides are behind the confirmation link in the email, and this URL is reachable
+// by anyone who types it, so a download button here would be a way straight past the gate.
+// Its failure state points at a person for the same reason.
 ---
 
 <Layout
-  title="Confirm Your Email to Get the Q4 Playbook | Visible Ads"
-  description="One quick step. Confirm your email address and the Golden Quarter guides open straight away."
+  title="Confirm Your Email to Get the Golden Quarter Guides | Visible Ads"
+  description="One quick step. Confirm your email address and all four Golden Quarter guides open straight away."
   noindex={true}
 >
   <section class="bg-white px-4 py-20 sm:py-28">
     <div class="max-w-3xl mx-auto">
       <div class="grid sm:grid-cols-[auto_minmax(0,1fr)] gap-8 items-start">
-        <img
-          src="/images/guides/q4-playbook-cover.png"
-          alt="Cover of the 5 Golden Quarter Google Ads Tactics playbook"
-          width="1191"
-          height="1685"
-          class="w-40 sm:w-48 rounded-lg shadow-xl ring-1 ring-navy/10"
-        />
+        <div class="relative w-40 sm:w-48 shrink-0" aria-hidden="true">
+          {GOLDEN_QUARTER_GUIDES.slice(0, 3).map((g, i) => (
+            <img
+              src={g.cover}
+              alt=""
+              width="1191"
+              height="1685"
+              class="w-full rounded-lg shadow-xl ring-1 ring-navy/10"
+              style={i === 0 ? '' : `position:absolute; top:${i * 14}px; left:${i * 14}px; z-index:${-i};`}
+            />
+          ))}
+        </div>
 
         <div>
-          <div id="guide-sent-ok">
+          <div id="gq-sent-ok">
             <div class="inline-flex items-center gap-2 text-sm font-semibold text-electric bg-electric/10 px-3 py-1.5 rounded-full mb-5">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
               One step left
@@ -33,29 +40,28 @@ import Layout from '../layouts/Layout.astro';
               Check your inbox to confirm
             </h1>
             <p class="text-gray-700 text-lg leading-relaxed mb-8">
-              We have sent you an email. Confirming it tells us the address is right, and the
-              playbook opens the moment you do, along with the three other Golden Quarter guides.
+              We have sent you an email. Confirming it tells us the address is right, and all four
+              guides open the moment you do.
             </p>
 
             <ol class="space-y-4 mb-8">
               <li class="flex items-start gap-3.5">
                 <span class="shrink-0 w-7 h-7 rounded-full bg-navy text-white text-sm font-semibold flex items-center justify-center">1</span>
                 <span class="text-gray-700 leading-relaxed pt-0.5">
-                  Open the email from <strong class="text-navy">Visible Ads</strong>, subject
-                  "Confirm your email to get: 5 Golden Quarter Google Ads Tactics for Q4".
+                  Open the email from <strong class="text-navy">Visible Ads</strong>. The subject
+                  starts "Confirm your email to get".
                 </span>
               </li>
               <li class="flex items-start gap-3.5">
                 <span class="shrink-0 w-7 h-7 rounded-full bg-navy text-white text-sm font-semibold flex items-center justify-center">2</span>
                 <span class="text-gray-700 leading-relaxed pt-0.5">
-                  Click <strong class="text-navy">Confirm and open the playbook</strong>.
+                  Click <strong class="text-navy">Confirm and open the guide</strong>.
                 </span>
               </li>
               <li class="flex items-start gap-3.5">
                 <span class="shrink-0 w-7 h-7 rounded-full bg-navy text-white text-sm font-semibold flex items-center justify-center">3</span>
                 <span class="text-gray-700 leading-relaxed pt-0.5">
-                  The playbook opens straight away, together with the Amazon, Meta Ads and SEO
-                  guides, all ready to download.
+                  All four guides open on one page, ready to download.
                 </span>
               </li>
             </ol>
@@ -70,10 +76,10 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </div>
 
-          <!-- The worker redirects here with delivery=failed when the guide email did not go
-               out. There is no confirmation link to click in that case, so this state points
-               at a human rather than at a download. -->
-          <div id="guide-sent-failed" class="hidden">
+          <!-- The worker redirects here with delivery=failed when the email did not go out.
+               There is no confirmation link to click in that case, so this state points at a
+               person rather than at a download. -->
+          <div id="gq-sent-failed" class="hidden">
             <div class="inline-flex items-center gap-2 text-sm font-semibold text-amber bg-amber/10 px-3 py-1.5 rounded-full mb-5">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" /></svg>
               Something went wrong
@@ -83,12 +89,12 @@ import Layout from '../layouts/Layout.astro';
               We could not send that email
             </h1>
             <p class="text-gray-700 text-lg leading-relaxed mb-4">
-              Your details reached us, so nothing is lost, but the email carrying the playbook
-              did not go out.
+              Your details reached us, so nothing is lost, but the email carrying your
+              confirmation link did not go out.
             </p>
             <p class="text-gray-700 leading-relaxed mb-8">
               Email <a href="mailto:hello@visible-ads.com" class="text-electric underline">hello@visible-ads.com</a>
-              and we will send the playbook straight over. We are also looking at it this end.
+              and we will send the guides straight over. We are looking at it this end as well.
             </p>
 
             <a
@@ -104,13 +110,13 @@ import Layout from '../layouts/Layout.astro';
       <div class="mt-16 pt-10 border-t border-gray-200">
         <h2 class="font-heading text-xl font-bold text-navy mb-3">While you are here</h2>
         <p class="text-gray-700 leading-relaxed mb-5">
-          The playbook covers the structure. If you want the numbers behind it, these two go
-          deeper on running Q4 for profit rather than revenue.
+          The guides cover the structure. If you want the numbers behind it, these two go deeper
+          on running peak season for profit rather than revenue.
         </p>
         <div class="grid sm:grid-cols-2 gap-4">
           <a href="/roas-vs-profit" class="block p-5 rounded-xl border border-gray-200 hover:border-electric hover:shadow-md transition-all">
             <p class="font-heading font-bold text-navy mb-1">ROAS vs profit</p>
-            <p class="text-sm text-slate leading-relaxed">Why a 4x ROAS can still lose money, and the POAS calculator that shows it.</p>
+            <p class="text-sm text-slate leading-relaxed">Why a 4x ROAS can still lose money, and the calculator that shows it.</p>
           </a>
           <a href="/blog/break-even-roas" class="block p-5 rounded-xl border border-gray-200 hover:border-electric hover:shadow-md transition-all">
             <p class="font-heading font-bold text-navy mb-1">Break-even ROAS by margin</p>
@@ -124,9 +130,9 @@ import Layout from '../layouts/Layout.astro';
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    if (window.location.pathname.replace(/\/+$/, '') !== '/guide-sent') return;
+    if (!/\/tools\/golden-quarter-tactics\/sent\/?$/.test(window.location.pathname)) return;
     const failed = new URLSearchParams(window.location.search).get('delivery') === 'failed';
-    document.getElementById('guide-sent-ok')?.classList.toggle('hidden', failed);
-    document.getElementById('guide-sent-failed')?.classList.toggle('hidden', !failed);
+    document.getElementById('gq-sent-ok')?.classList.toggle('hidden', failed);
+    document.getElementById('gq-sent-failed')?.classList.toggle('hidden', !failed);
   });
 </script>

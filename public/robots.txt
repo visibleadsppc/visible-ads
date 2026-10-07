@@ -5,11 +5,16 @@
 # --- Default: all standard search crawlers welcome ---
 User-agent: *
 Allow: /
-# Gated lead magnets: the PDF and its thank-you page stay out of the index so the
-# download is reached through the form rather than found around it.
+# Gated lead magnets. /guides/ holds the PDFs themselves, which are served only by
+# /api/download against a signed token, so nothing should be crawling in there at all. The
+# thank-you and download pages stay out of the index so a guide is reached through the form
+# rather than found around it.
 Disallow: /guides/
 Disallow: /guide-sent
 Disallow: /playbook
+Disallow: /tools/golden-quarter-tactics/sent
+Disallow: /tools/golden-quarter-tactics/downloads
+Disallow: /api/
 
 # --- AI ANSWER / CITATION crawlers: ALLOWED (these cite you in answers) ---
 User-agent: OAI-SearchBot

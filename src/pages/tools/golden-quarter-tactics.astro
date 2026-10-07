@@ -1,0 +1,445 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Turnstile from '../../components/Turnstile.astro';
+import { GOLDEN_QUARTER_GUIDES, DEFAULT_GUIDE_SLUG } from '../../data/golden-quarter-guides';
+
+// The gated landing page for Boh's four Golden Quarter guides. One email opens all four.
+//
+// The form posts to /api/guide on the visible-ads-forms worker, exactly as the exit-intent
+// popup does, so the confirmed opt-in is the same one that already works: the worker emails a
+// signed link, and the click on that link is what proves the address. The PDFs themselves are
+// never linked from anywhere on the site, so this page and the email are the only routes in.
+const faqs = [
+  {
+    question: 'Do I have to give my email to get the guides?',
+    answer: 'Yes. All four guides are free, but we ask for a name and an email address, and we send a confirmation link rather than an instant download. Clicking that link tells us the address is real, which is how we keep the list worth having. Once you have confirmed, all four guides open on one page.',
+  },
+  {
+    question: 'How many emails will I get?',
+    answer: 'One confirmation email, straight away. We may follow up once to ask whether the guides were useful, and you can tell us to stop at any time. We do not sell or share your address.',
+  },
+  {
+    question: 'Do I get all four, or just one?',
+    answer: 'All four. Pick whichever one you came for and the email leads with that, but confirming opens the Google Ads, Amazon, Meta Ads and SEO guides together on the same page.',
+  },
+  {
+    question: 'Who are these written for?',
+    answer: 'E-commerce brands running paid media into peak season, and the people who own the number at the end of it. They assume you are already spending and want more profit from it, rather than starting from scratch.',
+  },
+  {
+    question: 'Is it too late to use these for this Q4?',
+    answer: 'Some of it is time sensitive and some of it is not. The Meta and SEO guides both say plainly that the work pays off when it is done early, so parts of those are really preparation for next year. The Google Ads and Amazon guides are mostly things you can change this week: feed structure, budget rules, bidding and promotions.',
+  },
+  {
+    question: 'Can you do this for us instead?',
+    answer: 'That is the day job. Send us the account and we will run a free profit audit against your real margins, then tell you what we would change and what it is worth. No obligation either way.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      name: 'Golden Quarter Tactics: four free Q4 guides for e-commerce brands',
+      description:
+        'Four free playbooks for e-commerce peak season, covering Google Ads, Amazon, Meta Ads and SEO. Confirm your email and all four open.',
+      url: 'https://visible-ads.com/tools/golden-quarter-tactics',
+      publisher: { '@type': 'Organization', name: 'Visible Ads' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://visible-ads.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://visible-ads.com/tools' },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: 'Golden Quarter Tactics',
+          item: 'https://visible-ads.com/tools/golden-quarter-tactics',
+        },
+      ],
+    },
+  ],
+};
+
+const steps = [
+  {
+    title: 'Tell us where to send them',
+    body: 'Your first name and an email address. Nothing else, and no company size questions.',
+  },
+  {
+    title: 'Confirm it is your address',
+    body: 'We email you a link. Clicking it is what proves the address is yours, which is why we do it this way round instead of handing over an instant download.',
+  },
+  {
+    title: 'All four open at once',
+    body: 'The link opens a page holding every guide, ready to download. Come back to it whenever you like.',
+  },
+];
+
+const totalTactics = GOLDEN_QUARTER_GUIDES.reduce((sum, g) => sum + g.tactics, 0);
+const totalPages = GOLDEN_QUARTER_GUIDES.reduce((sum, g) => sum + g.pages, 0);
+---
+
+<Layout
+  title="Golden Quarter Tactics: 4 Free Q4 Guides for Ecommerce | Visible Ads"
+  description="Four free Q4 playbooks for e-commerce brands, covering Google Ads, Amazon, Meta Ads and SEO. Confirm your email and all four open at once."
+  schema={schema}
+  image="/images/guides/q4-playbook-cover.png"
+>
+  <Breadcrumb
+    items={[
+      { label: 'Home', href: '/' },
+      { label: 'Tools', href: '/tools' },
+      { label: 'Golden Quarter Tactics' },
+    ]}
+  />
+
+  <!-- Hero -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-navy to-navy-light relative overflow-hidden" data-animate>
+    <div class="absolute inset-0 dot-pattern opacity-5"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="grid lg:grid-cols-[minmax(0,1fr)_auto] gap-12 lg:gap-16 items-center">
+        <div>
+          <span class="inline-block text-electric-light font-heading font-semibold text-sm tracking-wide uppercase mb-4">
+            Free guides &middot; Golden Quarter 2026
+          </span>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white mb-6 leading-tight">
+            Golden Quarter Tactics for e&#8209;commerce brands
+          </h1>
+          <p class="text-lg sm:text-xl text-slate-light leading-relaxed mb-6">
+            Peak season brings the demand and the costs together. Clicks get dearer, storage and
+            fulfilment rates climb, and a quarter that looks like a record on revenue can still
+            land short on profit.
+          </p>
+          <p class="text-lg text-slate-light leading-relaxed mb-8">
+            These are the four playbooks we work from: {totalTactics} tactics across {totalPages} pages,
+            covering Google Ads, Amazon, Meta Ads and SEO. One email opens all four.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a
+              href="#get-the-guides"
+              class="inline-flex items-center justify-center px-8 py-4 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-lg hover:shadow-xl"
+            >
+              Get all four guides
+            </a>
+            <a
+              href="#the-guides"
+              class="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white font-semibold rounded-lg hover:bg-white/20 border border-white/20 transition-all duration-200"
+            >
+              See what is inside
+            </a>
+          </div>
+          <p class="mt-6 text-sm text-slate-light">
+            Written by Boh Tjarks, founder of Visible Ads.
+          </p>
+        </div>
+
+        <!-- Fanned covers. Decorative, so the alt text sits on the first one only. -->
+        <div class="hidden lg:block relative w-[390px] h-[320px] shrink-0" aria-hidden="true">
+          {GOLDEN_QUARTER_GUIDES.map((g, i) => (
+            <img
+              src={g.cover}
+              alt=""
+              width="1191"
+              height="1685"
+              loading="lazy"
+              class="absolute w-[170px] rounded-lg shadow-2xl ring-1 ring-white/10"
+              style={`left:${i * 72}px; top:${i * 14}px; z-index:${i};`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The four guides -->
+  <section id="the-guides" class="py-20 lg:py-28 bg-white scroll-mt-24" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-14">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">Four channels, one quarter</h2>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          Each guide stands on its own, and they are written to be read by somebody who is
+          already spending. Pick the one you came for. Confirming your email opens the other
+          three with it.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        {GOLDEN_QUARTER_GUIDES.map((g) => (
+          <article class="flex flex-col sm:flex-row gap-6 p-6 sm:p-7 rounded-2xl border border-gray-200 bg-gray-50 hover:border-electric hover:shadow-lg transition-all duration-200">
+            <img
+              src={g.cover}
+              alt={`Cover of ${g.title}`}
+              width="1191"
+              height="1685"
+              loading="lazy"
+              class="w-28 sm:w-36 shrink-0 self-start rounded-lg shadow-xl ring-1 ring-navy/10"
+            />
+            <div class="flex flex-col min-w-0">
+              <span class="inline-block self-start text-xs font-semibold tracking-wide uppercase text-electric bg-electric/10 px-2.5 py-1 rounded-full mb-3">
+                {g.channel}
+              </span>
+              <h3 class="text-xl font-heading font-bold text-navy mb-2 leading-snug">{g.title}</h3>
+              <p class="text-sm text-gray-700 leading-relaxed mb-4">{g.summary}</p>
+
+              <p class="text-xs font-semibold uppercase tracking-wide text-slate mb-2">
+                The {g.tactics} tactics
+              </p>
+              <ul class="space-y-1.5 mb-5">
+                {g.inside.map((item) => (
+                  <li class="flex items-start gap-2 text-sm text-slate-dark leading-relaxed">
+                    <svg class="w-4 h-4 mt-0.5 shrink-0 text-success" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              <div class="mt-auto flex items-center gap-4">
+                <button
+                  type="button"
+                  class="gq-pick inline-flex items-center justify-center gap-2 px-5 py-3 bg-navy text-white text-sm font-semibold rounded-lg hover:bg-electric transition-colors"
+                  data-guide={g.slug}
+                  data-channel={g.channel}
+                >
+                  Get this guide
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" /></svg>
+                </button>
+                <span class="text-xs text-slate">{g.pages} pages &middot; PDF</span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="py-20 lg:py-28 bg-sky-tint" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">How you get them</h2>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          Three steps, and the middle one is the reason there is no instant download button on
+          this page.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl">
+        {steps.map((s, i) => (
+          <div class="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm">
+            <div class="w-12 h-12 rounded-xl bg-electric text-white font-heading font-extrabold text-xl flex items-center justify-center mb-5 shadow-lg shadow-electric/30">
+              {i + 1}
+            </div>
+            <h3 class="text-lg font-heading font-bold text-navy mb-2">{s.title}</h3>
+            <p class="text-gray-700 leading-relaxed text-sm">{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- The form -->
+  <section id="get-the-guides" class="py-20 lg:py-28 bg-white scroll-mt-24" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-5xl mx-auto grid lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] gap-12 items-start">
+        <div>
+          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">
+            One email, all four guides
+          </h2>
+          <p class="text-lg text-gray-700 leading-relaxed mb-6">
+            We will send you a link to confirm. Click it and every guide opens on one page, ready
+            to download.
+          </p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3 text-gray-700 leading-relaxed">
+              <svg class="w-5 h-5 mt-0.5 shrink-0 text-success" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              All four guides, {totalPages} pages in total, free
+            </li>
+            <li class="flex items-start gap-3 text-gray-700 leading-relaxed">
+              <svg class="w-5 h-5 mt-0.5 shrink-0 text-success" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              One confirmation email, and at most one follow-up
+            </li>
+            <li class="flex items-start gap-3 text-gray-700 leading-relaxed">
+              <svg class="w-5 h-5 mt-0.5 shrink-0 text-success" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              Your address is never sold or shared
+            </li>
+          </ul>
+          <p class="text-sm text-slate leading-relaxed">
+            Already confirmed and lost the page? Email
+            <a href="mailto:hello@visible-ads.com" class="text-electric underline">hello@visible-ads.com</a>
+            and we will send a fresh link.
+          </p>
+        </div>
+
+        <div
+          class="bg-gray-50 rounded-2xl border border-gray-200 p-6 sm:p-8 shadow-sm"
+          data-hide-sticky-cta
+        >
+          <p class="text-sm text-slate mb-1">Leading with</p>
+          <p id="gq-lead-label" class="font-heading font-bold text-navy mb-5">
+            {GOLDEN_QUARTER_GUIDES.find((g) => g.slug === DEFAULT_GUIDE_SLUG)?.title}
+          </p>
+
+          <form id="gq-form" action="/api/guide" method="POST" data-astro-reload class="space-y-3">
+            <input type="hidden" name="_form" value="guide" />
+            <input type="hidden" name="_guide" id="gq-guide" value={DEFAULT_GUIDE_SLUG} />
+            <input
+              type="hidden"
+              name="_next"
+              value="https://visible-ads.com/tools/golden-quarter-tactics/sent"
+            />
+            <input type="hidden" id="gq-source" name="source_page" value="/tools/golden-quarter-tactics" />
+            <input
+              type="text"
+              name="_honey"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+              style="position:absolute;left:-9999px;opacity:0;pointer-events:none"
+            />
+
+            <div>
+              <label for="gq-name" class="sr-only">First name</label>
+              <input
+                type="text"
+                id="gq-name"
+                name="name"
+                required
+                autocomplete="name"
+                placeholder="Your first name"
+                class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-electric focus:ring-2 focus:ring-electric/20 outline-none transition-all text-gray-700"
+              />
+            </div>
+            <div>
+              <label for="gq-email" class="sr-only">Email</label>
+              <input
+                type="email"
+                id="gq-email"
+                name="email"
+                required
+                autocomplete="email"
+                placeholder="you@company.com"
+                class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-electric focus:ring-2 focus:ring-electric/20 outline-none transition-all text-gray-700"
+              />
+            </div>
+
+            <Turnstile />
+
+            <button
+              type="submit"
+              class="w-full px-6 py-3.5 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-cta/25"
+            >
+              Send me all four guides
+            </button>
+          </form>
+
+          <p class="mt-4 text-xs leading-relaxed text-slate-light">
+            Confirm your address from the email and the guides open. We may follow up once to see
+            if they were useful, and you can tell us to stop at any time. See our
+            <a href="/privacy-policy" class="underline hover:text-electric">privacy policy</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 lg:py-28 bg-gray-50" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-10">Questions</h2>
+      <div class="space-y-4">
+        {faqs.map((f) => (
+          <details class="group bg-white rounded-xl border border-gray-200 overflow-hidden">
+            <summary class="flex items-center justify-between gap-4 cursor-pointer px-6 py-5 font-heading font-semibold text-navy hover:text-electric transition-colors">
+              {f.question}
+              <svg class="w-5 h-5 shrink-0 text-slate transition-transform group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+            </summary>
+            <p class="px-6 pb-6 text-gray-700 leading-relaxed">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 lg:py-20 bg-navy" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-4">
+        Would you rather we just did it?
+      </h2>
+      <p class="text-lg text-slate-light leading-relaxed mb-8">
+        Send us the account and we will run a free profit audit against your real margins, then
+        tell you what we would change before peak and what it is worth.
+      </p>
+      <a
+        href="/free-ads-audit"
+        class="inline-flex items-center justify-center px-8 py-4 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-lg hover:shadow-xl"
+      >
+        Book a profit audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Picking a guide sets the hidden field the worker reads, so the confirmation email leads
+  // with the one they clicked. Every guide opens either way, so this only changes the email.
+  document.addEventListener('astro:page-load', () => {
+    const form = document.getElementById('gq-form') as HTMLFormElement | null;
+    if (!form) return;
+
+    const slugField = document.getElementById('gq-guide') as HTMLInputElement | null;
+    const label = document.getElementById('gq-lead-label');
+    const titles = new Map<string, string>();
+    document.querySelectorAll<HTMLElement>('article h3').forEach((h) => {
+      const btn = h.closest('article')?.querySelector<HTMLElement>('.gq-pick');
+      if (btn?.dataset.guide) titles.set(btn.dataset.guide, h.textContent?.trim() || '');
+    });
+
+    document.querySelectorAll<HTMLElement>('.gq-pick').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const slug = btn.dataset.guide;
+        if (!slug || !slugField) return;
+        slugField.value = slug;
+        if (label) label.textContent = titles.get(slug) || label.textContent;
+
+        document.getElementById('get-the-guides')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Focus after the scroll so the browser does not jump the page a second time.
+        window.setTimeout(() => document.getElementById('gq-name')?.focus({ preventScroll: true }), 500);
+
+        if (typeof (window as any).gtag === 'function') {
+          (window as any).gtag('event', 'select_item', {
+            item_list_name: 'golden_quarter_guides',
+            guide: slug,
+          });
+        }
+      });
+    });
+
+    form.addEventListener('submit', () => {
+      // Stops the site-wide exit-intent popup offering a guide to somebody who has just asked
+      // for all four. Same key the popup writes, deliberately.
+      try {
+        window.localStorage.setItem('va_guide_done', String(Date.now()));
+      } catch {
+        /* private browsing, nothing to do */
+      }
+      if (typeof (window as any).gtag === 'function') {
+        (window as any).gtag('event', 'generate_lead', {
+          form: 'golden_quarter_landing',
+          guide: slugField?.value || '',
+        });
+      }
+    });
+  });
+</script>
