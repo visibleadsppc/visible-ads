@@ -27,7 +27,7 @@ import '../styles/global.css';
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZ6RF754RW"></script>
-  <script>
+  <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -130,6 +130,20 @@ import '../styles/global.css';
           page_path: window.location.pathname,
           page_title: document.title,
         });
+
+        // Form posts redirect back with ?thanks=1; count each successful submission once as a lead.
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('thanks') === '1') {
+          const key = 'va_lead_' + window.location.pathname + window.location.search;
+          let seen = false;
+          try { seen = sessionStorage.getItem(key) === '1'; sessionStorage.setItem(key, '1'); } catch (e) {}
+          if (!seen) {
+            gtag('event', 'generate_lead', {
+              form_name: params.get('form') || window.location.pathname.replace(/\//g, '') || 'home',
+              page_path: window.location.pathname,
+            });
+          }
+        }
       }
 
       const observer = new IntersectionObserver((entries) => {
