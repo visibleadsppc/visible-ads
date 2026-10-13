@@ -10,19 +10,19 @@ const faqs = [
   },
   {
     question: 'How much do PPC management services cost?',
-    answer: 'Our fees are per channel managed, plus VAT. Silver is £1,000 a month for ad budgets up to £3,000 (10 hours a month). Gold is £1,500 a month for budgets up to £20,000 (20 hours). Platinum is £2,000 a month plus 5% for budgets over £20,000 (35 hours, with click-fraud protection). A performance model with a reduced or zero retainer and a revenue share is available by application. Creative is not included, and Meta and Google need a one-off £1,000 tracking setup. The minimum term is three months, then rolling monthly with 30 days notice.',
+    answer: 'Our fees are per channel managed plus VAT. Silver is £1,000 a month for ad budgets up to £3,000 (10 hours a month). Gold is £1,500 a month for budgets up to £20,000 (20 hours). Platinum is £2,000 a month plus 5% for budgets over £20,000 (35 hours, with click-fraud protection). A performance model with a reduced or zero retainer and a revenue share is available by application. Creative is not included, and Meta and Google need a one-off £1,000 tracking setup. The minimum term is three months and then rolling monthly with 30 days notice.',
   },
   {
     question: 'How do you decide when to increase or cut ad spend?',
-    answer: 'We review ROAS against the budget every week and follow a fixed set of rules. Above 1,200% ROAS we raise the budget by 20% a week. Between 900% and 1,100% we raise it by 10%. Between 600% and 800% we hold. Between 300% and 500% we cut by 20%. Below 300% we switch the spend off. Those thresholds sit alongside your margin, so the target is profit, with ROAS as the control we manage to.',
+    answer: 'We review ROAS against the budget every week and follow a fixed set of rules. Above 1,200% ROAS we raise the budget by 20% a week. Between 900% and 1,100% we raise it by 10%. Between 600% and 800% we hold. Between 300% and 500% we cut by 20%. Below 300% we switch the spend off. Those thresholds sit alongside your margin. The target is profit and ROAS is the control we manage to.',
   },
   {
     question: 'Do I need a separate agency for each ad platform?',
-    answer: 'No. We manage Google Ads, Microsoft Advertising, Amazon Ads, Meta, TikTok and LinkedIn under one plan, with one budget view and one profit target. That stops two platforms claiming the same sale and makes it clear where the next pound should go.',
+    answer: 'No. We manage Google Ads, Microsoft Advertising, Amazon Ads, Meta, TikTok and LinkedIn under one plan with one budget view and one profit target. That stops two platforms claiming the same sale and makes it clear where the next pound should go.',
   },
   {
     question: 'How long does it take to see results from PPC management?',
-    answer: 'We do not promise a fixed timing window. Tracking and waste fixes come first, and scaling then follows the weekly budget rules, only where the numbers support it.',
+    answer: 'We do not promise a fixed timing window. Tracking and waste fixes come first. Scaling then follows the weekly budget rules only where the numbers support it.',
   },
 ];
 
@@ -53,11 +53,11 @@ const schema = {
 };
 
 const channels = [
-  { name: 'Google Ads', href: '/google-ads/', text: 'Search, Shopping, Performance Max, Display and YouTube, built around the searches that bring in buyers.' },
-  { name: 'Microsoft Advertising', href: '/bing-ads/', text: 'Bing search and Copilot placements, a source of extra search demand once Google is working.' },
-  { name: 'Amazon Ads', href: '/amazon/', text: 'Sponsored Products, Brands and Display, managed against your marketplace margin.' },
+  { name: 'Google Ads', href: '/google-ads/', text: 'Search, Shopping, Performance Max, Display and YouTube campaigns built around the searches that bring in buyers.' },
+  { name: 'Microsoft Advertising', href: '/bing-ads/', text: 'Bing search and Copilot placements add search demand once Google is working.' },
+  { name: 'Amazon Ads', href: '/amazon/', text: 'Sponsored Products, Brands and Display campaigns managed against your marketplace margin.' },
   { name: 'Meta, TikTok and LinkedIn', href: '/paid-social/', text: 'Paid social that creates demand, measured against the orders and leads it actually adds.' },
-  { name: 'Display and remarketing', href: '/display-advertising/', text: 'Bringing back people who have already shown interest, without paying twice for the same sale.' },
+  { name: 'Display and remarketing', href: '/display-advertising/', text: 'Remarketing brings back people who have already shown interest without paying twice for the same sale.' },
 ];
 
 const rules = [
@@ -86,7 +86,7 @@ const tiers = [
       <div class="max-w-3xl">
         <span class="inline-block px-4 py-1.5 bg-electric/20 text-electric-light text-sm font-medium rounded-full mb-6">Google Partner, Microsoft Advertising Partner, Amazon Ads Verified Partner, Meta Business Partner</span>
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-6">PPC Management Services</h1>
-        <p class="text-lg sm:text-xl text-slate-light mb-8 leading-relaxed">We run your paid advertising week to week across Google, Microsoft, Amazon, Meta, TikTok and LinkedIn. Every channel is measured against your margin, budgets move on fixed rules, and you always know what the spend is doing for the business.</p>
+        <p class="text-lg sm:text-xl text-slate-light mb-8 leading-relaxed">We run your paid advertising every week across Google, Microsoft, Amazon, Meta, TikTok and LinkedIn. Every channel is measured against your margin. Budgets move on fixed rules so you always know what the spend is doing for the business.</p>
         <div class="flex flex-col sm:flex-row gap-4">
           <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-8 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a free profit audit</a>
           <a href="#pricing" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/20 hover:bg-white/10 transition-colors">See pricing</a>
@@ -106,7 +106,7 @@ const tiers = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mb-12">
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What our PPC management covers</h2>
-        <p class="text-lg text-gray-700 leading-relaxed">One team runs every paid channel you use, under one budget and one profit target. That matters because platforms each report their own version of success, and the same sale is often claimed twice. We start from your real orders and leads, then decide which channel earns the next pound.</p>
+        <p class="text-lg text-gray-700 leading-relaxed">One team runs every paid channel you use under one budget and one profit target. Platforms each report their own version of success and often claim the same sale twice. We start from your real orders and leads and then decide which channel earns the next pound.</p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {channels.map((c) => (
@@ -126,8 +126,8 @@ const tiers = [
       <ul class="space-y-4 text-lg text-gray-700 leading-relaxed">
         <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Check the numbers against real orders.</strong> Platform conversions are compared with your shop, CRM or GA4 so we act on sales that actually happened.</li>
         <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Cut waste.</strong> Search terms, placements and audiences that spend without returning are excluded.</li>
-        <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Move budget on the rules below.</strong> Spend goes up only where the return supports it, and comes down quickly where it does not.</li>
-        <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Test ads and landing pages.</strong> New copy, creative and offers are tested in a controlled way, and conversion rate work runs alongside the media.</li>
+        <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Move budget on the rules below.</strong> Spend goes up only where the return supports it and comes down quickly where it does not.</li>
+        <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Test ads and landing pages.</strong> New copy, creative and offers are tested in a controlled way. Conversion rate work runs alongside the media.</li>
         <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Report in plain English.</strong> Weekly calls or video updates, a KPI dashboard and a quarterly review.</li>
       </ul>
     </div>
@@ -137,7 +137,7 @@ const tiers = [
   <section class="py-20 lg:py-24 bg-white" data-animate>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">How we decide when to scale or cut spend</h2>
-      <p class="text-lg text-gray-700 mb-8 leading-relaxed">Profit is the goal and ROAS is the control we manage to. Every week each campaign is placed in one of these bands, and the budget moves accordingly. It takes the guesswork, and the temptation to keep spending, out of the decision.</p>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">We scale or cut spend every week using fixed ROAS bands. Profit is the goal and ROAS is the control we manage to. Each campaign sits in one band and its budget moves to match. The bands take guesswork and the temptation to keep spending out of the decision.</p>
       <div class="overflow-x-auto rounded-2xl border border-gray-200">
         <table class="w-full text-left text-base">
           <caption class="sr-only">Weekly budget rules by return on ad spend</caption>
@@ -158,7 +158,7 @@ const tiers = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mb-12">
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">PPC management pricing</h2>
-        <p class="text-lg text-gray-700 leading-relaxed">Fees are per channel managed, plus VAT, with unlimited campaigns on that channel. Your ad budget is paid to the platforms separately.</p>
+        <p class="text-lg text-gray-700 leading-relaxed">Fees are per channel managed plus VAT with unlimited campaigns on that channel. Your ad budget is paid to the platforms separately.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         {tiers.map((t) => (
@@ -173,7 +173,7 @@ const tiers = [
           </div>
         ))}
       </div>
-      <p class="text-gray-700 mt-8 leading-relaxed max-w-3xl">A performance model with a reduced or zero retainer and a revenue share is available by application. Creative is not included, and Meta and Google need a one-off £1,000 tracking setup. Minimum term three months, then rolling monthly with 30 days notice. Agencies looking for delivery under their own brand should see our <a href="/white-label-ppc-seo-pricing-uk/" class="text-electric underline hover:text-electric-dark">white-label PPC pricing</a>.</p>
+      <p class="text-gray-700 mt-8 leading-relaxed max-w-3xl">A performance model with a reduced or zero retainer and a revenue share is available by application. Creative is not included. Meta and Google need a one-off £1,000 tracking setup. The minimum term is three months and then rolling monthly with 30 days notice. Agencies looking for delivery under their own brand should see our <a href="/white-label-ppc-seo-pricing-uk/" class="text-electric underline hover:text-electric-dark">white-label PPC pricing</a>.</p>
     </div>
   </section>
 
@@ -181,8 +181,8 @@ const tiers = [
   <section class="py-20 lg:py-24 bg-white" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Who our PPC management is for</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Most of our clients are ecommerce and B2B businesses turning over between £1M and £20M, selling in the UK, US or Europe, and spending enough on ads that waste shows up on the P&amp;L. We also run lead generation for <a href="/ppc-for-professional-services/" class="text-electric underline hover:text-electric-dark">professional services firms</a>.</p>
-      <p class="text-lg text-gray-700 leading-relaxed">If you only need one platform, our channel pages go deeper: <a href="/google-ads/" class="text-electric underline hover:text-electric-dark">Google Ads management</a>, <a href="/bing-ads/" class="text-electric underline hover:text-electric-dark">Microsoft Advertising</a> and <a href="/amazon/" class="text-electric underline hover:text-electric-dark">Amazon Ads</a>. To see how the channels work together, read about our <a href="/multi-channel-services/" class="text-electric underline hover:text-electric-dark">multi-channel approach</a>.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Most of our clients are ecommerce and B2B businesses turning over £1M to £20M and selling in the UK, US or Europe. Their ad spend is large enough that waste shows up on the P&amp;L. We also run lead generation for professional services firms.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">Single-platform advertisers can go straight to the channel pages listed above. Our <a href="/multi-channel-services/" class="text-electric underline hover:text-electric-dark">multi-channel approach</a> explains how the channels work together.</p>
     </div>
   </section>
 
@@ -193,14 +193,14 @@ const tiers = [
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-10 text-left">
         <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
           <p class="text-3xl font-heading font-extrabold text-electric mb-2">11x ROAS</p>
-          <p class="text-gray-700"><strong class="text-navy">Japan Centre, Google relaunch.</strong> £32K in sales from £2.9K of spend in three weeks, up from 2x ROAS with the previous agency.</p>
+          <p class="text-gray-700"><strong class="text-navy">Japan Centre Google relaunch.</strong> £32K in sales came from £2.9K of spend in three weeks. The previous agency delivered 2x ROAS.</p>
         </div>
         <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
           <p class="text-3xl font-heading font-extrabold text-electric mb-2">8.5x ROAS</p>
-          <p class="text-gray-700"><strong class="text-navy">CFW, Amazon Ads.</strong> £769,025.79 in sales from £91,902.91 of spend across 17,566 purchases, all time.</p>
+          <p class="text-gray-700"><strong class="text-navy">CFW Amazon Ads.</strong> All-time sales of £769,025.79 came from £91,902.91 of spend across 17,566 purchases.</p>
         </div>
       </div>
-      <p class="text-gray-700 mb-8">Winner, UK Search Awards 2022. More detail in our <a href="/case-studies/" class="text-electric underline hover:text-electric-dark">case studies</a>.</p>
+      <p class="text-gray-700 mb-8">Visible Ads won at the UK Search Awards 2022. Find more detail in our <a href="/case-studies/" class="text-electric underline hover:text-electric-dark">case studies</a>.</p>
       <ClientLogos />
     </div>
   </section>
@@ -225,7 +225,7 @@ const tiers = [
     <div class="absolute inset-0 dot-pattern opacity-5"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">See where your ad spend is leaking</h2>
-      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">A free, no-obligation audit of your paid channels, judged against your margin and the budget rules above.</p>
+      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">Get a free and no-obligation audit of your paid channels judged against your margin and the budget rules above.</p>
       <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a free profit audit</a>
     </div>
   </section>
