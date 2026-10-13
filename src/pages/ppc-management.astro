@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     question: 'How long does it take to see results from PPC management?',
-    answer: 'Most of the early gains come from fixing tracking, cutting wasted spend and restructuring campaigns, which usually shows within the first few weeks. Scaling then follows the weekly budget rules, so growth is only added where the numbers support it.',
+    answer: 'We do not promise a fixed timing window. Tracking and waste fixes come first, and scaling then follows the weekly budget rules, only where the numbers support it.',
   },
 ];
 
@@ -69,13 +69,13 @@ const rules = [
 ];
 
 const tiers = [
-  { name: 'Silver', fee: '£1,000 a month', budget: 'Ad budget up to £3,000', hours: '10 hours a month', extras: 'CRO, KPI dashboard, weekly call or video update, quarterly review' },
-  { name: 'Gold', fee: '£1,500 a month', budget: 'Ad budget up to £20,000', hours: '20 hours a month', extras: 'Everything in Silver' },
-  { name: 'Platinum', fee: '£2,000 a month plus 5%', budget: 'Ad budget over £20,000', hours: '35 hours a month', extras: 'Everything in Gold, plus click-fraud protection' },
+  { name: 'Silver', fee: '£1,000 a month', budget: 'Ad budget up to £3,000', hours: '10 hours a month', extras: 'CRO, KPI dashboard, weekly calls or video updates, quarterly review' },
+  { name: 'Gold', fee: '£1,500 a month', budget: 'Ad budget up to £20,000', hours: '20 hours a month', extras: 'Unlimited campaigns on the channel' },
+  { name: 'Platinum', fee: '£2,000 a month plus 5%', budget: 'Ad budget over £20,000', hours: '35 hours a month', extras: 'Click-fraud protection' },
 ];
 ---
 
-<Layout title="PPC Management Services, Run to Profit | Visible Ads" description="PPC management services across Google, Microsoft, Amazon, Meta, TikTok and LinkedIn. Weekly budget rules, clear pricing per channel and a free audit to start." schema={schema}>
+<Layout title="PPC Management Services | Visible Ads" description="PPC management services across Google, Microsoft, Amazon, Meta, TikTok and LinkedIn. Weekly budget rules, clear pricing per channel and a free audit to start." schema={schema}>
 
   <!-- Hero -->
   <section class="relative py-20 lg:py-28 overflow-hidden bg-navy" data-animate>
@@ -84,11 +84,11 @@ const tiers = [
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <nav class="text-sm text-slate-light mb-8"><a href="/" class="hover:text-white">Home</a><span class="mx-2">/</span><span class="text-white">PPC Management</span></nav>
       <div class="max-w-3xl">
-        <span class="inline-block px-4 py-1.5 bg-electric/20 text-electric-light text-sm font-medium rounded-full mb-6">Google, Microsoft, Amazon and Meta Partner</span>
+        <span class="inline-block px-4 py-1.5 bg-electric/20 text-electric-light text-sm font-medium rounded-full mb-6">Google Partner, Microsoft Advertising Partner, Amazon Ads Verified Partner, Meta Business Partner</span>
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-6">PPC Management Services</h1>
         <p class="text-lg sm:text-xl text-slate-light mb-8 leading-relaxed">We run your paid advertising week to week across Google, Microsoft, Amazon, Meta, TikTok and LinkedIn. Every channel is measured against your margin, budgets move on fixed rules, and you always know what the spend is doing for the business.</p>
         <div class="flex flex-col sm:flex-row gap-4">
-          <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-8 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Get a free PPC audit</a>
+          <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-8 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a free profit audit</a>
           <a href="#pricing" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/20 hover:bg-white/10 transition-colors">See pricing</a>
         </div>
       </div>
@@ -128,7 +128,7 @@ const tiers = [
         <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Cut waste.</strong> Search terms, placements and audiences that spend without returning are excluded.</li>
         <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Move budget on the rules below.</strong> Spend goes up only where the return supports it, and comes down quickly where it does not.</li>
         <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Test ads and landing pages.</strong> New copy, creative and offers are tested in a controlled way, and conversion rate work runs alongside the media.</li>
-        <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Report in plain English.</strong> A short weekly update and a live KPI dashboard, with a quarterly review of the bigger picture.</li>
+        <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Report in plain English.</strong> Weekly calls or video updates, a KPI dashboard and a quarterly review.</li>
       </ul>
     </div>
   </section>
@@ -189,8 +189,18 @@ const tiers = [
   <!-- Proof -->
   <section class="py-16 bg-sky-tint" data-animate>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">Brands we manage advertising for</h2>
-      <p class="text-gray-700 mb-8">Winner, UK Search Awards 2022. See the results in our <a href="/case-studies/" class="text-electric underline hover:text-electric-dark">case studies</a>.</p>
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">Results from accounts we manage</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-10 text-left">
+        <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+          <p class="text-3xl font-heading font-extrabold text-electric mb-2">11x ROAS</p>
+          <p class="text-gray-700"><strong class="text-navy">Japan Centre, Google relaunch.</strong> £32K in sales from £2.9K of spend in three weeks, up from 2x ROAS with the previous agency.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+          <p class="text-3xl font-heading font-extrabold text-electric mb-2">8.5x ROAS</p>
+          <p class="text-gray-700"><strong class="text-navy">CFW, Amazon Ads.</strong> £769,025 in sales from £91,903 of spend across 17,566 purchases, all time.</p>
+        </div>
+      </div>
+      <p class="text-gray-700 mb-8">Winner, UK Search Awards 2022. More detail in our <a href="/case-studies/" class="text-electric underline hover:text-electric-dark">case studies</a>.</p>
       <ClientLogos />
     </div>
   </section>
@@ -215,8 +225,8 @@ const tiers = [
     <div class="absolute inset-0 dot-pattern opacity-5"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">See where your ad spend is leaking</h2>
-      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">A free, no-obligation audit of your paid channels. We show you the waste, the tracking gaps and what we would change first.</p>
-      <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Get a free PPC audit</a>
+      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">A free, no-obligation audit of your paid channels, judged against your margin and the budget rules above.</p>
+      <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a free profit audit</a>
     </div>
   </section>
 
