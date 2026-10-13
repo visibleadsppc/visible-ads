@@ -1,0 +1,223 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PartnerBadges from '../components/PartnerBadges.astro';
+import ClientLogos from '../components/ClientLogos.astro';
+
+const faqs = [
+  {
+    question: 'What is PPC management?',
+    answer: 'PPC management is the ongoing work of running your pay-per-click advertising: account structure, keywords and audiences, bids and budgets, ads and creative, conversion tracking, and weekly decisions about where spend goes next. We manage it across Google, Microsoft, Amazon, Meta, TikTok and LinkedIn, and judge every channel against margin rather than reported revenue alone.',
+  },
+  {
+    question: 'How much do PPC management services cost?',
+    answer: 'Our fees are per channel managed, plus VAT. Silver is £1,000 a month for ad budgets up to £3,000 (10 hours a month). Gold is £1,500 a month for budgets up to £20,000 (20 hours). Platinum is £2,000 a month plus 5% for budgets over £20,000 (35 hours, with click-fraud protection). A performance model with a reduced or zero retainer and a revenue share is available by application. Creative is not included, and Meta and Google need a one-off £1,000 tracking setup. The minimum term is three months, then rolling monthly with 30 days notice.',
+  },
+  {
+    question: 'How do you decide when to increase or cut ad spend?',
+    answer: 'We review ROAS against the budget every week and follow a fixed set of rules. Above 1,200% ROAS we raise the budget by 20% a week. Between 900% and 1,100% we raise it by 10%. Between 600% and 800% we hold. Between 300% and 500% we cut by 20%. Below 300% we switch the spend off. Those thresholds sit alongside your margin, so the target is profit, with ROAS as the control we manage to.',
+  },
+  {
+    question: 'Do I need a separate agency for each ad platform?',
+    answer: 'No. We manage Google Ads, Microsoft Advertising, Amazon Ads, Meta, TikTok and LinkedIn under one plan, with one budget view and one profit target. That stops two platforms claiming the same sale and makes it clear where the next pound should go.',
+  },
+  {
+    question: 'How long does it take to see results from PPC management?',
+    answer: 'Most of the early gains come from fixing tracking, cutting wasted spend and restructuring campaigns, which usually shows within the first few weeks. Scaling then follows the weekly budget rules, so growth is only added where the numbers support it.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'PPC Management Services',
+      serviceType: 'PPC Management',
+      provider: { '@type': 'Organization', name: 'Visible Ads', url: 'https://visible-ads.com' },
+      description: 'Multi-channel PPC management across Google Ads, Microsoft Advertising, Amazon Ads, Meta, TikTok and LinkedIn, managed weekly against margin.',
+      url: 'https://visible-ads.com/ppc-management/',
+      areaServed: 'GB',
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://visible-ads.com/' },
+        { '@type': 'ListItem', position: 2, name: 'PPC Management', item: 'https://visible-ads.com/ppc-management/' },
+      ],
+    },
+  ],
+};
+
+const channels = [
+  { name: 'Google Ads', href: '/google-ads/', text: 'Search, Shopping, Performance Max, Display and YouTube, built around the searches that bring in buyers.' },
+  { name: 'Microsoft Advertising', href: '/bing-ads/', text: 'Bing search and Copilot placements, a source of extra search demand once Google is working.' },
+  { name: 'Amazon Ads', href: '/amazon/', text: 'Sponsored Products, Brands and Display, managed against your marketplace margin.' },
+  { name: 'Meta, TikTok and LinkedIn', href: '/paid-social/', text: 'Paid social that creates demand, measured against the orders and leads it actually adds.' },
+  { name: 'Display and remarketing', href: '/display-advertising/', text: 'Bringing back people who have already shown interest, without paying twice for the same sale.' },
+];
+
+const rules = [
+  { roas: 'Above 1,200%', action: 'Raise budget 20% a week' },
+  { roas: '900% to 1,100%', action: 'Raise budget 10% a week' },
+  { roas: '600% to 800%', action: 'Hold budget' },
+  { roas: '300% to 500%', action: 'Cut budget 20%' },
+  { roas: 'Below 300%', action: 'Switch spend off' },
+];
+
+const tiers = [
+  { name: 'Silver', fee: '£1,000 a month', budget: 'Ad budget up to £3,000', hours: '10 hours a month', extras: 'CRO, KPI dashboard, weekly call or video update, quarterly review' },
+  { name: 'Gold', fee: '£1,500 a month', budget: 'Ad budget up to £20,000', hours: '20 hours a month', extras: 'Everything in Silver' },
+  { name: 'Platinum', fee: '£2,000 a month plus 5%', budget: 'Ad budget over £20,000', hours: '35 hours a month', extras: 'Everything in Gold, plus click-fraud protection' },
+];
+---
+
+<Layout title="PPC Management Services, Run to Profit | Visible Ads" description="PPC management services across Google, Microsoft, Amazon, Meta, TikTok and LinkedIn. Weekly budget rules, clear pricing per channel and a free audit to start." schema={schema}>
+
+  <!-- Hero -->
+  <section class="relative py-20 lg:py-28 overflow-hidden bg-navy" data-animate>
+    <div class="absolute inset-0 bg-gradient-to-br from-navy to-navy-light"></div>
+    <div class="absolute inset-0 dot-pattern opacity-10"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-sm text-slate-light mb-8"><a href="/" class="hover:text-white">Home</a><span class="mx-2">/</span><span class="text-white">PPC Management</span></nav>
+      <div class="max-w-3xl">
+        <span class="inline-block px-4 py-1.5 bg-electric/20 text-electric-light text-sm font-medium rounded-full mb-6">Google, Microsoft, Amazon and Meta Partner</span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-6">PPC Management Services</h1>
+        <p class="text-lg sm:text-xl text-slate-light mb-8 leading-relaxed">We run your paid advertising week to week across Google, Microsoft, Amazon, Meta, TikTok and LinkedIn. Every channel is measured against your margin, budgets move on fixed rules, and you always know what the spend is doing for the business.</p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-8 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Get a free PPC audit</a>
+          <a href="#pricing" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/20 hover:bg-white/10 transition-colors">See pricing</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 bg-sky-tint border-y border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <PartnerBadges compact />
+    </div>
+  </section>
+
+  <!-- What it includes -->
+  <section class="py-20 lg:py-24 bg-white" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What our PPC management covers</h2>
+        <p class="text-lg text-gray-700 leading-relaxed">One team runs every paid channel you use, under one budget and one profit target. That matters because platforms each report their own version of success, and the same sale is often claimed twice. We start from your real orders and leads, then decide which channel earns the next pound.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {channels.map((c) => (
+          <a href={c.href} class="group bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-gray-100 ring-1 ring-electric/10 hover:ring-electric/30 hover:shadow-lg transition-all duration-300">
+            <h3 class="text-lg font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">{c.name}</h3>
+            <p class="text-gray-700 text-sm">{c.text}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Weekly work -->
+  <section class="py-20 lg:py-24 bg-sky-tint" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What we do every week</h2>
+      <ul class="space-y-4 text-lg text-gray-700 leading-relaxed">
+        <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Check the numbers against real orders.</strong> Platform conversions are compared with your shop, CRM or GA4 so we act on sales that actually happened.</li>
+        <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Cut waste.</strong> Search terms, placements and audiences that spend without returning are excluded.</li>
+        <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Move budget on the rules below.</strong> Spend goes up only where the return supports it, and comes down quickly where it does not.</li>
+        <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Test ads and landing pages.</strong> New copy, creative and offers are tested in a controlled way, and conversion rate work runs alongside the media.</li>
+        <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Report in plain English.</strong> A short weekly update and a live KPI dashboard, with a quarterly review of the bigger picture.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Budget rules -->
+  <section class="py-20 lg:py-24 bg-white" data-animate>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">How we decide when to scale or cut spend</h2>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">Profit is the goal and ROAS is the control we manage to. Every week each campaign is placed in one of these bands, and the budget moves accordingly. It takes the guesswork, and the temptation to keep spending, out of the decision.</p>
+      <div class="overflow-x-auto rounded-2xl border border-gray-200">
+        <table class="w-full text-left text-base">
+          <caption class="sr-only">Weekly budget rules by return on ad spend</caption>
+          <thead class="bg-navy text-white"><tr><th class="p-4">Weekly ROAS</th><th class="p-4">What we do</th></tr></thead>
+          <tbody class="text-gray-700">
+            {rules.map((r, i) => (
+              <tr class={i % 2 ? 'border-t bg-sky-tint/40' : 'border-t'}><th class="p-4 font-semibold text-navy">{r.roas}</th><td class="p-4">{r.action}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-gray-700 mt-6 leading-relaxed">Not sure what ROAS your margin needs? Our <a href="/roas-vs-profit/" class="text-electric underline hover:text-electric-dark">ROAS vs profit calculator</a> works out your break-even point.</p>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-20 lg:py-24 bg-sky-tint" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">PPC management pricing</h2>
+        <p class="text-lg text-gray-700 leading-relaxed">Fees are per channel managed, plus VAT, with unlimited campaigns on that channel. Your ad budget is paid to the platforms separately.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {tiers.map((t) => (
+          <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-gray-100">
+            <h3 class="text-xl font-heading font-bold text-navy mb-1">{t.name}</h3>
+            <p class="text-2xl font-heading font-extrabold text-electric mb-4">{t.fee}</p>
+            <ul class="space-y-2 text-gray-700 text-sm">
+              <li>{t.budget}</li>
+              <li>{t.hours}</li>
+              <li>{t.extras}</li>
+            </ul>
+          </div>
+        ))}
+      </div>
+      <p class="text-gray-700 mt-8 leading-relaxed max-w-3xl">A performance model with a reduced or zero retainer and a revenue share is available by application. Creative is not included, and Meta and Google need a one-off £1,000 tracking setup. Minimum term three months, then rolling monthly with 30 days notice. Agencies looking for delivery under their own brand should see our <a href="/white-label-ppc-seo-pricing-uk/" class="text-electric underline hover:text-electric-dark">white-label PPC pricing</a>.</p>
+    </div>
+  </section>
+
+  <!-- Who it's for -->
+  <section class="py-20 lg:py-24 bg-white" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Who our PPC management is for</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Most of our clients are ecommerce and B2B businesses turning over between £1M and £20M, selling in the UK, US or Europe, and spending enough on ads that waste shows up on the P&amp;L. We also run lead generation for <a href="/ppc-for-professional-services/" class="text-electric underline hover:text-electric-dark">professional services firms</a>.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">If you only need one platform, our channel pages go deeper: <a href="/google-ads/" class="text-electric underline hover:text-electric-dark">Google Ads management</a>, <a href="/bing-ads/" class="text-electric underline hover:text-electric-dark">Microsoft Advertising</a> and <a href="/amazon/" class="text-electric underline hover:text-electric-dark">Amazon Ads</a>. To see how the channels work together, read about our <a href="/multi-channel-services/" class="text-electric underline hover:text-electric-dark">multi-channel approach</a>.</p>
+    </div>
+  </section>
+
+  <!-- Proof -->
+  <section class="py-16 bg-sky-tint" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">Brands we manage advertising for</h2>
+      <p class="text-gray-700 mb-8">Winner, UK Search Awards 2022. See the results in our <a href="/case-studies/" class="text-electric underline hover:text-electric-dark">case studies</a>.</p>
+      <ClientLogos />
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 lg:py-20 bg-white" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">PPC management questions</h2>
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="group border border-gray-200 rounded-xl p-6">
+            <summary class="cursor-pointer font-heading font-semibold text-navy">{faq.question}</summary>
+            <p class="mt-4 text-gray-700 leading-relaxed">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative py-20 lg:py-28 bg-navy" data-animate>
+    <div class="absolute inset-0 dot-pattern opacity-5"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">See where your ad spend is leaking</h2>
+      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">A free, no-obligation audit of your paid channels. We show you the waste, the tracking gaps and what we would change first.</p>
+      <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Get a free PPC audit</a>
+    </div>
+  </section>
+
+</Layout>
