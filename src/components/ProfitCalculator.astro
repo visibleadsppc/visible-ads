@@ -1,35 +1,74 @@
 ---
 // Profit / POAS calculator. Reveals whether a given ROAS is actually profitable
 // once product margin is taken into account, plus break-even ROAS and POAS.
+// Each input is a slider paired with the typed value above it: drag for speed,
+// type for an exact figure. The typed value is the source of truth, so a figure
+// beyond a slider's range still calculates correctly with the thumb pegged.
 import Turnstile from './Turnstile.astro';
 ---
 <div class="bg-gradient-to-br from-[#0A1628] to-[#132240] rounded-3xl p-6 sm:p-10 shadow-2xl" id="profit-calc">
   <div class="text-center mb-8">
     <h3 class="font-heading text-2xl sm:text-3xl font-bold text-white">Is your ROAS actually profitable?</h3>
-    <p class="mt-2 text-[#94A3B8] text-sm sm:text-base">Put in your own numbers. The calculator works out whether you are making money or just turnover.</p>
+    <p class="mt-2 text-[#94A3B8] text-sm sm:text-base">Drag the sliders, or type your own figures. The calculator works out whether you are making money or just turnover.</p>
   </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+  <div class="space-y-8 mb-8">
+    <!-- Monthly ad spend -->
     <div>
-      <label for="pc-spend" class="block text-[#94A3B8] text-sm font-medium mb-2">Monthly ad spend (&pound;)</label>
-      <input type="number" id="pc-spend" inputmode="numeric" min="0" step="100" value="10000"
-        class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/15 text-white text-lg font-semibold focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/30 outline-none transition-all" />
+      <div class="flex items-baseline justify-between gap-3 mb-3">
+        <label for="pc-spend" class="text-[#94A3B8] text-sm font-medium">Monthly ad spend</label>
+        <span class="font-heading text-2xl sm:text-3xl font-bold text-white leading-none">
+          <span class="text-[#94A3B8]">&pound;</span><input type="text" id="pc-spend" inputmode="numeric" autocomplete="off" value="10,000" aria-label="Monthly ad spend in pounds" class="pc-num w-[5.5rem] sm:w-[7rem]" />
+        </span>
+      </div>
+      <input type="range" id="pc-spend-range" min="250" max="50000" step="250" value="10000"
+        aria-label="Monthly ad spend slider" class="pc-slider" />
+      <div class="flex justify-between mt-2.5 text-xs text-[#64748B]">
+        <span>&pound;250</span>
+        <span>&pound;25k</span>
+        <span>&pound;50k</span>
+      </div>
     </div>
+
+    <!-- ROAS -->
     <div>
-      <label for="pc-roas" class="block text-[#94A3B8] text-sm font-medium mb-2">Your ROAS (x)</label>
-      <input type="number" id="pc-roas" inputmode="decimal" min="0" step="0.1" value="4"
-        class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/15 text-white text-lg font-semibold focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/30 outline-none transition-all" />
+      <div class="flex items-baseline justify-between gap-3 mb-3">
+        <label for="pc-roas" class="text-[#94A3B8] text-sm font-medium">Your ROAS</label>
+        <span class="font-heading text-2xl sm:text-3xl font-bold text-white leading-none">
+          <input type="number" id="pc-roas" inputmode="decimal" min="0" step="0.1" value="4" aria-label="Your ROAS, as a multiple" class="pc-num w-[3.75rem] sm:w-[4.5rem]" /><span class="text-[#94A3B8]">x</span>
+        </span>
+      </div>
+      <div class="relative">
+        <input type="range" id="pc-roas-range" min="0" max="15" step="0.1" value="4"
+          aria-label="Your ROAS slider" class="pc-slider" />
+        <span id="pc-be-line" class="pc-be-line" aria-hidden="true"></span>
+      </div>
+      <div class="relative mt-2.5 h-4 text-xs text-[#64748B]">
+        <span id="pc-be-label" class="pc-be-label" aria-hidden="true">Break-even 3.3x</span>
+      </div>
     </div>
+
+    <!-- Gross margin -->
     <div>
-      <label for="pc-margin" class="block text-[#94A3B8] text-sm font-medium mb-2">Gross margin (%)</label>
-      <input type="number" id="pc-margin" inputmode="numeric" min="0" max="100" step="1" value="30"
-        class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/15 text-white text-lg font-semibold focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/30 outline-none transition-all" />
-      <p class="text-[#64748B] text-xs mt-1.5">Profit on a sale after product cost, before ad spend.</p>
+      <div class="flex items-baseline justify-between gap-3 mb-3">
+        <label for="pc-margin" class="text-[#94A3B8] text-sm font-medium">Gross margin</label>
+        <span class="font-heading text-2xl sm:text-3xl font-bold text-white leading-none">
+          <input type="number" id="pc-margin" inputmode="numeric" min="0" max="100" step="1" value="30" aria-label="Gross margin percentage" class="pc-num w-[3.25rem] sm:w-[4rem]" /><span class="text-[#94A3B8]">%</span>
+        </span>
+      </div>
+      <input type="range" id="pc-margin-range" min="1" max="100" step="1" value="30"
+        aria-label="Gross margin slider" class="pc-slider" />
+      <div class="flex justify-between mt-2.5 text-xs text-[#64748B]">
+        <span>1%</span>
+        <span>50%</span>
+        <span>100%</span>
+      </div>
+      <p class="mt-2 text-xs text-[#64748B]">Profit on a sale after product cost, before ad spend.</p>
     </div>
   </div>
 
   <!-- Verdict -->
-  <div id="pc-verdict" class="rounded-2xl p-5 mb-6 text-center border transition-colors">
+  <div id="pc-verdict" class="rounded-2xl p-5 mb-6 text-center border transition-colors" aria-live="polite">
     <p id="pc-verdict-text" class="font-heading text-lg sm:text-xl font-bold"></p>
     <p id="pc-verdict-sub" class="text-sm mt-1"></p>
   </div>
@@ -75,12 +114,145 @@ import Turnstile from './Turnstile.astro';
   </div>
 </div>
 
+<style>
+  /* Typed value sitting above each slider. Dashed underline hints it is editable. */
+  .pc-num {
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.25);
+    color: #fff;
+    text-align: right;
+    padding: 0 0 2px 0;
+    font: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+  .pc-num:hover {
+    border-bottom-color: rgba(255, 255, 255, 0.5);
+  }
+  .pc-num:focus {
+    border-bottom-color: #2563EB;
+    border-bottom-style: solid;
+  }
+  .pc-num::-webkit-outer-spin-button,
+  .pc-num::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Sliders. 24px tall for a comfortable touch target, 8px visible track.
+     --pc-pct is the filled width, --pc-fill its colour (JS sets both). */
+  .pc-slider {
+    --pc-pct: 0%;
+    --pc-fill: #2563EB;
+    --pc-halo: rgba(37, 99, 235, 0.3);
+    width: 100%;
+    height: 24px;
+    margin: 0;
+    background: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    display: block;
+  }
+  .pc-slider::-webkit-slider-runnable-track {
+    height: 8px;
+    border-radius: 9999px;
+    background: linear-gradient(to right, var(--pc-fill) 0%, var(--pc-fill) var(--pc-pct), #1e293b var(--pc-pct), #1e293b 100%);
+  }
+  .pc-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    margin-top: -8px;
+    border-radius: 50%;
+    background: var(--pc-fill);
+    box-shadow: 0 0 0 4px var(--pc-halo);
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+  }
+  .pc-slider:hover::-webkit-slider-thumb,
+  .pc-slider:focus-visible::-webkit-slider-thumb {
+    box-shadow: 0 0 0 7px var(--pc-halo);
+  }
+  .pc-slider::-moz-range-track {
+    height: 8px;
+    border-radius: 9999px;
+    background: #1e293b;
+  }
+  .pc-slider::-moz-range-progress {
+    height: 8px;
+    border-radius: 9999px;
+    background: var(--pc-fill);
+  }
+  .pc-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+    background: var(--pc-fill);
+    box-shadow: 0 0 0 4px var(--pc-halo);
+    cursor: pointer;
+  }
+  .pc-slider:hover::-moz-range-thumb,
+  .pc-slider:focus-visible::-moz-range-thumb {
+    box-shadow: 0 0 0 7px var(--pc-halo);
+  }
+  .pc-slider:focus-visible {
+    outline: none;
+  }
+
+  /* Break-even marker on the ROAS track. --pc-be-pos is 0-1 along the usable
+     track, which is inset by half a thumb (12px) at each end. */
+  .pc-be-line,
+  .pc-be-label {
+    --pc-be-pos: 0;
+    position: absolute;
+    left: calc(12px + var(--pc-be-pos) * (100% - 24px));
+    pointer-events: none;
+  }
+  .pc-be-line {
+    top: 3px;
+    width: 2px;
+    height: 18px;
+    margin-left: -1px;
+    border-radius: 1px;
+    background: #F8FAFC;
+    box-shadow: 0 0 0 2px rgba(10, 22, 40, 0.9);
+  }
+  .pc-be-label {
+    top: 0;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+  .pc-be-label[data-offscale='true'] {
+    left: 0;
+    transform: none;
+  }
+  .pc-be-line[hidden] {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pc-slider::-webkit-slider-thumb,
+    .pc-num {
+      transition: none;
+    }
+  }
+</style>
+
 <script>
   document.addEventListener('astro:page-load', () => {
     const spendEl = document.getElementById('pc-spend') as HTMLInputElement;
     const roasEl = document.getElementById('pc-roas') as HTMLInputElement;
     const marginEl = document.getElementById('pc-margin') as HTMLInputElement;
     if (!spendEl || !roasEl || !marginEl) return;
+
+    const spendRange = document.getElementById('pc-spend-range') as HTMLInputElement;
+    const roasRange = document.getElementById('pc-roas-range') as HTMLInputElement;
+    const marginRange = document.getElementById('pc-margin-range') as HTMLInputElement;
 
     const revEl = document.getElementById('pc-revenue')!;
     const gpEl = document.getElementById('pc-grossprofit')!;
@@ -90,11 +262,49 @@ import Turnstile from './Turnstile.astro';
     const verdict = document.getElementById('pc-verdict')!;
     const vText = document.getElementById('pc-verdict-text')!;
     const vSub = document.getElementById('pc-verdict-sub')!;
+    const beLine = document.getElementById('pc-be-line')!;
+    const beLabel = document.getElementById('pc-be-label')!;
 
     const gbp = (n: number) => '£' + Math.round(n).toLocaleString('en-GB');
+    const xf = (n: number) => n.toFixed(1) + 'x';
+
+    // Keep a slider and its typed value in step. The typed value is the source
+    // of truth, so typing a figure past a slider's range just pegs the thumb.
+    function pair(num: HTMLInputElement, range: HTMLInputElement | null) {
+      if (!range) return;
+      range.addEventListener('input', () => {
+        num.value = range.value;
+        render();
+      });
+      num.addEventListener('input', () => {
+        const v = parseFloat(num.value);
+        if (!isNaN(v)) range.value = String(v); // the browser clamps to min/max
+        render();
+      });
+    }
+
+    // The thumb's halo is the fill colour at low opacity, so a red or green
+    // track never carries a leftover blue ring.
+    const HALO: Record<string, string> = {
+      '#2563EB': 'rgba(37, 99, 235, 0.3)',
+      '#10B981': 'rgba(16, 185, 129, 0.3)',
+      '#EF4444': 'rgba(239, 68, 68, 0.3)',
+      '#F59E0B': 'rgba(245, 158, 11, 0.3)',
+    };
+
+    function paintRange(range: HTMLInputElement | null, fill: string) {
+      if (!range) return;
+      const min = parseFloat(range.min);
+      const max = parseFloat(range.max);
+      const val = parseFloat(range.value);
+      const pct = max > min ? ((val - min) / (max - min)) * 100 : 0;
+      range.style.setProperty('--pc-pct', pct + '%');
+      range.style.setProperty('--pc-fill', fill);
+      range.style.setProperty('--pc-halo', HALO[fill] || HALO['#2563EB']);
+    }
 
     function render() {
-      const spend = Math.max(0, parseFloat(spendEl.value) || 0);
+      const spend = Math.max(0, parseFloat(spendEl.value.replace(/,/g, '')) || 0);
       const roas = Math.max(0, parseFloat(roasEl.value) || 0);
       const marginPct = Math.min(100, Math.max(0, parseFloat(marginEl.value) || 0));
       const margin = marginPct / 100;
@@ -104,37 +314,91 @@ import Turnstile from './Turnstile.astro';
       const netProfit = grossProfit - spend;
       const poas = spend > 0 ? grossProfit / spend : 0;
       const breakEven = margin > 0 ? 1 / margin : Infinity;
+      // Everything on screen is rounded to the pound, so treat sub-pound
+      // amounts as break-even rather than reporting "£0 profit a month".
+      const atBreakEven = Math.abs(netProfit) < 0.5;
+      const beText = isFinite(breakEven) ? xf(breakEven) : 'an impossible ROAS';
 
       revEl.textContent = gbp(revenue);
       gpEl.textContent = gbp(grossProfit);
-      npEl.textContent = (netProfit < 0 ? '-' : '') + gbp(Math.abs(netProfit));
-      beEl.textContent = isFinite(breakEven) ? breakEven.toFixed(1) + 'x' : '-';
+      npEl.textContent = (netProfit < -0.5 ? '-' : '') + gbp(Math.abs(netProfit));
+      beEl.textContent = isFinite(breakEven) ? xf(breakEven) : '-';
       poasEl.textContent = poas.toFixed(2) + 'x';
 
-      npEl.className = 'font-heading text-xl sm:text-2xl font-bold ' + (netProfit >= 0 ? 'text-[#10B981]' : 'text-[#EF4444]');
+      npEl.className = 'font-heading text-xl sm:text-2xl font-bold ' + (netProfit >= -0.5 ? 'text-[#10B981]' : 'text-[#EF4444]');
 
-      if (netProfit > 0) {
+      if (!atBreakEven && netProfit > 0) {
         verdict.className = 'rounded-2xl p-5 mb-6 text-center border transition-colors bg-[#10B981]/10 border-[#10B981]/30';
         vText.className = 'font-heading text-lg sm:text-xl font-bold text-[#10B981]';
         vSub.className = 'text-sm mt-1 text-[#94A3B8]';
         vText.textContent = 'Profitable: ' + gbp(netProfit) + ' profit a month';
-        vSub.textContent = 'Your ' + roas.toFixed(1) + 'x ROAS clears the ' + breakEven.toFixed(1) + 'x you need at ' + marginPct + '% margin.';
-      } else if (netProfit === 0) {
+        vSub.textContent = 'Your ' + xf(roas) + ' ROAS clears the ' + beText + ' you need at ' + marginPct + '% margin.';
+      } else if (atBreakEven) {
         verdict.className = 'rounded-2xl p-5 mb-6 text-center border transition-colors bg-[#F59E0B]/10 border-[#F59E0B]/30';
         vText.className = 'font-heading text-lg sm:text-xl font-bold text-[#F59E0B]';
         vSub.className = 'text-sm mt-1 text-[#94A3B8]';
         vText.textContent = 'Break-even: every pound in comes straight back out';
-        vSub.textContent = 'You need a ROAS above ' + breakEven.toFixed(1) + 'x at ' + marginPct + '% margin to make a profit.';
+        vSub.textContent = 'You need a ROAS above ' + beText + ' at ' + marginPct + '% margin to make a profit.';
       } else {
         verdict.className = 'rounded-2xl p-5 mb-6 text-center border transition-colors bg-[#EF4444]/10 border-[#EF4444]/30';
         vText.className = 'font-heading text-lg sm:text-xl font-bold text-[#EF4444]';
         vSub.className = 'text-sm mt-1 text-[#94A3B8]';
         vText.textContent = 'Losing money: ' + gbp(Math.abs(netProfit)) + ' a month';
-        vSub.textContent = 'A ' + roas.toFixed(1) + 'x ROAS looks fine, but at ' + marginPct + '% margin you need ' + breakEven.toFixed(1) + 'x just to break even.';
+        if (isFinite(breakEven)) {
+          vSub.textContent = 'A ' + xf(roas) + ' ROAS looks fine, but at ' + marginPct + '% margin you need ' + beText + ' just to break even.';
+        } else {
+          vSub.textContent = 'At a 0% margin no ROAS can break even, because every sale returns nothing on the product cost.';
+        }
+      }
+
+      // Slider fills. The ROAS track turns green once it clears break-even.
+      const roasFill = netProfit > 0 && !atBreakEven ? '#10B981' : netProfit < -0.5 ? '#EF4444' : '#F59E0B';
+      paintRange(spendRange, '#2563EB');
+      paintRange(marginRange, '#2563EB');
+      paintRange(roasRange, roasFill);
+
+      // Break-even marker on the ROAS track.
+      if (roasRange) {
+        const rMin = parseFloat(roasRange.min);
+        const rMax = parseFloat(roasRange.max);
+        if (isFinite(breakEven) && breakEven >= rMin && breakEven <= rMax) {
+          const pos = (breakEven - rMin) / (rMax - rMin);
+          beLine.removeAttribute('hidden');
+          beLine.style.setProperty('--pc-be-pos', String(pos));
+          beLabel.style.setProperty('--pc-be-pos', String(pos));
+          beLabel.removeAttribute('data-offscale');
+          beLabel.textContent = 'Break-even ' + beText;
+        } else {
+          beLine.setAttribute('hidden', '');
+          beLabel.setAttribute('data-offscale', 'true');
+          beLabel.textContent = isFinite(breakEven)
+            ? 'Break-even is ' + beText + ', past the end of this slider'
+            : 'At a 0% margin there is no break-even ROAS';
+        }
       }
     }
 
-    [spendEl, roasEl, marginEl].forEach((el) => el.addEventListener('input', render));
+    // Spend is the one field carrying thousands separators. Nothing rewrites it
+    // while the caret is in it: reformatting mid-edit is what makes a field jump
+    // about as you type, and rewriting it on focus moves the caret to the end.
+    // Parsing tolerates commas instead, so editing around one still works.
+    if (spendRange) {
+      spendRange.addEventListener('input', () => {
+        spendEl.value = Number(spendRange.value).toLocaleString('en-GB');
+        render();
+      });
+      spendEl.addEventListener('input', () => {
+        const v = parseFloat(spendEl.value.replace(/,/g, ''));
+        if (!isNaN(v)) spendRange.value = String(v);
+        render();
+      });
+      spendEl.addEventListener('blur', () => {
+        const v = parseFloat(spendEl.value.replace(/,/g, ''));
+        spendEl.value = isNaN(v) ? '' : Math.max(0, v).toLocaleString('en-GB');
+      });
+    }
+    pair(roasEl, roasRange);
+    pair(marginEl, marginRange);
     render();
 
     // Lead capture: show thanks on return
