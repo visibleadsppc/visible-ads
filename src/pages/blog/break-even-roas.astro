@@ -2,6 +2,29 @@
 import Layout from '../../layouts/Layout.astro';
 import PartnerBadges from '../../components/PartnerBadges.astro';
 
+const faqs = [
+  { question: 'How do I calculate break-even ROAS?', answer: 'Break-even ROAS is 1 divided by your gross margin, expressed as a decimal. If your gross margin is 25 percent, divide 1 by 0.25 to get a break-even ROAS of 4x. At a 40 percent margin the figure is 2.5x, and at a 50 percent margin it is 2x. This is the revenue per pound of spend at which a campaign makes neither a profit nor a loss.' },
+  { question: 'Should I use gross margin or contribution margin for break-even ROAS?', answer: 'Use contribution margin for a true floor. Gross margin subtracts only cost of goods, so it flatters the picture. Contribution margin also takes out payment fees, shipping and returns, which are real costs of fulfilling each order. Because those costs lower the margin, the break-even ROAS built on contribution margin is higher and more honest than one built on gross margin alone.' },
+  { question: 'What is the difference between break-even ROAS and target ROAS?', answer: 'Break-even ROAS is the floor, the point where a campaign stops losing money. Target ROAS is the goal, set above break-even by the profit margin you want to keep. If your break-even ROAS is 2.5x and you want to retain roughly 15 percent of revenue as profit, your target sits higher, around 4x. Managing to break-even keeps you solvent, managing to target keeps you profitable.' },
+  { question: 'How do I find campaigns running below break-even ROAS?', answer: 'Work out the break-even ROAS for each margin band, then read your campaign, product group and search term reports against it rather than against a blended account figure. Any segment with a ROAS below its own break-even is losing money on every extra sale, even if the account overall looks healthy. The search terms report is usually where the clearest leaks hide.' },
+  { question: 'Should I switch off a campaign below break-even ROAS?', answer: 'Usually no. Pausing outright throws away the conversion history and learning the bid strategy has built. It is generally better to cap spend below break-even, tighten targeting and negatives, correct the conversion values, and rebuild the segment back up in controlled weekly steps. Switching off is a last resort for a segment that cannot be made profitable at any sensible bid.' },
+];
+
+const lowerThanLastYear = {
+  question: 'Why is my ROAS lower than last year?',
+  lead: 'A lower ROAS is not automatically a worse result. Check it against your break-even ROAS first, then look for the cause in this order.',
+  items: [
+    'Your margin moved. Higher supplier prices, delivery costs or discounting lower your margin, which raises break-even ROAS. A ROAS that was profitable last year can sit below break-even now.',
+    'The mix changed. More new customers and fewer repeat buyers, or less brand search and more generic search, pulls the blended figure down without any single campaign getting worse.',
+    'Auctions got pricier. If competitors bid harder, the same click costs more and revenue per pound of spend falls.',
+    'Tracking changed. A new consent banner, a changed attribution setting, a broken tag or a different conversion definition can move reported ROAS with no change in real sales.',
+    'The bidding setup changed. A different target, a new bid strategy or budget shifting into Performance Max will all show up as a different ROAS.',
+    'The comparison is not like for like. Promotions, stock gaps and seasonality last year may have flattered the benchmark.',
+  ],
+};
+
+const allQa = [...faqs, lowerThanLastYear];
+
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -11,40 +34,18 @@ const schema = {
       "description": "Break-even ROAS is 1 divided by your gross margin. How to calculate it for your own account, gross versus contribution margin, and how to find the campaigns quietly running below it.",
       "url": "https://visible-ads.com/blog/break-even-roas",
       "datePublished": "2026-07-05",
-      "dateModified": "2026-07-05",
+      "dateModified": "2026-10-18",
       "author": { "@type": "Organization", "name": "Visible Ads", "url": "https://visible-ads.com" },
       "publisher": { "@type": "Organization", "name": "Visible Ads", "url": "https://visible-ads.com" },
       "image": "https://visible-ads.com/images/og/break-even-roas.png"
     },
     {
       "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How do I calculate break-even ROAS?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Break-even ROAS is 1 divided by your gross margin, expressed as a decimal. If your gross margin is 25 percent, divide 1 by 0.25 to get a break-even ROAS of 4x. At a 40 percent margin the figure is 2.5x, and at a 50 percent margin it is 2x. This is the revenue per pound of spend at which a campaign makes neither a profit nor a loss." }
-        },
-        {
-          "@type": "Question",
-          "name": "Should I use gross margin or contribution margin for break-even ROAS?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Use contribution margin for a true floor. Gross margin subtracts only cost of goods, so it flatters the picture. Contribution margin also takes out payment fees, shipping and returns, which are real costs of fulfilling each order. Because those costs lower the margin, the break-even ROAS built on contribution margin is higher and more honest than one built on gross margin alone." }
-        },
-        {
-          "@type": "Question",
-          "name": "What is the difference between break-even ROAS and target ROAS?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Break-even ROAS is the floor, the point where a campaign stops losing money. Target ROAS is the goal, set above break-even by the profit margin you want to keep. If your break-even ROAS is 2.5x and you want to retain roughly 15 percent of revenue as profit, your target sits higher, around 4x. Managing to break-even keeps you solvent, managing to target keeps you profitable." }
-        },
-        {
-          "@type": "Question",
-          "name": "How do I find campaigns running below break-even ROAS?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Work out the break-even ROAS for each margin band, then read your campaign, product group and search term reports against it rather than against a blended account figure. Any segment with a ROAS below its own break-even is losing money on every extra sale, even if the account overall looks healthy. The search terms report is usually where the clearest leaks hide." }
-        },
-        {
-          "@type": "Question",
-          "name": "Should I switch off a campaign below break-even ROAS?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Usually no. Pausing outright throws away the conversion history and learning the bid strategy has built. It is generally better to cap spend below break-even, tighten targeting and negatives, correct the conversion values, and rebuild the segment back up in controlled weekly steps. Switching off is a last resort for a segment that cannot be made profitable at any sensible bid." }
-        }
-      ]
+      "mainEntity": allQa.map((q) => ({
+        "@type": "Question",
+        "name": q.question,
+        "acceptedAnswer": { "@type": "Answer", "text": q.lead ? `${q.lead} ${q.items.map((t, i) => `${i + 1}. ${t}`).join(' ')}${q.after ? ' ' + q.after : ''}` : q.answer }
+      }))
     },
     {
       "@type": "BreadcrumbList",
@@ -236,46 +237,34 @@ const schema = {
     </div>
   </section>
 
+  <!-- ROAS lower than last year -->
+  <section class="py-16 lg:py-20 bg-gray-50" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">{lowerThanLastYear.question}</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">{lowerThanLastYear.lead}</p>
+      <ol class="space-y-4 mb-6 text-lg text-gray-700">
+        {lowerThanLastYear.items.map((item, i) => (
+          <li class="flex gap-3"><span class="text-electric font-bold shrink-0">{i + 1}.</span><span>{item}</span></li>
+        ))}
+      </ol>
+      <p class="text-lg text-gray-700 leading-relaxed">If profit held up while ROAS fell, the number you are tracking has drifted from the one that pays you. <a href="/roas-vs-profit" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">Net ROAS, gross ROAS and profit ROAS</a> explains which figure to report instead.</p>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section class="py-16 lg:py-20 bg-white" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Frequently asked questions</h2>
       <div class="space-y-4">
-        <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-          <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-            How do I calculate break-even ROAS?
-            <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Break-even ROAS is 1 divided by your gross margin, expressed as a decimal. If your gross margin is 25 percent, divide 1 by 0.25 to get a break-even ROAS of 4x. At a 40 percent margin the figure is 2.5x, and at a 50 percent margin it is 2x. This is the revenue per pound of spend at which a campaign makes neither a profit nor a loss.</div>
-        </details>
-        <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-          <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-            Should I use gross margin or contribution margin for break-even ROAS?
-            <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Use contribution margin for a true floor. Gross margin subtracts only cost of goods, so it flatters the picture. Contribution margin also takes out payment fees, shipping and returns, which are real costs of fulfilling each order. Because those costs lower the margin, the break-even ROAS built on contribution margin is higher and more honest than one built on gross margin alone.</div>
-        </details>
-        <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-          <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-            What is the difference between break-even ROAS and target ROAS?
-            <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Break-even ROAS is the floor, the point where a campaign stops losing money. Target ROAS is the goal, set above break-even by the profit margin you want to keep. If your break-even ROAS is 2.5x and you want to retain roughly 15 percent of revenue as profit, your target sits higher, around 4x. Managing to break-even keeps you solvent, managing to target keeps you profitable.</div>
-        </details>
-        <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-          <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-            How do I find campaigns running below break-even ROAS?
-            <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Work out the break-even ROAS for each margin band, then read your campaign, product group and search term reports against it rather than against a blended account figure. Any segment with a ROAS below its own break-even is losing money on every extra sale, even if the account overall looks healthy. The search terms report is usually where the clearest leaks hide.</div>
-        </details>
-        <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-          <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-            Should I switch off a campaign below break-even ROAS?
-            <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Usually no. Pausing outright throws away the conversion history and learning the bid strategy has built. It is generally better to cap spend below break-even, tighten targeting and negatives, correct the conversion values, and rebuild the segment back up in controlled weekly steps. Switching off is a last resort for a segment that cannot be made profitable at any sensible bid.</div>
-        </details>
+        {faqs.map((faq) => (
+          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
+              {faq.question}
+              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-6 pb-6 text-gray-700 leading-relaxed">{faq.answer}</div>
+          </details>
+        ))}
       </div>
     </div>
   </section>
