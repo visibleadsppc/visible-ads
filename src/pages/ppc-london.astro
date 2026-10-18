@@ -5,9 +5,9 @@ import PartnerBadges from '../components/PartnerBadges.astro';
 import ClientLogos from '../components/ClientLogos.astro';
 
 const faqs = [
-  { q: "How much does a PPC agency in London charge?", a: "Fees vary by agency, so compare like for like: per channel or per account, how many hours are included, and the contract term. Visible Ads charges per channel plus VAT, with unlimited campaigns on that channel. Silver is £1,000 a month for ad budgets up to £3,000, Gold is £1,500 a month for budgets up to £20,000, and Platinum is £2,000 a month plus 5% for budgets above £20,000. Ad budget is paid to the platforms separately and creative is not included. Meta and Google need a one-off £1,000 tracking setup. The minimum term is three months, then rolling monthly with 30 days notice. A reduced or zero retainer revenue-share model is available by application." },
+  { q: "How much does a PPC agency in London charge?", a: "Fees depend on how many channels are managed and the hours included. At Visible Ads they are charged per channel plus VAT, starting at £1,000 a month for ad budgets up to £3,000, with a three-month minimum term.", link: { href: "/ppc-management/", text: "See all three pricing tiers" } },
   { q: "What does a PPC company in London do each week?", a: "On a managed account we review search terms and the product feed, move budget under the weekly scaling rules, check conversion tracking, and report on profit as well as ROAS. Silver includes weekly calls or video updates and a quarterly review. The aim is that spend follows what is returning money.", link: { href: "/ppc-management/", text: "See the weekly PPC management process" } },
-  { q: "Why choose a boutique PPC agency over a large London agency?", a: "Large London agencies spread senior talent across dozens of accounts and frequently hand day-to-day management to juniors. At Visible Ads, your campaigns are managed directly by senior strategists with over 20 years of experience. You get faster response times, more strategic attention, and none of the overhead costs that big agencies pass on to clients. Our Google Partner status and £3M in annual ad spend managed show that boutique does not mean small results." },
+  { q: "Why choose a boutique PPC agency over a large London agency?", a: "Large London agencies spread senior talent across dozens of accounts and frequently hand day-to-day management to juniors. At Visible Ads, your campaigns are managed directly by senior strategists, led by a founder with over 20 years in digital media. You get faster response times, more strategic attention, and none of the overhead costs that big agencies pass on to clients. Our Google Partner status and £3M in annual ad spend managed show that boutique does not mean small results." },
   { q: "How do I choose a PPC agency in London?", a: "Ask who will actually manage the account, how they judge profit rather than ROAS alone, what the contract term is, and whether you keep ownership of the ad accounts and reports. Ask to see how they decide when to raise or cut budget.", link: { href: "/choosing-a-google-ads-agency/", text: "Read our questions to ask any Google Ads agency" } },
   { q: "Do you work with ecommerce and lead-generation businesses in London?", a: "Yes, both. For ecommerce we run Google Shopping, Performance Max, Microsoft Advertising, Meta and Amazon against product margin. For lead generation, mostly professional services firms, we set up call and form tracking so campaigns are judged on qualified enquiries." },
   { q: "Which parts of London can your campaigns target?", a: "Anywhere from all of Greater London down to individual boroughs, postcode districts or a radius around a shop or office. We usually set locations to people in or regularly in the area, so you are not paying for searchers who are only interested in London from elsewhere." },
@@ -53,7 +53,7 @@ const schema = {
       "mainEntity": faqs.map((f) => ({
         "@type": "Question",
         "name": f.q,
-        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+        "acceptedAnswer": { "@type": "Answer", "text": f.link ? f.a + " " + f.link.text + ": https://visible-ads.com" + f.link.href : f.a }
       }))
     }
   ]
@@ -106,12 +106,12 @@ const schema = {
         <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Why London Businesses Choose Boutique Over Big Agencies</h2>
         <p class="text-lg text-gray-700 mb-6 leading-relaxed">The London PPC market is saturated with agencies. From global holding company networks charging eye-watering retainers to freelancers undercutting on price, the range of options can be paralysing. But the businesses we work with have learned, often the hard way, that the most important factor is not agency size. It is who actually manages your campaigns day to day.</p>
         <p class="text-lg text-gray-700 mb-6 leading-relaxed">At a large London agency, the people in your pitch meeting rarely touch your account again. Your campaigns are handed to an executive with 18 months of experience and a portfolio of 15 other clients competing for their attention. Performance reviews become exercises in spin, and strategic recommendations get filtered through layers of management before reaching you.</p>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">At Visible Ads, we have deliberately built a different model. Our senior strategists, each with over a decade of hands-on PPC experience, manage accounts directly. When market conditions shift, we react in hours, not weeks. When you have a question, you get a direct answer from the person who made the last optimisation to your campaigns, not a client services coordinator reading from notes.</p>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">At Visible Ads, we have deliberately built a different model. Our senior strategists manage accounts directly. When market conditions shift, we react in hours, not weeks. When you have a question, you get a direct answer from the person who made the last optimisation to your campaigns, not a client services coordinator reading from notes.</p>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
           <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
             <h3 class="font-heading font-bold text-navy mb-3">Senior-Led Management</h3>
-            <p class="text-gray-700 text-sm leading-relaxed">Your campaigns are managed by strategists with 20+ years of experience, not delegated to juniors after the pitch.</p>
+            <p class="text-gray-700 text-sm leading-relaxed">Your campaigns are managed by senior strategists, led by a founder with over 20 years in digital media. They are not handed to juniors after the pitch.</p>
           </div>
           <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
             <h3 class="font-heading font-bold text-navy mb-3">No Inflated Overheads</h3>
@@ -201,8 +201,8 @@ const schema = {
         <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-200 shadow-sm">
           <h3 class="font-heading font-bold text-navy text-xl mb-4">London ecommerce brands</h3>
           <ul class="space-y-3 text-gray-700 leading-relaxed list-disc pl-5">
-            <li>The product feed is split by margin, so Shopping and Performance Max bids follow contribution rather than revenue alone.</li>
-            <li>Target ROAS is set from your own margin, not a generic benchmark. The <a href="/roas-vs-profit/" class="text-electric underline hover:text-electric-dark">ROAS vs profit calculator</a> shows the maths.</li>
+            <li>The product feed is split by margin, so Shopping and Performance Max bids follow contribution.</li>
+            <li>Target ROAS is set from your own margin. The <a href="/roas-vs-profit/" class="text-electric underline hover:text-electric-dark">ROAS vs profit calculator</a> shows the maths.</li>
             <li>Delivery and returns settings in Merchant Center are matched to what you really offer London customers.</li>
             <li>Budget moves up or down weekly under our <a href="/ppc-management/" class="text-electric underline hover:text-electric-dark">published scaling rules</a>.</li>
           </ul>
@@ -210,10 +210,10 @@ const schema = {
         <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-200 shadow-sm">
           <h3 class="font-heading font-bold text-navy text-xl mb-4">London lead-generation firms</h3>
           <ul class="space-y-3 text-gray-700 leading-relaxed list-disc pl-5">
-            <li>Call and form tracking is set up so Google Ads learns from qualified enquiries, not every click-to-call.</li>
+            <li>Call and form tracking is set up so Google Ads learns from qualified enquiries.</li>
             <li>Locations are built from the boroughs or postcode districts you actually serve, set to people in or regularly in the area.</li>
             <li>The ad schedule follows the hours your team answers the phone.</li>
-            <li>Where you can share closed-deal data, we report cost per qualified lead and which leads became customers, not only cost per lead.</li>
+            <li>Where you can share closed-deal data, we report cost per qualified lead and which leads became customers.</li>
           </ul>
         </div>
       </div>
@@ -263,11 +263,9 @@ const schema = {
       <div class="text-center mb-10">
         <h2 class="font-heading text-2xl sm:text-3xl font-bold text-navy">Results at a Glance</h2>
       </div>
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        <CountUp value="20" suffix="+" label="Years Experience" />
-        <CountUp value="50" suffix="+" label="Businesses Scaled" />
+      <div class="grid grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto">
         <CountUp value="3" prefix="£" suffix="M+" label="Annual Ad Spend Managed" />
-        <CountUp value="97" suffix="%" label="Client Retention" />
+        <CountUp value="4" label="Platform Partner Certifications" />
       </div>
     </div>
   </section>
