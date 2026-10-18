@@ -4,6 +4,49 @@ import PartnerBadges from '../components/PartnerBadges.astro';
 import GoogleReviews from '../components/GoogleReviews.astro';
 import Turnstile from '../components/Turnstile.astro';
 
+const faqs = [
+  {
+    question: 'What do you check in a Bing Ads audit?',
+    answer: 'We check nine things: how your account was built, whether it is a stale Google import, your keyword and match type structure, negative keyword coverage, Microsoft Audience Network settings, Search Partner Network placements, LinkedIn profile targeting, device and schedule bid adjustments, and whether your UET tag records conversions accurately.',
+  },
+  {
+    question: 'Is the Bing Ads audit really free?',
+    answer: 'Yes. There is no cost and no obligation. You receive the written findings whether or not you work with us. You are free to implement them yourself.',
+  },
+  {
+    question: 'How long does the audit take?',
+    answer: 'The report arrives within 5 working days. We then walk you through it on a call at a time that suits you.',
+  },
+  {
+    question: 'Do I need to give you account access?',
+    answer: 'Read only access to your Microsoft Advertising account is enough. We never make changes to your campaigns during an audit.',
+  },
+  {
+    question: 'Is Microsoft Advertising worth running if I already use Google Ads?',
+    answer: 'That depends on your market. The audit answers it with your own numbers rather than a rule of thumb. Microsoft Advertising reaches searchers across Bing, Yahoo and DuckDuckGo. It offers LinkedIn profile targeting that Google does not. Competition in the auction is often thinner. The catch is that most accounts get set up once as a Google import and then left alone. The real question is whether yours has ever been run properly rather than whether the channel works.',
+  },
+];
+const auditAnswers = [
+  {
+    question: 'What is a Microsoft Ads audit?',
+    answer: 'A Microsoft Ads audit is a structured review of a Microsoft Advertising account that finds wasted spend, tracking gaps and settings nobody chose on purpose. It covers how the account is built, which keywords and placements get the budget, and whether conversions are recorded accurately. The output is a written, prioritised fix list.',
+  },
+  {
+    question: 'Is a Bing Ads audit the same as a Microsoft Ads audit?',
+    answer: 'Yes. Bing Ads is the former name of Microsoft Advertising, and people still search for both. The platform, the account and the audit are the same thing whichever name you use.',
+  },
+  {
+    question: 'What does a Microsoft Ads audit for a UK account cover?',
+    answer: 'Everything in the standard audit, read against how a UK account should be set up: location targeting that matches where you sell, pound budgets and conversion values, and a UET tag that records UK orders or leads correctly. We also check whether imported Google Ads settings still make sense for the UK auction.',
+  },
+  {
+    question: 'How often should Microsoft Ads audits be done?',
+    answer: 'There is no fixed schedule that suits every account. Audit after anything that can break the account, such as a Google import, a site migration, a tracking change or a big budget shift. Otherwise review it on a regular rhythm that matches how fast your account changes. An account nobody has opened for a year is overdue.',
+  },
+];
+
+const allQa = [...auditAnswers, ...faqs];
+
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -35,13 +78,11 @@ const schema = {
     },
     {
       "@type": "FAQPage",
-      "mainEntity": [
-        { "@type": "Question", "name": "What do you check in a Bing Ads audit?", "acceptedAnswer": { "@type": "Answer", "text": "We check nine things: how your account was built, whether it is a stale Google import, your keyword and match type structure, negative keyword coverage, Microsoft Audience Network settings, Search Partner Network placements, LinkedIn profile targeting, device and schedule bid adjustments, and whether your UET tag records conversions accurately." } },
-        { "@type": "Question", "name": "Is the Bing Ads audit really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. There is no cost and no obligation. You receive the written findings whether or not you work with us. You are free to implement them yourself." } },
-        { "@type": "Question", "name": "How long does the audit take?", "acceptedAnswer": { "@type": "Answer", "text": "The report arrives within 5 working days. We then walk you through it on a call at a time that suits you." } },
-        { "@type": "Question", "name": "Do I need to give you account access?", "acceptedAnswer": { "@type": "Answer", "text": "Read only access to your Microsoft Advertising account is enough. We never make changes to your campaigns during an audit." } },
-        { "@type": "Question", "name": "Is Microsoft Advertising worth running if I already use Google Ads?", "acceptedAnswer": { "@type": "Answer", "text": "That depends on your market. The audit answers it with your own numbers rather than a rule of thumb. Microsoft Advertising reaches searchers across Bing, Yahoo and DuckDuckGo. It offers LinkedIn profile targeting that Google does not. Competition in the auction is often thinner. The catch is that most accounts get set up once as a Google import and then left alone. The real question is whether yours has ever been run properly rather than whether the channel works." } }
-      ]
+      "mainEntity": allQa.map((q) => ({
+        "@type": "Question",
+        "name": q.question,
+        "acceptedAnswer": { "@type": "Answer", "text": q.answer }
+      }))
     },
     {
       "@type": "BreadcrumbList",
@@ -80,28 +121,6 @@ const checks = [
   },
 ];
 
-const faqs = [
-  {
-    question: 'What do you check in a Bing Ads audit?',
-    answer: 'We check nine things: how your account was built, whether it is a stale Google import, your keyword and match type structure, negative keyword coverage, Microsoft Audience Network settings, Search Partner Network placements, LinkedIn profile targeting, device and schedule bid adjustments, and whether your UET tag records conversions accurately.',
-  },
-  {
-    question: 'Is the Bing Ads audit really free?',
-    answer: 'Yes. There is no cost and no obligation. You receive the written findings whether or not you work with us. You are free to implement them yourself.',
-  },
-  {
-    question: 'How long does the audit take?',
-    answer: 'The report arrives within 5 working days. We then walk you through it on a call at a time that suits you.',
-  },
-  {
-    question: 'Do I need to give you account access?',
-    answer: 'Read only access to your Microsoft Advertising account is enough. We never make changes to your campaigns during an audit.',
-  },
-  {
-    question: 'Is Microsoft Advertising worth running if I already use Google Ads?',
-    answer: 'That depends on your market. The audit answers it with your own numbers rather than a rule of thumb. Microsoft Advertising reaches searchers across Bing, Yahoo and DuckDuckGo. It offers LinkedIn profile targeting that Google does not. Competition in the auction is often thinner. The catch is that most accounts get set up once as a Google import and then left alone. The real question is whether yours has ever been run properly rather than whether the channel works.',
-  },
-];
 ---
 
 <Layout
@@ -219,6 +238,21 @@ const faqs = [
         </div>
 
       </div>
+    </div>
+  </section>
+
+  <section class="py-20 lg:py-28 bg-gray-50" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-8">Microsoft Ads audits, in plain terms</h2>
+      <div class="space-y-8">
+        {auditAnswers.map((qa) => (
+          <div>
+            <h3 class="text-xl font-heading font-bold text-navy mb-2">{qa.question}</h3>
+            <p class="text-gray-700 leading-relaxed">{qa.answer}</p>
+          </div>
+        ))}
+      </div>
+      <p class="text-gray-700 leading-relaxed mt-8">Still deciding whether the channel deserves the effort? The <a href="/blog/google-ads-vs-bing-ads" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">Google Ads vs Bing Ads comparison</a> explains how to test it against Google with your own numbers.</p>
     </div>
   </section>
 
