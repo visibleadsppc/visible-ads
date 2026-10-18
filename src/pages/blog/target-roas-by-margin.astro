@@ -2,6 +2,27 @@
 import Layout from '../../layouts/Layout.astro';
 import PartnerBadges from '../../components/PartnerBadges.astro';
 
+const faqs = [
+  { question: 'How do I calculate my target ROAS from margin?', answer: 'Start with your break-even ROAS, which is 1 divided by your gross margin. A 40 percent margin gives a 2.5x break-even. Then lift the target above that floor by the profit you want to keep. If a 40 percent margin product breaks even at 2.5x and you want to hold back roughly 15 percent of revenue as profit, you aim for about a 4x target. The exact figure depends on your margin and profit goal, but the method is always break-even first, then add the profit you want on top.' },
+  { question: 'What is a good target ROAS?', answer: 'There is no single good number, because a good target ROAS depends entirely on your margin. A 4x target is comfortably profitable on a 50 percent margin product but loses money on a 20 percent margin one, where break-even alone is 5x. Instead of copying a figure you read somewhere, work out your break-even ROAS from your gross margin and set the target above it by the profit you want to keep.' },
+  { question: 'Should I use one target ROAS for the whole account?', answer: 'Usually not. A single blended target across every product forces high-margin and low-margin lines to the same goal, which underspends the profitable ones and overspends the thin ones. Group products into margin bands and set a target ROAS for each band. High-margin lines can run a lower target and take more volume, while thin-margin lines are held to a stricter target that protects profit.' },
+  { question: 'Why did my sales drop when I raised my target ROAS?', answer: 'Raising a target ROAS tells the bidding system to buy only cheaper conversions, so it stops entering more expensive auctions and volume falls. Push the target too high too fast and the campaign re-enters its learning phase and volume can collapse. Move a target in steps of around 10 to 15 percent, wait for the algorithm to settle over a week or two, then adjust again if the profit maths still supports it.' },
+  { question: 'What is the difference between a new-customer and a blended target ROAS?', answer: 'A blended target treats every order the same, whether it comes from a first-time buyer or a repeat customer. A new-customer target looks at what a first order is worth once you account for the repeat orders that customer is likely to place. If your average customer buys three times, a first order that only breaks even can still be worth winning, so you can set a lower, more aggressive target on new customers and collect the profit on the repeats.' },
+];
+
+const highTarget = {
+  question: 'What counts as a high target ROAS?',
+  lead: 'A high target ROAS is one set well above your break-even ROAS, not a fixed number. The same 4x is a cautious target on a 50 percent margin and a loss-making one on a 20 percent margin, so read it against your own floor.',
+  items: [
+    'Work out break-even ROAS as 1 divided by your contribution margin.',
+    'Add the profit you want to keep. The gap between target and break-even is your profit, so a higher target is only high relative to that floor.',
+    'Expect volume to fall as you raise it. A very high target tells Google to bid only on the cheapest conversions, so check the sales you lose are not worth more than the profit you gain.',
+  ],
+  after: 'If you send profit rather than revenue as the conversion value, the maths simplifies. A target of 100 percent (1.0) is break-even, and anything above it is profit after ad spend.',
+};
+
+const allQa = [...faqs, highTarget];
+
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -11,40 +32,18 @@ const schema = {
       "description": "How to set your Google Ads target ROAS from contribution margin and the profit you want to keep, with a worked example and the mistakes to avoid.",
       "url": "https://visible-ads.com/blog/target-roas-by-margin",
       "datePublished": "2026-07-05",
-      "dateModified": "2026-07-05",
+      "dateModified": "2026-10-18",
       "author": { "@type": "Organization", "name": "Visible Ads", "url": "https://visible-ads.com" },
       "publisher": { "@type": "Organization", "name": "Visible Ads", "url": "https://visible-ads.com" },
       "image": "https://visible-ads.com/images/og/target-roas-by-margin.png"
     },
     {
       "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How do I calculate my target ROAS from margin?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Start with your break-even ROAS, which is 1 divided by your gross margin. A 40 percent margin gives a 2.5x break-even. Then lift the target above that floor by the profit you want to keep. If a 40 percent margin product breaks even at 2.5x and you want to hold back roughly 15 percent of revenue as profit, you aim for about a 4x target ROAS. The exact figure depends on your margin and your profit goal, but the method is always break-even first, then add the profit you want on top." }
-        },
-        {
-          "@type": "Question",
-          "name": "What is a good target ROAS?",
-          "acceptedAnswer": { "@type": "Answer", "text": "There is no single good number, because a good target ROAS depends entirely on your margin. A 4x target is comfortably profitable on a 50 percent margin product but loses money on a 20 percent margin one, where break-even alone is 5x. Instead of copying a figure you read somewhere, work out your break-even ROAS from your gross margin and set the target above it by the profit you want to keep." }
-        },
-        {
-          "@type": "Question",
-          "name": "Should I use one target ROAS for the whole account?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Usually not. A single blended target across every product forces high-margin and low-margin lines to the same goal. That underspends the profitable ones and overspends the thin ones. Group products into margin bands and set a target ROAS for each band. High-margin lines can run a lower target and take more volume, while thin-margin lines are held to a stricter target that protects profit." }
-        },
-        {
-          "@type": "Question",
-          "name": "Why did my sales drop when I raised my target ROAS?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Raising a target ROAS tells the bidding system to buy only cheaper conversions, so it stops entering more expensive auctions and volume falls. Push the target too high too fast and the campaign re-enters its learning phase and volume can collapse. Move a target in steps of around 10 to 15 percent, wait for the algorithm to settle over a week or two, then adjust again if the profit maths still supports it." }
-        },
-        {
-          "@type": "Question",
-          "name": "What is the difference between a new-customer and a blended target ROAS?",
-          "acceptedAnswer": { "@type": "Answer", "text": "A blended target treats every order the same, whether it comes from a first-time buyer or a repeat customer. A new-customer target looks at what a first order is worth once you account for the repeat orders that customer is likely to place. If your average customer buys three times, a first order that only breaks even can still be worth winning, so you can set a lower, more aggressive target on new customers and collect the profit on the repeats." }
-        }
-      ]
+      "mainEntity": allQa.map((q) => ({
+        "@type": "Question",
+        "name": q.question,
+        "acceptedAnswer": { "@type": "Answer", "text": q.lead ? `${q.lead} ${q.items.map((t, i) => `${i + 1}. ${t}`).join(' ')}${q.after ? ' ' + q.after : ''}` : q.answer }
+      }))
     },
     {
       "@type": "BreadcrumbList",
@@ -194,46 +193,35 @@ const schema = {
     </div>
   </section>
 
+  <!-- High target -->
+  <section class="py-16 lg:py-20 bg-gray-50" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">{highTarget.question}</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">{highTarget.lead}</p>
+      <ol class="space-y-4 mb-6 text-lg text-gray-700">
+        {highTarget.items.map((item, i) => (
+          <li class="flex gap-3"><span class="text-electric font-bold shrink-0">{i + 1}.</span><span>{item}</span></li>
+        ))}
+      </ol>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">{highTarget.after}</p>
+      <p class="text-lg text-gray-700 leading-relaxed">Seeing a high ROAS on the dashboard but little profit? That is a different problem, covered in <a href="/roas-vs-profit" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">high ROAS, low profit</a>. To find the floor itself, use the <a href="/blog/break-even-roas" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">break-even ROAS guide</a>.</p>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Frequently asked questions</h2>
       <div class="space-y-4">
-        <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-          <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-            How do I calculate my target ROAS from margin?
-            <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Start with your break-even ROAS, which is 1 divided by your gross margin. A 40 percent margin gives a 2.5x break-even. Then lift the target above that floor by the profit you want to keep. If a 40 percent margin product breaks even at 2.5x and you want to hold back roughly 15 percent of revenue as profit, you aim for about a 4x target. The exact figure depends on your margin and profit goal, but the method is always break-even first, then add the profit you want on top.</div>
-        </details>
-        <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-          <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-            What is a good target ROAS?
-            <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">There is no single good number, because a good target ROAS depends entirely on your margin. A 4x target is comfortably profitable on a 50 percent margin product but loses money on a 20 percent margin one, where break-even alone is 5x. Instead of copying a figure you read somewhere, work out your break-even ROAS from your gross margin and set the target above it by the profit you want to keep.</div>
-        </details>
-        <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-          <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-            Should I use one target ROAS for the whole account?
-            <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Usually not. A single blended target across every product forces high-margin and low-margin lines to the same goal, which underspends the profitable ones and overspends the thin ones. Group products into margin bands and set a target ROAS for each band. High-margin lines can run a lower target and take more volume, while thin-margin lines are held to a stricter target that protects profit.</div>
-        </details>
-        <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-          <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-            Why did my sales drop when I raised my target ROAS?
-            <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Raising a target ROAS tells the bidding system to buy only cheaper conversions, so it stops entering more expensive auctions and volume falls. Push the target too high too fast and the campaign re-enters its learning phase and volume can collapse. Move a target in steps of around 10 to 15 percent, wait for the algorithm to settle over a week or two, then adjust again if the profit maths still supports it.</div>
-        </details>
-        <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-          <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-            What is the difference between a new-customer and a blended target ROAS?
-            <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">A blended target treats every order the same, whether it comes from a first-time buyer or a repeat customer. A new-customer target looks at what a first order is worth once you account for the repeat orders that customer is likely to place. If your average customer buys three times, a first order that only breaks even can still be worth winning, so you can set a lower, more aggressive target on new customers and collect the profit on the repeats.</div>
-        </details>
+        {faqs.map((faq) => (
+          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
+              {faq.question}
+              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-6 pb-6 text-gray-700 leading-relaxed">{faq.answer}</div>
+          </details>
+        ))}
       </div>
     </div>
   </section>
