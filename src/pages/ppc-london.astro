@@ -4,6 +4,17 @@ import CountUp from '../components/CountUp.astro';
 import PartnerBadges from '../components/PartnerBadges.astro';
 import ClientLogos from '../components/ClientLogos.astro';
 
+const faqs = [
+  { q: "How much does a PPC agency in London charge?", a: "Fees vary by agency, so compare like for like: per channel or per account, how many hours are included, and the contract term. Visible Ads charges per channel plus VAT, with unlimited campaigns on that channel. Silver is £1,000 a month for ad budgets up to £3,000, Gold is £1,500 a month for budgets up to £20,000, and Platinum is £2,000 a month plus 5% for budgets above £20,000. Ad budget is paid to the platforms separately and creative is not included. Meta and Google need a one-off £1,000 tracking setup. The minimum term is three months, then rolling monthly with 30 days notice. A reduced or zero retainer revenue-share model is available by application." },
+  { q: "What does a PPC company in London do each week?", a: "On a managed account we review search terms and the product feed, move budget under the weekly scaling rules, check conversion tracking, and report on profit as well as ROAS. Silver includes weekly calls or video updates and a quarterly review. The aim is that spend follows what is returning money.", link: { href: "/ppc-management/", text: "See the weekly PPC management process" } },
+  { q: "Why choose a boutique PPC agency over a large London agency?", a: "Large London agencies spread senior talent across dozens of accounts and frequently hand day-to-day management to juniors. At Visible Ads, your campaigns are managed directly by senior strategists with over 20 years of experience. You get faster response times, more strategic attention, and none of the overhead costs that big agencies pass on to clients. Our Google Partner status and £3M in annual ad spend managed show that boutique does not mean small results." },
+  { q: "How do I choose a PPC agency in London?", a: "Ask who will actually manage the account, how they judge profit rather than ROAS alone, what the contract term is, and whether you keep ownership of the ad accounts and reports. Ask to see how they decide when to raise or cut budget.", link: { href: "/choosing-a-google-ads-agency/", text: "Read our questions to ask any Google Ads agency" } },
+  { q: "Do you work with ecommerce and lead-generation businesses in London?", a: "Yes, both. For ecommerce we run Google Shopping, Performance Max, Microsoft Advertising, Meta and Amazon against product margin. For lead generation, mostly professional services firms, we set up call and form tracking so campaigns are judged on qualified enquiries." },
+  { q: "Which parts of London can your campaigns target?", a: "Anywhere from all of Greater London down to individual boroughs, postcode districts or a radius around a shop or office. We usually set locations to people in or regularly in the area, so you are not paying for searchers who are only interested in London from elsewhere." },
+  { q: "Do you offer face-to-face meetings with London clients?", a: "Yes. We are based in Kingston upon Thames, a 25-minute train ride from London Waterloo. We meet clients across Central London, the City and South West London, and we use video calls for quick check-ins and performance reviews." },
+  { q: "What types of London businesses do you work with?", a: "Mostly ecommerce and B2B businesses turning over £1M to £20M, plus professional services firms that need leads. If your ad spend is large enough that waste shows up in the P&L, we are a good fit. Our fees start at £1,000 a month for ad budgets up to £3,000." },
+];
+
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -39,46 +50,17 @@ const schema = {
     },
     {
       "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How much does a PPC agency in London charge?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "London PPC agencies typically charge between £1,500 and £10,000 per month in management fees, depending on campaign complexity and ad spend levels. Large agencies in the West End or City often charge at the higher end due to overheads. Visible Ads offers enterprise-level expertise at boutique rates, our management fees range from £1,500 to £5,000 per month, with transparent pricing and no long-term lock-in contracts."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Why choose a boutique PPC agency over a large London agency?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Large London agencies spread senior talent across dozens of accounts and frequently hand day-to-day management to juniors. At Visible Ads, your campaigns are managed directly by senior strategists with over 20 years of experience. You get faster response times, more strategic attention, and none of the overhead costs that big agencies pass on to clients. Our Google Partner status and £3M in annual ad spend managed prove that boutique does not mean small results."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do you offer face-to-face meetings with London clients?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Absolutely. We are based in Kingston-Upon-Thames, which is a 25-minute train ride from London Waterloo. We regularly meet clients across Central London, the City, and South West London. We also offer video calls for quick check-ins and monthly performance reviews. You will never feel like you are working with a remote agency."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What types of London businesses do you work with?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "We specialise in established businesses generating £1M or more in annual revenue, including professional services firms, eCommerce brands, B2B companies, SaaS providers, and multi-location businesses across Greater London. If you are investing at least £2,000 per month in ad spend and want expert management to maximise your return, we are an excellent fit."
-          }
-        }
-      ]
+      "mainEntity": faqs.map((f) => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
     }
   ]
 };
 ---
 
-<Layout title="PPC Agency London | Google Ads Management | Visible Ads" description="London's boutique PPC agency: enterprise results, personal service, and a Google Partner managing £3M+ in annual ad spend across paid search." schema={schema}>
+<Layout title="PPC Agency London | Google Ads Management | Visible Ads" description="PPC agency London for ecommerce and lead-gen businesses. Google Partner running Google Ads, Microsoft, Meta and Amazon. Fees from £1,000 a month plus VAT. Free audit." schema={schema}>
 
   <!-- Hero -->
   <section class="relative py-20 lg:py-28 overflow-hidden bg-navy" data-animate>
@@ -152,7 +134,7 @@ const schema = {
   <section id="services" class="py-20 lg:py-28 bg-white" data-animate>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">PPC & Digital Marketing Services for London Businesses</h2>
+        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">PPC Services for London Businesses, by Channel</h2>
         <p class="text-lg text-gray-700 max-w-2xl mx-auto">A full suite of performance marketing services engineered for London's most competitive sectors.</p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -204,6 +186,73 @@ const schema = {
           <p class="text-gray-700 text-sm mb-3">Turn more of your London traffic into customers through data-driven A/B testing and UX improvements.</p>
           <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How we run London accounts -->
+  <section class="py-20 lg:py-28 bg-sky-tint" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto mb-12">
+        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">How Our London PPC Services Work for Ecommerce and Lead Generation</h2>
+        <p class="text-lg text-gray-700 leading-relaxed">A London account is run differently depending on what you sell. Most of our London work is one of two types, and each is set up around a different number.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-200 shadow-sm">
+          <h3 class="font-heading font-bold text-navy text-xl mb-4">London ecommerce brands</h3>
+          <ul class="space-y-3 text-gray-700 leading-relaxed list-disc pl-5">
+            <li>The product feed is split by margin, so Shopping and Performance Max bids follow contribution rather than revenue alone.</li>
+            <li>Target ROAS is set from your own margin, not a generic benchmark. The <a href="/roas-vs-profit/" class="text-electric underline hover:text-electric-dark">ROAS vs profit calculator</a> shows the maths.</li>
+            <li>Delivery and returns settings in Merchant Center are matched to what you really offer London customers.</li>
+            <li>Budget moves up or down weekly under our <a href="/ppc-management/" class="text-electric underline hover:text-electric-dark">published scaling rules</a>.</li>
+          </ul>
+        </div>
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-200 shadow-sm">
+          <h3 class="font-heading font-bold text-navy text-xl mb-4">London lead-generation firms</h3>
+          <ul class="space-y-3 text-gray-700 leading-relaxed list-disc pl-5">
+            <li>Call and form tracking is set up so Google Ads learns from qualified enquiries, not every click-to-call.</li>
+            <li>Locations are built from the boroughs or postcode districts you actually serve, set to people in or regularly in the area.</li>
+            <li>The ad schedule follows the hours your team answers the phone.</li>
+            <li>Where you can share closed-deal data, we report cost per qualified lead and which leads became customers, not only cost per lead.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- London market in numbers -->
+  <section class="py-20 lg:py-28 bg-white" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">The London Market in Numbers</h2>
+        <p class="text-lg text-gray-700 mb-8 leading-relaxed">The Office for National Statistics counts businesses registered for VAT and/or PAYE. Its March 2026 figures put London well ahead of every other UK region.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm text-center">
+            <p class="text-3xl font-heading font-extrabold text-electric mb-1">553,000</p>
+            <p class="text-gray-700 text-sm">VAT and/or PAYE businesses in London</p>
+          </div>
+          <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm text-center">
+            <p class="text-3xl font-heading font-extrabold text-electric mb-1">19.8%</p>
+            <p class="text-gray-700 text-sm">of the 2.79 million in the UK</p>
+          </div>
+          <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm text-center">
+            <p class="text-3xl font-heading font-extrabold text-electric mb-1">1 of 12</p>
+            <p class="text-gray-700 text-sm">regions, and the largest by business count</p>
+          </div>
+        </div>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">Not every one of those businesses advertises, but the figure shows how many firms sit in the market a London campaign is drawn from. It is one reason we judge London accounts on profit after ad spend rather than on share of impressions. The count leaves out very small businesses that are not registered for VAT or PAYE.</p>
+        <p class="text-sm text-gray-600 leading-relaxed">Source: Office for National Statistics, <a href="https://www.ons.gov.uk/businessindustryandtrade/business/activitysizeandlocation/bulletins/ukbusinessactivitysizeandlocation/2026" class="text-electric underline hover:text-electric-dark" rel="noopener">UK business: activity, size and location: 2026</a>, Tables 1 and 4, published 24 September 2026. Retrieved 18 October 2026. Regional counts are rounded to the nearest thousand.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Where we work -->
+  <section class="py-20 lg:py-28 bg-sky-tint" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Where We Work Across London</h2>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">Campaigns are run remotely, with meetings by video or in person. For Central London and the City, we travel in from Kingston. The boroughs closest to our base have their own pages: see our <a href="/kingston-upon-thames/" class="text-electric underline hover:text-electric-dark">PPC agency in Kingston upon Thames</a> and <a href="/richmond-upon-thames/" class="text-electric underline hover:text-electric-dark">PPC company in Richmond upon Thames</a>.</p>
+        <p class="text-lg text-gray-700 leading-relaxed">If you sell beyond the M25 as well, our <a href="/surrey/" class="text-electric underline hover:text-electric-dark">PPC agency in Surrey</a> page covers how we split budgets between towns in the county.</p>
       </div>
     </div>
   </section>
@@ -261,7 +310,7 @@ const schema = {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mx-auto">
         <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Deep Expertise in London's Most Competitive Sectors</h2>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">London's PPC landscape is unlike anywhere else in the UK. Cost-per-click rates for competitive terms in financial services, legal, and technology regularly exceed £30-50, and the difference between a profitable campaign and a money pit often comes down to the granularity of your targeting, the quality of your ad copy, and how intelligently your bidding strategy responds to London's unique search patterns.</p>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">London's PPC landscape is unlike anywhere else in the UK. Competitive terms in financial services, legal, and technology can cost far more per click than the UK average (our <a href="/blog/how-much-google-ads-cost-uk/" class="text-electric underline hover:text-electric-dark">UK Google Ads cost guide</a> shows CPC by industry), and the difference between a profitable campaign and a money pit often comes down to the granularity of your targeting, the quality of your ad copy, and how intelligently your bidding strategy responds to London's unique search patterns.</p>
         <p class="text-lg text-gray-700 mb-6 leading-relaxed">We have managed campaigns across every major London sector, from City law firms competing for high-value commercial litigation queries, to Canary Wharf fintech companies scaling B2B lead generation, to Hackney DTC brands driving profitable customer acquisition through Shopping and Performance Max. Each sector has its own dynamics, and we bring sector-specific knowledge that generalist agencies simply cannot match.</p>
         <p class="text-lg text-gray-700 mb-6 leading-relaxed">Our approach to London PPC goes beyond basic campaign management. We analyse your competitive landscape at a granular level, identify the auction dynamics driving your costs, and build strategies that exploit gaps your competitors are missing. Whether that means layering audiences on high-intent search terms, building out long-tail Shopping campaigns that capture lower-funnel traffic at a fraction of the head-term CPC, or deploying Performance Max with the kind of asset group structure that actually drives incremental conversions, we bring the depth of expertise that London's market demands.</p>
         <p class="text-lg text-gray-700 leading-relaxed">And because we are not a massive agency trying to service hundreds of accounts, we have the bandwidth to stay genuinely proactive. We do not wait for your monthly review to flag opportunities or issues. When we spot a trend, a competitor pulling back on spend, a new keyword cluster emerging, a landing page underperforming, we act immediately and keep you informed.</p>
@@ -282,34 +331,15 @@ const schema = {
       <div class="max-w-3xl mx-auto">
         <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-10">Frequently Asked Questions</h2>
         <div class="space-y-4">
+          {faqs.map((f) => (
           <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
             <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              How much does a PPC agency in London charge?
+              {f.q}
               <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">London PPC agencies typically charge between £1,500 and £10,000 per month in management fees, depending on campaign complexity and ad spend levels. Large agencies in the West End or City often charge at the higher end due to overheads. Visible Ads offers enterprise-level expertise at boutique rates, our management fees range from £1,500 to £5,000 per month, with transparent pricing and no long-term lock-in contracts.</div>
+            <div class="px-6 pb-6 text-gray-700 leading-relaxed">{f.a}{f.link && (<> <a href={f.link.href} class="text-electric underline hover:text-electric-dark">{f.link.text}</a>.</>)}</div>
           </details>
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              Why choose a boutique PPC agency over a large London agency?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">Large London agencies spread senior talent across dozens of accounts and frequently hand day-to-day management to juniors. At Visible Ads, your campaigns are managed directly by senior strategists with over 20 years of experience. You get faster response times, more strategic attention, and none of the overhead costs that big agencies pass on to clients. Our Google Partner status and £3M in annual ad spend managed prove that boutique does not mean small results.</div>
-          </details>
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              Do you offer face-to-face meetings with London clients?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">Absolutely. We are based in Kingston-Upon-Thames, which is a 25-minute train ride from London Waterloo. We regularly meet clients across Central London, the City, and South West London. We also offer video calls for quick check-ins and monthly performance reviews. You will never feel like you are working with a remote agency.</div>
-          </details>
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              What types of London businesses do you work with?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">We specialise in established businesses generating £1M or more in annual revenue, including professional services firms, eCommerce brands, B2B companies, SaaS providers, and multi-location businesses across Greater London. If you are investing at least £2,000 per month in ad spend and want expert management to maximise your return, we are an excellent fit.</div>
-          </details>
+          ))}
         </div>
       </div>
     </div>
