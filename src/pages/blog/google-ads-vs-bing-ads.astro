@@ -2,6 +2,14 @@
 import Layout from '../../layouts/Layout.astro';
 import PartnerBadges from '../../components/PartnerBadges.astro';
 
+const faqs = [
+  { question: 'What is the difference between Bing Ads and Google Ads?', answer: 'Both are pay-per-click platforms where advertisers bid to show ads. Google Ads is the larger platform with the wider range of campaign types, including YouTube and Demand Gen. Bing Ads, now called Microsoft Advertising, is a separate auction with its own audience, Shopping inventory and LinkedIn profile targeting. They run as two accounts, so you judge each on its own results.' },
+  { question: 'Is Bing Ads cheaper than Google Ads in the UK?', answer: 'It can be, but there is no universal saving. Google Ads and Microsoft Advertising use separate auctions, so costs vary by keyword, market, audience, geography and account quality. Compare them with a controlled test and contribution-based measurement.' },
+  { question: 'Is Google AdSense the same as Bing Ads?', answer: 'No. Google AdSense pays website owners to show ads on their own sites. Bing Ads, now Microsoft Advertising, is where advertisers pay to have ads shown. The product on the Google side that matches Bing Ads is Google Ads, not AdSense.' },
+  { question: 'Can I run Google Ads and Bing Ads at the same time?', answer: 'Yes. Microsoft Advertising supports campaign imports from Google Ads, but imported campaigns should be reviewed for differences in auctions, audiences, tracking and budget. Run both when the incremental conversions meet your profitability target.' },
+  { question: 'Which platform is better for eCommerce businesses?', answer: 'The right platform depends on where your customers search, your product feed, your conversion data and your contribution margin. Test each channel with shared measurement rather than assuming one will outperform the other.' },
+];
+
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -11,30 +19,18 @@ const schema = {
       "description": "A practical comparison of Google Ads and Microsoft Advertising, covering auction differences, features and how to evaluate each with your own data.",
       "url": "https://visible-ads.com/blog/google-ads-vs-bing-ads",
       "datePublished": "2026-05-25",
-      "dateModified": "2026-09-13",
+      "dateModified": "2026-10-18",
       "author": { "@type": "Organization", "name": "Visible Ads", "url": "https://visible-ads.com" },
       "publisher": { "@type": "Organization", "name": "Visible Ads", "url": "https://visible-ads.com" },
       "image": "https://visible-ads.com/images/visible-ads-og.png"
     },
     {
       "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Is Bing Ads cheaper than Google Ads in the UK?",
-          "acceptedAnswer": { "@type": "Answer", "text": "It can be, but there is no universal saving. Google Ads and Microsoft Advertising use separate auctions, so costs vary by keyword, market, audience, geography and account quality. Compare them with a controlled test and contribution-based measurement." }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I run Google Ads and Bing Ads at the same time?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Microsoft Advertising supports campaign imports from Google Ads, but imported campaigns should be reviewed for differences in auctions, audiences, tracking and budget. Run both when the incremental conversions meet your profitability target." }
-        },
-        {
-          "@type": "Question",
-          "name": "Which platform is better for eCommerce businesses?",
-          "acceptedAnswer": { "@type": "Answer", "text": "The right platform depends on where your customers search, your product feed, your conversion data and your contribution margin. Test each channel with shared measurement rather than assuming one will outperform the other." }
-        }
-      ]
+      "mainEntity": faqs.map((q) => ({
+        "@type": "Question",
+        "name": q.question,
+        "acceptedAnswer": { "@type": "Answer", "text": q.answer }
+      }))
     },
     {
       "@type": "BreadcrumbList",
@@ -76,6 +72,44 @@ const schema = {
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">Google Ads is often the starting point for paid search because it offers broad campaign and inventory options. Microsoft Advertising is a separate opportunity that can add search demand, Shopping inventory and LinkedIn profile targeting.</p>
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">Neither platform has a guaranteed cost, audience quality or return. Results depend on your keywords, offer, tracking, landing pages, competition, geography and the way conversion value is defined.</p>
       <p class="text-lg text-gray-700 leading-relaxed">This guide shows how to compare both platforms through a controlled test: define the same conversion value, track contribution, and allocate more budget only where incremental results clear your profitability floor.</p>
+    </div>
+  </section>
+
+  <!-- Short answer -->
+  <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Bing Ads vs Google Ads: the short answer</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Bing Ads and Google Ads do the same job. Advertisers bid, and their ads show when someone searches. Bing Ads is the former name of Microsoft Advertising, so Bing vs Google ads is the same comparison under two names.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Google Ads is the bigger platform with more campaign types. Microsoft Advertising is a separate auction with its own searchers, a Google import tool and LinkedIn profile targeting that Google does not have. Most advertisers start on Google and add Microsoft once the first account is tracking profit properly.</p>
+      <h3 class="text-xl font-heading font-bold text-navy mb-4">Bing vs Google ads at a glance</h3>
+      <div class="overflow-x-auto mb-6">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-navy text-white">
+              <th class="px-5 py-4 font-heading font-semibold text-sm">Feature</th>
+              <th class="px-5 py-4 font-heading font-semibold text-sm">Google Ads</th>
+              <th class="px-5 py-4 font-heading font-semibold text-sm">Microsoft Advertising (Bing Ads)</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-700">
+            <tr class="bg-white border-b border-gray-100"><td class="px-5 py-4 font-semibold text-navy">Campaign types</td><td class="px-5 py-4">Search, Shopping, Display, YouTube, Demand Gen, Performance Max</td><td class="px-5 py-4">Search, Shopping, Audience, Display, Performance Max</td></tr>
+            <tr class="bg-gray-50 border-b border-gray-100"><td class="px-5 py-4 font-semibold text-navy">Targeting extra</td><td class="px-5 py-4">Detailed in-market and custom audiences</td><td class="px-5 py-4">LinkedIn profile targeting by company, industry and job function</td></tr>
+            <tr class="bg-white border-b border-gray-100"><td class="px-5 py-4 font-semibold text-navy">Starting point</td><td class="px-5 py-4">New campaigns built in the account</td><td class="px-5 py-4">Can import from Google Ads, then needs its own review</td></tr>
+            <tr class="bg-gray-50"><td class="px-5 py-4 font-semibold text-navy">How to judge it</td><td class="px-5 py-4" colspan="2">Same conversion definitions and contribution, one account at a time</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-lg text-gray-700 leading-relaxed">Judge both on profit, not platform ROAS. The <a href="/roas-vs-profit" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">ROAS vs profit calculator</a> shows how a healthy-looking return can still lose money. If you want a second pair of eyes on a Microsoft account, see our <a href="/free-bing-ads-audit" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">free Microsoft Ads audit</a> or our <a href="/bing-ads" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">Bing Ads agency</a> page.</p>
+    </div>
+  </section>
+
+  <!-- AdSense -->
+  <section class="py-16 lg:py-20 bg-white" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Google AdSense vs Bing Ads: they are not the same kind of product</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">People often compare the two because both have "ads" in the name, but they sit on opposite sides of the same market. <strong class="text-navy">Google AdSense</strong> is for website owners. You place ad units on your own site and Google pays you when visitors view or click them. <strong class="text-navy">Bing Ads</strong>, now Microsoft Advertising, is for advertisers. You pay to put your ads in front of searchers.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">The Google product that matches Bing Ads is <strong class="text-navy">Google Ads</strong>, which is what the rest of this page compares. If you want to earn from your own site, neither Google Ads nor Microsoft Advertising is the tool. If you want to buy traffic to sell something, AdSense is not the tool either.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">One thing links them. An advertiser's bid on Google Ads can end up as publisher income on AdSense, which is why the same business can sit on both sides.</p>
     </div>
   </section>
 
@@ -143,27 +177,15 @@ const schema = {
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Frequently Asked Questions</h2>
       <div class="space-y-4">
-        <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-          <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-            Is Bing Ads cheaper than Google Ads in the UK?
-            <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">It can be, but there is no universal saving. Google Ads and Microsoft Advertising use separate auctions, so costs vary by keyword, market, audience, geography and account quality. Compare them with a controlled test and contribution-based measurement.</div>
-        </details>
-        <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-          <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-            Can I run Google Ads and Bing Ads at the same time?
-            <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">Yes. Microsoft Advertising supports campaign imports from Google Ads, but imported campaigns should be reviewed for differences in auctions, audiences, tracking and budget. Run both when the incremental conversions meet your profitability target.</div>
-        </details>
-        <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-          <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-            Which platform is better for eCommerce businesses?
-            <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-6 pb-6 text-gray-700 leading-relaxed">The right platform depends on where your customers search, your product feed, your conversion data and your contribution margin. Test each channel with shared measurement rather than assuming one will outperform the other.</div>
-        </details>
+        {faqs.map((faq) => (
+          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
+              {faq.question}
+              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-6 pb-6 text-gray-700 leading-relaxed">{faq.answer}</div>
+          </details>
+        ))}
       </div>
     </div>
   </section>
