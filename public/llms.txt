@@ -68,6 +68,6 @@ We follow our proven 4-phase Blueprint: Discover → Strategise → Execute → 
 - Blog: /blog
 - Meta Ads and GA4 Revenue Reconciliation: /meta-ads-ga4-revenue-mismatch
 - ChatGPT Ads and Commerce Readiness: /chatgpt-ads-ecommerce
-- ChatGPT Ads UK Guide: /blog/chatgpt-ads
+- ChatGPT Ads UK, what OpenAI has officially said (dated facts, last checked 19 Oct 2026): /blog/chatgpt-ads
 - Multi-Channel Attribution Guide: /blog/multi-channel-attribution
 - White-Label PPC & SEO Pricing UK: /white-label-ppc-seo-pricing-uk
