@@ -3,8 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import PartnerBadges from '../../components/PartnerBadges.astro';
 
 const faqs = [
-  { question: 'How do I calculate my target ROAS from margin?', answer: 'Start with your break-even ROAS, which is 1 divided by your gross margin. A 40 percent margin gives a 2.5x break-even. Then lift the target above that floor by the profit you want to keep. If a 40 percent margin product breaks even at 2.5x and you want to hold back roughly 15 percent of revenue as profit, you aim for about a 4x target. The exact figure depends on your margin and profit goal, but the method is always break-even first, then add the profit you want on top.' },
-  { question: 'What is a good target ROAS?', answer: 'There is no single good number, because a good target ROAS depends entirely on your margin. A 4x target is comfortably profitable on a 50 percent margin product but loses money on a 20 percent margin one, where break-even alone is 5x. Instead of copying a figure you read somewhere, work out your break-even ROAS from your gross margin and set the target above it by the profit you want to keep.' },
+  { question: 'How do I calculate my target ROAS from margin?', answer: 'Start with your break-even ROAS, which is 1 divided by your contribution margin. A 40 percent margin gives a 2.5x break-even. Then lift the target above that floor by the profit you want to keep. If a 40 percent margin product breaks even at 2.5x and you want to hold back roughly 15 percent of revenue as profit, you aim for about a 4x target. The exact figure depends on your margin and profit goal, but the method is always break-even first, then add the profit you want on top.' },
+  { question: 'What is a good target ROAS?', answer: 'It depends on your margin, so no single number is good for everyone. The answer above on what counts as a high target ROAS shows how to read a figure against your break-even.' },
   { question: 'Should I use one target ROAS for the whole account?', answer: 'Usually not. A single blended target across every product forces high-margin and low-margin lines to the same goal, which underspends the profitable ones and overspends the thin ones. Group products into margin bands and set a target ROAS for each band. High-margin lines can run a lower target and take more volume, while thin-margin lines are held to a stricter target that protects profit.' },
   { question: 'Why did my sales drop when I raised my target ROAS?', answer: 'Raising a target ROAS tells the bidding system to buy only cheaper conversions, so it stops entering more expensive auctions and volume falls. Push the target too high too fast and the campaign re-enters its learning phase and volume can collapse. Move a target in steps of around 10 to 15 percent, wait for the algorithm to settle over a week or two, then adjust again if the profit maths still supports it.' },
   { question: 'What is the difference between a new-customer and a blended target ROAS?', answer: 'A blended target treats every order the same, whether it comes from a first-time buyer or a repeat customer. A new-customer target looks at what a first order is worth once you account for the repeat orders that customer is likely to place. If your average customer buys three times, a first order that only breaks even can still be worth winning, so you can set a lower, more aggressive target on new customers and collect the profit on the repeats.' },
@@ -92,9 +92,9 @@ const schema = {
   <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Your break-even ROAS is the floor</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Before you can set a target, you need the floor it has to clear. That floor is your break-even ROAS. It is pure arithmetic: 1 divided by your gross margin. A 40 percent margin gives a break-even of 2.5x. A 25 percent margin needs 4x. A 20 percent margin needs 5x just to stand still. Below that figure, every extra sale a campaign brings in costs you more than it returns.</p>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">The margin that goes into this sum is contribution margin, not a headline figure off the price tag. Take the selling price and subtract cost of goods, payment fees, shipping and returns. What remains is the real money available to cover ad spend and leave a profit. Use a softer number and your break-even floor will read lower than it truly is. That is exactly how accounts end up running below break-even without noticing.</p>
-      <p class="text-lg text-gray-700 leading-relaxed">The reason this matters so much is that break-even is where a target ROAS goes wrong most often. A 4x target sounds respectable. On a 20 percent margin it sits below the 5x break-even and loses money on every order. We work through why that gap is so easy to miss in <a href="/roas-vs-profit" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">ROAS vs profit</a>, which includes a calculator you can run against your own margins. Knowing your floor is what turns a target from a guess into a decision.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Before you can set a target, you need the floor it has to clear. That floor is your break-even ROAS: 1 divided by your contribution margin. A 40 percent margin gives 2.5x, a 25 percent margin needs 4x, and a 20 percent margin needs 5x. Below it, every extra sale costs you more than it returns.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Contribution margin is the selling price minus cost of goods, payment fees, shipping and returns. A softer figure makes the floor read lower than it is. The <a href="/blog/break-even-roas" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">break-even ROAS guide</a> shows how to build it.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">A 4x target loses money on a 20 percent margin, because break-even there is 5x. <a href="/roas-vs-profit" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">ROAS vs profit</a> includes a calculator you can run against your own margins. Knowing your floor is what turns a target from a guess into a decision.</p>
     </div>
   </section>
 
@@ -103,13 +103,13 @@ const schema = {
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Deriving your target from margin and profit</h2>
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">With the floor known, the target is the floor plus the profit you want to keep. Break-even tells you where you make nothing. Your target ROAS lifts you above it by enough that the campaign hands you a margin after the ad spend is paid. The size of that lift is a business decision, not a Google one.</p>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Take a worked example. A product carries a 40 percent gross margin, so its break-even ROAS is 2.5x. At exactly 2.5x the campaign washes its face and leaves nothing. Suppose you want to keep roughly 15 percent of revenue as profit after the ads are paid. To do that on a 40 percent margin you need the campaign to return closer to a 4x ROAS, because the extra revenue per pound of spend is what funds the profit you are holding back. So the target for that product is not a guessed 4x, it is a 4x you can explain: 2.5x to break even, plus enough on top to bank 15 percent.</p>
-      <p class="text-lg text-gray-700 mb-8 leading-relaxed">The table below shows how the floor and a sensible target move as margin changes. Notice that the same 4x target that is healthy on a 40 percent margin is a loss on a 20 percent margin, where break-even alone is 5x. This is the whole reason a single copied number is dangerous: the right target is a function of the margin. The margin changes from product to product.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">A product with a 40 percent contribution margin breaks even at 2.5x. At exactly 2.5x the campaign washes its face and leaves nothing. Suppose you want to keep roughly 15 percent of revenue as profit after the ads are paid. To do that on a 40 percent margin you need the campaign to return closer to a 4x ROAS, because the extra revenue per pound of spend is what funds the profit you are holding back. So the target for that product is not a guessed 4x, it is a 4x you can explain: 2.5x to break even, plus enough on top to bank 15 percent.</p>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">The table below targets a different profit share on each row, shown in the last column. Notice that the same 4x target that is healthy on a 40 percent margin is a loss on a 20 percent margin, where break-even alone is 5x. This is the whole reason a single copied number is dangerous: the right target is a function of the margin. The margin changes from product to product.</p>
       <div class="overflow-x-auto mb-8">
         <table class="w-full text-left border-collapse">
           <thead>
             <tr class="bg-navy text-white">
-              <th class="px-5 py-4 font-heading font-semibold text-sm">Gross margin</th>
+              <th class="px-5 py-4 font-heading font-semibold text-sm">Contribution margin</th>
               <th class="px-5 py-4 font-heading font-semibold text-sm">Break-even ROAS</th>
               <th class="px-5 py-4 font-heading font-semibold text-sm">Example target ROAS</th>
               <th class="px-5 py-4 font-heading font-semibold text-sm">What it leaves</th>
@@ -120,13 +120,13 @@ const schema = {
               <td class="px-5 py-4 font-semibold text-navy">20 percent</td>
               <td class="px-5 py-4">5.0x</td>
               <td class="px-5 py-4">6.5x to 7x</td>
-              <td class="px-5 py-4">A thin margin needs a high target just to profit</td>
+              <td class="px-5 py-4">About 4 to 5 percent of revenue kept after ad spend</td>
             </tr>
             <tr class="bg-gray-50 border-b border-gray-100">
               <td class="px-5 py-4 font-semibold text-navy">25 percent</td>
               <td class="px-5 py-4">4.0x</td>
               <td class="px-5 py-4">5.5x to 6x</td>
-              <td class="px-5 py-4">Room for profit only well above break-even</td>
+              <td class="px-5 py-4">About 7 to 8 percent kept</td>
             </tr>
             <tr class="bg-white border-b border-gray-100">
               <td class="px-5 py-4 font-semibold text-navy">40 percent</td>
@@ -138,7 +138,7 @@ const schema = {
               <td class="px-5 py-4 font-semibold text-navy">50 percent</td>
               <td class="px-5 py-4">2.0x</td>
               <td class="px-5 py-4">3x to 3.5x</td>
-              <td class="px-5 py-4">A healthy margin can profit at a lower target</td>
+              <td class="px-5 py-4">About 17 to 21 percent kept</td>
             </tr>
           </tbody>
         </table>
@@ -151,7 +151,7 @@ const schema = {
   <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Setting the target in Google Ads and giving it room to learn</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">A derived target is only useful if the platform can act on it, and Google Ads bids to the conversion values you send. If those values are revenue, the target ROAS is measured against revenue and your margin never enters the maths. The cleaner approach is to pass gross profit as the conversion value, so a high-margin sale is worth more to the algorithm than a low-margin sale at the same price, and the target you set is a profit target rather than a revenue one.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">A derived target is only useful if the platform can act on it, and Google Ads bids to the conversion values you send. If those values are revenue, the target ROAS is measured against revenue and your margin never enters the maths. The cleaner approach is to pass contribution (profit after product cost and the other variable costs) as the conversion value, so a high-margin sale is worth more to the algorithm than a low-margin sale at the same price, and the target you set is a profit target rather than a revenue one.</p>
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">Whichever value you feed, give the target room to learn. Target ROAS is a Smart Bidding strategy, and it needs enough conversions and enough time to model the auctions before its output means anything. Change the target and the campaign re-evaluates every bid. A large or sudden move can send it back into learning and rattle performance for a week or more. Move in steps of around 10 to 15 percent, then wait for it to settle before judging the result.</p>
       <p class="text-lg text-gray-700 leading-relaxed">Two things undermine even a well-set target. The first is thin conversion volume, where the strategy has too little data to bid reliably and the numbers swing week to week. The second is dirty tracking: duplicated conversions, wrong values or a misjudged attribution window will quietly point the target at the wrong goal. Fix the data first, then trust the target.</p>
     </div>
@@ -184,7 +184,7 @@ const schema = {
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">A few errors show up again and again when accounts move to a margin-based target. Each one is easy to check before your next reporting cycle:</p>
       <ul class="space-y-4 mb-6 text-lg text-gray-700">
         <li class="flex gap-3"><span class="text-electric shrink-0">&bull;</span><span><strong class="text-navy">One blended target across all products.</strong> A single account-wide figure underspends your high-margin lines and overspends your thin ones. Band by margin and set a target for each band.</span></li>
-        <li class="flex gap-3"><span class="text-electric shrink-0">&bull;</span><span><strong class="text-navy">Ignoring margin altogether.</strong> A target ROAS set without a break-even floor beneath it is a guess. Work out 1 divided by your gross margin first, then build the target on top.</span></li>
+        <li class="flex gap-3"><span class="text-electric shrink-0">&bull;</span><span><strong class="text-navy">Ignoring margin altogether.</strong> A target ROAS set without a break-even floor beneath it is a guess. Work out 1 divided by your contribution margin first, then build the target on top.</span></li>
         <li class="flex gap-3"><span class="text-electric shrink-0">&bull;</span><span><strong class="text-navy">Pushing the target too high, too fast.</strong> A big jump sends the campaign back into learning and volume can collapse. Move in steps of 10 to 15 percent and let each change settle.</span></li>
         <li class="flex gap-3"><span class="text-electric shrink-0">&bull;</span><span><strong class="text-navy">Using a soft margin figure.</strong> Leave out fees, shipping or returns and your break-even reads lower than it is, so a target that looks safe is actually below the floor.</span></li>
         <li class="flex gap-3"><span class="text-electric shrink-0">&bull;</span><span><strong class="text-navy">Setting and forgetting.</strong> Margins move with cost prices, discounts and returns. A target that was right last quarter can be wrong this one, so revisit it as the numbers change.</span></li>
@@ -262,7 +262,7 @@ const schema = {
     <div class="absolute inset-0 dot-pattern opacity-5"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">Set your targets from margin, not from a guess</h2>
-      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">Our free profit audit maps your real margins against your ad data and shows you the target ROAS each product group should be held to. Managing around 3 million pounds in annual ad spend as a Google Partner, we bring the numbers behind every target.</p>
+      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">Our free profit audit maps your real margins against your ad data and shows you the target ROAS each product group should be held to. Managing around £3M in annual ad spend as a Google Partner, we bring the numbers behind every target.</p>
       <a href="/free-ads-audit" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a Profit Audit</a>
     </div>
   </section>

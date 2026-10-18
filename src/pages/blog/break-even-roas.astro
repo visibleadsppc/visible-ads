@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import PartnerBadges from '../../components/PartnerBadges.astro';
 
 const faqs = [
-  { question: 'How do I calculate break-even ROAS?', answer: 'Break-even ROAS is 1 divided by your gross margin, expressed as a decimal. If your gross margin is 25 percent, divide 1 by 0.25 to get a break-even ROAS of 4x. At a 40 percent margin the figure is 2.5x, and at a 50 percent margin it is 2x. This is the revenue per pound of spend at which a campaign makes neither a profit nor a loss.' },
+  { question: 'How do I calculate break-even ROAS?', answer: 'Break-even ROAS is 1 divided by your contribution margin, expressed as a decimal. If your contribution margin is 25 percent, divide 1 by 0.25 to get a break-even ROAS of 4x. At a 40 percent margin the figure is 2.5x, and at a 50 percent margin it is 2x. This is the revenue per pound of spend at which a campaign makes neither a profit nor a loss.' },
   { question: 'Should I use gross margin or contribution margin for break-even ROAS?', answer: 'Use contribution margin for a true floor. Gross margin subtracts only cost of goods, so it flatters the picture. Contribution margin also takes out payment fees, shipping and returns, which are real costs of fulfilling each order. Because those costs lower the margin, the break-even ROAS built on contribution margin is higher and more honest than one built on gross margin alone.' },
   { question: 'What is the difference between break-even ROAS and target ROAS?', answer: 'Break-even ROAS is the floor, the point where a campaign stops losing money. Target ROAS is the goal, set above break-even by the profit margin you want to keep. If your break-even ROAS is 2.5x and you want to retain roughly 15 percent of revenue as profit, your target sits higher, around 4x. Managing to break-even keeps you solvent, managing to target keeps you profitable.' },
   { question: 'How do I find campaigns running below break-even ROAS?', answer: 'Work out the break-even ROAS for each margin band, then read your campaign, product group and search term reports against it rather than against a blended account figure. Any segment with a ROAS below its own break-even is losing money on every extra sale, even if the account overall looks healthy. The search terms report is usually where the clearest leaks hide.' },
@@ -31,7 +31,7 @@ const schema = {
     {
       "@type": "Article",
       "headline": "Break-even ROAS: the number every advertiser should know",
-      "description": "Break-even ROAS is 1 divided by your gross margin. How to calculate it for your own account, gross versus contribution margin, and how to find the campaigns quietly running below it.",
+      "description": "Break-even ROAS is 1 divided by your contribution margin. How to calculate it for your own account, gross versus contribution margin, and how to find the campaigns quietly running below it.",
       "url": "https://visible-ads.com/blog/break-even-roas",
       "datePublished": "2026-07-05",
       "dateModified": "2026-10-18",
@@ -59,7 +59,7 @@ const schema = {
 };
 ---
 
-<Layout title="Break-Even ROAS: The Number to Know | Visible Ads" description="Break-even ROAS is 1 divided by your gross margin. How to calculate it for your account, gross versus contribution margin, and finding campaigns below it." image="/images/og/break-even-roas.png" schema={schema}>
+<Layout title="Break-Even ROAS: The Number to Know | Visible Ads" description="Break-even ROAS is 1 divided by your contribution margin. How to calculate it for your account, gross versus contribution margin, and finding campaigns below it." image="/images/og/break-even-roas.png" schema={schema}>
 
   <!-- Hero -->
   <section class="py-20 lg:py-28 bg-gradient-to-br from-navy to-navy-light relative overflow-hidden" data-animate>
@@ -94,8 +94,8 @@ const schema = {
   <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">The formula: 1 divided by your margin</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">The maths is simpler than most people expect. Break-even ROAS equals 1 divided by your margin, written as a decimal. A 25 percent margin is 0.25, and 1 divided by 0.25 is 4, so you need a 4x ROAS to break even. A 40 percent margin is 0.40, and 1 divided by 0.40 is 2.5. That is the whole calculation.</p>
-      <p class="text-lg text-gray-700 mb-8 leading-relaxed">The logic behind it is worth holding onto. Your margin is the slice of each pound of revenue you actually keep. If you keep 25 pence in every pound, you need four pounds of revenue to recover one pound of ad spend, because four lots of 25 pence is a pound. The thinner the margin, the more revenue each pound of spend has to drag back. The campaign has to work harder simply to stand still.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Break-even ROAS equals 1 divided by your margin, written as a decimal. A 25 percent margin is 0.25, and 1 divided by 0.25 is 4, so you need a 4x ROAS to break even. A 40 percent margin is 0.40, and 1 divided by 0.40 is 2.5. That is the whole calculation.</p>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">Your margin is the slice of each pound of revenue you actually keep. If you keep 25 pence in every pound, you need four pounds of revenue to recover one pound of ad spend, because four lots of 25 pence is a pound. The thinner the margin, the more revenue each pound of spend has to drag back. The campaign has to work harder simply to stand still.</p>
       <div class="overflow-x-auto mb-8">
         <table class="w-full text-left border-collapse">
           <thead>
@@ -114,7 +114,7 @@ const schema = {
             <tr class="bg-gray-50 border-b border-gray-100">
               <td class="px-5 py-4 font-semibold text-navy">25 percent</td>
               <td class="px-5 py-4">4.0x</td>
-              <td class="px-5 py-4">A common ecommerce floor, often mistaken for a win</td>
+              <td class="px-5 py-4">A common ecommerce break-even, often mistaken for a win</td>
             </tr>
             <tr class="bg-white border-b border-gray-100">
               <td class="px-5 py-4 font-semibold text-navy">33 percent</td>
@@ -129,12 +129,12 @@ const schema = {
             <tr class="bg-white">
               <td class="px-5 py-4 font-semibold text-navy">50 percent</td>
               <td class="px-5 py-4">2.0x</td>
-              <td class="px-5 py-4">Double your spend and you have broken even</td>
+              <td class="px-5 py-4">Revenue of twice your spend breaks even</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <p class="text-lg text-gray-700 leading-relaxed">Read the table the other way and the point lands harder. A business on a 20 percent margin has to work more than twice as hard as one on a 50 percent margin to reach the same break-even. That is not a bidding problem you can optimise your way out of. It is arithmetic. Knowing your own number matters far more than chasing someone else's benchmark ROAS.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">A business on a 20 percent margin has to work more than twice as hard as one on a 50 percent margin to reach break-even. That is not a bidding problem you can optimise your way out of. It is arithmetic. Knowing your own number matters far more than chasing someone else's benchmark ROAS.</p>
     </div>
   </section>
 
@@ -191,7 +191,7 @@ const schema = {
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Break-even is the floor, not the goal</h2>
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">Break-even ROAS tells you where a campaign stops losing money. It does not tell you where to aim. A business that runs its account exactly at break-even makes no profit at all, it simply recycles revenue through Google and comes out level. The number you actually manage towards is your target ROAS, and that sits above break-even by whatever profit you want to keep.</p>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">The relationship is easy to hold in your head. Break-even is the line you must not cross. Target is the line you are trying to hit. If your contribution margin gives a break-even ROAS of 2.5x and you want to retain around 15 percent of revenue as profit after ads, your target lands higher, near 4x. The distance between the two is your profit, and setting the target is a deliberate choice about how much of it you take now versus how much you reinvest in volume.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Target ROAS sits above break-even by the profit you want to keep. With a 2.5x break-even and a 15 percent profit goal, the target is near 4x.</p>
       <p class="text-lg text-gray-700 leading-relaxed">Working out where to put that target for each product group is a decision in its own right, and it changes with margin band, customer lifetime value and how aggressively you want to grow. We cover the method for that in <a href="/blog/target-roas-by-margin" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">setting target ROAS by margin</a>. For this guide, hold on to the shape of it: find the floor first, then set the goal above it.</p>
     </div>
   </section>
@@ -207,7 +207,7 @@ const schema = {
         <li class="flex gap-3"><span class="text-electric font-bold shrink-0">2.</span><span><strong class="text-navy">Product groups.</strong> Inside shopping and Performance Max, the same campaign often mixes margins. Split performance by product group and the thin-margin lines eating budget become visible.</span></li>
         <li class="flex gap-3"><span class="text-electric font-bold shrink-0">3.</span><span><strong class="text-navy">Search terms.</strong> The search terms report is where the clearest losers hide. A term can convert well and still sit below break-even, because good conversion volume on a low margin is exactly how an account loses money without any single alarm going off.</span></li>
       </ul>
-      <p class="text-lg text-gray-700 leading-relaxed">One warning as you read the reports. Brand terms flatter everything they touch. They convert cheaply and lift the blended ROAS above where the working budget really sits. Separate brand from non-brand before you judge break-even, or the strong brand numbers will paper over the segments that are genuinely underwater.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">Brand terms flatter every report they touch. They convert cheaply and lift the blended ROAS above where the working budget really sits. Separate brand from non-brand before you judge break-even, or the strong brand numbers will paper over the segments that are genuinely underwater.</p>
     </div>
   </section>
 
