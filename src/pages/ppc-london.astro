@@ -4,6 +4,17 @@ import CountUp from '../components/CountUp.astro';
 import PartnerBadges from '../components/PartnerBadges.astro';
 import ClientLogos from '../components/ClientLogos.astro';
 
+const faqs = [
+  { q: "How much does a PPC agency in London charge?", a: "Fees depend on how many channels are managed and the hours included. At Visible Ads they are charged per channel plus VAT, starting at £1,000 a month for ad budgets up to £3,000, with a three-month minimum term.", link: { href: "/ppc-management/", text: "See PPC management pricing for London accounts" } },
+  { q: "What does a PPC company in London do each week?", a: "On a managed account we review search terms and the product feed, move budget under the weekly scaling rules, check conversion tracking, and report on profit as well as ROAS. Silver includes weekly calls or video updates and a quarterly review. The aim is that spend follows what is returning money.", link: { href: "/ppc-management/", text: "See how weekly PPC management works for London accounts" } },
+  { q: "Why choose a boutique PPC agency over a large London agency?", a: "A boutique agency suits you if you want to deal directly with the people running your account. Visible Ads is founder-led, so questions go to the person managing the campaigns." },
+  { q: "How do I choose a PPC agency in London?", a: "Ask who will actually manage the account, how they judge profit rather than ROAS alone, what the contract term is, and whether you keep ownership of the ad accounts and reports. Ask to see how they decide when to raise or cut budget.", link: { href: "/choosing-a-google-ads-agency/", text: "Read our questions to ask any Google Ads agency" } },
+  { q: "Do you work with ecommerce and lead-generation businesses in London?", a: "Yes, both. For ecommerce we run Google Shopping, Performance Max, Microsoft Advertising, Meta and Amazon against product margin. For lead generation, we set up call and form tracking so campaigns are judged on qualified enquiries." },
+  { q: "Which parts of London can your campaigns target?", a: "Anywhere from all of Greater London down to boroughs, postcode districts or a radius around a shop or office. We usually target people in or regularly in the area, so you do not pay for searchers elsewhere." },
+  { q: "Where is Visible Ads based?", a: "Our office is in Kingston upon Thames, a London borough." },
+  { q: "What types of London businesses do you work with?", a: "Ecommerce and B2B businesses turning over £1M to £20M, and lead-generation firms. Our fees start at £1,000 a month for ad budgets up to £3,000." },
+];
+
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -11,14 +22,14 @@ const schema = {
       "@type": "ProfessionalService",
       "@id": "https://visible-ads.com/#organization",
       "name": "Visible Ads",
-      "description": "Boutique PPC agency serving London businesses from Kingston-Upon-Thames. Google Partner delivering enterprise-level Google Ads, paid search, and multi-channel campaigns with personal service.",
+      "description": "Boutique PPC agency serving London businesses from Kingston upon Thames. Google Partner delivering Google Ads, paid search, and multi-channel campaigns with personal service.",
       "url": "https://visible-ads.com/",
       "telephone": "+447810477679",
       "email": "Boh@Visible-Ads.com",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Kingston-Upon-Thames",
-        "addressRegion": "Surrey",
+        "addressRegion": "Greater London",
         "addressCountry": "GB"
       },
       "areaServed": [
@@ -27,7 +38,6 @@ const schema = {
         { "@type": "AdministrativeArea", "name": "Greater London" },
         { "@type": "AdministrativeArea", "name": "Surrey" }
       ],
-      "priceRange": "$$$$",
       "knowsAbout": ["PPC Management", "Google Ads", "Paid Search", "Bing Ads", "Amazon Advertising", "SEO", "Paid Social", "Conversion Rate Optimisation"]
     },
     {
@@ -39,46 +49,17 @@ const schema = {
     },
     {
       "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How much does a PPC agency in London charge?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "London PPC agencies typically charge between £1,500 and £10,000 per month in management fees, depending on campaign complexity and ad spend levels. Large agencies in the West End or City often charge at the higher end due to overheads. Visible Ads offers enterprise-level expertise at boutique rates, our management fees range from £1,500 to £5,000 per month, with transparent pricing and no long-term lock-in contracts."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Why choose a boutique PPC agency over a large London agency?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Large London agencies spread senior talent across dozens of accounts and frequently hand day-to-day management to juniors. At Visible Ads, your campaigns are managed directly by senior strategists with over 20 years of experience. You get faster response times, more strategic attention, and none of the overhead costs that big agencies pass on to clients. Our Google Partner status and £3M in annual ad spend managed prove that boutique does not mean small results."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do you offer face-to-face meetings with London clients?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Absolutely. We are based in Kingston-Upon-Thames, which is a 25-minute train ride from London Waterloo. We regularly meet clients across Central London, the City, and South West London. We also offer video calls for quick check-ins and monthly performance reviews. You will never feel like you are working with a remote agency."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What types of London businesses do you work with?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "We specialise in established businesses generating £1M or more in annual revenue, including professional services firms, eCommerce brands, B2B companies, SaaS providers, and multi-location businesses across Greater London. If you are investing at least £2,000 per month in ad spend and want expert management to maximise your return, we are an excellent fit."
-          }
-        }
-      ]
+      "mainEntity": faqs.map((f) => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.link ? f.a + " " + f.link.text + ": https://visible-ads.com" + f.link.href : f.a }
+      }))
     }
   ]
 };
 ---
 
-<Layout title="PPC Agency London | Google Ads Management | Visible Ads" description="London's boutique PPC agency: enterprise results, personal service, and a Google Partner managing £3M+ in annual ad spend across paid search." schema={schema}>
+<Layout title="PPC Agency London | Boutique Google Partner | Visible Ads" description="PPC agency London for ecommerce and lead-gen businesses. Google Partner running Google Ads, Microsoft, Meta and Amazon. Fees from £1,000 a month plus VAT. Free audit." schema={schema}>
 
   <!-- Hero -->
   <section class="relative py-20 lg:py-28 overflow-hidden bg-navy" data-animate>
@@ -87,8 +68,8 @@ const schema = {
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl">
         <span class="inline-block px-4 py-1.5 bg-electric/20 text-electric-light text-sm font-medium rounded-full mb-6">London PPC Agency</span>
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-6">London's Boutique PPC Agency, Enterprise Results, Personal Service</h1>
-        <p class="text-lg sm:text-xl text-slate-light mb-8 leading-relaxed">Visible Ads is a Google Partner agency that delivers the strategic firepower of a large London PPC firm with the responsiveness and accountability of a dedicated team. Based just outside London in Kingston-Upon-Thames, we manage profitable Google Ads, paid search, and multi-channel campaigns for ambitious businesses across the capital.</p>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-6">PPC Agency London: Profit-First Google Ads and Paid Media</h1>
+        <p class="text-lg sm:text-xl text-slate-light mb-8 leading-relaxed">Visible Ads is a founder-led, profit-first Google Partner agency in Kingston upon Thames, a London borough. We manage Google Ads, paid search and multi-channel campaigns for businesses across the capital.</p>
         <div class="flex flex-col sm:flex-row gap-4">
           <a href="/free-ads-audit" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-8 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Get Your Free Ads Audit</a>
           <a href="#services" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/20 hover:bg-white/10 transition-colors">Our Services</a>
@@ -108,11 +89,10 @@ const schema = {
   <section class="py-20 lg:py-28 bg-white" data-animate>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mx-auto">
-        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Serving London Businesses from Kingston-Upon-Thames</h2>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">London is the most competitive digital advertising market in the United Kingdom. Whether you are running Google Ads for a professional services firm in the City, managing Shopping campaigns for a Shoreditch eCommerce brand, or scaling paid social for a SaaS company in King's Cross, getting PPC right in London is the difference between profitable growth and wasted budget.</p>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">Visible Ads operates from <a href="/kingston-upon-thames" class="text-electric underline hover:text-electric-dark">Kingston-Upon-Thames</a>, just 25 minutes from London Waterloo by train. This gives our clients the best of both worlds: a senior team with deep experience managing high-spend campaigns across every London sector, without the inflated overheads that Central London agencies bake into their fees. Those savings go directly into your campaigns, not into a Mayfair office lease.</p>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">We have managed paid search campaigns for London businesses across financial services, legal, healthcare, technology, retail, and professional services. Our clients choose us because they have been through the big agency cycle, impressive pitch decks followed by junior account managers who barely understand their market, and want something fundamentally different. They want senior strategists who pick up the phone, who know their account inside out, and who treat every pound of ad spend as if it were their own.</p>
-        <p class="text-lg text-gray-700 leading-relaxed">That is exactly what we deliver. No layers of account directors between you and the people managing your campaigns. No templated strategies. No dashboards masking poor performance. Just transparent, expert PPC management focused entirely on your commercial outcomes.</p>
+        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Serving London Businesses from Kingston upon Thames</h2>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">Visible Ads serves London businesses from its office in Kingston upon Thames, a London borough.</p>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">Each pound of London ad spend needs a margin or lead-value target behind it. For businesses near our office, see our <a href="/kingston-upon-thames" class="text-electric underline hover:text-electric-dark">PPC agency in Kingston upon Thames</a> page.</p>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">The service covers ecommerce brands and lead-generation firms.</p>
       </div>
     </div>
   </section>
@@ -122,26 +102,16 @@ const schema = {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mx-auto">
         <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Why London Businesses Choose Boutique Over Big Agencies</h2>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">The London PPC market is saturated with agencies. From global holding company networks charging eye-watering retainers to freelancers undercutting on price, the range of options can be paralysing. But the businesses we work with have learned, often the hard way, that the most important factor is not agency size. It is who actually manages your campaigns day to day.</p>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">At a large London agency, the people in your pitch meeting rarely touch your account again. Your campaigns are handed to an executive with 18 months of experience and a portfolio of 15 other clients competing for their attention. Performance reviews become exercises in spin, and strategic recommendations get filtered through layers of management before reaching you.</p>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">At Visible Ads, we have deliberately built a different model. Our senior strategists, each with over a decade of hands-on PPC experience, manage accounts directly. When market conditions shift, we react in hours, not weeks. When you have a question, you get a direct answer from the person who made the last optimisation to your campaigns, not a client services coordinator reading from notes.</p>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">Who manages your campaigns day to day matters most when choosing among London PPC agencies, from large networks to freelancers.</p>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
           <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
-            <h3 class="font-heading font-bold text-navy mb-3">Senior-Led Management</h3>
-            <p class="text-gray-700 text-sm leading-relaxed">Your campaigns are managed by strategists with 20+ years of experience, not delegated to juniors after the pitch.</p>
-          </div>
-          <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
-            <h3 class="font-heading font-bold text-navy mb-3">No Inflated Overheads</h3>
-            <p class="text-gray-700 text-sm leading-relaxed">Without a Central London office lease, you get enterprise expertise at a fraction of West End agency rates.</p>
-          </div>
-          <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
-            <h3 class="font-heading font-bold text-navy mb-3">Faster Response Times</h3>
-            <p class="text-gray-700 text-sm leading-relaxed">Direct access to your strategist means optimisations happen in hours, not after a chain of internal approvals.</p>
+            <h3 class="font-heading font-bold text-navy mb-3">Direct Access</h3>
+            <p class="text-gray-700 text-sm leading-relaxed">Questions about your account go to the person running it.</p>
           </div>
           <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
             <h3 class="font-heading font-bold text-navy mb-3">Transparent Reporting</h3>
-            <p class="text-gray-700 text-sm leading-relaxed">No vanity metrics or spin. Every report ties directly to revenue, ROAS, and the commercial outcomes that matter.</p>
+            <p class="text-gray-700 text-sm leading-relaxed">Reports lead with profit after ad spend, with revenue and ROAS shown beside it.</p>
           </div>
         </div>
       </div>
@@ -152,8 +122,8 @@ const schema = {
   <section id="services" class="py-20 lg:py-28 bg-white" data-animate>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">PPC & Digital Marketing Services for London Businesses</h2>
-        <p class="text-lg text-gray-700 max-w-2xl mx-auto">A full suite of performance marketing services engineered for London's most competitive sectors.</p>
+        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">PPC Services for London Businesses, by Channel</h2>
+        <p class="text-lg text-gray-700 max-w-2xl mx-auto">Each channel below has its own page with the detail.</p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <a href="/google-ads" class="group bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-200 hover:shadow-lg hover:border-electric/20 transition-all duration-300">
@@ -161,7 +131,7 @@ const schema = {
             <svg class="w-7 h-7 text-electric" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
           </div>
           <h3 class="text-lg font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">Google Ads Management</h3>
-          <p class="text-gray-700 text-sm mb-3">Search, Shopping, Performance Max, and remarketing campaigns engineered for profitable growth in London's competitive auctions.</p>
+          <p class="text-gray-700 text-sm mb-3">Search, Shopping, Performance Max and remarketing campaigns managed against margin.</p>
           <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
         </a>
         <a href="/bing-ads" class="group bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-200 hover:shadow-lg hover:border-electric/20 transition-all duration-300">
@@ -169,7 +139,7 @@ const schema = {
             <svg class="w-7 h-7 text-electric" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25"/></svg>
           </div>
           <h3 class="text-lg font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">Bing Ads Management</h3>
-          <p class="text-gray-700 text-sm mb-3">Reach high-value London professionals on Microsoft's search network with typically lower cost-per-click than Google.</p>
+          <p class="text-gray-700 text-sm mb-3">Reach London searchers on Microsoft's network, which runs as a separate auction from Google.</p>
           <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
         </a>
         <a href="/seo" class="group bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-200 hover:shadow-lg hover:border-electric/20 transition-all duration-300">
@@ -177,7 +147,7 @@ const schema = {
             <svg class="w-7 h-7 text-electric" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
           </div>
           <h3 class="text-lg font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">SEO Services</h3>
-          <p class="text-gray-700 text-sm mb-3">Sustainable organic growth through technical SEO, content strategy, and authority building for London businesses.</p>
+          <p class="text-gray-700 text-sm mb-3">Organic search services have their own page.</p>
           <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
         </a>
         <a href="/paid-social" class="group bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-200 hover:shadow-lg hover:border-electric/20 transition-all duration-300">
@@ -185,7 +155,7 @@ const schema = {
             <svg class="w-7 h-7 text-electric" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 0 1 1.037-.443 48.7 48.7 0 0 0 5.232-.537c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.4 48.4 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"/></svg>
           </div>
           <h3 class="text-lg font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">Paid Social Advertising</h3>
-          <p class="text-gray-700 text-sm mb-3">Creative-led campaigns on Meta, TikTok, and LinkedIn targeting London's most valuable audiences.</p>
+          <p class="text-gray-700 text-sm mb-3">Meta, TikTok and LinkedIn campaigns managed against margin.</p>
           <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
         </a>
         <a href="/amazon" class="group bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-200 hover:shadow-lg hover:border-electric/20 transition-all duration-300">
@@ -193,7 +163,7 @@ const schema = {
             <svg class="w-7 h-7 text-electric" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016c.896 0 1.7-.393 2.25-1.015a3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z"/></svg>
           </div>
           <h3 class="text-lg font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">Amazon Ads & Marketplace</h3>
-          <p class="text-gray-700 text-sm mb-3">Sponsored Products, Brands, and DSP campaigns that drive marketplace dominance for London-based sellers.</p>
+          <p class="text-gray-700 text-sm mb-3">Amazon advertising for London-based sellers, from an Amazon Ads Verified Partner.</p>
           <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
         </a>
         <a href="/ecro" class="group bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-200 hover:shadow-lg hover:border-electric/20 transition-all duration-300">
@@ -201,9 +171,65 @@ const schema = {
             <svg class="w-7 h-7 text-electric" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"/></svg>
           </div>
           <h3 class="text-lg font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">Conversion Rate Optimisation</h3>
-          <p class="text-gray-700 text-sm mb-3">Turn more of your London traffic into customers through data-driven A/B testing and UX improvements.</p>
+          <p class="text-gray-700 text-sm mb-3">Landing page and checkout testing that supports the campaigns.</p>
           <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How we run London accounts -->
+  <section class="py-20 lg:py-28 bg-sky-tint" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto mb-12">
+        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">How Our London PPC Management Works for Ecommerce and Lead Generation</h2>
+        <p class="text-lg text-gray-700 leading-relaxed">Visible Ads runs two kinds of account, each set up around its own number: margin for ecommerce brands and lead value for lead-generation firms.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-200 shadow-sm">
+          <h3 class="font-heading font-bold text-navy text-xl mb-4">London ecommerce brands</h3>
+          <ul class="space-y-3 text-gray-700 leading-relaxed list-disc pl-5">
+            <li>The product feed is split by margin, so Shopping and Performance Max bids follow contribution.</li>
+            <li>Target ROAS is set from your own margin. The <a href="/roas-vs-profit/" class="text-electric underline hover:text-electric-dark">ROAS vs profit calculator</a> shows the maths.</li>
+            <li>Delivery and returns settings in Merchant Center are matched to what you really offer London customers.</li>
+            <li>Budget moves up or down every week.</li>
+          </ul>
+        </div>
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-200 shadow-sm">
+          <h3 class="font-heading font-bold text-navy text-xl mb-4">London lead-generation firms</h3>
+          <ul class="space-y-3 text-gray-700 leading-relaxed list-disc pl-5">
+            <li>Call and form tracking is set up so Google Ads learns from qualified enquiries.</li>
+            <li>Locations are built from the boroughs or postcode districts you actually serve, set to people in or regularly in the area.</li>
+            <li>The ad schedule follows the hours your team answers the phone.</li>
+            <li>Where you can share closed-deal data, we report cost per qualified lead and which leads became customers.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- London market in numbers -->
+  <section class="py-20 lg:py-28 bg-white" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">The London Market in Numbers</h2>
+        <p class="text-lg text-gray-700 mb-8 leading-relaxed">The Office for National Statistics counts businesses registered for VAT and/or PAYE. Its March 2026 figures put London well ahead of every other UK region.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm text-center">
+            <p class="text-3xl font-heading font-extrabold text-electric mb-1">553,000</p>
+            <p class="text-gray-700 text-sm">VAT and/or PAYE businesses in London</p>
+          </div>
+          <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm text-center">
+            <p class="text-3xl font-heading font-extrabold text-electric mb-1">19.8%</p>
+            <p class="text-gray-700 text-sm">of the 2.79 million in the UK</p>
+          </div>
+          <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm text-center">
+            <p class="text-3xl font-heading font-extrabold text-electric mb-1">1 of 12</p>
+            <p class="text-gray-700 text-sm">regions, and the largest by business count</p>
+          </div>
+        </div>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">Not every one of those businesses advertises, but the figure shows how many firms sit in the market a London campaign is drawn from. The count leaves out very small businesses that are not registered for VAT or PAYE.</p>
+        <p class="text-sm text-gray-600 leading-relaxed">Source: Office for National Statistics, <a href="https://www.ons.gov.uk/businessindustryandtrade/business/activitysizeandlocation/bulletins/ukbusinessactivitysizeandlocation/2026" class="text-electric underline hover:text-electric-dark" rel="noopener">UK business: activity, size and location: 2026</a>, Tables 1 and 4, published 24 September 2026. Retrieved 18 October 2026. Regional counts are rounded to the nearest thousand.</p>
       </div>
     </div>
   </section>
@@ -214,11 +240,9 @@ const schema = {
       <div class="text-center mb-10">
         <h2 class="font-heading text-2xl sm:text-3xl font-bold text-navy">Results at a Glance</h2>
       </div>
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        <CountUp value="20" suffix="+" label="Years Experience" />
-        <CountUp value="50" suffix="+" label="Businesses Scaled" />
-        <CountUp value="3" prefix="£" suffix="M+" label="Annual Ad Spend Managed" />
-        <CountUp value="97" suffix="%" label="Client Retention" />
+      <div class="grid grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto">
+        <CountUp value="3" prefix="£" suffix="M" label="Annual Ad Spend Managed" />
+        <CountUp value="4" label="Platform Partner Certifications" />
       </div>
     </div>
   </section>
@@ -227,29 +251,29 @@ const schema = {
   <section class="py-20 lg:py-28 bg-sky-tint" data-animate>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-14">
-        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">Proven Results for London & South East Businesses</h2>
+        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">Client Results from Our Case Studies</h2>
         <p class="text-lg text-gray-700 max-w-2xl mx-auto">See how we have helped businesses achieve profitable growth through strategic PPC management.</p>
       </div>
       <div class="grid md:grid-cols-3 gap-8">
         <div class="glass-card p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-          <CountUp value="12" suffix="x" label="ROAS" />
+          <CountUp value="12" suffix="x" label="Google Ads ROAS" />
           <h3 class="font-heading text-xl font-bold text-navy mt-4 mb-3">CFW</h3>
           <p class="text-gray-700 text-sm leading-relaxed mb-1">Google Ads</p>
-          <p class="text-gray-700 font-medium mb-6">From stagnation to 7-figure revenue</p>
+          <p class="text-gray-700 font-medium mb-6">£6M in return from £500K in Google Ads spend</p>
           <a href="/case-studies/cfw" class="text-electric font-semibold text-sm hover:underline">Read Case Study &rarr;</a>
         </div>
         <div class="glass-card p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
           <CountUp value="450" prefix="+" suffix="%" label="Sales Growth" />
           <h3 class="font-heading text-xl font-bold text-navy mt-4 mb-3">iWholesales</h3>
           <p class="text-gray-700 text-sm leading-relaxed mb-1">Airsoft Division</p>
-          <p class="text-gray-700 font-medium mb-6">Supercharged online presence</p>
+          <p class="text-gray-700 font-medium mb-6">Airsoft division sales growth</p>
           <a href="/case-studies/iwholesales" class="text-electric font-semibold text-sm hover:underline">Read Case Study &rarr;</a>
         </div>
         <div class="glass-card p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
           <CountUp value="2.31" prefix="£" suffix="M" label="Ad-Driven Revenue" />
           <h3 class="font-heading text-xl font-bold text-navy mt-4 mb-3">Sephra Europe</h3>
           <p class="text-gray-700 text-sm leading-relaxed mb-1">Multi-channel Growth</p>
-          <p class="text-gray-700 font-medium mb-6">Exceptional business growth</p>
+          <p class="text-gray-700 font-medium mb-6">Revenue driven across several channels</p>
           <a href="/case-studies/sephra" class="text-electric font-semibold text-sm hover:underline">Read Case Study &rarr;</a>
         </div>
       </div>
@@ -260,11 +284,9 @@ const schema = {
   <section class="py-20 lg:py-28 bg-white" data-animate>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mx-auto">
-        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Deep Expertise in London's Most Competitive Sectors</h2>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">London's PPC landscape is unlike anywhere else in the UK. Cost-per-click rates for competitive terms in financial services, legal, and technology regularly exceed £30-50, and the difference between a profitable campaign and a money pit often comes down to the granularity of your targeting, the quality of your ad copy, and how intelligently your bidding strategy responds to London's unique search patterns.</p>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">We have managed campaigns across every major London sector, from City law firms competing for high-value commercial litigation queries, to Canary Wharf fintech companies scaling B2B lead generation, to Hackney DTC brands driving profitable customer acquisition through Shopping and Performance Max. Each sector has its own dynamics, and we bring sector-specific knowledge that generalist agencies simply cannot match.</p>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">Our approach to London PPC goes beyond basic campaign management. We analyse your competitive landscape at a granular level, identify the auction dynamics driving your costs, and build strategies that exploit gaps your competitors are missing. Whether that means layering audiences on high-intent search terms, building out long-tail Shopping campaigns that capture lower-funnel traffic at a fraction of the head-term CPC, or deploying Performance Max with the kind of asset group structure that actually drives incremental conversions, we bring the depth of expertise that London's market demands.</p>
-        <p class="text-lg text-gray-700 leading-relaxed">And because we are not a massive agency trying to service hundreds of accounts, we have the bandwidth to stay genuinely proactive. We do not wait for your monthly review to flag opportunities or issues. When we spot a trend, a competitor pulling back on spend, a new keyword cluster emerging, a landing page underperforming, we act immediately and keep you informed.</p>
+        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Which London Businesses This Service Suits</h2>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">This service suits ecommerce and B2B businesses turning over £1M to £20M, and lead-generation firms.</p>
+        <p class="text-lg text-gray-700 leading-relaxed">Our <a href="/blog/how-much-google-ads-cost-uk/" class="text-electric underline hover:text-electric-dark">UK Google Ads cost guide</a> shows CPC by industry, and each account is still set around its own margin or lead value.</p>
       </div>
     </div>
   </section>
@@ -282,34 +304,15 @@ const schema = {
       <div class="max-w-3xl mx-auto">
         <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-10">Frequently Asked Questions</h2>
         <div class="space-y-4">
+          {faqs.map((f) => (
           <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
             <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              How much does a PPC agency in London charge?
+              {f.q}
               <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">London PPC agencies typically charge between £1,500 and £10,000 per month in management fees, depending on campaign complexity and ad spend levels. Large agencies in the West End or City often charge at the higher end due to overheads. Visible Ads offers enterprise-level expertise at boutique rates, our management fees range from £1,500 to £5,000 per month, with transparent pricing and no long-term lock-in contracts.</div>
+            <div class="px-6 pb-6 text-gray-700 leading-relaxed">{f.a}{f.link && (<> <a href={f.link.href} class="text-electric underline hover:text-electric-dark">{f.link.text}</a>.</>)}</div>
           </details>
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              Why choose a boutique PPC agency over a large London agency?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">Large London agencies spread senior talent across dozens of accounts and frequently hand day-to-day management to juniors. At Visible Ads, your campaigns are managed directly by senior strategists with over 20 years of experience. You get faster response times, more strategic attention, and none of the overhead costs that big agencies pass on to clients. Our Google Partner status and £3M in annual ad spend managed prove that boutique does not mean small results.</div>
-          </details>
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              Do you offer face-to-face meetings with London clients?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">Absolutely. We are based in Kingston-Upon-Thames, which is a 25-minute train ride from London Waterloo. We regularly meet clients across Central London, the City, and South West London. We also offer video calls for quick check-ins and monthly performance reviews. You will never feel like you are working with a remote agency.</div>
-          </details>
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              What types of London businesses do you work with?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">We specialise in established businesses generating £1M or more in annual revenue, including professional services firms, eCommerce brands, B2B companies, SaaS providers, and multi-location businesses across Greater London. If you are investing at least £2,000 per month in ad spend and want expert management to maximise your return, we are an excellent fit.</div>
-          </details>
+          ))}
         </div>
       </div>
     </div>
@@ -320,7 +323,7 @@ const schema = {
     <div class="absolute inset-0 dot-pattern opacity-5"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">Ready to Scale Your London PPC Campaigns?</h2>
-      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">Get a free, no-obligation audit of your Google Ads, paid search, or multi-channel campaigns. We will show you exactly where your London campaigns are leaving money on the table and how to fix it.</p>
+      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">Get a free, no-obligation audit of your Google Ads, paid search, or multi-channel campaigns. We will review where your spend is going and what to fix.</p>
       <a href="/free-ads-audit" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Get Your Free Ads Audit</a>
     </div>
   </section>
