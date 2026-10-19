@@ -1,0 +1,46 @@
+{
+  "checked": "2026-10-19",
+  "checkedLabel": "19 Oct 2026",
+  "statcounter": [
+    { "id": "SC-ALL", "device": "All platforms", "google": 91.39, "bing": 6.08, "yahoo": 1.32, "duckduckgo": 0.65, "ecosia": 0.3, "yandex": 0.22,
+      "sourceName": "StatCounter Global Stats, Search Engine Market Share in United Kingdom - September 2026",
+      "sourceUrl": "https://gs.statcounter.com/search-engine-market-share/all/united-kingdom", "dataDate": "2026-09", "dataLabel": "Sep 2026", "retrieved": "2026-10-19" },
+    { "id": "SC-DESKTOP", "device": "Desktop", "google": 75.99, "bing": 18.33, "yahoo": 3.87, "duckduckgo": 1.08, "ecosia": 0.45, "yandex": 0.23,
+      "sourceName": "StatCounter Global Stats, Desktop Search Engine Market Share in United Kingdom - September 2026",
+      "sourceUrl": "https://gs.statcounter.com/search-engine-market-share/desktop/united-kingdom", "dataDate": "2026-09", "dataLabel": "Sep 2026", "retrieved": "2026-10-19" },
+    { "id": "SC-MOBILE", "device": "Mobile", "google": 98.03, "bing": 0.43, "yahoo": 0.53, "duckduckgo": 0.5, "ecosia": 0.27, "yandex": 0.22,
+      "sourceName": "StatCounter Global Stats, Mobile Search Engine Market Share in United Kingdom - September 2026",
+      "sourceUrl": "https://gs.statcounter.com/search-engine-market-share/mobile/united-kingdom", "dataDate": "2026-09", "dataLabel": "Sep 2026", "retrieved": "2026-10-19" }
+  ],
+  "microsoft": [
+    { "id": "MS-GB", "market": "United Kingdom", "searches": "1.5 billion", "users": "43 million", "share": "33.5%",
+      "footnote": "Comscore qSearch (custom), December 2025, United Kingdom, desktop traffic only.",
+      "sourceName": "Microsoft Advertising, Microsoft Advertising Network for Search (comScore market data for PC Users)",
+      "sourceUrl": "https://about.ads.microsoft.com/en/tools/planning/search-data", "dataDate": "2025-12", "dataLabel": "Dec 2025", "retrieved": "2026-10-19" },
+    { "id": "MS-US", "market": "United States", "searches": "10.1 billion", "users": "186 million", "share": "39.1%",
+      "footnote": "Comscore qSearch (custom), December 2025, United States, desktop traffic only.",
+      "sourceName": "Microsoft Advertising, Microsoft Advertising Network for Search (comScore market data for PC Users)",
+      "sourceUrl": "https://about.ads.microsoft.com/en/tools/planning/search-data", "dataDate": "2025-12", "dataLabel": "Dec 2025", "retrieved": "2026-10-19" },
+    { "id": "MS-WW", "market": "Global", "searches": "22.8 billion", "users": "782 million", "share": "24.8%",
+      "footnote": "Comscore qSearch (custom), December 2025, Worldwide, desktop traffic only.",
+      "sourceName": "Microsoft Advertising, Microsoft Advertising Network for Search (comScore market data for PC Users)",
+      "sourceUrl": "https://about.ads.microsoft.com/en/tools/planning/search-data", "dataDate": "2025-12", "dataLabel": "Dec 2025", "retrieved": "2026-10-19" }
+  ],
+  "ofcom": [
+    { "id": "OF-BING-2024", "engine": "Bing", "reach": "39%", "visitors": "18.5m", "period": "May 2024",
+      "sourceName": "Ofcom, Online Nation 2024 report (Ipsos iris), published 28 November 2024",
+      "sourceUrl": "https://www.ofcom.org.uk/siteassets/resources/documents/research-and-data/online-research/online-nation/2024/online-nation-2024-report.pdf?v=386238", "dataDate": "2024-05", "retrieved": "2026-10-19" },
+    { "id": "OF-BING-2023", "engine": "Bing", "reach": "46%", "visitors": "21.9m", "period": "May 2023",
+      "sourceName": "Ofcom, Online Nation 2024 report (Ipsos iris), published 28 November 2024",
+      "sourceUrl": "https://www.ofcom.org.uk/siteassets/resources/documents/research-and-data/online-research/online-nation/2024/online-nation-2024-report.pdf?v=386238", "dataDate": "2023-05", "retrieved": "2026-10-19" },
+    { "id": "OF-BING-PEAK", "engine": "Bing (peak month)", "reach": "46%", "visitors": "22.2m", "period": "Apr 2023",
+      "sourceName": "Ofcom, Online Nation 2024 report (Ipsos iris), published 28 November 2024",
+      "sourceUrl": "https://www.ofcom.org.uk/siteassets/resources/documents/research-and-data/online-research/online-nation/2024/online-nation-2024-report.pdf?v=386238", "dataDate": "2023-04", "retrieved": "2026-10-19" },
+    { "id": "OF-GOOGLE-2024", "engine": "Google Search", "reach": "83%", "visitors": "39.6m", "period": "May 2024",
+      "sourceName": "Ofcom, Online Nation 2024 report (Ipsos iris), published 28 November 2024",
+      "sourceUrl": "https://www.ofcom.org.uk/siteassets/resources/documents/research-and-data/online-research/online-nation/2024/online-nation-2024-report.pdf?v=386238", "dataDate": "2024-05", "retrieved": "2026-10-19" },
+    { "id": "OF-GOOGLE-2025", "engine": "Google Search", "reach": "82%", "visitors": "", "period": "May 2025",
+      "sourceName": "Ofcom, Online Nation 2025 report (Ipsos iris), published 10 December 2025",
+      "sourceUrl": "https://www.ofcom.org.uk/siteassets/resources/documents/research-and-data/online-research/online-nation/2025/online-nations-report-2025.pdf?v=409837", "dataDate": "2025-05", "retrieved": "2026-10-19" }
+  ]
+}

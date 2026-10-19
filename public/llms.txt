@@ -70,4 +70,5 @@ We follow our proven 4-phase Blueprint: Discover → Strategise → Execute → 
 - ChatGPT Ads and Commerce Readiness: /chatgpt-ads-ecommerce
 - ChatGPT Ads UK Guide: /blog/chatgpt-ads
 - Multi-Channel Attribution Guide: /blog/multi-channel-attribution
+- Microsoft Advertising UK Statistics (Bing share, Microsoft comScore claim, Ofcom reach, CSV download): /microsoft-advertising-uk-statistics
 - White-Label PPC & SEO Pricing UK: /white-label-ppc-seo-pricing-uk
