@@ -1,4 +1,4 @@
-﻿---
+---
 import Layout from '../layouts/Layout.astro';
 import PartnerBadges from '../components/PartnerBadges.astro';
 import GoogleReviews from '../components/GoogleReviews.astro';
@@ -21,8 +21,8 @@ const schema = {
       "@type": "FAQPage",
       "mainEntity": [
         { "@type": "Question", "name": "How long does the audit take?", "acceptedAnswer": { "@type": "Answer", "text": "We deliver the audit within 5 working days of getting access. The walkthrough call is booked at a time that suits you." } },
-        { "@type": "Question", "name": "Is there really no obligation?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely none. The audit is genuinely free. We use it to demonstrate the value we can bring. If you choose to work with us afterwards, great. If not, you still walk away with actionable insights you can implement yourself." } },
-        { "@type": "Question", "name": "What platforms do you audit?", "acceptedAnswer": { "@type": "Answer", "text": "We audit Google Ads, Amazon Advertising, Meta Ads and wider paid media. For Microsoft Advertising, use the dedicated Bing Ads audit page." } }
+        { "@type": "Question", "name": "Is there really no obligation?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely none. The audit is free. We use it to show the value we can bring. You keep the recommendations whether or not you work with us afterwards." } },
+        { "@type": "Question", "name": "What platforms do you audit?", "acceptedAnswer": { "@type": "Answer", "text": "We audit Google Ads, Amazon Advertising, Meta Ads and wider paid media. If you run Microsoft Advertising, the Bing Ads audit page is the one to use." } }
       ]
     },
     {
@@ -42,11 +42,11 @@ const faqs = [
   },
   {
     question: 'Is there really no obligation?',
-    answer: 'Absolutely none. The audit is genuinely free. We use it to demonstrate the value we can bring. If you choose to work with us afterwards, great. If not, you still walk away with actionable insights you can implement yourself.',
+    answer: 'Absolutely none. The audit is free. We use it to show the value we can bring. You keep the recommendations whether or not you work with us afterwards.',
   },
   {
     question: 'What platforms do you audit?',
-    answer: 'We audit Google Ads, Amazon Advertising, Meta Ads and wider paid media. For Microsoft Advertising, use the dedicated Bing Ads audit page.',
+    answer: 'We audit Google Ads, Amazon Advertising, Meta Ads and wider paid media. If you run Microsoft Advertising, the Bing Ads audit page is the one to use.',
   },
 ];
 ---
@@ -62,8 +62,9 @@ const faqs = [
 
         <div class="lg:pt-4">
           <h1 class="text-4xl sm:text-5xl font-heading font-extrabold text-navy mb-6 leading-tight">Book Your Free Profit Audit</h1>
-          <p class="text-lg text-gray-700 leading-relaxed mb-8">A comprehensive, no-obligation review of your Google Ads, Amazon Advertising, Paid Social or multi-channel campaigns. The audit is free for qualifying accounts, with actionable recommendations you keep whether you work with us or not. Need Microsoft Advertising specifically? We have a dedicated Bing Ads audit.</p>
+          <p class="text-lg text-gray-700 leading-relaxed mb-8">A comprehensive, no-obligation PPC audit of your Google Ads, Amazon Advertising, Paid Social or multi-channel campaigns. The Google Ads audit and the Amazon advertising audit sit in one profit review. You keep the recommendations whether or not you work with us.</p>
 
+          <h2 class="text-xl font-heading font-bold text-navy mb-5">What the profit audit covers</h2>
           <div class="space-y-5 mb-10">
             <div class="flex items-start gap-4">
               <div class="w-10 h-10 rounded-lg bg-sky-tint flex items-center justify-center flex-shrink-0">
@@ -108,12 +109,12 @@ const faqs = [
               <span class="text-sm font-medium text-gray-700">Actionable Insights</span>
             </div>
           </div>
-          <p class="text-sm text-gray-700 mt-6">For Microsoft Advertising, book the <a href="/free-bing-ads-audit/" class="text-electric underline hover:text-electric-dark">free Bing Ads audit</a> instead.</p>
+          <p class="text-sm text-gray-700 mt-6">Running Microsoft Advertising? The <a href="/free-bing-ads-audit/" class="text-electric underline hover:text-electric-dark">free Bing Ads audit</a> covers that.</p>
         </div>
 
         <div class="bg-white rounded-2xl p-8 sm:p-10 shadow-xl border border-gray-200 ring-1 ring-electric/10">
           <h2 class="text-2xl font-heading font-bold text-navy mb-6">Request Your Audit</h2>
-          <p class="text-gray-700 leading-relaxed mb-6">We take read-only access to your advertising account and, ideally, a view of your product margins. We never make changes during an audit. You see every finding before anything is touched. We deliver the audit within 5 working days of getting access. The walkthrough call is booked at a time that suits you.</p>
+          <p class="text-gray-700 leading-relaxed mb-6">We take read-only access to your advertising account. A view of your product margins helps if you can share it. Nothing is changed during an audit, and you see every finding first. We deliver the audit within 5 working days of getting access. The walkthrough call is booked at a time that suits you.</p>
           <form id="audit-form" action="/api/submit" method="POST" data-astro-reload class="space-y-5">
             <input type="hidden" name="_form" value="audit" />
             <input type="hidden" name="_next" value="https://visible-ads.com/free-ads-audit?thanks=1&form=free_ads_audit" />
@@ -139,14 +140,14 @@ const faqs = [
               <select id="budget" name="budget" required class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-electric focus:ring-2 focus:ring-electric/20 outline-none transition-all text-gray-700">
                 <option value="" disabled selected>Select your monthly spend</option>
                 <option value="under-5k">Under £5,000</option>
-                <option value="5k-20k">£5,000 - £20,000</option>
-                <option value="20k-50k">£20,000 - £50,000</option>
+                <option value="5k-20k">£5,000 to £20,000</option>
+                <option value="20k-50k">£20,000 to £50,000</option>
                 <option value="50k-plus">£50,000+</option>
               </select>
             </div>
             <div>
               <label for="message" class="block text-sm font-medium text-navy mb-1.5">Buyer type, channels and goals</label>
-              <p id="message-help" class="text-sm text-gray-700 mb-2">Are you the advertiser, or an agency or professional-services buyer acting on their behalf? Which channels do you run: Google Ads, Amazon Advertising, Meta Ads or Paid Social? Include all that apply, plus your goals and current challenges.</p>
+              <p id="message-help" class="text-sm text-gray-700 mb-2">Tell us whether you are the advertiser or an agency or professional-services buyer acting for them. Which channels do you run: Google Ads, Amazon Advertising, Meta Ads or Paid Social? Include all that apply along with your goals and current challenges.</p>
               <textarea id="message" name="message" rows="6" required aria-describedby="message-help" class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-electric focus:ring-2 focus:ring-electric/20 outline-none transition-colors text-gray-700 resize-none" placeholder="Buyer type: ... Channels: ... Goals and challenges: ..."></textarea>
             </div>
             <Turnstile />
@@ -176,19 +177,20 @@ const faqs = [
         <div class="text-center">
           <div class="w-16 h-16 rounded-full bg-electric text-white font-heading font-bold text-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-electric/30">1</div>
           <h3 class="text-lg font-heading font-bold text-navy mb-2">We Review Your Campaigns</h3>
-          <p class="text-gray-700 text-sm leading-relaxed">Our senior team digs into your accounts, analysing structure, keywords, bids, creatives, and conversion paths.</p>
+          <p class="text-gray-700 text-sm leading-relaxed">Our senior team goes through your accounts. They look at structure, keywords, bids, creatives and conversion paths.</p>
         </div>
         <div class="text-center">
           <div class="w-16 h-16 rounded-full bg-electric text-white font-heading font-bold text-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-electric/30">2</div>
           <h3 class="text-lg font-heading font-bold text-navy mb-2">We Prepare a Detailed Report</h3>
-          <p class="text-gray-700 text-sm leading-relaxed">You receive a written report outlining findings, wasted spend, missed opportunities, and specific recommendations.</p>
+          <p class="text-gray-700 text-sm leading-relaxed">You receive a written report. It sets out the findings, the wasted spend, the missed opportunities and specific recommendations.</p>
         </div>
         <div class="text-center">
           <div class="w-16 h-16 rounded-full bg-electric text-white font-heading font-bold text-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-electric/30">3</div>
           <h3 class="text-lg font-heading font-bold text-navy mb-2">We Walk You Through It</h3>
-          <p class="text-gray-700 text-sm leading-relaxed">We schedule a call to walk through the findings, answer your questions, and discuss how we can help you implement the changes.</p>
+          <p class="text-gray-700 text-sm leading-relaxed">We schedule a call to walk through the findings. You can ask questions and we discuss how to put the changes in place.</p>
         </div>
       </div>
+      <p class="text-gray-700 text-center mt-10">If you then want ongoing help, our <a href="/ppc-management/" class="text-electric underline hover:text-electric-dark">PPC management services</a> pick up from the findings.</p>
     </div>
   </section>
 
