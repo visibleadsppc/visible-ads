@@ -1,31 +1,30 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import PartnerBadges from '../components/PartnerBadges.astro';
 
 const faqs = [
   {
     question: 'What does an Amazon PPC agency do?',
-    answer: 'It runs your Amazon advertising for you. That means building the campaigns, setting bids and budgets, removing search terms that waste spend and reporting the result. We run each of those steps against the profit on every product.',
+    answer: 'It runs your Amazon advertising for you. That covers building the campaigns, setting bids and budgets, and reporting the result. Profit is the goal we manage to.',
   },
   {
     question: 'Which Amazon ad types do you manage?',
-    answer: 'Sponsored Products, Sponsored Brands and Sponsored Display. Most accounts start with Sponsored Products because they sit in search results next to the organic listings. We add the other two once the first campaigns are earning.',
+    answer: 'Sponsored Products, Sponsored Brands and Sponsored Display. We run all three under one profit target.',
   },
   {
-    question: 'Why do you track TACoS and not only ACoS?',
-    answer: 'ACoS only counts sales that came from an ad. TACoS counts all of your Amazon sales. If your ads help a product rank organically, TACoS falls while ACoS can stay flat. Watching both shows whether the advertising is building the business.',
+    question: 'Why do you look at unit profit and not only ACoS?',
+    answer: 'ACoS compares ad spend with ad sales. It does not know what the product cost or what Amazon charged in fees. Profit per unit does, so it shows whether a sale made money.',
   },
   {
-    question: 'How do you decide how much budget to put behind a product?',
-    answer: 'We start from the profit per unit and then follow the weekly ROAS rules we use on every channel. Budget goes up where the return is strong and comes down where it is weak. Profit is the target and ROAS is the control we manage to.',
+    question: 'How do you decide how much budget to put behind a campaign?',
+    answer: 'We review ROAS every week and follow a fixed ladder. Budget goes up where the return is strong and comes down where it is weak. Profit is the target and ROAS is the control we manage to.',
   },
   {
     question: 'Which Amazon marketplaces do you work in?',
-    answer: 'Our clients sell in the UK, the US and Europe. We manage the Amazon marketplaces they trade in. Tell us which ones you sell in when you book the audit.',
+    answer: 'Our clients sell in the UK, the US and Europe. Tell us where you sell when you book the audit.',
   },
   {
     question: 'Are you an Amazon advertising consultant or a full agency?',
-    answer: 'We manage the account every week. If you only want a one-off review, the free audit is the place to start. It shows where spend is earning and where it is leaking.',
+    answer: 'A full agency. We manage the account every week. If you only want a one-off review, start with the free audit.',
   },
   {
     question: 'What does Amazon charge per click?',
@@ -41,7 +40,7 @@ const schema = {
       name: 'Amazon PPC Management',
       serviceType: 'Amazon PPC management',
       provider: { '@type': 'Organization', name: 'Visible Ads', url: 'https://visible-ads.com' },
-      description: 'Amazon PPC management for ecommerce brands: Sponsored Products, Sponsored Brands and Sponsored Display campaigns run against unit profit and TACoS.',
+      description: 'Amazon PPC management for ecommerce brands: Sponsored Products, Sponsored Brands and Sponsored Display campaigns run against unit profit.',
       url: 'https://visible-ads.com/amazon/',
       areaServed: ['GB', 'US', 'EU'],
     },
@@ -60,26 +59,27 @@ const schema = {
 };
 
 const adTypes = [
-  { title: 'Sponsored Products', text: 'Ads for single products that show in search results and on product pages. We build them by keyword and by product target. Search terms that spend without selling are excluded every week.' },
-  { title: 'Sponsored Brands', text: 'Ads that put your brand and several products at the top of search results. We use them to protect your brand terms and to introduce a range once single products are earning.' },
-  { title: 'Sponsored Display', text: 'Ads that reach shoppers who looked at your products and did not buy. We keep the targeting narrow and judge them on the same profit rules as the rest of the account.' },
+  { title: 'Sponsored Products', text: 'Ads for single products that show in search results and on product pages.' },
+  { title: 'Sponsored Brands', text: 'Ads that put your brand and several products at the top of search results.' },
+  { title: 'Sponsored Display', text: 'Ads that reach shoppers by audience, product or category targeting. That includes people who viewed your products and did not buy.' },
 ];
 
 const measures = [
-  { measure: 'ACoS', divides: 'Ad spend by sales that came from ads', shows: 'Whether a campaign pays for itself' },
-  { measure: 'TACoS', divides: 'Ad spend by all Amazon sales', shows: 'Whether advertising is building organic sales too' },
-  { measure: 'Profit per unit', divides: 'Price minus product cost, Amazon fees and ad spend', shows: 'Whether a sale made money' },
+  { measure: 'ACoS', how: 'Ad spend divided by ad sales', shows: 'Whether a campaign pays for itself' },
+  { measure: 'ROAS', how: 'Ad sales divided by ad spend', shows: 'How much each pound of spend returned' },
+  { measure: 'Profit per unit', how: 'Price minus product cost, Amazon fees and ad spend', shows: 'Whether a sale made money' },
 ];
 
-const steps = [
-  { title: 'Audit your numbers', text: 'We take your product cost, Amazon fees and current ad data. The result is a profit figure for each product and the ACoS at which it stops making money. You also see which campaigns are earning today and which are leaking.' },
-  { title: 'Build the campaigns', text: 'Campaigns are grouped by product and by the margin each product can carry. A product with a thin margin does not share a budget with a product with a wide one.' },
-  { title: 'Manage every week', text: 'We review bids, search terms and budgets weekly. Above 1,200% ROAS a budget rises by 20% a week. Below 300% the spend is switched off. The full set of rules is on our PPC management page.' },
-  { title: 'Scale what earns', text: 'Once a product holds its profit we widen the targeting and add the other ad types. We check TACoS before each step up.' },
+const ladder = [
+  { roas: 'Above 1,200%', action: 'Raise the budget by 20% a week' },
+  { roas: '900% to 1,100%', action: 'Raise the budget by 10% a week' },
+  { roas: '600% to 800%', action: 'Hold the budget' },
+  { roas: '300% to 500%', action: 'Cut the budget by 20%' },
+  { roas: 'Below 300%', action: 'Switch the spend off' },
 ];
 ---
 
-<Layout title="Amazon PPC Agency | Amazon Ads Management | Visible Ads" description="Amazon PPC agency for ecommerce brands. We manage Sponsored Products, Brands and Display against unit profit and TACoS. Free audit to start." schema={schema}>
+<Layout title="Amazon PPC Agency | Amazon Ads Management | Visible Ads" description="Amazon PPC agency for ecommerce brands. We manage Sponsored Products, Brands and Display against unit profit." schema={schema}>
 
   <!-- Hero -->
   <section class="relative py-20 lg:py-28 overflow-hidden bg-navy" data-animate>
@@ -90,7 +90,7 @@ const steps = [
       <div class="max-w-3xl">
         <span class="inline-block px-4 py-1.5 bg-electric/20 text-electric-light text-sm font-medium rounded-full mb-6">Amazon Ads Verified Partner</span>
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-6">Amazon PPC Agency for Ecommerce Brands</h1>
-        <p class="text-lg sm:text-xl text-slate-light mb-8 leading-relaxed">We manage your Sponsored Products, Sponsored Brands and Sponsored Display campaigns. Each decision is made against the profit on the product and your TACoS. ACoS alone does not drive it.</p>
+        <p class="text-lg sm:text-xl text-slate-light mb-8 leading-relaxed">We manage your Sponsored Products, Sponsored Brands and Sponsored Display campaigns. Profit on each product drives every decision. ACoS alone does not.</p>
         <div class="flex flex-col sm:flex-row gap-4">
           <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-8 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a free profit audit</a>
           <a href="#profit" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/20 hover:bg-white/10 transition-colors">How we measure profit</a>
@@ -99,17 +99,11 @@ const steps = [
     </div>
   </section>
 
-  <section class="py-12 bg-sky-tint border-y border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <PartnerBadges compact />
-    </div>
-  </section>
-
   <!-- What we manage -->
   <section class="py-20 lg:py-24 bg-white" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What our Amazon ads management covers</h2>
-      <p class="text-lg text-gray-700 mb-8 leading-relaxed">We run three Amazon ad types and set each one a profit target. Your ad spend is paid to Amazon and our fee is separate. A product only gets budget once it has a profit figure behind it.</p>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">Visible Ads is an Amazon advertising agency. Our Amazon PPC management covers three ad types and runs them all towards profit.</p>
       <dl class="space-y-6 text-lg text-gray-700 leading-relaxed">
         {adTypes.map((a) => (
           <div>
@@ -121,70 +115,70 @@ const steps = [
     </div>
   </section>
 
-  <!-- Profit and TACoS -->
+  <!-- Unit profit -->
   <section id="profit" class="py-20 lg:py-24 bg-sky-tint" data-animate>
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl">
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Unit profit and TACoS come before ACoS</h2>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">A campaign can show a healthy ACoS and still lose money on every sale. We therefore start from the profit on each unit and treat ACoS as one input.</p>
-        <p class="text-lg text-gray-700 mb-8 leading-relaxed">Take a product that leaves 30% of its price after cost and fees. It breaks even at a 30% ACoS. Every point of ACoS below that is profit and every point above it is a loss.</p>
-        <p class="text-lg text-gray-700 mb-8 leading-relaxed">Here is the same sum in pounds. A £20 product costs £8 to buy and £4 to ship and fulfil through Amazon. That leaves £8 before ads, which is 40% of the price. At a 25% ACoS the ad costs £5, so each sale keeps £3. At a 45% ACoS the ad costs £9, so each sale loses £1. The figures are an illustration and not a client account.</p>
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Unit profit comes before ACoS</h2>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">A campaign can show a healthy ACoS and still lose money on every sale. We start from the profit on each unit and treat ACoS as one input.</p>
+        <p class="text-lg text-gray-700 mb-8 leading-relaxed">Take a £20 product that costs £8 to buy and £4 in Amazon fees. That leaves £8 before ads, which is 40% of the price. It breaks even at a 40% ACoS. At 25% the ad costs £5 and each sale keeps £3. At 45% the ad costs £9 and each sale loses £1. These figures are a worked example.</p>
       </div>
       <p class="text-sm text-gray-700 mb-2 md:hidden">Swipe sideways to see every column.</p>
       <div class="overflow-x-auto rounded-2xl border border-gray-200 bg-white" tabindex="0" role="region" aria-label="Amazon advertising measures, scrolls sideways on small screens">
         <table class="w-full min-w-[600px] text-left text-base">
-          <caption class="sr-only">The three measures we use on Amazon accounts</caption>
-          <thead class="bg-navy text-white"><tr><th scope="col" class="p-4">Measure</th><th scope="col" class="p-4">What it divides</th><th scope="col" class="p-4">What it shows</th></tr></thead>
+          <caption class="sr-only">Measures used on Amazon accounts</caption>
+          <thead class="bg-navy text-white"><tr><th scope="col" class="p-4">Measure</th><th scope="col" class="p-4">How it is worked out</th><th scope="col" class="p-4">What it shows</th></tr></thead>
           <tbody class="text-gray-700">
             {measures.map((m, i) => (
-              <tr class={i % 2 ? 'border-t bg-sky-tint/40' : 'border-t'}><th scope="row" class="p-4 font-semibold text-navy align-top">{m.measure}</th><td class="p-4 align-top">{m.divides}</td><td class="p-4 align-top">{m.shows}</td></tr>
+              <tr class={i % 2 ? 'border-t bg-sky-tint/40' : 'border-t'}><th scope="row" class="p-4 font-semibold text-navy align-top">{m.measure}</th><td class="p-4 align-top">{m.how}</td><td class="p-4 align-top">{m.shows}</td></tr>
             ))}
           </tbody>
         </table>
       </div>
-      <p class="text-lg text-gray-700 mt-8 max-w-3xl leading-relaxed">Good advertising lifts a product up the organic results. Its total sales grow and TACoS falls. A falling TACoS next to a steady profit per unit is the sign we look for. Our <a href="/roas-vs-profit/" class="text-electric underline hover:text-electric-dark">ROAS vs profit calculator</a> shows the break-even point for your own margin.</p>
+      <p class="text-lg text-gray-700 mt-8 max-w-3xl leading-relaxed">Our <a href="/roas-vs-profit/" class="text-electric underline hover:text-electric-dark">ROAS vs profit calculator</a> shows the break-even point for your own margin.</p>
     </div>
   </section>
 
-  <!-- Process -->
+  <!-- Budget ladder -->
   <section id="process" class="py-20 lg:py-24 bg-white" data-animate>
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">How the work runs</h2>
-      <p class="text-lg text-gray-700 mb-8 leading-relaxed">The work follows four steps and the weekly review never stops.</p>
-      <ol class="space-y-6">
-        {steps.map((s, i) => (
-          <li class="flex gap-4">
-            <span class="shrink-0 w-10 h-10 bg-electric text-white rounded-full flex items-center justify-center font-bold" aria-hidden="true">{i + 1}</span>
-            <div>
-              <h3 class="font-heading font-bold text-navy text-lg">{s.title}</h3>
-              <p class="text-lg text-gray-700 leading-relaxed">{s.text}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
-      <p class="text-gray-700 mt-8 leading-relaxed">The same rules run across every channel we manage. See <a href="/ppc-management/" class="text-electric underline hover:text-electric-dark">PPC management</a> for the full ladder.</p>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">How we scale or cut Amazon spend</h2>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">We review ROAS every week and move each budget on a fixed ladder. Profit is the goal and ROAS is the control we manage to. The same ladder runs on every channel we manage.</p>
+      <div class="overflow-x-auto rounded-2xl border border-gray-200" tabindex="0" role="region" aria-label="Weekly budget ladder, scrolls sideways on small screens">
+        <table class="w-full min-w-[320px] text-left text-base">
+          <caption class="sr-only">Weekly budget rules by return on ad spend</caption>
+          <thead class="bg-navy text-white"><tr><th scope="col" class="p-4">Weekly ROAS</th><th scope="col" class="p-4">What we do</th></tr></thead>
+          <tbody class="text-gray-700">
+            {ladder.map((r, i) => (
+              <tr class={i % 2 ? 'border-t bg-sky-tint/40' : 'border-t'}><th scope="row" class="p-4 font-semibold text-navy">{r.roas}</th><td class="p-4">{r.action}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 
   <!-- Reporting -->
   <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What you see each week</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">You get a weekly call or video update, a KPI dashboard and a quarterly review. Each report is in plain English and starts with profit.</p>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">We compare Amazon's own figures with your sales records. That way a decision rests on orders that happened.</p>
-      <p class="text-lg text-gray-700 leading-relaxed">Profit per product comes first in every report. Spend, sales and ROAS follow it.</p>
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What you see from us</h2>
+      <p class="text-lg text-gray-700 leading-relaxed">You get a weekly call or video update, a KPI dashboard and a quarterly review.</p>
     </div>
   </section>
 
   <!-- Proof -->
   <section class="py-16 lg:py-20 bg-white" data-animate>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Proof from an Amazon account we manage</h2>
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Proof from an Amazon account we have managed</h2>
       <div class="bg-sky-tint rounded-2xl p-6 sm:p-8 border border-gray-100">
-        <p class="text-3xl font-heading font-extrabold text-electric mb-2">8.5x ROAS</p>
-        <p class="text-lg text-gray-700 leading-relaxed"><strong class="text-navy">CFW Amazon Ads.</strong> All-time sales of £769,025.79 came from £91,902.91 of spend across 17,566 purchases.</p>
+        <p class="text-lg text-navy font-semibold mb-6">CFW Amazon Ads, all time</p>
+        <dl class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div><dt class="text-sm text-gray-700">Ad spend</dt><dd class="text-2xl font-heading font-extrabold text-electric">£91,902.91</dd></div>
+          <div><dt class="text-sm text-gray-700">Sales</dt><dd class="text-2xl font-heading font-extrabold text-electric">£769,025.79</dd></div>
+          <div><dt class="text-sm text-gray-700">Purchases</dt><dd class="text-2xl font-heading font-extrabold text-electric">17,566</dd></div>
+        </dl>
       </div>
-      <p class="text-gray-700 mt-6 leading-relaxed">A second account, Sephra USA, is written up in the <a href="/case-studies/sephra-usa-amazon/" class="text-electric underline hover:text-electric-dark">Sephra USA Amazon case study</a>.</p>
+      <p class="text-gray-700 mt-6 leading-relaxed">On Google, CFW's Ads rebuild turned £500K of spend into £6M, a 12x ROAS across the whole Google account. See the <a href="/case-studies/cfw/" class="text-electric underline hover:text-electric-dark">CFW case study</a>.</p>
     </div>
   </section>
 
@@ -193,8 +187,7 @@ const steps = [
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Who this suits</h2>
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">It suits ecommerce brands that sell on Amazon and know what each product costs them. Most of our clients are direct to consumer and business brands with £1M to £20M in annual revenue.</p>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">If you sell on your own site as well, we plan the two together. Read about <a href="/amazon-google-ads/" class="text-electric underline hover:text-electric-dark">Amazon and Google Ads together</a> to see how that works.</p>
-      <p class="text-lg text-gray-700 leading-relaxed">We set targets from your product costs, so it helps if you can share them early.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">Selling on your own site too? We plan the two together. Read about <a href="/amazon-google-ads/" class="text-electric underline hover:text-electric-dark">Amazon and Google Ads together</a> to see how.</p>
     </div>
   </section>
 
@@ -202,8 +195,8 @@ const steps = [
   <section class="py-16 lg:py-20 bg-white" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">What our management fee covers</h2>
-      <p class="text-lg text-gray-700 mb-4 leading-relaxed">Our fees are per channel managed plus VAT. Each fee covers unlimited campaigns on that channel. Your ad budget is paid to Amazon separately. The minimum term is three months and then it rolls monthly with 30 days notice.</p>
-      <p class="text-lg text-gray-700 leading-relaxed">The Silver, Gold and Platinum tiers and the minimum term are on our <a href="/ppc-management/#pricing" class="text-electric underline hover:text-electric-dark">PPC management pricing</a> section.</p>
+      <p class="text-lg text-gray-700 mb-4 leading-relaxed">Each fee covers unlimited campaigns on one channel, plus VAT. Your ad budget is paid to Amazon separately. You can stop with 30 days' notice after the first three months.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">The Silver, Gold and Platinum tiers are set out in our <a href="/ppc-management/#pricing" class="text-electric underline hover:text-electric-dark">PPC management pricing</a> section.</p>
     </div>
   </section>
 
@@ -231,7 +224,7 @@ const steps = [
     <div class="absolute inset-0 dot-pattern opacity-5"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">See what each product earns after ads</h2>
-      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">Get a free audit of your Amazon account. We show you the profit per product and where spend is leaking.</p>
+      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">Get a free audit of your Amazon account. It shows where spend is earning and where it is leaking.</p>
       <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a free profit audit</a>
     </div>
   </section>
