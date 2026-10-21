@@ -1,0 +1,235 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PartnerBadges from '../components/PartnerBadges.astro';
+
+const faqs = [
+  {
+    question: 'What does an ecommerce PPC agency do?',
+    answer: 'It runs the paid ads that bring buyers to an online shop and judges them against profit. That covers tracking, product data, campaigns on each channel, weekly budget decisions and reporting.',
+  },
+  {
+    question: 'Which channels do you manage for ecommerce brands?',
+    answer: 'Google, Microsoft Advertising, Amazon Ads, Meta, TikTok and LinkedIn. We recommend the mix from your products, your margin and where your buyers start looking.',
+  },
+  {
+    question: 'Can you run Amazon and my own store together?',
+    answer: 'Yes. We plan both under one budget so they do not compete for the same sale.',
+  },
+  {
+    question: 'Is ROAS or profit the target?',
+    answer: 'Profit is the target. ROAS is the control we use to move budget each week.',
+  },
+  {
+    question: 'How much does ecommerce PPC management cost?',
+    answer: 'A free audit shows which tier fits your ad budget. The tiers are listed on our PPC management page.',
+  },
+  {
+    question: 'What size of business do you work with?',
+    answer: 'Most clients are ecommerce and B2B businesses turning over £1M to £20M. They sell in the UK, the US or Europe.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Ecommerce PPC Agency',
+      serviceType: 'Ecommerce PPC management',
+      provider: { '@type': 'Organization', name: 'Visible Ads', url: 'https://visible-ads.com' },
+      description: 'Ecommerce PPC management across Google, Microsoft Advertising, Amazon Ads and paid social, with every channel judged against margin.',
+      url: 'https://visible-ads.com/ecommerce-ppc-agency/',
+      areaServed: 'GB',
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://visible-ads.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Ecommerce PPC Agency', item: 'https://visible-ads.com/ecommerce-ppc-agency/' },
+      ],
+    },
+  ],
+};
+
+const scope = [
+  { title: 'Tracking checked against orders', text: 'Platform conversions are compared with your shop or GA4. Decisions then rest on sales that happened.' },
+  { title: 'Product data that matches the page', text: 'Titles, prices and availability are corrected at source. The ads then match what a buyer sees.' },
+  { title: 'Campaigns split by product and category', text: 'Budget follows the products that earn and not the ones that only get clicks.' },
+  { title: 'Weekly budget moves', text: 'Spend rises where the return supports it. It falls quickly where it does not.' },
+  { title: 'Controlled testing', text: 'New ads, offers and landing pages are tested one change at a time.' },
+];
+
+const channels = [
+  { name: 'Google Shopping and Performance Max', job: 'Show your products to people already searching for them.', when: 'Usually first. It needs sound tracking and product data.' },
+  { name: 'Google Search', job: 'Capture brand and category searches.', when: 'From the start for brand terms.' },
+  { name: 'Amazon Ads', job: 'Reach shoppers who begin on the marketplace.', when: 'When you sell on Amazon.' },
+  { name: 'Microsoft Advertising', job: 'Add a second search audience beside Google.', when: 'Once Google is tracking correctly.' },
+  { name: 'Meta, TikTok and LinkedIn', job: 'Create demand before people search.', when: 'When search demand alone limits growth.' },
+];
+---
+
+<Layout title="Ecommerce PPC Agency | Visible Ads" description="Ecommerce PPC agency running Google, Amazon, Microsoft and paid social against your margin. Weekly budget rules, clear pricing and a free audit to start." schema={schema}>
+
+  <!-- Hero -->
+  <section class="relative py-20 lg:py-28 overflow-hidden bg-navy" data-animate>
+    <div class="absolute inset-0 bg-gradient-to-br from-navy to-navy-light"></div>
+    <div class="absolute inset-0 dot-pattern opacity-10"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-light mb-8"><a href="/" class="hover:text-white">Home</a><span class="mx-2">/</span><span class="text-white">Ecommerce PPC Agency</span></nav>
+      <div class="max-w-3xl">
+        <span class="inline-block px-4 py-1.5 bg-electric/20 text-electric-light text-sm font-medium rounded-full mb-6">Google Partner, Microsoft Advertising Partner, Amazon Ads Verified Partner, Meta Business Partner</span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-6">Ecommerce PPC Agency</h1>
+        <p class="text-lg sm:text-xl text-slate-light mb-8 leading-relaxed">Visible Ads is an ecommerce PPC agency. We run your paid advertising across Google, Microsoft, Amazon and paid social and judge every channel against your margin. One team looks after the whole account so each channel has a clear job.</p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-8 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a free ecommerce ads audit</a>
+          <a href="#channels" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/20 hover:bg-white/10 transition-colors">See which channel does what</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 bg-sky-tint border-y border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <PartnerBadges compact />
+    </div>
+  </section>
+
+  <!-- Scope -->
+  <section class="py-20 lg:py-24 bg-white" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What our ecommerce PPC management covers</h2>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">Ecommerce PPC management is the weekly work of keeping paid ads profitable for an online shop. We take that work on across every channel you pay for.</p>
+      <dl class="space-y-6 text-lg text-gray-700 leading-relaxed">
+        {scope.map((s) => (
+          <div class="border-l-4 border-electric pl-5">
+            <dt class="font-heading font-bold text-navy">{s.title}</dt>
+            <dd>{s.text}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- Channel roles -->
+  <section id="channels" class="py-20 lg:py-24 bg-sky-tint" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Which channel does which job</h2>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">Each channel in an ecommerce account has a different job. The table shows the role we give it and when we bring it in.</p>
+      <p class="text-sm text-gray-700 mb-2 md:hidden">Swipe sideways to see every column.</p>
+      <div class="overflow-x-auto rounded-2xl border border-gray-200 bg-white" tabindex="0" role="region" aria-label="Ecommerce ad channels and their jobs, scrolls sideways on small screens">
+        <table class="w-full min-w-[640px] text-left text-base">
+          <caption class="sr-only">Ecommerce advertising channels, the job each does and when Visible Ads adds it</caption>
+          <thead class="bg-navy text-white"><tr><th scope="col" class="p-4">Channel</th><th scope="col" class="p-4">Its job</th><th scope="col" class="p-4">When we add it</th></tr></thead>
+          <tbody class="text-gray-700">
+            {channels.map((c, i) => (
+              <tr class={i % 2 ? 'border-t bg-sky-tint/40' : 'border-t'}><th scope="row" class="p-4 font-semibold text-navy align-top">{c.name}</th><td class="p-4 align-top">{c.job}</td><td class="p-4 align-top">{c.when}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-gray-700 mt-6 leading-relaxed">Google carries most of the demand capture in a typical ecommerce account. Our <a href="/google-ads/" class="text-electric underline hover:text-electric-dark">Google Ads management</a> covers Search, Shopping, Performance Max and the rest of the Google set.</p>
+    </div>
+  </section>
+
+  <!-- Where we start -->
+  <section class="py-20 lg:py-24 bg-white" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Where we start in a new account</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">We start with measurement and product data because every later decision depends on them.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">Tracking is compared with your real orders first. The product data behind your shopping ads is checked next. Our <a href="/google-shopping-ads/" class="text-electric underline hover:text-electric-dark">Google Shopping management</a> page lists what we check in the feed. Campaign changes follow once both are sound.</p>
+    </div>
+  </section>
+
+  <!-- Amazon -->
+  <section class="py-20 lg:py-24 bg-sky-tint" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Amazon alongside your own store</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Amazon Ads reach shoppers who begin their search on the marketplace.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">We judge Amazon spend against the margin left after marketplace costs. We plan it beside your Google spend so the two do not compete for the same sale. Our <a href="/amazon/" class="text-electric underline hover:text-electric-dark">Amazon Ads management</a> page covers the marketplace work in full.</p>
+    </div>
+  </section>
+
+  <!-- Microsoft -->
+  <section class="py-20 lg:py-24 bg-white" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Microsoft Advertising once Google is working</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Microsoft Advertising adds a second search audience beside Google.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">We add it after Google is tracking correctly so the results can be compared fairly. Results are read against your own orders and not the platform report. Planning and budget advice sit on our <a href="/bing-ads/" class="text-electric underline hover:text-electric-dark">Microsoft Advertising management</a> page.</p>
+    </div>
+  </section>
+
+  <!-- Large catalogues -->
+  <section class="py-20 lg:py-24 bg-sky-tint" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Large catalogues need a different method</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">A catalogue of thousands of products cannot be managed one product at a time.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">We sort products by profit first and give the budget to the groups that earn it. The long tail is held back until it earns its place. Our <a href="/high-sku-advertising/" class="text-electric underline hover:text-electric-dark">large catalogue method</a> sets out how.</p>
+    </div>
+  </section>
+
+  <!-- One budget -->
+  <section class="py-20 lg:py-24 bg-white" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">One budget across every channel</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">An ecommerce account needs one budget and one profit view across its channels. Two platforms can credit the same order.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">We reconcile each channel with your shop figures so spend moves to the channel that earned the sale. Our <a href="/multi-channel-services/" class="text-electric underline hover:text-electric-dark">multi-channel services</a> explain how the plan fits together.</p>
+    </div>
+  </section>
+
+  <!-- Profit -->
+  <section class="py-20 lg:py-24 bg-sky-tint" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Profit decides the budget</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Profit sets the budget and ROAS is the control we manage to. Each campaign is reviewed every week against fixed ROAS bands.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">A strong ROAS can still lose money once margin is counted. Work out your break-even point with the <a href="/roas-vs-profit/" class="text-electric underline hover:text-electric-dark">ROAS vs profit calculator</a>.</p>
+    </div>
+  </section>
+
+  <!-- Proof -->
+  <section class="py-16 bg-white" data-animate>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Proof from a Google Ads rebuild</h2>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">CFW's Google Ads rebuild turned £500K of spend into £6M of return. That is a 12x ROAS across the whole Google account.</p>
+      <p class="text-gray-700">Full detail is in the <a href="/case-studies/cfw/" class="text-electric underline hover:text-electric-dark">CFW case study</a>.</p>
+    </div>
+  </section>
+
+  <!-- Pricing pointer -->
+  <section class="py-16 bg-sky-tint" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">What it costs</h2>
+      <p class="text-lg text-gray-700 leading-relaxed">Fees are per channel managed plus VAT. Each fee covers unlimited campaigns on that channel. Your ad budget is paid to the platforms separately.</p>
+      <p class="text-lg text-gray-700 leading-relaxed mt-4">The tiers, the minimum term and the performance model are set out under <a href="/ppc-management/#pricing" class="text-electric underline hover:text-electric-dark">PPC management pricing</a>.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 lg:py-20 bg-white" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Ecommerce PPC questions</h2>
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="group border border-gray-200 rounded-xl p-6">
+            <summary class="cursor-pointer font-heading font-semibold text-navy">{faq.question}</summary>
+            <p class="mt-4 text-gray-700 leading-relaxed">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative py-20 lg:py-28 bg-navy" data-animate>
+    <div class="absolute inset-0 dot-pattern opacity-5"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">Find out which channel is earning your next pound</h2>
+      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">Get a free audit of your ecommerce ad accounts. We judge every channel against your margin.</p>
+      <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a free ecommerce ads audit</a>
+    </div>
+  </section>
+
+</Layout>
