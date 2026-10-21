@@ -10,7 +10,7 @@ const schema = {
     {
       "@type": "WebPage",
       "name": "Book a Profit Audit",
-      "description": "Get a comprehensive, no-obligation audit of your Google Ads, Bing Ads, or Amazon campaigns.",
+      "description": "Get a comprehensive, no-obligation profit audit of your Google Ads, Amazon Advertising, paid social or multi-channel campaigns.",
       "url": "https://visible-ads.com/free-ads-audit",
       "publisher": {
         "@type": "Organization",
@@ -22,7 +22,7 @@ const schema = {
       "mainEntity": [
         { "@type": "Question", "name": "How long does the audit take?", "acceptedAnswer": { "@type": "Answer", "text": "We deliver the audit within 5 working days of getting access. The walkthrough call is booked at a time that suits you." } },
         { "@type": "Question", "name": "Is there really no obligation?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely none. The audit is genuinely free. We use it to demonstrate the value we can bring. If you choose to work with us afterwards, great. If not, you still walk away with actionable insights you can implement yourself." } },
-        { "@type": "Question", "name": "What platforms do you audit?", "acceptedAnswer": { "@type": "Answer", "text": "We audit Google Ads, Bing Ads, Amazon Advertising, Meta Ads, and any other paid media platform you are running. If you are advertising on it, we can audit it." } }
+        { "@type": "Question", "name": "What platforms do you audit?", "acceptedAnswer": { "@type": "Answer", "text": "We audit Google Ads, Amazon Advertising, Meta Ads and wider paid media. For Microsoft Advertising, use the dedicated Bing Ads audit page." } }
       ]
     },
     {
@@ -46,12 +46,12 @@ const faqs = [
   },
   {
     question: 'What platforms do you audit?',
-    answer: 'We audit Google Ads, Bing Ads, Amazon Advertising, Meta Ads, and any other paid media platform you are running. If you are advertising on it, we can audit it.',
+    answer: 'We audit Google Ads, Amazon Advertising, Meta Ads and wider paid media. For Microsoft Advertising, use the dedicated Bing Ads audit page.',
   },
 ];
 ---
 
-<Layout title="Book a Profit Audit | Visible Ads" description="Book a free, no-obligation profit audit of your Google Ads, Bing Ads, or Amazon campaigns. Discover exactly where you're leaving money on the table." schema={schema}>
+<Layout title="Book a Profit Audit | Visible Ads" description="Book a free, no-obligation profit audit of your Google Ads, Amazon, Meta or multi-channel campaigns. Discover where spend is leaking against margin." schema={schema}>
 
 
   <section class="relative overflow-hidden py-20 lg:py-28 bg-white" data-animate>
@@ -62,7 +62,7 @@ const faqs = [
 
         <div class="lg:pt-4">
           <h1 class="text-4xl sm:text-5xl font-heading font-extrabold text-navy mb-6 leading-tight">Book Your Free Profit Audit</h1>
-          <p class="text-lg text-gray-700 leading-relaxed mb-8">A comprehensive, no-obligation review of your Google Ads, Bing Ads, Amazon Advertising or Paid Social campaigns. The audit is free for qualifying accounts, with actionable recommendations you keep whether you work with us or not.</p>
+          <p class="text-lg text-gray-700 leading-relaxed mb-8">A comprehensive, no-obligation review of your Google Ads, Amazon Advertising, Paid Social or multi-channel campaigns. The audit is free for qualifying accounts, with actionable recommendations you keep whether you work with us or not. Need Microsoft Advertising specifically? We have a dedicated Bing Ads audit.</p>
 
           <div class="space-y-5 mb-10">
             <div class="flex items-start gap-4">
@@ -108,6 +108,7 @@ const faqs = [
               <span class="text-sm font-medium text-gray-700">Actionable Insights</span>
             </div>
           </div>
+          <p class="text-sm text-gray-700 mt-6">For Microsoft Advertising, book the <a href="/free-bing-ads-audit/" class="text-electric underline hover:text-electric-dark">free Bing Ads audit</a> instead.</p>
         </div>
 
         <div class="bg-white rounded-2xl p-8 sm:p-10 shadow-xl border border-gray-200 ring-1 ring-electric/10">
@@ -145,7 +146,7 @@ const faqs = [
             </div>
             <div>
               <label for="message" class="block text-sm font-medium text-navy mb-1.5">Buyer type, channels and goals</label>
-              <p id="message-help" class="text-sm text-gray-700 mb-2">Are you the advertiser, or an agency or professional-services buyer acting on their behalf? Which channels do you run: Google Ads, Bing Ads, Amazon Advertising or Paid Social? Include all that apply, plus your goals and current challenges.</p>
+              <p id="message-help" class="text-sm text-gray-700 mb-2">Are you the advertiser, or an agency or professional-services buyer acting on their behalf? Which channels do you run: Google Ads, Amazon Advertising, Meta Ads or Paid Social? Include all that apply, plus your goals and current challenges.</p>
               <textarea id="message" name="message" rows="6" required aria-describedby="message-help" class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-electric focus:ring-2 focus:ring-electric/20 outline-none transition-colors text-gray-700 resize-none" placeholder="Buyer type: ... Channels: ... Goals and challenges: ..."></textarea>
             </div>
             <Turnstile />
