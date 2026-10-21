@@ -11,7 +11,7 @@ const faqs = [
   },
   {
     question: 'How much does Bing Ads management cost?',
-    answer: 'Fees are per channel managed plus VAT. Each fee covers unlimited campaigns on that channel. The tiers and the performance model are on our PPC management page. Creative is not included. We confirm the Microsoft Advertising fee when we scope your account.',
+    answer: "Fees are per channel managed plus VAT. Each fee covers unlimited campaigns on that channel. The tiers and the performance model are on our PPC management page. The fee doesn't cover creative. We confirm the Microsoft Advertising fee when we scope your account.",
     link: { text: 'PPC management page', href: '/ppc-management/#pricing' },
   },
   {
@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     question: 'How much budget do I need for Bing Ads?',
-    answer: 'Start with a trial budget sized from your Bing search volume and CPC estimates. It needs enough conversions to decide on. Conversion lag and your profit target set how long that takes. Management fees are separate and charged per channel.',
+    answer: "There is no fixed minimum. We size a trial budget from your Bing search volume and CPC estimates so it can collect enough conversions to judge. Conversion lag and your profit target decide how long the trial runs. Management fees are separate.",
   },
   {
     question: 'Do you manage Microsoft Advertising alongside Google Ads?',
@@ -36,7 +36,7 @@ const schema = {
       name: 'Bing Ads Agency',
       provider: { '@type': 'Organization', name: 'Visible Ads', url: 'https://visible-ads.com' },
       description: 'Bing Ads agency for ecommerce brands: Microsoft Advertising Search, Shopping, Audience and Performance Max campaigns, Google Ads import and reporting against your own sales.',
-      url: 'https://visible-ads.com/bing-ads',
+      url: 'https://visible-ads.com/bing-ads/',
       serviceType: 'Bing Ads Management',
       areaServed: 'GB',
     },
@@ -48,7 +48,7 @@ const schema = {
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://visible-ads.com/' },
-        { '@type': 'ListItem', position: 2, name: 'Bing Ads', item: 'https://visible-ads.com/bing-ads' },
+        { '@type': 'ListItem', position: 2, name: 'Bing Ads', item: 'https://visible-ads.com/bing-ads/' },
       ],
     },
   ],
@@ -129,10 +129,10 @@ const faqHtml = (f) => f.link ? f.answer.replace(f.link.text, `<a href="${f.link
       <div class="max-w-3xl mb-10">
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Ads in Copilot come from the account you already run</h2>
         <p class="text-lg text-gray-700 mb-6 leading-relaxed">Microsoft serves ads in Copilot from existing campaign text and images. Its documented eligible types include Multimedia ads, Product ads from Shopping and Performance Max, Search ads with a logo and some Vertical ad types.</p>
-        <p class="text-lg text-gray-700 leading-relaxed">Microsoft says eligible campaigns are opted in automatically and that advertisers cannot opt out. It does not guarantee that an ad will show. Microsoft has no Copilot-specific metrics yet. We read results from the standard reports.</p>
+        <p class="text-lg text-gray-700 leading-relaxed">Microsoft says eligible campaigns are opted in automatically and that advertisers cannot opt out. Microsoft doesn't promise an ad will show, and it has no Copilot-only metrics yet, so we read results from the standard reports.</p>
       </div>
       <div class="overflow-x-auto rounded-2xl border border-gray-200 bg-sky-tint">
-        <table class="w-full text-left text-sm"><caption class="sr-only">Copilot campaign review checklist</caption><thead class="bg-navy text-white"><tr><th scope="col" class="p-4">Check</th><th scope="col" class="p-4">Why it matters</th></tr></thead><tbody class="text-gray-700"><tr class="border-t"><th scope="row" class="p-4 font-semibold text-navy">Ad assets and feeds</th><td class="p-4">Search ads need a logo to be eligible. Images, product feeds and landing pages still shape how the ads look and perform.</td></tr><tr class="border-t bg-white"><th scope="row" class="p-4 font-semibold text-navy">Relevance and controls</th><td class="p-4">Negative keyword matching applies in Copilot as it does on web search, so search terms and negatives still matter.</td></tr><tr class="border-t"><th scope="row" class="p-4 font-semibold text-navy">Measurement</th><td class="p-4">Copilot has no metrics of its own, so conversion reports are read beside your own orders or qualified leads.</td></tr></tbody></table>
+        <table class="w-full text-left text-sm"><caption class="sr-only">Copilot campaign review checklist</caption><thead class="bg-navy text-white"><tr><th scope="col" class="p-4">Check</th><th scope="col" class="p-4">Why it matters</th></tr></thead><tbody class="text-gray-700"><tr class="border-t"><th scope="row" class="p-4 font-semibold text-navy">Ad assets and feeds</th><td class="p-4">Search ads need a logo to be eligible. Images, product feeds and landing pages still shape how the ads look and perform.</td></tr><tr class="border-t bg-white"><th scope="row" class="p-4 font-semibold text-navy">Relevance and controls</th><td class="p-4">Negative keyword matching applies in Copilot as it does on web search. Search terms and negatives still matter.</td></tr><tr class="border-t"><th scope="row" class="p-4 font-semibold text-navy">Measurement</th><td class="p-4">Copilot has no metrics of its own. Conversion reports are read beside your own orders or qualified leads.</td></tr></tbody></table>
       </div>
     </div>
   </section>
