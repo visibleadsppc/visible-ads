@@ -22,7 +22,7 @@ const schema = {
       "mainEntity": [
         { "@type": "Question", "name": "How long does the audit take?", "acceptedAnswer": { "@type": "Answer", "text": "We deliver the audit within 5 working days of getting access. The walkthrough call is booked at a time that suits you." } },
         { "@type": "Question", "name": "Is there really no obligation?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely none. The audit is free. We use it to show the value we can bring. You keep the recommendations whether or not you work with us afterwards." } },
-        { "@type": "Question", "name": "What platforms do you audit?", "acceptedAnswer": { "@type": "Answer", "text": "We audit Google Ads, Amazon Advertising, Meta Ads and wider paid media. If you run Microsoft Advertising, the Bing Ads audit page is the one to use." } }
+        { "@type": "Question", "name": "What platforms do you audit?", "acceptedAnswer": { "@type": "Answer", "text": "We audit Google Ads, Amazon Advertising, Meta Ads and wider paid media. Microsoft Advertising has its own audit page." } }
       ]
     },
     {
@@ -46,7 +46,7 @@ const faqs = [
   },
   {
     question: 'What platforms do you audit?',
-    answer: 'We audit Google Ads, Amazon Advertising, Meta Ads and wider paid media. If you run Microsoft Advertising, the Bing Ads audit page is the one to use.',
+    answer: 'We audit Google Ads, Amazon Advertising, Meta Ads and wider paid media. Microsoft Advertising has its own audit page.',
   },
 ];
 ---
@@ -62,7 +62,7 @@ const faqs = [
 
         <div class="lg:pt-4">
           <h1 class="text-4xl sm:text-5xl font-heading font-extrabold text-navy mb-6 leading-tight">Book Your Free Profit Audit</h1>
-          <p class="text-lg text-gray-700 leading-relaxed mb-8">A comprehensive, no-obligation PPC audit of your Google Ads, Amazon Advertising, Paid Social or multi-channel campaigns. The Google Ads audit and the Amazon advertising audit sit in one profit review. You keep the recommendations whether or not you work with us.</p>
+          <p class="text-lg text-gray-700 leading-relaxed mb-8">This free PPC audit checks your Google Ads, Amazon Advertising and Meta Ads against your margin. Every channel sits in one profit review.</p>
 
           <h2 class="text-xl font-heading font-bold text-navy mb-5">What the profit audit covers</h2>
           <div class="space-y-5 mb-10">
@@ -72,7 +72,7 @@ const faqs = [
               </div>
               <div>
                 <h3 class="font-heading font-bold text-navy mb-1">Campaign Structure Analysis</h3>
-                <p class="text-gray-700 text-sm">We review your account architecture, ad groups, match types, and bidding strategies against best practices.</p>
+                <p class="text-gray-700 text-sm">We check account structure, match types and bidding against your margin.</p>
               </div>
             </div>
             <div class="flex items-start gap-4">
@@ -81,7 +81,7 @@ const faqs = [
               </div>
               <div>
                 <h3 class="font-heading font-bold text-navy mb-1">Wasted Spend Identification</h3>
-                <p class="text-gray-700 text-sm">We pinpoint exactly where your budget is being wasted on irrelevant clicks, poor-performing keywords, and inefficient targeting.</p>
+                <p class="text-gray-700 text-sm">We find spend going on irrelevant search terms, weak keywords and loose targeting.</p>
               </div>
             </div>
             <div class="flex items-start gap-4">
@@ -90,7 +90,7 @@ const faqs = [
               </div>
               <div>
                 <h3 class="font-heading font-bold text-navy mb-1">Growth Opportunity Mapping</h3>
-                <p class="text-gray-700 text-sm">We identify untapped keywords, audiences, and channels where your competitors are winning and you are not.</p>
+                <p class="text-gray-700 text-sm">We look for keywords and audiences your competitors reach and you do not.</p>
               </div>
             </div>
           </div>
@@ -106,7 +106,7 @@ const faqs = [
             </div>
             <div class="flex items-center gap-2">
               <svg class="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-              <span class="text-sm font-medium text-gray-700">Actionable Insights</span>
+              <span class="text-sm font-medium text-gray-700">A written report you keep</span>
             </div>
           </div>
           <p class="text-sm text-gray-700 mt-6">Running Microsoft Advertising? The <a href="/free-bing-ads-audit/" class="text-electric underline hover:text-electric-dark">free Bing Ads audit</a> covers that.</p>
@@ -114,7 +114,7 @@ const faqs = [
 
         <div class="bg-white rounded-2xl p-8 sm:p-10 shadow-xl border border-gray-200 ring-1 ring-electric/10">
           <h2 class="text-2xl font-heading font-bold text-navy mb-6">Request Your Audit</h2>
-          <p class="text-gray-700 leading-relaxed mb-6">We take read-only access to your advertising account. A view of your product margins helps if you can share it. Nothing is changed during an audit, and you see every finding first. We deliver the audit within 5 working days of getting access. The walkthrough call is booked at a time that suits you.</p>
+          <p class="text-gray-700 leading-relaxed mb-6">We take read-only access to your advertising account. A view of your product margins helps if you can share it. Nothing is changed during an audit, and you see every finding first. The walkthrough call is booked at a time that suits you.</p>
           <form id="audit-form" action="/api/submit" method="POST" data-astro-reload class="space-y-5">
             <input type="hidden" name="_form" value="audit" />
             <input type="hidden" name="_next" value="https://visible-ads.com/free-ads-audit?thanks=1&form=free_ads_audit" />
@@ -158,7 +158,7 @@ const faqs = [
           <script>
             if (window.location.search.includes('thanks=1')) {
               const form = document.getElementById('audit-form');
-              if (form) form.innerHTML = '<div class="text-center py-12"><div class="w-16 h-16 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><h3 class="text-xl font-heading font-bold text-navy mb-2">Thank You!</h3><p class="text-gray-700">We\'ve received your request. We deliver the audit within 5 working days of getting access. The walkthrough call is booked at a time that suits you.</p></div>';
+              if (form) form.innerHTML = '<div class="text-center py-12"><div class="w-16 h-16 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><h3 class="text-xl font-heading font-bold text-navy mb-2">Thank You!</h3><p class="text-gray-700">We\'ve received your request. The walkthrough call is booked at a time that suits you.</p></div>';
             }
           </script>
         </div>
@@ -171,7 +171,7 @@ const faqs = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">What Happens Next?</h2>
-        <p class="text-lg text-gray-700">Three simple steps from enquiry to insights.</p>
+        <p class="text-lg text-gray-700">Three steps from enquiry to insights.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
         <div class="text-center">
@@ -190,7 +190,7 @@ const faqs = [
           <p class="text-gray-700 text-sm leading-relaxed">We schedule a call to walk through the findings. You can ask questions and we discuss how to put the changes in place.</p>
         </div>
       </div>
-      <p class="text-gray-700 text-center mt-10">If you then want ongoing help, our <a href="/ppc-management/" class="text-electric underline hover:text-electric-dark">PPC management services</a> pick up from the findings.</p>
+      <p class="text-gray-700 text-center mt-10">Our <a href="/ppc-management/" class="text-electric underline hover:text-electric-dark">PPC management services</a> can pick up from the findings if you want ongoing help.</p>
     </div>
   </section>
 
