@@ -7,20 +7,20 @@ import ServiceLinks from '../components/ServiceLinks.astro';
 const faqs = [
   {
     question: 'What does a Bing Ads agency do?',
-    answer: 'A Bing Ads agency manages your Microsoft Advertising account for you. You may also see it called a Microsoft Advertising agency or a Microsoft Ads agency. At Visible Ads the work covers Search, Shopping and Audience campaigns. Performance Max is added where it suits the account. Conversion tracking and reporting are part of the service.',
+    answer: 'A Bing Ads agency manages your Microsoft Advertising account for you. You may also see it called a Microsoft Advertising agency, a Microsoft Ads agency or a Bing PPC agency. At Visible Ads the work covers Search, Shopping and Audience campaigns. Performance Max is added where it suits the account. Conversion tracking and reporting are part of the service.',
   },
   {
     question: 'How much does Bing Ads management cost?',
-    answer: 'Fees are per channel managed plus VAT, with unlimited campaigns on that channel. The tiers and the performance model are on our PPC management page. Creative is not included. We confirm the Microsoft Advertising fee when we scope your account.',
+    answer: 'Fees are per channel managed plus VAT. Each fee covers unlimited campaigns on that channel. The tiers and the performance model are on our PPC management page. Creative is not included. We confirm the Microsoft Advertising fee when we scope your account.',
     link: { text: 'PPC management page', href: '/ppc-management/#pricing' },
   },
   {
     question: 'Can you import my existing Google Ads campaigns to Bing?',
-    answer: 'Yes. Microsoft Advertising has an import tool for Google Ads. Shopping campaigns need a linked Microsoft Merchant Center store first. After the import we check structure, bids, budgets and conversion goals for Microsoft Advertising.',
+    answer: 'Yes. Microsoft Advertising has an import tool for Google Ads. Shopping campaigns need a Microsoft Merchant Center store. You link it to the campaign during the import. After the import we check structure, bids, budgets and conversion goals for Microsoft Advertising.',
   },
   {
     question: 'How much budget do I need for Bing Ads?',
-    answer: 'It depends on search volume, CPC estimates, conversion lag and your profit target. We set a budget that gives enough data to decide on. It goes up when the contribution result supports it. Management fees are per channel managed, as set out in the cost answer above.',
+    answer: 'Start with a trial budget sized from your Bing search volume and CPC estimates. It needs enough conversions to decide on. Conversion lag and your profit target set how long that takes. Management fees are separate and charged per channel.',
   },
   {
     question: 'Do you manage Microsoft Advertising alongside Google Ads?',
@@ -56,7 +56,7 @@ const schema = {
 
 const scope = [
   { title: 'Search campaigns', text: 'Keywords, match types, ads and negative keywords on Bing and the Microsoft Advertising Network. We review the account every week and act on what the search terms show.' },
-  { title: 'Shopping and product ads', text: 'Your product feed in Microsoft Merchant Center and your Shopping campaigns, run with your margins in view.' },
+  { title: 'Shopping and product ads', text: 'We run your Merchant Center feed and Shopping campaigns with your margins in view.' },
   { title: 'Audience ads', text: 'Display and native ads that reach people beyond search results. Microsoft groups them under Audience ads. We add them when they suit the account.' },
   { title: 'Performance Max', text: 'Microsoft says one Performance Max campaign can serve Search, Audience and Product ads. We use it where it suits the account.' },
   { title: 'Import from Google Ads', text: 'Microsoft imports Search, Shopping and Performance Max campaigns. We then review what came across and adjust it for Microsoft Advertising.' },
@@ -119,7 +119,7 @@ const faqHtml = (f) => f.link ? f.answer.replace(f.link.text, `<a href="${f.link
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Where Microsoft Advertising fits beside Google Ads</h2>
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">Microsoft Advertising can run as a second channel next to Google Ads. We manage the two together under one profit target.</p>
-      <p class="text-lg text-gray-700 leading-relaxed">We start on a trial budget and compare the sales Microsoft reports with your own order records. Budget stays only where contribution supports it. For Bing's UK share and reach, with each figure sourced and dated, see our <a href="/microsoft-advertising-uk-statistics/" class="text-electric underline hover:text-electric-dark">Microsoft Advertising UK statistics</a>.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">We start on a trial budget and compare the sales Microsoft reports with your own order records. We keep budget where it pays its way on contribution. Our <a href="/microsoft-advertising-uk-statistics/" class="text-electric underline hover:text-electric-dark">Microsoft Advertising UK statistics</a> page sources and dates each figure for Bing's UK share and reach.</p>
     </div>
   </section>
 
@@ -129,7 +129,7 @@ const faqHtml = (f) => f.link ? f.answer.replace(f.link.text, `<a href="${f.link
       <div class="max-w-3xl mb-10">
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Ads in Copilot come from the account you already run</h2>
         <p class="text-lg text-gray-700 mb-6 leading-relaxed">Microsoft serves ads in Copilot from existing campaign text and images. Its documented eligible types include Multimedia ads, Product ads from Shopping and Performance Max, Search ads with a logo and some Vertical ad types.</p>
-        <p class="text-lg text-gray-700 leading-relaxed">Microsoft says eligible campaigns are opted in automatically and that advertisers cannot opt out. It does not guarantee that an ad will show. It also has no Copilot-specific metrics at present, so results are read from the standard reports. Being a Microsoft Advertising Partner gives us no special placement or access.</p>
+        <p class="text-lg text-gray-700 leading-relaxed">Microsoft says eligible campaigns are opted in automatically and that advertisers cannot opt out. It does not guarantee that an ad will show. Microsoft has no Copilot-specific metrics yet. We read results from the standard reports.</p>
       </div>
       <div class="overflow-x-auto rounded-2xl border border-gray-200 bg-sky-tint">
         <table class="w-full text-left text-sm"><caption class="sr-only">Copilot campaign review checklist</caption><thead class="bg-navy text-white"><tr><th scope="col" class="p-4">Check</th><th scope="col" class="p-4">Why it matters</th></tr></thead><tbody class="text-gray-700"><tr class="border-t"><th scope="row" class="p-4 font-semibold text-navy">Ad assets and feeds</th><td class="p-4">Search ads need a logo to be eligible. Images, product feeds and landing pages still shape how the ads look and perform.</td></tr><tr class="border-t bg-white"><th scope="row" class="p-4 font-semibold text-navy">Relevance and controls</th><td class="p-4">Negative keyword matching applies in Copilot as it does on web search, so search terms and negatives still matter.</td></tr><tr class="border-t"><th scope="row" class="p-4 font-semibold text-navy">Measurement</th><td class="p-4">Copilot has no metrics of its own, so conversion reports are read beside your own orders or qualified leads.</td></tr></tbody></table>
@@ -161,8 +161,8 @@ const faqHtml = (f) => f.link ? f.answer.replace(f.link.text, `<a href="${f.link
   <section class="py-20 lg:py-24 bg-white" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">How we judge Microsoft Advertising results</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Visible Ads works profit first. Microsoft Advertising is judged against your margin and your own sales records, and not only the ROAS the platform reports.</p>
-      <p class="text-lg text-gray-700 leading-relaxed">If you want to see where an account stands before handing it over, request a <a href="/free-bing-ads-audit/" class="text-electric underline hover:text-electric-dark">free Microsoft Ads audit</a>.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Visible Ads works profit first. Microsoft Advertising is judged against your margin and your own sales records. Platform ROAS is one input.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">Request a <a href="/free-bing-ads-audit/" class="text-electric underline hover:text-electric-dark">free Microsoft Ads audit</a> to see where an account stands first.</p>
     </div>
   </section>
 
