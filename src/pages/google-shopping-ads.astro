@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     question: 'What if my products have no GTIN?',
-    answer: 'Google strongly recommends a GTIN where one exists and requires an MPN only when the product has no manufacturer GTIN. Set identifier_exists to no only for products with no identifiers, because Google warns that a product with identifiers may be disapproved. We load identifiers wherever they exist.',
+    answer: 'Submit the brand and MPN instead. Google asks for a GTIN wherever the manufacturer assigned one, and missing GTINs can limit visibility. It requires an MPN only when the product has no manufacturer GTIN. Set identifier_exists to no only for products with no identifiers, because Google warns that a product with identifiers may be disapproved. We load identifiers wherever they exist.',
   },
   {
     question: 'Can you fix products that Google has disapproved?',
@@ -67,8 +67,8 @@ const feedRows = [
   { attr: 'Title', rule: 'Required. Up to 150 characters.', check: 'Opens with what a buyer would type, and matches the product page.' },
   { attr: 'Price and availability', rule: 'Required. Availability is in_stock, out_of_stock, preorder or backorder.', check: 'Matches what the product page shows, with out-of-stock items kept out of spend.' },
   { attr: 'Brand', rule: 'Required for all new products except movies, books and musical recordings.', check: 'Filled for every product that needs it.' },
-  { attr: 'GTIN and MPN', rule: 'GTIN strongly recommended where one exists. MPN required only when there is no manufacturer GTIN.', check: 'GTINs loaded wherever the manufacturer assigned one.' },
-  { attr: 'identifier_exists', rule: 'Optional. Defaults to yes. Set to no only for products with no identifiers, or they may be disapproved.', check: 'Never set to no on a product that has an identifier.' },
+  { attr: 'GTIN and MPN', rule: 'Submit a GTIN wherever the manufacturer assigned one, because missing GTINs can limit visibility. MPN required only when there is no manufacturer GTIN.', check: 'GTINs loaded wherever the manufacturer assigned one.' },
+  { attr: 'identifier_exists', rule: 'Optional. Defaults to yes. Set to no only for products with no identifiers. Otherwise they may be disapproved.', check: 'Never set to no on a product that has an identifier.' },
   { attr: 'Image', rule: 'Required. Google states images must be at least 500 by 500 pixels, enforced from 31 January 2027.', check: 'Every image measured against that minimum before the date.' },
   { attr: 'Apparel details', rule: 'Age group, gender and colour required for apparel targeted to the UK. Size is required for clothing and shoes.', check: 'Variants complete, so size and colour searches can match.' },
 ];
