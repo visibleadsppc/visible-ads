@@ -5,7 +5,7 @@ import PartnerBadges from '../components/PartnerBadges.astro';
 const faqs = [
   {
     question: 'What does an ecommerce PPC agency do?',
-    answer: 'It manages the paid ads that bring buyers to an online shop. At Visible Ads that covers the channels listed on this page. Each is judged against your margin.',
+    answer: 'Visible Ads covers Google Ads, Google Shopping, Amazon Ads, Microsoft Advertising and paid social on Meta, TikTok and LinkedIn. Each channel is judged against your margin.',
   },
   {
     question: 'Do you run Amazon and Google ads for the same brand?',
@@ -13,13 +13,16 @@ const faqs = [
     link: { phrase: 'Amazon and Google Ads', href: '/amazon-google-ads/' },
   },
   {
+    question: 'How do we start?',
+    answer: 'Book a free profit audit. It covers the paid channels you already run.',
+  },
+  {
     question: 'Is ROAS or profit the target?',
     answer: "Profit's the target. We use ROAS each week to decide where the budget goes.",
   },
   {
     question: 'How much does ecommerce PPC management cost?',
-    answer: 'A free audit shows which tier fits your ad budget. The tiers are listed under PPC management pricing.',
-    link: { phrase: 'PPC management pricing', href: '/ppc-management/#pricing' },
+    answer: 'A free audit shows which tier fits your ad budget. The tiers are listed on our PPC management page.',
   },
 ];
 
@@ -53,7 +56,7 @@ const channels = [
   { name: 'Google Ads', href: '/google-ads/', text: 'Search, Shopping, Performance Max, Display and YouTube campaigns.' },
   { name: 'Google Shopping', href: '/google-shopping-ads/', text: 'Shopping ads built from your product data.' },
   { name: 'Amazon Ads', href: '/amazon/', text: 'Sponsored Products, Brands and Display campaigns.' },
-  { name: 'Microsoft Advertising', href: '/bing-ads/', text: 'Bing search and Copilot placements.' },
+  { name: 'Microsoft Advertising', href: '/bing-ads/', text: 'Bing search, with eligible ads shown in Copilot.' },
   { name: 'Meta, TikTok and LinkedIn', href: '/paid-social/', text: 'Paid social that creates demand.' },
   { name: 'Large catalogues', href: '/high-sku-advertising/', text: 'Advertising for catalogues of thousands of products.' },
 ];
@@ -96,7 +99,7 @@ const faqParts = (faq) => {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mb-12">
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What our ecommerce PPC management covers</h2>
-        <p class="text-lg text-gray-700 leading-relaxed">Ecommerce PPC management is the ongoing running of pay-per-click ads for an online shop. As an ecommerce paid media agency we manage the channels below.</p>
+        <p class="text-lg text-gray-700 leading-relaxed">Ecommerce PPC management is the ongoing running of pay-per-click ads for an online shop. Our ecommerce paid media agency work covers the six channels below.</p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {channels.map((c) => (
@@ -106,7 +109,15 @@ const faqParts = (faq) => {
           </a>
         ))}
       </div>
-      <p class="text-gray-700 mt-8 max-w-3xl leading-relaxed">As an ecommerce advertising agency we plan the channels together. Our <a href="/multi-channel-services/" class="text-electric underline hover:text-electric-dark">multi-channel services</a> explain how.</p>
+      <p class="text-gray-700 mt-8 max-w-3xl leading-relaxed">Our ecommerce advertising agency team plans the channels together. Our <a href="/multi-channel-services/" class="text-electric underline hover:text-electric-dark">multi-channel services</a> explain how.</p>
+    </div>
+  </section>
+
+  <!-- Who -->
+  <section class="py-16 bg-white" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">Who we work with</h2>
+      <p class="text-lg text-gray-700 leading-relaxed">Most of our clients are ecommerce and B2B businesses turning over £1M to £20M. They sell in the UK, the US or Europe.</p>
     </div>
   </section>
 
@@ -119,19 +130,12 @@ const faqParts = (faq) => {
     </div>
   </section>
 
-  <!-- Who -->
-  <section class="py-16 bg-white" data-animate>
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">Who we work with</h2>
-      <p class="text-lg text-gray-700 leading-relaxed">Most of our clients are ecommerce and B2B businesses turning over £1M to £20M. They sell in the UK, the US or Europe.</p>
-    </div>
-  </section>
-
   <!-- Proof -->
   <section class="py-16 bg-sky-tint" data-animate>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Proof from a Google Ads rebuild</h2>
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Proof from Google and Amazon accounts</h2>
       <p class="text-lg text-gray-700 leading-relaxed mb-4">CFW's Google Ads rebuild turned £500K of spend into £6M of return. That's a 12x ROAS across the whole Google account.</p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">The CFW Amazon account is one we've managed. All-time ad spend is £91,902.91 and sales are £769,025.79 across 17,566 purchases.</p>
       <p class="text-gray-700">Full detail is in the <a href="/case-studies/cfw/" class="text-electric underline hover:text-electric-dark">CFW case study</a>.</p>
     </div>
   </section>
@@ -140,8 +144,8 @@ const faqParts = (faq) => {
   <section class="py-16 bg-white" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">What it costs</h2>
-      <p class="text-lg text-gray-700 leading-relaxed">We charge a monthly fee for each channel we manage plus VAT. That fee covers as many campaigns as you need on that channel. Your ad spend goes to the platforms directly and isn't part of our fee.</p>
-      <p class="text-lg text-gray-700 leading-relaxed mt-4">The tiers, the minimum term and the performance model are set out under <a href="/ppc-management/#pricing" class="text-electric underline hover:text-electric-dark">PPC management pricing</a>.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">We charge a monthly fee for each channel we manage plus VAT. That fee covers as many campaigns as you need on that channel. Your ad budget is paid to the platforms separately.</p>
+      <p class="text-lg text-gray-700 leading-relaxed mt-4">See the tiers and terms under <a href="/ppc-management/#pricing" class="text-electric underline hover:text-electric-dark">PPC management pricing</a>.</p>
     </div>
   </section>
 
@@ -165,7 +169,7 @@ const faqParts = (faq) => {
     <div class="absolute inset-0 dot-pattern opacity-5"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">Find out which channel is earning your next pound</h2>
-      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">Get a free audit of your ecommerce ad accounts. We judge every channel against your margin.</p>
+      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">Get a free audit of your ecommerce ad accounts.</p>
       <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a free ecommerce ads audit</a>
     </div>
   </section>
