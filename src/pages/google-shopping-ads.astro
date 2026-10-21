@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     question: 'Should I run Shopping campaigns or Performance Max?',
-    answer: 'Either can work. We choose per account from the data you have, then keep margin constraints on whichever one runs.',
+    answer: 'We choose per account from the conversion history and feed quality you have. Margin constraints stay on whichever campaign type runs.',
   },
   {
     question: 'What if my products have no GTIN?',
@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     question: 'How much does Google Shopping management cost?',
-    answer: 'Fees are per channel managed plus VAT. A free audit shows which tier fits your ad budget, and the tiers are listed on our PPC management page.',
+    answer: 'A free audit shows which tier fits your ad budget. The tiers are listed on our PPC management page.',
   },
 ];
 
@@ -56,7 +56,7 @@ const schema = {
 };
 
 const scope = [
-  { title: 'Merchant Center and the feed', text: 'Titles, descriptions, prices, availability, brand and identifiers are checked against your product pages and corrected at source. The data Google reads then matches what a buyer sees.' },
+  { title: 'Merchant Center and feed management', text: 'Titles, descriptions, prices, availability, brand and identifiers are checked against your product pages and corrected at source. The data Google reads then matches what a buyer sees.' },
   { title: 'Campaign structure', text: 'Shopping campaigns or Performance Max with a feed, split by product and category so budget follows what earns.' },
   { title: 'Bids set against margin', text: 'Targets come from the margin on what you sell and not from one blanket ROAS.' },
   { title: 'Search terms and exclusions', text: 'Queries that spend without selling are excluded every week. Queries that sell are given room.' },
@@ -68,7 +68,7 @@ const feedRows = [
   { attr: 'Price and availability', rule: 'Required. Availability is in_stock, out_of_stock, preorder or backorder.', check: 'Matches what the product page shows, with out-of-stock items kept out of spend.' },
   { attr: 'Brand', rule: 'Required for all new products except movies, books and musical recordings.', check: 'Filled for every product that needs it.' },
   { attr: 'GTIN and MPN', rule: 'GTIN strongly recommended where one exists. MPN required only when there is no manufacturer GTIN.', check: 'GTINs loaded wherever the manufacturer assigned one.' },
-  { attr: 'identifier_exists', rule: 'Optional, defaults to yes. Set to no only for products with no identifiers, or they may be disapproved.', check: 'Never set to no on a product that has an identifier.' },
+  { attr: 'identifier_exists', rule: 'Optional. Defaults to yes. Set to no only for products with no identifiers, or they may be disapproved.', check: 'Never set to no on a product that has an identifier.' },
   { attr: 'Image', rule: 'Required. Google states images must be at least 500 by 500 pixels, enforced from 31 January 2027.', check: 'Every image measured against that minimum before the date.' },
   { attr: 'Apparel details', rule: 'Age group, gender and colour required for apparel targeted to the UK. Size is required for clothing and shoes.', check: 'Variants complete, so size and colour searches can match.' },
 ];
@@ -133,7 +133,7 @@ const feedRows = [
               <p class="text-gray-700 text-sm">Your store</p>
             </div>
           </div>
-          <figcaption class="text-sm text-gray-700 mt-3">An illustrative product, not a client feed. Field names follow Google's product data specification, and Google matches the ad to the search from these fields.</figcaption>
+          <figcaption class="text-sm text-gray-700 mt-3">This is an illustrative product and not a client feed. Field names follow Google's product data specification, and Google matches the ad to the search from these fields.</figcaption>
         </figure>
       </div>
     </div>
@@ -181,7 +181,7 @@ const feedRows = [
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Shopping campaigns or Performance Max</h2>
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">Google presents these as two ways to run Shopping ads from the same Merchant Center data. Performance Max can reach more Google channels. A Shopping campaign keeps the setup narrower.</p>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">We decide from the account: how much conversion history it has, how clean the feed is and how much margin varies between products. On either campaign type we keep margin signals attached. Automation scales whatever it is told to chase, and a revenue target scales low-margin products too.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">We decide from the account: how much conversion history it has, how clean the feed is and how much margin varies between products. On either campaign type we keep margin signals attached. Automation scales whatever it is told to chase. A revenue target scales low-margin products too.</p>
       <p class="text-lg text-gray-700 leading-relaxed">Our guide to <a href="/blog/meta-ads-vs-google-ads-ecommerce/" class="text-electric underline hover:text-electric-dark">Meta Ads vs Google Ads for ecommerce</a> covers how to measure Shopping against paid social.</p>
     </div>
   </section>
@@ -190,7 +190,7 @@ const feedRows = [
   <section class="py-16 bg-white" data-animate>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Proof from a Google Ads rebuild</h2>
-      <p class="text-lg text-gray-700 leading-relaxed mb-4">CFW's Google Ads rebuild: £500K of spend generated £6M in return, a 12x ROAS. That figure covers the whole Google account, not Shopping alone.</p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">CFW's Google Ads rebuild: £500K of spend generated £6M in return, a 12x ROAS. That figure covers the whole Google account and not Shopping alone.</p>
       <p class="text-gray-700">Full detail is in the <a href="/case-studies/cfw/" class="text-electric underline hover:text-electric-dark">CFW case study</a>.</p>
     </div>
   </section>
