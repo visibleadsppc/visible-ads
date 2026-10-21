@@ -4,31 +4,27 @@ import Layout from '../layouts/Layout.astro';
 const faqs = [
   {
     question: 'What does an Amazon PPC agency do?',
-    answer: 'It runs your Amazon advertising for you. That covers building the campaigns, setting bids and budgets, and reporting the result. Profit is the goal we manage to.',
+    answer: 'It runs your Amazon advertising for you. That covers building the campaigns, setting bids and budgets and reporting the result.',
   },
   {
     question: 'Which Amazon ad types do you manage?',
-    answer: 'Sponsored Products, Sponsored Brands and Sponsored Display. We run all three under one profit target.',
+    answer: 'Sponsored Products, Sponsored Brands and Sponsored Display. We run all three.',
   },
   {
     question: 'Why do you look at unit profit and not only ACoS?',
-    answer: 'ACoS compares ad spend with ad sales. It does not know what the product cost or what Amazon charged in fees. Profit per unit does, so it shows whether a sale made money.',
+    answer: 'ACoS compares ad spend with ad sales. It does not know what the product cost or what Amazon charged in fees. Profit per unit does. It shows whether a sale made money.',
   },
   {
     question: 'How do you decide how much budget to put behind a campaign?',
-    answer: 'We review ROAS every week and follow a fixed ladder. Budget goes up where the return is strong and comes down where it is weak. Profit is the target and ROAS is the control we manage to.',
+    answer: 'We review ROAS every week and follow a fixed ladder. Budget goes up where the return is strong and comes down where it is weak.',
   },
   {
     question: 'Which Amazon marketplaces do you work in?',
-    answer: 'Our clients sell in the UK, the US and Europe. Tell us where you sell when you book the audit.',
+    answer: 'We work with sellers in the UK, US and Europe. Tell us where you sell when you book the audit.',
   },
   {
     question: 'Are you an Amazon advertising consultant or a full agency?',
-    answer: 'A full agency. We manage the account every week. If you only want a one-off review, start with the free audit.',
-  },
-  {
-    question: 'What does Amazon charge per click?',
-    answer: 'It varies by category and by how many sellers bid on the same terms. Our Amazon Ads cost guide for UK sellers lists the typical ranges for each ad type.',
+    answer: 'We are a full Amazon ads agency. We manage the account every week. If you only want a one-off review, start with the free audit.',
   },
 ];
 
@@ -65,7 +61,7 @@ const adTypes = [
 ];
 
 const measures = [
-  { measure: 'ACoS', how: 'Ad spend divided by ad sales', shows: 'Whether a campaign pays for itself' },
+  { measure: 'ACoS', how: 'Ad spend divided by ad sales', shows: 'Ad cost as a share of ad sales' },
   { measure: 'ROAS', how: 'Ad sales divided by ad spend', shows: 'How much each pound of spend returned' },
   { measure: 'Profit per unit', how: 'Price minus product cost, Amazon fees and ad spend', shows: 'Whether a sale made money' },
 ];
@@ -90,7 +86,7 @@ const ladder = [
       <div class="max-w-3xl">
         <span class="inline-block px-4 py-1.5 bg-electric/20 text-electric-light text-sm font-medium rounded-full mb-6">Amazon Ads Verified Partner</span>
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-6">Amazon PPC Agency for Ecommerce Brands</h1>
-        <p class="text-lg sm:text-xl text-slate-light mb-8 leading-relaxed">We manage your Sponsored Products, Sponsored Brands and Sponsored Display campaigns. Profit on each product drives every decision. ACoS alone does not.</p>
+        <p class="text-lg sm:text-xl text-slate-light mb-8 leading-relaxed">We run your Sponsored Products, Sponsored Brands and Sponsored Display campaigns with profit as the goal and weekly ROAS rules to steer budget.</p>
         <div class="flex flex-col sm:flex-row gap-4">
           <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-8 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a free profit audit</a>
           <a href="#profit" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/20 hover:bg-white/10 transition-colors">How we measure profit</a>
@@ -103,7 +99,7 @@ const ladder = [
   <section class="py-20 lg:py-24 bg-white" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What our Amazon ads management covers</h2>
-      <p class="text-lg text-gray-700 mb-8 leading-relaxed">Visible Ads is an Amazon advertising agency. Our Amazon PPC management covers three ad types and runs them all towards profit.</p>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">Visible Ads is an Amazon advertising agency. Our Amazon PPC management covers three ad types.</p>
       <dl class="space-y-6 text-lg text-gray-700 leading-relaxed">
         {adTypes.map((a) => (
           <div>
@@ -112,6 +108,7 @@ const ladder = [
           </div>
         ))}
       </dl>
+      <p class="text-lg text-gray-700 mt-8 leading-relaxed">For what Amazon itself charges per click, read our <a href="/blog/amazon-ads-cost-uk/" class="text-electric underline hover:text-electric-dark">Amazon Ads cost guide</a> for UK sellers.</p>
     </div>
   </section>
 
@@ -120,8 +117,8 @@ const ladder = [
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl">
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Unit profit comes before ACoS</h2>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">A campaign can show a healthy ACoS and still lose money on every sale. We start from the profit on each unit and treat ACoS as one input.</p>
-        <p class="text-lg text-gray-700 mb-8 leading-relaxed">Take a £20 product that costs £8 to buy and £4 in Amazon fees. That leaves £8 before ads, which is 40% of the price. It breaks even at a 40% ACoS. At 25% the ad costs £5 and each sale keeps £3. At 45% the ad costs £9 and each sale loses £1. These figures are a worked example.</p>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">A campaign can show a healthy ACoS and still lose money on every sale. Profit per unit shows whether a sale made money.</p>
+        <p class="text-lg text-gray-700 mb-8 leading-relaxed">Here's a simple example. Assume a £20 product that costs £8 to buy and £4 in Amazon fees. That leaves £8 before ads. That is 40% of the price. It breaks even at a 40% ACoS. At 25% the ad costs £5 and each sale keeps £3. At 45% the ad costs £9 and each sale loses £1. All prices are before VAT.</p>
       </div>
       <p class="text-sm text-gray-700 mb-2 md:hidden">Swipe sideways to see every column.</p>
       <div class="overflow-x-auto rounded-2xl border border-gray-200 bg-white" tabindex="0" role="region" aria-label="Amazon advertising measures, scrolls sideways on small screens">
@@ -143,7 +140,7 @@ const ladder = [
   <section id="process" class="py-20 lg:py-24 bg-white" data-animate>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">How we scale or cut Amazon spend</h2>
-      <p class="text-lg text-gray-700 mb-8 leading-relaxed">We review ROAS every week and move each budget on a fixed ladder. Profit is the goal and ROAS is the control we manage to. The same ladder runs on every channel we manage.</p>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">We review ROAS every week and move each budget on a fixed ladder. Profit is the goal and ROAS is the weekly control. The ladder below is the one we follow.</p>
       <div class="overflow-x-auto rounded-2xl border border-gray-200" tabindex="0" role="region" aria-label="Weekly budget ladder, scrolls sideways on small screens">
         <table class="w-full min-w-[320px] text-left text-base">
           <caption class="sr-only">Weekly budget rules by return on ad spend</caption>
@@ -161,8 +158,8 @@ const ladder = [
   <!-- Reporting -->
   <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What you see from us</h2>
-      <p class="text-lg text-gray-700 leading-relaxed">You get a weekly call or video update, a KPI dashboard and a quarterly review.</p>
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What you see from us each week and quarter</h2>
+      <p class="text-lg text-gray-700 leading-relaxed">You get a weekly call or video update on the Amazon account. You also get a KPI dashboard. Once a quarter we hold a review.</p>
     </div>
   </section>
 
@@ -170,6 +167,7 @@ const ladder = [
   <section class="py-16 lg:py-20 bg-white" data-animate>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Proof from an Amazon account we have managed</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">This is the all-time record for one Amazon Ads account we have managed.</p>
       <div class="bg-sky-tint rounded-2xl p-6 sm:p-8 border border-gray-100">
         <p class="text-lg text-navy font-semibold mb-6">CFW Amazon Ads, all time</p>
         <dl class="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -178,24 +176,25 @@ const ladder = [
           <div><dt class="text-sm text-gray-700">Purchases</dt><dd class="text-2xl font-heading font-extrabold text-electric">17,566</dd></div>
         </dl>
       </div>
-      <p class="text-gray-700 mt-6 leading-relaxed">On Google, CFW's Ads rebuild turned £500K of spend into £6M, a 12x ROAS across the whole Google account. See the <a href="/case-studies/cfw/" class="text-electric underline hover:text-electric-dark">CFW case study</a>.</p>
+      <p class="text-lg text-gray-700 mt-6 leading-relaxed">We manage £3M of annual ad spend. Visible Ads won at the UK Search Awards 2022 and was a finalist at the UK Search Awards 2024, the UK eCommerce Awards 2024 and the National Digital Awards 2026.</p>
+      <p class="text-gray-700 mt-6 leading-relaxed">The <a href="/case-studies/cfw/" class="text-electric underline hover:text-electric-dark">CFW case study</a> covers the wider account.</p>
     </div>
   </section>
 
   <!-- Who it suits -->
   <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Who this suits</h2>
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Who our Amazon management suits</h2>
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">It suits ecommerce brands that sell on Amazon and know what each product costs them. Most of our clients are direct to consumer and business brands with £1M to £20M in annual revenue.</p>
-      <p class="text-lg text-gray-700 leading-relaxed">Selling on your own site too? We plan the two together. Read about <a href="/amazon-google-ads/" class="text-electric underline hover:text-electric-dark">Amazon and Google Ads together</a> to see how.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">If you also sell on your own site, we plan the two together. Read about <a href="/amazon-google-ads/" class="text-electric underline hover:text-electric-dark">Amazon and Google Ads together</a> to see how.</p>
     </div>
   </section>
 
   <!-- Fees -->
   <section class="py-16 lg:py-20 bg-white" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">What our management fee covers</h2>
-      <p class="text-lg text-gray-700 mb-4 leading-relaxed">Each fee covers unlimited campaigns on one channel, plus VAT. Your ad budget is paid to Amazon separately. You can stop with 30 days' notice after the first three months.</p>
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">What our Amazon management fee covers</h2>
+      <p class="text-lg text-gray-700 mb-4 leading-relaxed">Our fee is per channel plus VAT, and it covers as many campaigns as you need. Your ad budget goes straight to Amazon. After the first three months you can stop any time with 30 days' notice.</p>
       <p class="text-lg text-gray-700 leading-relaxed">The Silver, Gold and Platinum tiers are set out in our <a href="/ppc-management/#pricing" class="text-electric underline hover:text-electric-dark">PPC management pricing</a> section.</p>
     </div>
   </section>
@@ -209,9 +208,7 @@ const ladder = [
           <details class="group bg-white border border-gray-200 rounded-xl p-6">
             <summary class="cursor-pointer font-heading font-semibold text-navy">{faq.question}</summary>
             <p class="mt-4 text-gray-700 leading-relaxed">
-              {faq.question === 'What does Amazon charge per click?' ? (
-                <>It varies by category and by how many sellers bid on the same terms. Our <a href="/blog/amazon-ads-cost-uk/" class="text-electric underline hover:text-electric-dark">Amazon Ads cost guide</a> for UK sellers lists the typical ranges for each ad type.</>
-              ) : faq.answer}
+              {faq.answer}
             </p>
           </details>
         ))}
