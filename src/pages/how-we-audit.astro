@@ -9,7 +9,7 @@ const schema = {
     {
       "@type": "WebPage",
       "name": "How We Audit | The Profit Contribution Framework",
-      "description": "How Visible Ads audits a Google Ads account: the Profit Contribution Framework (PCF), what we check, the 5-day process, and what you get at the end.",
+      "description": "How Visible Ads audits a Google Ads account: the Profit Contribution Framework (PCF), what we check, the audit process, and what you get at the end.",
       "url": "https://visible-ads.com/how-we-audit",
       "publisher": { "@type": "Organization", "name": "Visible Ads" }
     },
@@ -19,16 +19,16 @@ const schema = {
       "serviceType": "Google Ads account audit",
       "provider": { "@type": "Organization", "name": "Visible Ads", "url": "https://visible-ads.com/" },
       "areaServed": "GB",
-      "description": "A profit-first audit of your Google Ads account using the Profit Contribution Framework. We find where spend is leaking against your real margins and show you the fix. Free for qualifying accounts.",
+      "description": "A profit-first audit of your Google Ads account using the Profit Contribution Framework. We find where spend is leaking against your real margins and show you the fix. The audit is free.",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
     },
     {
       "@type": "FAQPage",
       "mainEntity": [
         { "@type": "Question", "name": "What is the Profit Contribution Framework?", "acceptedAnswer": { "@type": "Answer", "text": "The Profit Contribution Framework (PCF) is how we judge a Google Ads account. We map the contribution of each product, set a break-even ROAS floor, then pace spend against your P&L. A campaign that is not profitable is reduced or switched off under the weekly rulebook." } },
-        { "@type": "Question", "name": "How long does the audit take?", "acceptedAnswer": { "@type": "Answer", "text": "We deliver the audit within 5 working days of getting access. The walkthrough call is booked at a time that suits you." } },
-        { "@type": "Question", "name": "Do you charge for the audit?", "acceptedAnswer": { "@type": "Answer", "text": "No. The audit is free for qualifying accounts. We review the account first to check there is a genuine profit opportunity. If there is not, we tell you straight, rather than force an engagement that does not make commercial sense." } },
-        { "@type": "Question", "name": "What access do you need?", "acceptedAnswer": { "@type": "Answer", "text": "Read access to your Google Ads account and, ideally, a view of your product margins. We never make changes during an audit. You see every finding before anything is touched." } }
+        { "@type": "Question", "name": "How do I receive the findings?", "acceptedAnswer": { "@type": "Answer", "text": "We send written findings. We then book a call at a time that suits you to walk you through them." } },
+        { "@type": "Question", "name": "Do you charge for the audit?", "acceptedAnswer": { "@type": "Answer", "text": "No. The audit is free and you keep the written report. You do not have to work with us afterwards." } },
+        { "@type": "Question", "name": "What access do you need?", "acceptedAnswer": { "@type": "Answer", "text": "We ask for access to your Google Ads account and, ideally, a view of your product margins." } }
       ]
     },
     {
@@ -79,10 +79,10 @@ const checks = [
 ];
 
 const process = [
-  { day: 'Day 1', title: 'Access and context', body: 'We take read-only access to the account and your product margins, and agree what profit actually means for your business.' },
-  { day: 'Days 2 to 3', title: 'The deep dive', body: 'We run the account through the Profit Contribution Framework, checking everything in the list above against your real economics.' },
-  { day: 'Day 4', title: 'The findings', body: 'We write up where profit is leaking, what it is costing you, and the specific fixes, ranked by impact.' },
-  { day: 'Day 5', title: 'The walkthrough', body: 'We take you through it on a call. You keep the report and the plan, whether or not you work with us.' },
+  { day: 'Step 1', title: 'Access and context', body: 'We ask for access to the account and your product margins, and agree what profit actually means for your business.' },
+  { day: 'Step 2', title: 'The deep dive', body: 'We run the account through the Profit Contribution Framework, checking everything in the list above against your real economics.' },
+  { day: 'Step 3', title: 'The findings', body: 'We write up where profit is leaking, what it is costing you, and the specific fixes, ranked by impact.' },
+  { day: 'Step 4', title: 'The walkthrough', body: 'We take you through it on a call. You keep the report and the plan, whether or not you work with us.' },
 ];
 
 const deliverables = [
@@ -99,13 +99,13 @@ const values = [
 
 const faqs = [
   { question: 'What is the Profit Contribution Framework?', answer: 'It is how we judge a Google Ads account. We map the contribution of each product, set a break-even ROAS floor, then pace spend against your P&L. A campaign that is not profitable is reduced or switched off under the weekly rulebook.' },
-  { question: 'How long does the audit take?', answer: 'We deliver the audit within 5 working days of getting access. The walkthrough call is booked at a time that suits you.' },
-  { question: 'Do you charge for the audit?', answer: 'No. The audit is free for qualifying accounts. We review the account first to check there is a genuine profit opportunity. If there is not, we tell you straight, rather than force an engagement that does not make commercial sense.' },
-  { question: 'What access do you need?', answer: 'Read access to your Google Ads account and, ideally, a view of your product margins. We never make changes during an audit. You see every finding before anything is touched.' },
+  { question: 'How do I receive the findings?', answer: 'We send written findings. We then book a call at a time that suits you to walk you through them.' },
+  { question: 'Do you charge for the audit?', answer: 'No. The audit is free and you keep the written report. You do not have to work with us afterwards.' },
+  { question: 'What access do you need?', answer: 'We ask for access to your Google Ads account and, ideally, a view of your product margins.' },
 ];
 ---
 
-<Layout title="How We Audit | Profit Contribution Framework | Visible Ads" description="How we audit a Google Ads account: the Profit Contribution Framework, what we check, the 5-day process, and the report you keep. Free for qualifying accounts." schema={schema}>
+<Layout title="How We Audit | Profit Contribution Framework | Visible Ads" description="How we audit a Google Ads account: the Profit Contribution Framework, what we check, the audit process, and the report you keep. The audit is free." schema={schema}>
 
   <!-- Hero -->
   <section class="py-20 lg:py-28 bg-gradient-to-br from-navy to-navy-light relative overflow-hidden" data-animate>
@@ -114,7 +114,7 @@ const faqs = [
       <div class="max-w-3xl mx-auto text-center">
         <span class="inline-block text-electric-light font-heading font-semibold text-sm tracking-wide uppercase mb-4">How We Audit</span>
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white mb-6 leading-tight">We audit for profit, not ROAS</h1>
-        <p class="text-lg sm:text-xl text-slate-light leading-relaxed mb-8">A high ROAS can still lose you money. Our audit runs your account through the Profit Contribution Framework: we find where spend is leaking against your real margins, quantify it, and hand you the fix. Free for qualifying accounts.</p>
+        <p class="text-lg sm:text-xl text-slate-light leading-relaxed mb-8">A high ROAS can still lose you money. Our audit runs your account through the Profit Contribution Framework: we find where spend is leaking against your real margins, quantify it, and hand you the fix. The audit is free.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a href="/free-ads-audit" class="px-8 py-4 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-lg hover:shadow-xl">Book a Profit Audit</a>
           <a href="/contact" class="px-8 py-4 bg-white/10 text-white font-semibold rounded-lg hover:bg-white/20 border border-white/20 transition-all duration-200">Book a discovery call</a>
@@ -265,7 +265,7 @@ const faqs = [
   <section class="py-16 lg:py-20 bg-electric" data-animate>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-4">See where your profit is leaking</h2>
-      <p class="text-lg text-white/90 leading-relaxed mb-8 max-w-2xl mx-auto">A profit audit on your account, delivered in 5 working days. Free for qualifying accounts, and you keep the report either way.</p>
+      <p class="text-lg text-white/90 leading-relaxed mb-8 max-w-2xl mx-auto">A free profit audit on your account. You keep the report either way.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a href="/free-ads-audit" class="px-8 py-4 bg-white text-electric font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 shadow-lg">Book a Profit Audit</a>
         <a href="/blueprint" class="px-8 py-4 bg-electric-dark text-white font-semibold rounded-lg hover:bg-navy border border-white/20 transition-all duration-200">See our full methodology</a>
