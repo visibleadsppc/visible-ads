@@ -1,445 +1,219 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import PartnerBadges from '../components/PartnerBadges.astro';
-import ClientLogos from '../components/ClientLogos.astro';
-import ServiceLinks from '../components/ServiceLinks.astro';
+
+const faqs = [
+  {
+    question: 'Are you an Amazon advertising consultant or a full agency?',
+    answer: 'We are a full Amazon ads agency. We manage the account every week. Start with the free audit for a one-off review.',
+  },
+  {
+    question: 'Which Amazon ad types do you manage?',
+    answer: 'Sponsored Products, Sponsored Brands and Sponsored Display. We run all three.',
+  },
+  {
+    question: 'Which Amazon marketplaces do you work in?',
+    answer: 'Our clients sell in the UK, US and Europe. Tell us where you sell when you book the audit.',
+  },
+  {
+    question: 'How long is the minimum term?',
+    answer: 'Three months. After that it runs month to month on 30 days\' notice.',
+  },
+  {
+    question: 'Are creatives included?',
+    answer: 'No. Creative work isn\'t included in the fee.',
+  },
+  {
+    question: 'Is there a performance-based option?',
+    answer: 'Yes. Brands can apply for a performance model with a reduced or zero retainer and a revenue share.',
+  },
+];
 
 const schema = {
-  "@context": "https://schema.org",
-  "@graph": [
+  '@context': 'https://schema.org',
+  '@graph': [
     {
-      "@type": "Service",
-      "name": "Amazon Ads Agency & Seller Consulting",
-      "provider": {
-        "@type": "Organization",
-        "name": "Visible Ads",
-        "url": "https://visible-ads.com"
-      },
-      "description": "Amazon Ads Verified Partner. Profit-first Amazon advertising and seller consulting for UK, US and European marketplaces, tracking unit profitability and TACoS, not just ACoS.",
-      "url": "https://visible-ads.com/amazon",
-      "serviceType": "Amazon Advertising & Seller Consulting",
-      "areaServed": ["GB", "US", "DE", "FR", "ES", "IT"]
+      '@type': 'Service',
+      name: 'Amazon PPC Management',
+      serviceType: 'Amazon PPC management',
+      provider: { '@type': 'Organization', name: 'Visible Ads', url: 'https://visible-ads.com' },
+      description: 'Amazon PPC management for ecommerce brands: Sponsored Products, Sponsored Brands and Sponsored Display campaigns run against unit profit.',
+      url: 'https://visible-ads.com/amazon/',
+      areaServed: ['United Kingdom', 'United States', 'Europe'],
     },
     {
-      "@type": "FAQPage",
-      "mainEntity": [
-        { "@type": "Question", "name": "How much does Amazon Ads management cost?", "acceptedAnswer": { "@type": "Answer", "text": "The same tier ladder applies to Amazon management. These tiers apply per channel managed. SILVER GBP 1,000/mo (ad budget up to GBP 3,000, 10 hours/mo); GOLD GBP 1,500/mo (up to GBP 20,000, 20 hours/mo); PLATINUM GBP 2,000/mo + 5% (GBP 20,000+ budget, 35 hours/mo, click-fraud protection); PERFORMANCE: reduced or zero retainer with a revenue-share component, by application, individually negotiated. All plus VAT/month, excluding creative and a one-off GBP 1,000 tracking setup fee, 3-month minimum then rolling monthly with 30 days notice." } },
-        {
-          "@type": "Question",
-          "name": "What is TACoS and why does it matter more than ACoS?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "ACoS (Advertising Cost of Sales) only measures your ad spend against ad-driven revenue. TACoS (Total Advertising Cost of Sales) measures your ad spend against your total Amazon revenue, including organic sales. As your ads improve organic ranking and organic sales grow, your TACoS falls even if your ACoS stays flat. TACoS is the true measure of whether your advertising investment is building a scalable, profitable business."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can you manage Amazon accounts in Germany, France, Spain and Italy?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. We manage Amazon advertising across UK, US and European marketplaces including Germany, France, Spain and Italy. For European expansion, we handle listing localisation, keyword research in each language, and campaign structures optimised for each marketplace's specific dynamics."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What does Amazon seller consulting involve?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Amazon seller consulting covers everything beyond just running ads, listing optimisation, A+ Content, pricing strategy, inventory planning, marketplace expansion, and account health. We act as a strategic partner who understands the full Amazon flywheel, not just the advertising layer."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do you track unit profitability on Amazon?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "We work with your unit economics, product cost, Amazon fees, FBA fees and ad spend, to calculate profit per unit at different spend levels. This means every campaign decision is made against your actual margin, not just revenue or ROAS. We will never recommend scaling spend that pushes you into loss-making territory."
-          }
-        }
-      ]
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })),
     },
     {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://visible-ads.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Amazon Ads Agency", "item": "https://visible-ads.com/amazon" }
-      ]
-    }
-  ]
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://visible-ads.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Amazon PPC Agency', item: 'https://visible-ads.com/amazon/' },
+      ],
+    },
+  ],
 };
 
-const markets = [
-  { flag: '🇬🇧', name: 'United Kingdom', domain: 'amazon.co.uk', note: 'Primary market' },
-  { flag: '🇺🇸', name: 'United States', domain: 'amazon.com', note: 'Largest marketplace' },
-  { flag: '🇩🇪', name: 'Germany', domain: 'amazon.de', note: 'German-language campaigns' },
-  { flag: '🇫🇷', name: 'France', domain: 'amazon.fr', note: 'French-language campaigns' },
-  { flag: '🇪🇸', name: 'Spain', domain: 'amazon.es', note: 'Spanish-language campaigns' },
-  { flag: '🇮🇹', name: 'Italy', domain: 'amazon.it', note: 'Italian-language campaigns' },
+const adTypes = [
+  { title: 'Sponsored Products', text: 'Ads for single products that show in search results and on product pages.' },
+  { title: 'Sponsored Brands', text: 'Ads that put your brand and several products at the top of search results.' },
+  { title: 'Sponsored Display', text: 'Ads that reach shoppers by audience, product or category targeting. That includes people who viewed your products and did not buy.' },
+];
+
+const measures = [
+  { measure: 'ACoS', how: 'Ad spend divided by ad sales', shows: 'Ad cost as a share of ad sales' },
+  { measure: 'ROAS', how: 'Ad sales divided by ad spend', shows: 'Ad sales from each pound of spend' },
+  { measure: 'Profit per unit', how: 'Price minus product cost, Amazon fees and ad spend', shows: 'Whether a sale made money' },
+];
+
+const ladder = [
+  { roas: 'Above 1,200%', action: 'Raise the budget by 20% a week' },
+  { roas: '900% to 1,100%', action: 'Raise the budget by 10% a week' },
+  { roas: '600% to 800%', action: 'Hold the budget' },
+  { roas: '300% to 500%', action: 'Cut the budget by 20%' },
+  { roas: 'Below 300%', action: 'Switch the spend off' },
 ];
 ---
 
-<Layout title="Amazon Ads Agency | Seller Consulting | Visible Ads" description="Amazon Ads Verified Partner scaling sellers across the UK, US and Europe. We track unit profit and TACoS, not just ACoS. Get a free Amazon audit." schema={schema}>
+<Layout title="Amazon PPC Agency | Amazon Ads Management | Visible Ads" description="Amazon PPC agency for ecommerce brands. We manage Sponsored Products, Brands and Display against unit profit." schema={schema}>
 
   <!-- Hero -->
   <section class="relative py-20 lg:py-28 overflow-hidden bg-navy" data-animate>
-    <div class="absolute inset-0 bg-gradient-to-br from-navy via-amber-900 to-navy-light"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-navy to-navy-light"></div>
     <div class="absolute inset-0 dot-pattern opacity-10"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-light mb-8"><a href="/" class="hover:text-white">Home</a><span class="mx-2">/</span><span class="text-white">Amazon PPC Agency</span></nav>
       <div class="max-w-3xl">
         <span class="inline-block px-4 py-1.5 bg-electric/20 text-electric-light text-sm font-medium rounded-full mb-6">Amazon Ads Verified Partner</span>
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-6">Amazon Ads Agency & Seller Consulting for UK, US & European Brands</h1>
-        <p class="text-lg sm:text-xl text-slate-light mb-4 leading-relaxed">We manage Amazon advertising across UK, US and European marketplaces, optimising for unit profitability and Total Advertising Cost of Sales (TACoS), not just ACoS. Our founder has been an Amazon seller since 2015. We scale profitably because we have done it ourselves.</p>
-        <p class="text-sm text-slate-light/80 mb-6">For brands selling on both their own site and Amazon, see our <a href="/amazon-google-ads" class="text-electric-light underline hover:text-white">Amazon + Google Ads approach</a>.</p>
-        <div class="flex flex-wrap gap-3 mb-8">
-          <span class="px-3 py-1 bg-white/10 text-white text-sm rounded-full">🇬🇧 UK</span>
-          <span class="px-3 py-1 bg-white/10 text-white text-sm rounded-full">🇺🇸 US</span>
-          <span class="px-3 py-1 bg-white/10 text-white text-sm rounded-full">🇩🇪 DE</span>
-          <span class="px-3 py-1 bg-white/10 text-white text-sm rounded-full">🇫🇷 FR</span>
-          <span class="px-3 py-1 bg-white/10 text-white text-sm rounded-full">🇪🇸 ES</span>
-          <span class="px-3 py-1 bg-white/10 text-white text-sm rounded-full">🇮🇹 IT</span>
-        </div>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-6">Amazon PPC Agency for Ecommerce Brands</h1>
+        <p class="text-lg sm:text-xl text-slate-light mb-8 leading-relaxed">We run your Sponsored Products, Sponsored Brands and Sponsored Display campaigns with profit as the goal and weekly ROAS rules to steer budget.</p>
         <div class="flex flex-col sm:flex-row gap-4">
-          <a href="/free-ads-audit" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-8 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Get Your Free Amazon Audit</a>
-          <a href="#tacos" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/20 hover:bg-white/10 transition-colors">Why TACoS Matters</a>
+          <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-8 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a free profit audit</a>
+          <a href="#profit" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/20 hover:bg-white/10 transition-colors">How we measure profit</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Partner Badges -->
-  <section class="py-12 bg-sky-tint border-y border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <PartnerBadges compact />
-    </div>
-  </section>
-
-  <!-- What We Do -->
-  <section class="py-20 lg:py-28 bg-white" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto">
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-8">Amazon Ads Management & Seller Consulting</h2>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">We provide Amazon ads management and seller consulting for brands that want to grow profitably across the UK, US and European marketplaces. Our advertising management covers the full ad suite, Sponsored Products, Sponsored Brands, and Sponsored Display, with campaign structures built around your actual margin, not just impressions and clicks.</p>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">We optimise listings for both organic and sponsored visibility. Strong listings earn organic rank, which lowers your dependence on paid ads over time. That compounding effect, where advertising investment builds an organic moat, is what separates sellers who scale sustainably from those who are permanently dependent on ad spend.</p>
-        <p class="text-lg text-gray-700 leading-relaxed">For sellers expanding into Europe, we handle the full localisation process: German, Spanish, French and Italian keyword research, localised listing copy, and marketplace-specific campaign structures. One strategic partner for all six marketplaces, with a single clear view of profitability across the account.</p>
-        <p class="text-lg text-gray-700 mt-6 leading-relaxed">For advertising budget planning, read our <a href="/blog/amazon-ads-cost-uk/" class="text-electric underline hover:text-electric-dark">guide to Amazon Ads costs in the UK</a>.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- TACoS Section -->
-  <section id="tacos" class="py-20 lg:py-28 bg-sky-tint" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-4xl mx-auto">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">We Track TACoS and Unit Profitability, Not Just ACoS</h2>
-          <p class="text-lg text-gray-700 max-w-2xl mx-auto">Most Amazon agencies optimise for ACoS. We optimise for what actually matters: total profitability across the account.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
-            <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mb-4">
-              <span class="text-xl font-bold text-gray-400">ACoS</span>
-            </div>
-            <h3 class="text-xl font-heading font-bold text-navy mb-3">Advertising Cost of Sales</h3>
-            <p class="text-gray-700 leading-relaxed mb-4">Ad spend divided by ad-attributed revenue. The standard metric most agencies report against.</p>
-            <p class="text-gray-600 text-sm leading-relaxed">The problem: ACoS ignores organic sales. As your ads improve your organic rank and organic revenue grows, ACoS stays flat, giving you no credit for the compounding effect your ad investment is building.</p>
-          </div>
-          <div class="bg-navy rounded-2xl p-8 border border-electric/20 shadow-sm relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-24 h-24 bg-electric/10 rounded-full -translate-y-8 translate-x-8"></div>
-            <div class="relative z-10">
-              <div class="w-12 h-12 bg-electric/20 rounded-xl flex items-center justify-center mb-4">
-                <span class="text-sm font-bold text-electric">TACoS</span>
-              </div>
-              <h3 class="text-xl font-heading font-bold text-white mb-3">Total Advertising Cost of Sales</h3>
-              <p class="text-slate-light leading-relaxed mb-4">Ad spend divided by <em>total</em> revenue, organic and paid combined. The metric that reveals whether advertising is building your business.</p>
-              <p class="text-slate-light/80 text-sm leading-relaxed">As organic rank grows and organic revenue increases, TACoS falls, even if your ad spend stays the same. A falling TACoS trend is the clearest signal that your Amazon business is becoming more efficient and more profitable.</p>
-            </div>
-          </div>
-        </div>
-        <div class="bg-white rounded-2xl p-8 border border-electric/20">
-          <h3 class="text-xl font-heading font-bold text-navy mb-4">Unit Profitability: The Full Picture</h3>
-          <p class="text-gray-700 leading-relaxed mb-4">We build every campaign strategy around your unit economics, product cost, Amazon fees, FBA fees, and ad spend, so we know exactly what each sale costs to deliver and at what ACoS your campaigns are profitable versus loss-making.</p>
-          <p class="text-gray-700 leading-relaxed">This means we never recommend scaling spend that erodes your margin. Every budget decision is made against a real profitability threshold, not a generic benchmark.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Markets -->
-  <section class="py-20 lg:py-28 bg-white" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">Six Marketplaces, One Strategy</h2>
-        <p class="text-lg text-gray-700 max-w-2xl mx-auto">We manage Amazon advertising and listing optimisation across the UK, US and European marketplaces, with localised campaigns in each language.</p>
-      </div>
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
-        {markets.map((m) => (
-          <div class="bg-sky-tint rounded-2xl p-6 text-center border border-gray-100">
-            <div class="text-4xl mb-3">{m.flag}</div>
-            <div class="font-heading font-bold text-navy text-sm mb-1">{m.name}</div>
-            <div class="text-gray-500 text-xs">{m.domain}</div>
-            <div class="text-electric text-xs font-medium mt-2">{m.note}</div>
+  <!-- What we manage -->
+  <section class="py-20 lg:py-24 bg-white" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What our Amazon ads management covers</h2>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">Visible Ads is an Amazon advertising agency. Our Amazon PPC management covers three ad types.</p>
+      <dl class="space-y-6 text-lg text-gray-700 leading-relaxed">
+        {adTypes.map((a) => (
+          <div>
+            <dt class="font-heading font-bold text-navy">{a.title}</dt>
+            <dd>{a.text}</dd>
           </div>
         ))}
+      </dl>
+      <p class="text-lg text-gray-700 mt-8 leading-relaxed">Amazon's own click prices are covered in our <a href="/blog/amazon-ads-cost-uk/" class="text-electric underline hover:text-electric-dark">Amazon Ads cost guide</a> for UK sellers.</p>
+    </div>
+  </section>
+
+  <!-- Unit profit -->
+  <section id="profit" class="py-20 lg:py-24 bg-sky-tint" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Unit profit comes before ACoS</h2>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">A 35% ACoS can look normal and still lose money on every sale. Profit per unit shows whether a sale made money.</p>
+        <p class="text-lg text-gray-700 mb-8 leading-relaxed">Assume a £20 ex-VAT product that costs £10 to buy and £4 in Amazon fees. That leaves £6 before ads. That is 30% of the price. It breaks even at a 30% ACoS. At 25% the ad costs £5 and each sale keeps £1. At 35% the ad costs £7 and each sale loses £1.</p>
+      </div>
+      <p class="text-sm text-gray-700 mb-2 md:hidden">Swipe sideways to see every column.</p>
+      <div class="overflow-x-auto rounded-2xl border border-gray-200 bg-white" tabindex="0" role="region" aria-label="Amazon advertising measures, scrolls sideways on small screens">
+        <table class="w-full min-w-[600px] text-left text-base">
+          <caption class="sr-only">Measures used on Amazon accounts</caption>
+          <thead class="bg-navy text-white"><tr><th scope="col" class="p-4">Measure</th><th scope="col" class="p-4">How it is worked out</th><th scope="col" class="p-4">What it shows</th></tr></thead>
+          <tbody class="text-gray-700">
+            {measures.map((m, i) => (
+              <tr class={i % 2 ? 'border-t bg-sky-tint/40' : 'border-t'}><th scope="row" class="p-4 font-semibold text-navy align-top">{m.measure}</th><td class="p-4 align-top">{m.how}</td><td class="p-4 align-top">{m.shows}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-lg text-gray-700 mt-8 max-w-3xl leading-relaxed">Our <a href="/roas-vs-profit/" class="text-electric underline hover:text-electric-dark">ROAS vs profit calculator</a> shows the break-even point for your own margin.</p>
+    </div>
+  </section>
+
+  <!-- Budget ladder -->
+  <section id="process" class="py-20 lg:py-24 bg-white" data-animate>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">How we scale or cut Amazon spend</h2>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">We review ROAS every week and move each budget on a fixed ladder. Profit is the goal and ROAS is the weekly control. Break-even for the £20 product above is a 333% ROAS. The ladder cuts its budget at 300% to 500% and switches it off below 300%.</p>
+      <div class="overflow-x-auto rounded-2xl border border-gray-200" tabindex="0" role="region" aria-label="Weekly budget ladder, scrolls sideways on small screens">
+        <table class="w-full min-w-[320px] text-left text-base">
+          <caption class="sr-only">Weekly budget rules by return on ad spend</caption>
+          <thead class="bg-navy text-white"><tr><th scope="col" class="p-4">Weekly ROAS</th><th scope="col" class="p-4">What we do</th></tr></thead>
+          <tbody class="text-gray-700">
+            {ladder.map((r, i) => (
+              <tr class={i % 2 ? 'border-t bg-sky-tint/40' : 'border-t'}><th scope="row" class="p-4 font-semibold text-navy">{r.roas}</th><td class="p-4">{r.action}</td></tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
 
-  <!-- Approach -->
-  <section id="approach" class="py-20 lg:py-28 bg-sky-tint" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">Our Amazon Ads Process</h2>
-        <p class="text-lg text-gray-700 max-w-2xl mx-auto">A systematic approach to profitable Amazon growth, from audit to scale.</p>
-      </div>
-      <div class="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="hidden lg:block absolute top-10 left-[calc(12.5%+24px)] right-[calc(12.5%+24px)] h-0.5 bg-electric/20"></div>
-        <div class="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all duration-300">
-          <div class="relative z-10 w-12 h-12 bg-electric text-white rounded-full flex items-center justify-center text-xl font-bold mb-6">1</div>
-          <h3 class="text-xl font-heading font-bold text-navy mb-3">Profitability Audit</h3>
-          <p class="text-gray-700">We map your unit economics, review current ACoS and TACoS, and identify where ad spend is profitable and where it is eroding margin. No assumptions, we work from your real numbers.</p>
-        </div>
-        <div class="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all duration-300">
-          <div class="relative z-10 w-12 h-12 bg-electric text-white rounded-full flex items-center justify-center text-xl font-bold mb-6">2</div>
-          <h3 class="text-xl font-heading font-bold text-navy mb-3">Listing & Content</h3>
-          <p class="text-gray-700">Keyword-optimised titles, bullet points, descriptions, A+ Content and images, in English and in any European language you are selling in. Strong listings multiply the effect of every pound of ad spend.</p>
-        </div>
-        <div class="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all duration-300">
-          <div class="relative z-10 w-12 h-12 bg-electric text-white rounded-full flex items-center justify-center text-xl font-bold mb-6">3</div>
-          <h3 class="text-xl font-heading font-bold text-navy mb-3">Campaign Architecture</h3>
-          <p class="text-gray-700">We build Sponsored Products, Brands and Display campaigns around profit thresholds, with bid strategies, placement multipliers and keyword structures designed to scale TACoS down as sales velocity builds.</p>
-        </div>
-        <div class="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all duration-300">
-          <div class="relative z-10 w-12 h-12 bg-electric text-white rounded-full flex items-center justify-center text-xl font-bold mb-6">4</div>
-          <h3 class="text-xl font-heading font-bold text-navy mb-3">Scale & Expand</h3>
-          <p class="text-gray-700">Once profitable baselines are established, we expand into new ASINs, new markets and new ad formats, always measuring impact on overall account TACoS before scaling further.</p>
-        </div>
-      </div>
+  <!-- Reporting -->
+  <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What you see from us each week and quarter</h2>
+      <p class="text-lg text-gray-700 leading-relaxed">You get a weekly call or video update on the Amazon account. It sits alongside the weekly ROAS review that moves each budget on the ladder. You also get a KPI dashboard. Once a quarter we hold a review.</p>
     </div>
   </section>
 
-  <!-- Account Management Cadence -->
-  <section class="py-20 lg:py-28 bg-navy" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-4">How We Run Your Amazon Account</h2>
-        <p class="text-lg text-slate-light max-w-2xl mx-auto">Structured account management, not a monthly check-in.</p>
+  <!-- Proof -->
+  <section class="py-16 lg:py-20 bg-white" data-animate>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Proof from an Amazon account we have managed</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">This is the all-time record for one Amazon Ads account we have managed.</p>
+      <div class="bg-sky-tint rounded-2xl p-6 sm:p-8 border border-gray-100">
+        <p class="text-lg text-navy font-semibold mb-6">CFW Amazon Ads all-time totals</p>
+        <dl class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div><dt class="text-sm text-gray-700">Ad spend</dt><dd class="text-2xl font-heading font-extrabold text-electric">£91,902.91</dd></div>
+          <div><dt class="text-sm text-gray-700">Sales</dt><dd class="text-2xl font-heading font-extrabold text-electric">£769,025.79</dd></div>
+          <div><dt class="text-sm text-gray-700">Purchases</dt><dd class="text-2xl font-heading font-extrabold text-electric">17,566</dd></div>
+        </dl>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        <div class="bg-white/5 rounded-2xl p-8 border border-white/10">
-          <h3 class="text-xl font-heading font-bold text-white mb-5">The Daily and Weekly Work</h3>
-          <ul class="space-y-4">
-            <li class="text-slate-light leading-relaxed"><span class="text-white font-semibold">Bids are reviewed every Monday.</span> Every keyword and product target is priced against a target ACoS from the previous week. Our model recommends a price. An account manager reviews the list. Nothing reaches your account without an explicit approval.</li>
-            <li class="text-slate-light leading-relaxed"><span class="text-white font-semibold">Stock is checked every day.</span> Each advertised ASIN is matched against live stock and Buy Box status. Ads on a product that cannot be bought are paused automatically. The same check reactivates them the day stock returns.</li>
-            <li class="text-slate-light leading-relaxed"><span class="text-white font-semibold">The account is checked every morning.</span> Spend spikes, disapproved ads, tracking that has stopped firing, and any change made by someone outside our team all get caught the same day.</li>
-          </ul>
-        </div>
-        <div class="bg-white/5 rounded-2xl p-8 border border-white/10">
-          <h3 class="text-xl font-heading font-bold text-white mb-5">What You See, and When</h3>
-          <ul class="space-y-4">
-            <li class="text-slate-light leading-relaxed"><span class="text-white font-semibold">One reporting email lands every Wednesday.</span> It covers every channel we run: revenue, cost and ROAS for the previous week. Any channel that came in under target carries a written reason pulled from that week's own account data.</li>
-            <li class="text-slate-light leading-relaxed"><span class="text-white font-semibold">A live dashboard updates every hour.</span> You are never waiting on our reporting cycle to know how the account is performing.</li>
-            <li class="text-slate-light leading-relaxed"><span class="text-white font-semibold">A shared tracking sheet fills weekly from the API.</span> History runs back as far as your account goes. Nobody has to ask for it.</li>
-            <li class="text-slate-light leading-relaxed"><span class="text-white font-semibold">One monthly document arrives every month.</span> It includes a video walkthrough and compares every channel against the same month a year earlier rather than the month before. Most accounts we manage are seasonal.</li>
-            <li class="text-slate-light leading-relaxed"><span class="text-white font-semibold">Every change posts itself to Slack.</span> Budget moves, bid changes, new campaigns and pauses land in a shared channel as we make them. Each one carries its reason.</li>
-          </ul>
-        </div>
-      </div>
+      <p class="text-lg text-gray-700 mt-6 leading-relaxed">These totals are for the account's whole life. Over that time the account spent £91,902.91 on ads and took £769,025.79 in sales across 17,566 purchases. They show spend, sales and purchases only. They do not show profit. Profit depends on product cost and fees.</p>
+      <p class="text-lg text-gray-700 mt-6 leading-relaxed">We manage £3M of annual ad spend. Visible Ads won at the UK Search Awards 2022 and was a finalist at the UK Search Awards 2024, the UK eCommerce Awards 2024 and the National Digital Awards 2026.</p>
+      <p class="text-gray-700 mt-6 leading-relaxed">The <a href="/case-studies/cfw/" class="text-electric underline hover:text-electric-dark">CFW case study</a> covers the wider account.</p>
     </div>
   </section>
 
-  <!-- Services -->
-  <section class="py-20 lg:py-28 bg-white" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">Amazon Services</h2>
-        <p class="text-lg text-gray-700 max-w-2xl mx-auto">Full-stack Amazon management, advertising and marketplace, under one roof.</p>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-        <div class="bg-sky-tint rounded-2xl p-6 border border-gray-100">
-          <div class="w-10 h-10 bg-electric/10 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-electric" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-          </div>
-          <h3 class="font-heading font-bold text-navy mb-2">Sponsored Products</h3>
-          <p class="text-gray-700 text-sm">Keyword and ASIN targeting campaigns built around profit thresholds, with continuous search term harvesting and bid optimisation.</p>
-        </div>
-        <div class="bg-sky-tint rounded-2xl p-6 border border-gray-100">
-          <div class="w-10 h-10 bg-electric/10 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-electric" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/></svg>
-          </div>
-          <h3 class="font-heading font-bold text-navy mb-2">Sponsored Brands</h3>
-          <p class="text-gray-700 text-sm">Top-of-search brand presence with custom headlines, brand video, and Store landing pages, building brand equity alongside direct sales.</p>
-        </div>
-        <div class="bg-sky-tint rounded-2xl p-6 border border-gray-100">
-          <div class="w-10 h-10 bg-electric/10 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-electric" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
-          </div>
-          <h3 class="font-heading font-bold text-navy mb-2">Sponsored Display</h3>
-          <p class="text-gray-700 text-sm">Retargeting and audience targeting, on and off Amazon, to recapture browsers, defend product pages, and reach shoppers across the web.</p>
-        </div>
-        <div class="bg-sky-tint rounded-2xl p-6 border border-gray-100">
-          <div class="w-10 h-10 bg-electric/10 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-electric" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-          </div>
-          <h3 class="font-heading font-bold text-navy mb-2">Listing Optimisation</h3>
-          <p class="text-gray-700 text-sm">Titles, bullet points, descriptions, backend keywords and A+ Content, keyword-researched and conversion-tested to rank organically and convert paid traffic.</p>
-        </div>
-        <div class="bg-sky-tint rounded-2xl p-6 border border-gray-100">
-          <div class="w-10 h-10 bg-electric/10 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-electric" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
-          </div>
-          <h3 class="font-heading font-bold text-navy mb-2">European Localisation</h3>
-          <p class="text-gray-700 text-sm">Listings and campaigns localised for Germany, France, Spain and Italy, native-language keyword research, translated copy, and marketplace-specific strategy.</p>
-        </div>
-        <div class="bg-sky-tint rounded-2xl p-6 border border-gray-100">
-          <div class="w-10 h-10 bg-electric/10 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-electric" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-          </div>
-          <h3 class="font-heading font-bold text-navy mb-2">Seller Consulting</h3>
-          <p class="text-gray-700 text-sm">Strategic account review, pricing strategy, inventory planning guidance, Brand Registry setup, and Brand Store development, the full seller advisory layer.</p>
-        </div>
-      </div>
+  <!-- Who it suits -->
+  <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Who our Amazon management suits</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Our Amazon management suits D2C and B2B ecommerce brands that sell on Amazon and know what each product costs them. Our clients have £1M to £20M in annual revenue and sell in the UK, US and Europe.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">We plan your Amazon and own-site ads together. Read about <a href="/amazon-google-ads/" class="text-electric underline hover:text-electric-dark">Amazon and Google Ads together</a> to see how.</p>
     </div>
   </section>
 
-  <!-- Case Study -->
-  <section class="py-20 lg:py-28 bg-gray-50" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="glass-card p-8 sm:p-12 lg:p-16 max-w-4xl mx-auto">
-        <span class="inline-block px-3 py-1 bg-electric/10 text-electric text-sm font-semibold rounded-full mb-6">Case Study</span>
-        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">CFW, Profitable Amazon Growth at Scale</h2>
-        <p class="text-lg text-gray-700 mb-8 leading-relaxed">CFW's Amazon sales were flat and their campaigns unprofitable before the account rebuild. We rebuilt the account from a profit-first foundation, TACoS targets set before a single bid was touched, keyword structures aligned to unit economics, and listing content upgraded to earn organic rank alongside paid visibility. The account is now scaling at an all-time ROAS of 8.5, with sales compounding as organic rank builds.</p>
-        <div class="flex flex-wrap gap-8">
-          <div>
-            <div class="text-3xl font-heading font-extrabold text-electric">£769,025.79</div>
-            <div class="text-sm text-gray-700">Amazon Sales Generated</div>
-          </div>
-          <div>
-            <div class="text-3xl font-heading font-extrabold text-electric">8.5x</div>
-            <div class="text-sm text-gray-700">All-Time ROAS</div>
-          </div>
-          <div>
-            <div class="text-3xl font-heading font-extrabold text-electric">17,566</div>
-            <div class="text-sm text-gray-700">Purchases</div>
-          </div>
-        </div>
-        <a href="/case-studies/sephra-usa-amazon" class="inline-flex items-center gap-1 text-electric font-medium mt-8">Read the Sephra USA golden quarter case study <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonial -->
-  <section class="py-20 lg:py-28 bg-white" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto">
-        <blockquote class="relative">
-          <div class="absolute -top-4 -left-2 text-electric/20 text-8xl font-heading font-extrabold leading-none select-none">&ldquo;</div>
-          <p class="relative z-10 text-xl text-gray-800 leading-relaxed italic mb-8 pt-6 pl-4">Overall, our experience with Visible Ads has been exceptional since 2022. Their commitment to delivering results, professionalism, and expertise has made them a trusted partner in our business growth. We highly recommend Visible Ads to any company looking to enhance its digital marketing efforts and achieve outstanding performance in the online marketplace.</p>
-          <footer class="pl-4 flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-electric to-cyan-500 flex items-center justify-center shrink-0">
-              <span class="text-white font-bold font-heading">DA</span>
-            </div>
-            <div>
-              <div class="font-heading font-bold text-navy">David Archer</div>
-              <div class="text-sm text-gray-600">Managing Director, Sephra Europe &amp; Chocolate Fountain Warehouse</div>
-              <div class="flex gap-1 mt-1">
-                {[1,2,3,4,5].map(() => (
-                  <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                ))}
-              </div>
-            </div>
-          </footer>
-        </blockquote>
-      </div>
+  <!-- Fees -->
+  <section class="py-16 lg:py-20 bg-white" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What our Amazon management fee covers</h2>
+      <p class="text-lg text-gray-700 mb-4 leading-relaxed">One fee per channel covers as many Amazon campaigns as your account needs. VAT is added to the fee. There's a three-month minimum and after that it runs month to month on 30 days' notice. Creative work isn't included in the fee.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">Brands can apply for a performance model with a reduced or zero retainer and a revenue share. The Silver, Gold and Platinum tiers depend on your monthly ad budget. They are set out in our <a href="/ppc-management/#pricing" class="text-electric underline hover:text-electric-dark">PPC management pricing</a> section.</p>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section class="py-20 lg:py-28 bg-white" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto">
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-10">Frequently Asked Questions</h2>
-        <div class="space-y-4">
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">How much does Amazon Ads management cost?</summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">
-              <p class="mb-4">The same tier ladder applies to Amazon management. These tiers apply per channel managed.</p>
-              <ul class="list-disc pl-5 space-y-2 mb-4">
-                <li>SILVER GBP 1,000/mo (ad budget up to GBP 3,000, 10 hours/mo)</li>
-                <li>GOLD GBP 1,500/mo (up to GBP 20,000, 20 hours/mo)</li>
-                <li>PLATINUM GBP 2,000/mo + 5% (GBP 20,000+ budget, 35 hours/mo, click-fraud protection)</li>
-                <li>PERFORMANCE: reduced or zero retainer with a revenue-share component, by application, individually negotiated</li>
-              </ul>
-              <p>All plus VAT/month, excluding creative and a one-off GBP 1,000 tracking setup fee, 3-month minimum then rolling monthly with 30 days notice.</p>
-            </div>
-          </details>
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              What is TACoS and why does it matter more than ACoS?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">ACoS only measures your ad spend against ad-attributed revenue. TACoS measures it against total Amazon revenue, organic and paid combined. As advertising improves your organic rank and organic sales grow, your TACoS falls even if ACoS stays flat. TACoS is the true measure of whether your advertising investment is building a scalable, profitable business.</div>
-          </details>
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              Can you manage Amazon accounts in Germany, France, Spain and Italy?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">Yes. We manage Amazon advertising across UK, US and European marketplaces including Germany, France, Spain and Italy. For European expansion, we handle listing localisation, keyword research in each language, and campaign structures optimised for each marketplace's specific competitive dynamics.</div>
-          </details>
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              What does Amazon seller consulting involve?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">Amazon seller consulting goes beyond running ads. We cover listing optimisation, A+ Content, pricing strategy, inventory planning, marketplace expansion strategy, and account health monitoring. We act as a strategic partner who understands the full Amazon flywheel, not just the advertising layer.</div>
-          </details>
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              How do you track unit profitability?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">We work with your unit economics, product cost, Amazon referral fees, FBA fees and ad spend, to calculate exactly what each sale costs to deliver. Every campaign decision is measured against your real margin. We will never recommend scaling spend that pushes you into loss-making territory.</div>
-          </details>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Related Services -->
-  <section class="py-16 lg:py-20 bg-gray-50" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl font-heading font-bold text-navy text-center mb-8">Related Services</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
-        <a href="/google-ads" class="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-gray-100 ring-1 ring-electric/10 hover:ring-electric/30 hover:shadow-lg transition-all duration-300">
-          <h3 class="text-lg font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">Google Ads Management</h3>
-          <p class="text-gray-700 text-sm mb-3">Drive traffic to your DTC site alongside your Amazon presence for multi-channel growth.</p>
-          <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
-        </a>
-        <a href="/paid-social" class="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-gray-100 ring-1 ring-electric/10 hover:ring-electric/30 hover:shadow-lg transition-all duration-300">
-          <h3 class="text-lg font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">Meta Ads</h3>
-          <p class="text-gray-700 text-sm mb-3">Build brand awareness and drive new customer acquisition alongside your Amazon strategy.</p>
-          <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
-        </a>
-        <a href="/ecro" class="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-gray-100 ring-1 ring-electric/10 hover:ring-electric/30 hover:shadow-lg transition-all duration-300">
-          <h3 class="text-lg font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">Conversion Rate Optimisation</h3>
-          <p class="text-gray-700 text-sm mb-3">Optimise your DTC website for Amazon-aware shoppers who visit your own store.</p>
-          <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Client Logos -->
-  <section class="py-16 lg:py-20 bg-white" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <ClientLogos compact />
-    </div>
-  </section>
-
-  <!-- Service Links -->
   <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <ServiceLinks current="/amazon" />
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-8">Amazon PPC questions</h2>
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="group bg-white border border-gray-200 rounded-xl p-6">
+            <summary class="cursor-pointer font-heading font-semibold text-navy">{faq.question}</summary>
+            <p class="mt-4 text-gray-700 leading-relaxed">
+              {faq.answer}
+            </p>
+          </details>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -447,9 +221,9 @@ const markets = [
   <section class="relative py-20 lg:py-28 bg-navy" data-animate>
     <div class="absolute inset-0 dot-pattern opacity-5"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">Ready to Scale Your Amazon Business Profitably?</h2>
-      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">Get a free Amazon account audit from a team that has been selling on the platform since 2015. We will show you exactly what TACoS and unit profitability look like for your account, and where the growth opportunities are.</p>
-      <a href="/free-ads-audit" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Get Your Free Amazon Audit</a>
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">See what each product earns after ads</h2>
+      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">Get a free audit of your Amazon account. It shows where spend is earning and where it is leaking.</p>
+      <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a free profit audit</a>
     </div>
   </section>
 
