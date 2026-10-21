@@ -4,6 +4,7 @@
 
 ## Core Services
 - Google Ads Management (our flagship service): /google-ads
+- Google Shopping Ads Management: /google-shopping-ads
 - Bing Ads Management: /bing-ads
 - Paid Social (Meta, LinkedIn, TikTok): /paid-social
 - Amazon Advertising: /amazon
@@ -46,6 +47,7 @@ We follow our proven 4-phase Blueprint: Discover → Strategise → Execute → 
 ## Pages
 - Home: /
 - Google Ads: /google-ads
+- Google Shopping Ads: /google-shopping-ads
 - Bing Ads: /bing-ads
 - Paid Social: /paid-social
 - Amazon: /amazon

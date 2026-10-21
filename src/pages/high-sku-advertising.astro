@@ -58,7 +58,7 @@ const challenges = [
 
 const capabilities = [
   { title: 'SKU-level profit segmentation', body: 'We tag every product with its true margin and sort the catalogue into Scale, Protect, Recover and Pause, so spend follows profit.' },
-  { title: 'Feed governance', body: 'Rules-based promotion and suppression in the feed, so unprofitable products drop out automatically and clean data reaches Shopping and Performance Max.' },
+  { title: 'Feed governance', body: 'Rules-based promotion and suppression in the feed, so unprofitable products drop out automatically and clean data reaches Shopping and Performance Max. For feed fixes on any catalogue size, see our <a href="/google-shopping-ads/" class="text-electric underline hover:text-electric-dark">Google Shopping management</a>.' },
   { title: 'Category-level strategy', body: 'Structure that stops categories cannibalising each other and lets each one carry the bidding approach its economics call for.' },
   { title: 'Profit-aware automation', body: 'Performance Max and Smart Bidding kept on a leash: margin signals and constraints so the automation scales the right products, not just the busy ones.' },
 ];
@@ -189,7 +189,7 @@ const faqs = [
           <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
             <svg class="w-9 h-9 text-electric mb-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m9 12.75 2.25 2.25 4.5-4.5m6-2.25a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
             <h3 class="font-heading font-bold text-navy mb-2 text-lg">{c.title}</h3>
-            <p class="text-gray-700 text-sm leading-relaxed">{c.body}</p>
+            <p class="text-gray-700 text-sm leading-relaxed" set:html={c.body}></p>
           </div>
         ))}
       </div>

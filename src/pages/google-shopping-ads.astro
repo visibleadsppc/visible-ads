@@ -1,0 +1,232 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PartnerBadges from '../components/PartnerBadges.astro';
+
+const faqs = [
+  {
+    question: 'What does a Google Shopping agency do?',
+    answer: 'It looks after the product data in Merchant Center and the campaigns in Google Ads. That covers accurate titles, prices, availability and identifiers, budget structured toward the products that earn it, bids set against margin and weekly checks against your real orders.',
+  },
+  {
+    question: 'How does Google decide when to show a Shopping ad?',
+    answer: 'From your product data. Google matches each product to the search, so a wrong title or identifier can cost impressions that no bid will win back.',
+  },
+  {
+    question: 'Should I run Shopping campaigns or Performance Max?',
+    answer: 'Either can work. We choose per account from the data you have, then keep margin constraints on whichever one runs.',
+  },
+  {
+    question: 'What if my products have no GTIN?',
+    answer: 'Google strongly recommends a GTIN where one exists and requires an MPN only when the product has no manufacturer GTIN. Set identifier_exists to no only for products with no identifiers, because Google warns that a product with identifiers may be disapproved. We load identifiers wherever they exist.',
+  },
+  {
+    question: 'Can you fix products that Google has disapproved?',
+    answer: 'Yes. Google says a disapproved listing can be fixed or appealed. We read the reason in Merchant Center and correct the feed or the landing page. If the reason is a policy matter, we tell you before changing anything.',
+  },
+  {
+    question: 'How much does Google Shopping management cost?',
+    answer: 'Fees are per channel managed plus VAT. A free audit shows which tier fits your ad budget, and the tiers are listed on our PPC management page.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Google Shopping Ads Management',
+      serviceType: 'Google Shopping management',
+      provider: { '@type': 'Organization', name: 'Visible Ads', url: 'https://visible-ads.com' },
+      description: 'Google Shopping management for ecommerce brands: Merchant Center product data, Shopping and Performance Max campaigns, and bids set against margin.',
+      url: 'https://visible-ads.com/google-shopping-ads/',
+      areaServed: 'GB',
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://visible-ads.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Google Shopping Ads', item: 'https://visible-ads.com/google-shopping-ads/' },
+      ],
+    },
+  ],
+};
+
+const scope = [
+  { title: 'Merchant Center and the feed', text: 'Titles, descriptions, prices, availability, brand and identifiers are checked against your product pages and corrected at source. The data Google reads then matches what a buyer sees.' },
+  { title: 'Campaign structure', text: 'Shopping campaigns or Performance Max with a feed, split by product and category so budget follows what earns.' },
+  { title: 'Bids set against margin', text: 'Targets come from the margin on what you sell and not from one blanket ROAS.' },
+  { title: 'Search terms and exclusions', text: 'Queries that spend without selling are excluded every week. Queries that sell are given room.' },
+  { title: 'Checks against real orders', text: 'Google Ads conversions are compared with your shop or GA4. Decisions then rest on sales that happened.' },
+];
+
+const feedRows = [
+  { attr: 'Title', rule: 'Required. Up to 150 characters.', check: 'Opens with what a buyer would type, and matches the product page.' },
+  { attr: 'Price and availability', rule: 'Required. Availability is in_stock, out_of_stock, preorder or backorder.', check: 'Matches what the product page shows, with out-of-stock items kept out of spend.' },
+  { attr: 'Brand', rule: 'Required for all new products except movies, books and musical recordings.', check: 'Filled for every product that needs it.' },
+  { attr: 'GTIN and MPN', rule: 'GTIN strongly recommended where one exists. MPN required only when there is no manufacturer GTIN.', check: 'GTINs loaded wherever the manufacturer assigned one.' },
+  { attr: 'identifier_exists', rule: 'Optional, defaults to yes. Set to no only for products with no identifiers, or they may be disapproved.', check: 'Never set to no on a product that has an identifier.' },
+  { attr: 'Image', rule: 'Required. Google states images must be at least 500 by 500 pixels, enforced from 31 January 2027.', check: 'Every image measured against that minimum before the date.' },
+  { attr: 'Apparel details', rule: 'Age group, gender and colour required for apparel targeted to the UK. Size is required for clothing and shoes.', check: 'Variants complete, so size and colour searches can match.' },
+];
+---
+
+<Layout title="Google Shopping Agency and Ads Management | Visible Ads" description="Google Shopping ads management for ecommerce brands. We fix the Merchant Center feed, structure the campaigns and set bids against margin. Free audit to start." schema={schema}>
+
+  <!-- Hero -->
+  <section class="relative py-20 lg:py-28 overflow-hidden bg-navy" data-animate>
+    <div class="absolute inset-0 bg-gradient-to-br from-navy to-navy-light"></div>
+    <div class="absolute inset-0 dot-pattern opacity-10"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-light mb-8"><a href="/" class="hover:text-white">Home</a><span class="mx-2">/</span><span class="text-white">Google Shopping Ads</span></nav>
+      <div class="max-w-3xl">
+        <span class="inline-block px-4 py-1.5 bg-electric/20 text-electric-light text-sm font-medium rounded-full mb-6">Google Partner Agency</span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-6">Google Shopping Ads Management</h1>
+        <p class="text-lg sm:text-xl text-slate-light mb-8 leading-relaxed">A Shopping ad is built from your product data. We start with the feed. We correct what Google reads in Merchant Center, structure the campaigns around the products that earn, and set bids against your margin.</p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-8 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a free Shopping audit</a>
+          <a href="#feed" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/20 hover:bg-white/10 transition-colors">See what we check in the feed</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 bg-sky-tint border-y border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <PartnerBadges compact />
+    </div>
+  </section>
+
+  <!-- How a Shopping ad is built -->
+  <section class="py-20 lg:py-24 bg-white" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">The feed decides where your ad shows</h2>
+          <p class="text-lg text-gray-700 mb-6 leading-relaxed">Google says Shopping ads decide how and where to show from your Merchant Center product data and not from keywords. It matches each product's details to the search and displays a product photo, title, price, store name and more.</p>
+          <p class="text-lg text-gray-700 leading-relaxed">A bid cannot rescue a title that never matches the search, a missing identifier or a price that differs from the page. The feed is the first thing we read in any account and the first thing we fix.</p>
+        </div>
+        <figure>
+          <div class="flex flex-col sm:flex-row items-stretch gap-4 sm:gap-3">
+            <div class="flex-1 border-2 border-navy rounded p-4">
+              <p class="font-heading font-bold text-navy mb-3">Feed row</p>
+              <dl class="text-sm">
+                <div class="flex justify-between gap-3 py-2 border-t border-gray-200"><dt class="text-gray-700">title</dt><dd class="font-mono text-navy text-right">Oak desk, 140cm</dd></div>
+                <div class="flex justify-between gap-3 py-2 border-t border-gray-200"><dt class="text-gray-700">price</dt><dd class="font-mono text-navy text-right">249.00 GBP</dd></div>
+                <div class="flex justify-between gap-3 py-2 border-t border-gray-200"><dt class="text-gray-700">availability</dt><dd class="font-mono text-navy text-right">in_stock</dd></div>
+                <div class="flex justify-between gap-3 py-2 border-t border-gray-200"><dt class="text-gray-700">brand</dt><dd class="font-mono text-navy text-right">Your brand</dd></div>
+                <div class="flex justify-between gap-3 py-2 border-t border-gray-200"><dt class="text-gray-700">gtin</dt><dd class="font-mono text-navy text-right">if assigned</dd></div>
+                <div class="flex justify-between gap-3 py-2 border-t border-gray-200"><dt class="text-gray-700">image_link</dt><dd class="font-mono text-navy text-right">500px or more</dd></div>
+              </dl>
+            </div>
+            <div class="flex items-center justify-center text-navy" aria-hidden="true">
+              <svg class="w-8 h-8 rotate-90 sm:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+            </div>
+            <div class="flex-1 border-2 border-navy rounded p-4">
+              <p class="font-heading font-bold text-navy mb-3">Shopping ad</p>
+              <div class="h-28 bg-gray-100 border border-gray-300 flex items-center justify-center text-sm text-gray-700 mb-3">Product photo</div>
+              <p class="font-heading font-bold text-navy">Oak desk, 140cm</p>
+              <p class="text-gray-700">£249.00</p>
+              <p class="text-gray-700 text-sm">Your store</p>
+            </div>
+          </div>
+          <figcaption class="text-sm text-gray-700 mt-3">An illustrative product, not a client feed. Field names follow Google's product data specification, and Google matches the ad to the search from these fields.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scope -->
+  <section class="py-20 lg:py-24 bg-sky-tint" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-8">What our Shopping management covers</h2>
+      <dl class="space-y-6 text-lg text-gray-700 leading-relaxed">
+        {scope.map((s) => (
+          <div>
+            <dt class="font-heading font-bold text-navy">{s.title}</dt>
+            <dd>{s.text}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="text-gray-700 mt-8 leading-relaxed">Shopping is one part of our Google Ads management. Catalogues of thousands of products are sorted by profit first with our <a href="/high-sku-advertising/" class="text-electric underline hover:text-electric-dark">large catalogue method</a>.</p>
+    </div>
+  </section>
+
+  <!-- Feed checks -->
+  <section id="feed" class="py-20 lg:py-24 bg-white" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What we check in your Merchant Center feed</h2>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">We check each field against Google's rule and against your product page.</p>
+      <p class="text-sm text-gray-700 mb-2 md:hidden">Swipe sideways to see every column.</p>
+      <div class="overflow-x-auto rounded-2xl border border-gray-200" tabindex="0" role="region" aria-label="Merchant Center feed checks, scrolls sideways on small screens">
+        <table class="w-full min-w-[640px] text-left text-base">
+          <caption class="sr-only">Merchant Center product attributes, Google's rule and what Visible Ads checks</caption>
+          <thead class="bg-navy text-white"><tr><th scope="col" class="p-4">Field</th><th scope="col" class="p-4">Google's rule</th><th scope="col" class="p-4">What we check</th></tr></thead>
+          <tbody class="text-gray-700">
+            {feedRows.map((r, i) => (
+              <tr class={i % 2 ? 'border-t bg-sky-tint/40' : 'border-t'}><th scope="row" class="p-4 font-semibold text-navy align-top">{r.attr}</th><td class="p-4 align-top">{r.rule}</td><td class="p-4 align-top">{r.check}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-sm text-gray-700 mt-4">Source: <a href="https://support.google.com/merchants/answer/7052112" class="text-electric underline hover:text-electric-dark" rel="noopener">Google Merchant Center Help, Product data specification</a>, read on 21 October 2026. Limits for ID (50 characters) and description (5,000 characters) are on the same page. Google updates these rules, so check the page for the current version.</p>
+    </div>
+  </section>
+
+  <!-- Shopping vs PMax -->
+  <section class="py-20 lg:py-24 bg-sky-tint" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Shopping campaigns or Performance Max</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Google presents these as two ways to run Shopping ads from the same Merchant Center data. Performance Max can reach more Google channels. A Shopping campaign keeps the setup narrower.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">We decide from the account: how much conversion history it has, how clean the feed is and how much margin varies between products. On either campaign type we keep margin signals attached. Automation scales whatever it is told to chase, and a revenue target scales low-margin products too.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">Our guide to <a href="/blog/meta-ads-vs-google-ads-ecommerce/" class="text-electric underline hover:text-electric-dark">Meta Ads vs Google Ads for ecommerce</a> covers how to measure Shopping against paid social.</p>
+    </div>
+  </section>
+
+  <!-- Proof -->
+  <section class="py-16 bg-white" data-animate>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Proof from a Google Ads rebuild</h2>
+      <p class="text-lg text-gray-700 leading-relaxed mb-4">CFW's Google Ads rebuild: £500K of spend generated £6M in return, a 12x ROAS. That figure covers the whole Google account, not Shopping alone.</p>
+      <p class="text-gray-700">Full detail is in the <a href="/case-studies/cfw/" class="text-electric underline hover:text-electric-dark">CFW case study</a>.</p>
+    </div>
+  </section>
+
+  <!-- Pricing pointer -->
+  <section class="py-16 bg-sky-tint" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">What it costs</h2>
+      <p class="text-lg text-gray-700 leading-relaxed">Fees are per channel managed plus VAT. Each fee covers unlimited campaigns on that channel. Your ad budget is paid to Google separately.</p>
+      <p class="text-lg text-gray-700 leading-relaxed mt-4">The Silver, Gold and Platinum tiers, the minimum term and the performance model are set out under <a href="/ppc-management/#pricing" class="text-electric underline hover:text-electric-dark">PPC management pricing</a>.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 lg:py-20 bg-white" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Google Shopping questions</h2>
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="group border border-gray-200 rounded-xl p-6">
+            <summary class="cursor-pointer font-heading font-semibold text-navy">{faq.question}</summary>
+            <p class="mt-4 text-gray-700 leading-relaxed">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative py-20 lg:py-28 bg-navy" data-animate>
+    <div class="absolute inset-0 dot-pattern opacity-5"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">Find out what Google is reading in your feed</h2>
+      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">Get a free audit of your Merchant Center data and Shopping campaigns. We judge both against your margin.</p>
+      <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a free Shopping audit</a>
+    </div>
+  </section>
+
+</Layout>
