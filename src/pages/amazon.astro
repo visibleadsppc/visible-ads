@@ -12,19 +12,19 @@ const faqs = [
   },
   {
     question: 'Which Amazon marketplaces do you work in?',
-    answer: 'Our clients sell in the UK, US and Europe. Tell us where you sell when you book the audit.',
+    answer: 'We work in the UK, US and European marketplaces. Tell us where you sell when you book the audit.',
   },
   {
     question: 'How long is the minimum term?',
-    answer: 'Three months. After that the contract rolls monthly and you can stop with 30 days\' notice.',
+    answer: 'Three months. After that it runs month to month on 30 days\' notice.',
   },
   {
     question: 'Are creatives included?',
-    answer: 'No. Creatives are not part of the management fee.',
+    answer: 'No. Creative work isn\'t included in the fee.',
   },
   {
     question: 'Is there a performance-based option?',
-    answer: 'Yes, by application. It pairs a reduced or zero retainer with a share of the revenue our ads produce. We agree the deal with you individually.',
+    answer: 'Yes. Brands can apply for a performance model with a reduced or zero retainer and a revenue share.',
   },
 ];
 
@@ -38,7 +38,7 @@ const schema = {
       provider: { '@type': 'Organization', name: 'Visible Ads', url: 'https://visible-ads.com' },
       description: 'Amazon PPC management for ecommerce brands: Sponsored Products, Sponsored Brands and Sponsored Display campaigns run against unit profit.',
       url: 'https://visible-ads.com/amazon/',
-      areaServed: ['GB', 'US', 'EU'],
+      areaServed: ['United Kingdom', 'United States', 'Europe'],
     },
     {
       '@type': 'FAQPage',
@@ -62,7 +62,7 @@ const adTypes = [
 
 const measures = [
   { measure: 'ACoS', how: 'Ad spend divided by ad sales', shows: 'Ad cost as a share of ad sales' },
-  { measure: 'ROAS', how: 'Ad sales divided by ad spend', shows: 'How much each pound of spend returned' },
+  { measure: 'ROAS', how: 'Ad sales divided by ad spend', shows: 'Ad sales from each pound of spend' },
   { measure: 'Profit per unit', how: 'Price minus product cost, Amazon fees and ad spend', shows: 'Whether a sale made money' },
 ];
 
@@ -118,7 +118,7 @@ const ladder = [
       <div class="max-w-3xl">
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Unit profit comes before ACoS</h2>
         <p class="text-lg text-gray-700 mb-6 leading-relaxed">A 35% ACoS can look normal and still lose money on every sale. Profit per unit shows whether a sale made money.</p>
-        <p class="text-lg text-gray-700 mb-8 leading-relaxed">Assume a £20 ex-VAT product that costs £10 to buy and £4 in Amazon fees. That leaves £6 before ads, which is 30% of the price. It breaks even at a 30% ACoS. At 25% the ad costs £5 and each sale keeps £1. At 35% the ad costs £7 and each sale loses £1.</p>
+        <p class="text-lg text-gray-700 mb-8 leading-relaxed">Assume a £20 ex-VAT product that costs £10 to buy and £4 in Amazon fees. That leaves £6 before ads. That is 30% of the price. It breaks even at a 30% ACoS. At 25% the ad costs £5 and each sale keeps £1. At 35% the ad costs £7 and each sale loses £1.</p>
       </div>
       <p class="text-sm text-gray-700 mb-2 md:hidden">Swipe sideways to see every column.</p>
       <div class="overflow-x-auto rounded-2xl border border-gray-200 bg-white" tabindex="0" role="region" aria-label="Amazon advertising measures, scrolls sideways on small screens">
@@ -140,7 +140,7 @@ const ladder = [
   <section id="process" class="py-20 lg:py-24 bg-white" data-animate>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">How we scale or cut Amazon spend</h2>
-      <p class="text-lg text-gray-700 mb-8 leading-relaxed">We review ROAS every week and move each budget on a fixed ladder. Profit is the goal and ROAS is the weekly control.</p>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">We review ROAS every week and move each budget on a fixed ladder. Profit is the goal and ROAS is the weekly control. For the £20 product above, break-even is a 333% ROAS. The ladder cuts its budget at 300% to 500% and switches it off below 300%.</p>
       <div class="overflow-x-auto rounded-2xl border border-gray-200" tabindex="0" role="region" aria-label="Weekly budget ladder, scrolls sideways on small screens">
         <table class="w-full min-w-[320px] text-left text-base">
           <caption class="sr-only">Weekly budget rules by return on ad spend</caption>
@@ -159,7 +159,7 @@ const ladder = [
   <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What you see from us each week and quarter</h2>
-      <p class="text-lg text-gray-700 leading-relaxed">You get a weekly call or video update on the Amazon account. You also get a KPI dashboard. Once a quarter we hold a review.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">You get a weekly call or video update on the Amazon account. It sits alongside the weekly ROAS review that moves each budget on the ladder. You also get a KPI dashboard. Once a quarter we hold a review.</p>
     </div>
   </section>
 
@@ -169,14 +169,14 @@ const ladder = [
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Proof from an Amazon account we have managed</h2>
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">This is the all-time record for one Amazon Ads account we have managed.</p>
       <div class="bg-sky-tint rounded-2xl p-6 sm:p-8 border border-gray-100">
-        <p class="text-lg text-navy font-semibold mb-6">CFW Amazon Ads, all time</p>
+        <p class="text-lg text-navy font-semibold mb-6">CFW Amazon Ads all-time totals</p>
         <dl class="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div><dt class="text-sm text-gray-700">Ad spend</dt><dd class="text-2xl font-heading font-extrabold text-electric">£91,902.91</dd></div>
           <div><dt class="text-sm text-gray-700">Sales</dt><dd class="text-2xl font-heading font-extrabold text-electric">£769,025.79</dd></div>
           <div><dt class="text-sm text-gray-700">Purchases</dt><dd class="text-2xl font-heading font-extrabold text-electric">17,566</dd></div>
         </dl>
       </div>
-      <p class="text-lg text-gray-700 mt-6 leading-relaxed">These are all-time totals and not a single month. Over its whole life the account spent £91,902.91 on ads and took £769,025.79 in sales across 17,566 purchases. They show spend and sales only. They do not show profit, which depends on product cost and fees.</p>
+      <p class="text-lg text-gray-700 mt-6 leading-relaxed">These totals are for the account's whole life. Over that time the account spent £91,902.91 on ads and took £769,025.79 in sales across 17,566 purchases. They show spend, sales and purchases only. They do not show profit. Profit depends on product cost and fees.</p>
       <p class="text-lg text-gray-700 mt-6 leading-relaxed">We manage £3M of annual ad spend. Visible Ads won at the UK Search Awards 2022 and was a finalist at the UK Search Awards 2024, the UK eCommerce Awards 2024 and the National Digital Awards 2026.</p>
       <p class="text-gray-700 mt-6 leading-relaxed">The <a href="/case-studies/cfw/" class="text-electric underline hover:text-electric-dark">CFW case study</a> covers the wider account.</p>
     </div>
@@ -195,8 +195,8 @@ const ladder = [
   <section class="py-16 lg:py-20 bg-white" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What our Amazon management fee covers</h2>
-      <p class="text-lg text-gray-700 mb-4 leading-relaxed">Our fee is per channel plus VAT. It covers as many campaigns as you need. After the first three months you can stop any time with 30 days' notice. Creatives are not part of the fee.</p>
-      <p class="text-lg text-gray-700 leading-relaxed">A performance model with a reduced or zero retainer and a revenue share is available by application. The Silver, Gold and Platinum tiers depend on your monthly ad budget. They are set out in our <a href="/ppc-management/#pricing" class="text-electric underline hover:text-electric-dark">PPC management pricing</a> section.</p>
+      <p class="text-lg text-gray-700 mb-4 leading-relaxed">One fee per channel covers as many Amazon campaigns as your account needs, plus VAT. There's a three-month minimum and after that it runs month to month on 30 days' notice. Creative work isn't included in the fee.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">Brands can apply for a performance model with a reduced or zero retainer and a revenue share. The Silver, Gold and Platinum tiers depend on your monthly ad budget. They are set out in our <a href="/ppc-management/#pricing" class="text-electric underline hover:text-electric-dark">PPC management pricing</a> section.</p>
     </div>
   </section>
 
