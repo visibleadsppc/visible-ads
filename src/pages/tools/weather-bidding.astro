@@ -1,0 +1,229 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import WeatherBidding from '../../components/WeatherBidding.astro';
+import { WEATHER_CATEGORIES } from '../../data/tool-benchmarks';
+
+const faqs = [
+  {
+    question: 'Does weather really change PPC performance?',
+    answer: 'In some categories it dominates everything else. Fans and air conditioning sell almost nothing below 22 degrees and then go vertical; roofing enquiries follow wind, not rainfall; a dry Saturday is worth most of the week to a car valeter. In other categories it is noise. The tool only covers the ones where the effect is large enough to act on.',
+  },
+  {
+    question: 'Can I change bids by the weather with Smart Bidding?',
+    answer: 'Not with bid adjustments, no. On a tCPA or tROAS campaign, device and ad schedule modifiers are mostly ignored, and moving the target itself drags the learning for days after the weather has passed. The two levers that do work are the daily budget and a seasonality adjustment, which is designed for exactly this: a short, predictable shift in conversion rate lasting one to seven days.',
+  },
+  {
+    question: 'Why does my bid adjustment not change anything?',
+    answer: 'Because the campaign is almost certainly budget-limited. A positive modifier raises what you pay per click, but the daily budget still decides how many clicks you can buy, so you end up paying more for the same traffic. Raise the budget first. This is the single most common reason a weather strategy looks like it does not work.',
+  },
+  {
+    question: 'How far ahead is the forecast worth acting on?',
+    answer: 'Three or four days for anything specific, and the first two for anything you would stake real budget on. Past that, treat it as a heads-up to watch rather than an instruction. Set the big moves the evening before, not a week out.',
+  },
+  {
+    question: 'Should I automate this?',
+    answer: 'Once you have proven it on your own numbers, yes. A Google Ads script can read a forecast and move budgets each morning. Do it by hand for a season first, log what happened, and check the effect is real in your account before you let a script loose on the budget.',
+  },
+  {
+    question: 'Where does the forecast come from?',
+    answer: 'MET Norway, the Norwegian Meteorological Institute, whose Locationforecast data is published under a Creative Commons licence. We request it through our own server so it is cached once for everyone rather than fetched again for every visitor.',
+  },
+  {
+    question: 'Are the percentages based on real sales data?',
+    answer: 'No, and that matters. They come from how each category normally responds to temperature, rain and wind, not from your account. Use them to spot the days worth watching, then check your own data for those days last season and let that decide the size of the move.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      name: 'Weather-Based Bidding Tool',
+      url: 'https://visible-ads.com/tools/weather-bidding',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Any',
+      description:
+        'Free weather-based bidding tool for Google Ads. Turns a seven-day UK forecast into daily bid, budget and seasonality adjustments for weather-sensitive categories.',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'GBP' },
+      publisher: { '@type': 'Organization', name: 'Visible Ads' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://visible-ads.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://visible-ads.com/tools' },
+        { '@type': 'ListItem', position: 3, name: 'Weather-based bidding', item: 'https://visible-ads.com/tools/weather-bidding' },
+      ],
+    },
+  ],
+};
+---
+
+<Layout
+  title="Weather-Based Bidding Tool for Google Ads (Free) | Visible Ads"
+  description="Free weather-based bidding tool. Turn a seven-day UK forecast into daily budget, bid and seasonality adjustments for weather-sensitive categories. No login, no email."
+  schema={schema}
+>
+  <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Tools', href: '/tools' }, { label: 'Weather-based bidding' }]} />
+
+  <section class="py-14 lg:py-20 bg-gradient-to-br from-navy to-navy-light relative overflow-hidden" data-animate>
+    <div class="absolute inset-0 dot-pattern opacity-5"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="max-w-3xl">
+        <span class="inline-block text-electric-light font-heading font-semibold text-sm tracking-wide uppercase mb-4">
+          Free tool &middot; no login, no email
+        </span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white mb-6 leading-tight">
+          Weather-based bidding tool
+        </h1>
+        <p class="text-lg sm:text-xl text-slate-light leading-relaxed">
+          If demand in your category rises and falls with the weather, your budget can too.
+          Seven days of forecast, turned into the moves that actually work on your bidding
+          strategy, which are not the same two levers for Smart and manual.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 lg:py-16 bg-gray-50" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <WeatherBidding />
+    </div>
+  </section>
+
+  <!-- The lever that matters -->
+  <section class="py-16 lg:py-24 bg-white" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-10">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">
+          Smart Bidding and manual bidding need different moves
+        </h2>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          Most weather advice online was written for manual bidding and quietly stopped being
+          true. Here is what each one actually responds to.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:p-7">
+          <h3 class="text-xl font-heading font-bold text-navy mb-3">Smart Bidding</h3>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            Ad schedule and device modifiers are largely ignored once the algorithm is setting
+            bids, so the old playbook does nothing. Two levers remain.
+          </p>
+          <ul class="space-y-3 text-gray-700 text-sm leading-relaxed">
+            <li class="flex gap-3"><span class="text-electric font-bold shrink-0">1.</span><span><strong class="text-navy">The daily budget.</strong> On a hot day the campaign can spend more profitably than usual, and a cap is the only thing stopping it.</span></li>
+            <li class="flex gap-3"><span class="text-electric font-bold shrink-0">2.</span><span><strong class="text-navy">A seasonality adjustment.</strong> Built for a short, predictable change in conversion rate lasting one to seven days. Tell it the rate will be 20% higher on Thursday and it bids into that rather than waiting to learn it.</span></li>
+          </ul>
+          <p class="text-sm text-gray-700 leading-relaxed mt-4">
+            Take the adjustment off when the event ends. Left running, it teaches the bidding a
+            baseline that is not real, and the fortnight afterwards is spent undoing it.
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:p-7">
+          <h3 class="text-xl font-heading font-bold text-navy mb-3">Manual and enhanced CPC</h3>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            Here the old playbook still works, with one condition that decides whether any of
+            it matters.
+          </p>
+          <ul class="space-y-3 text-gray-700 text-sm leading-relaxed">
+            <li class="flex gap-3"><span class="text-electric font-bold shrink-0">1.</span><span><strong class="text-navy">Ad schedule bid adjustments</strong> are set per day of the week, which fits a forecast neatly.</span></li>
+            <li class="flex gap-3"><span class="text-electric font-bold shrink-0">2.</span><span><strong class="text-navy">The budget has to have room in it.</strong> A plus 30% bid on a campaign already spending its cap every day buys the same clicks at a higher price. Nothing more.</span></li>
+          </ul>
+          <p class="text-sm text-gray-700 leading-relaxed mt-4">
+            Cutting on a weak day is the half most people skip, and it is the half with no risk
+            in it. You are declining clicks that were not going to convert.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="py-16 lg:py-24 bg-sky-tint" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-10">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">
+          The categories the weather genuinely moves
+        </h2>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          Each one responds to a different thing. Knowing which signal matters to you is most
+          of the work, and it is usually not the one people assume.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        {WEATHER_CATEGORIES.map((c) => (
+          <div class="rounded-2xl bg-white border border-gray-100 p-5 shadow-sm">
+            <p class="font-heading font-bold text-navy mb-1.5">{c.name}</p>
+            <p class="text-sm text-gray-700 leading-relaxed">{c.note}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How to prove it -->
+  <section class="py-16 lg:py-20 bg-white" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="rounded-2xl border-2 border-amber/30 bg-amber/5 p-7">
+        <h2 class="text-xl sm:text-2xl font-heading font-bold text-navy mb-4">Prove it on your own account first</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">
+          Before you let any of this move real money, spend an hour checking it is true for you.
+          Pull daily conversions for last summer, put the daily maximum temperature next to them
+          in a spreadsheet, and look at the shape. Most categories show something. A few show
+          nothing, and finding that out costs an hour rather than a season.
+        </p>
+        <p class="text-gray-700 leading-relaxed">
+          Then start with the cuts rather than the rises. Trimming budget on a forecast washout
+          is the lowest-risk half of weather bidding, and it funds the days that are worth
+          leaning into.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 lg:py-24 bg-gray-50" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-10">Weather bidding FAQs</h2>
+      <div class="space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl border border-gray-200 bg-white p-6">
+            <summary class="flex items-start justify-between gap-4 cursor-pointer list-none font-heading font-bold text-navy">
+              {f.question}
+              <svg class="w-5 h-5 shrink-0 mt-0.5 text-electric transition-transform group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+            </summary>
+            <p class="mt-4 text-gray-700 leading-relaxed">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-20 bg-navy" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-4">
+        We can wire this into the account properly
+      </h2>
+      <p class="text-lg text-slate-light leading-relaxed mb-8">
+        Checked against your own seasonality, automated where it earns its keep, and with the
+        budget headroom sorted first so the adjustments actually do something.
+      </p>
+      <a href="/free-ads-audit" class="inline-flex items-center justify-center px-8 py-4 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-lg hover:shadow-xl">
+        Book a profit audit
+      </a>
+    </div>
+  </section>
+</Layout>

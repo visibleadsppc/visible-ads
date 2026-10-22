@@ -1,0 +1,255 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BudgetCalculator from '../../components/BudgetCalculator.astro';
+import { SEARCH_BENCHMARKS, SEARCH_BENCHMARK_SOURCE, FX } from '../../data/tool-benchmarks';
+
+const gbp = (usd: number) => '£' + (usd * FX.usdTo.GBP).toFixed(2);
+
+const faqs = [
+  {
+    question: 'How much should I spend on Google Ads?',
+    answer: 'Work backwards from the commercial target, not forwards from a round number. Decide what one sale or one lead is worth after costs, decide how many you need a month, then multiply by a realistic cost per acquisition for your category. The calculator above does that arithmetic and then checks the answer against your margin, which is the step most budget planning skips.',
+  },
+  {
+    question: 'Is there a minimum budget for PPC to work?',
+    answer: 'There is a practical floor rather than a fixed one. If your cost per click is £3 and you need 30 conversions a month at a 5% conversion rate, you need 600 clicks, so £1,800 before you have bought a single test. Below roughly £1,000 a month in a competitive category, the account spends its whole life learning and never gathers enough data to optimise.',
+  },
+  {
+    question: 'Are these UK benchmarks?',
+    answer: 'No, and we would rather say so. The pre-filled figures come from LocaliQ, whose account set is weighted towards the United States, converted to pounds at the European Central Bank rate shown under the calculator. They are a starting point for a first estimate. Every one of them is editable, and a forecast built on your own account data will beat a forecast built on anyone’s average.',
+  },
+  {
+    question: 'How accurate is this forecast?',
+    answer: 'It is arithmetic, not a prediction. Give it the right cost per click and conversion rate and it will be close. Give it a category average and it will be out by however far your account is from that average, which can easily be double or half. Use it to size a budget and sense-check a plan, not to make a promise to a board.',
+  },
+  {
+    question: 'Why does the calculator ask for my margin?',
+    answer: 'Because revenue is not profit, and a forecast that stops at revenue can recommend a plan that loses money every month. At a 25% margin you need a 4x return on ad spend just to break even. Plenty of accounts run at 3x and call it a success. Putting margin in means the tool can tell you the difference.',
+  },
+  {
+    question: 'How should I split the budget across channels?',
+    answer: 'Catch existing demand before you create new demand. On a small budget that means Search and Shopping take nearly everything, because someone typing your product into Google is the cheapest buyer you will ever find. Once those campaigns stop being able to spend profitably, the extra budget is better used building demand on Meta, Demand Gen or YouTube than bidding up the same auctions.',
+  },
+  {
+    question: 'Should I keep a separate budget for testing?',
+    answer: 'Yes, and keep it genuinely separate. A tenth of the monthly budget set aside for new keywords, new ads and new landing pages stops testing from being the first thing cut in a quiet month. The ad test significance calculator will tell you whether that allowance is big enough to prove anything.',
+  },
+  {
+    question: 'Is the calculator really free?',
+    answer: 'Yes. No login, no email, nothing to download. The whole thing runs in your browser and nothing you type is sent to us.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      name: 'PPC Budget Calculator',
+      url: 'https://visible-ads.com/tools/ppc-budget-calculator',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Any',
+      description:
+        'Free PPC budget calculator. Turn a monthly budget into forecast impressions, clicks, leads or sales, then check it against your gross margin to see whether the plan actually makes money.',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'GBP' },
+      publisher: { '@type': 'Organization', name: 'Visible Ads' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://visible-ads.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://visible-ads.com/tools' },
+        { '@type': 'ListItem', position: 3, name: 'PPC budget calculator', item: 'https://visible-ads.com/tools/ppc-budget-calculator' },
+      ],
+    },
+  ],
+};
+
+const steps = [
+  { n: '01', title: 'Start with what a customer is worth', body: 'Not the order value, the margin on it. If a £90 order leaves you £36 after product cost and delivery, £36 is the number the whole plan is built on.' },
+  { n: '02', title: 'Decide how many you need', body: 'Take it from the commercial plan rather than from last month. Thirty new customers a month is a target. "More than last year" is not.' },
+  { n: '03', title: 'Divide by a realistic cost', body: 'Cost per acquisition is cost per click divided by conversion rate. Use your own two numbers if you have them, and the benchmark only if you do not.' },
+  { n: '04', title: 'Add a testing allowance, and ring-fence it', body: 'Around a tenth of the budget, kept separate from the proven campaigns. It is the first thing cut in a quiet month and the reason accounts stop improving.' },
+];
+---
+
+<Layout
+  title="PPC Budget Calculator: Forecast Clicks, Leads and Profit | Visible Ads"
+  description="Free PPC budget calculator. Turn a monthly budget into forecast impressions, clicks, leads or sales, then check it against your margin to see if the plan actually makes money."
+  schema={schema}
+>
+  <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Tools', href: '/tools' }, { label: 'PPC budget calculator' }]} />
+
+  <section class="py-14 lg:py-20 bg-gradient-to-br from-navy to-navy-light relative overflow-hidden" data-animate>
+    <div class="absolute inset-0 dot-pattern opacity-5"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="max-w-3xl">
+        <span class="inline-block text-electric-light font-heading font-semibold text-sm tracking-wide uppercase mb-4">
+          Free tool &middot; no login, no email
+        </span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white mb-6 leading-tight">
+          PPC budget calculator
+        </h1>
+        <p class="text-lg sm:text-xl text-slate-light leading-relaxed">
+          Put in a monthly budget and see the clicks, leads or sales it should buy. Then put in
+          your margin, because the only forecast worth having is the one that tells you whether
+          the plan makes money.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 lg:py-16 bg-gray-50" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <BudgetCalculator />
+    </div>
+  </section>
+
+  <!-- How to set a budget -->
+  <section class="py-16 lg:py-24 bg-white" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">How to set a PPC budget</h2>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          Most budgets are set by picking a number that feels affordable and seeing what happens.
+          Four steps gets you a figure you can defend instead.
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-5">
+        {steps.map((s) => (
+          <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6">
+            <span class="font-heading text-2xl font-extrabold text-electric/30 leading-none">{s.n}</span>
+            <h3 class="text-lg font-heading font-bold text-navy mt-3 mb-2">{s.title}</h3>
+            <p class="text-gray-700 leading-relaxed text-sm">{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Benchmark table -->
+  <section class="py-16 lg:py-24 bg-sky-tint" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-8">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">
+          The benchmarks behind the defaults
+        </h2>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          These are the figures the calculator starts from, exactly as published, plus the pound
+          conversion it uses. They are averages across an account set weighted towards the United
+          States, so a UK advertiser should expect to be some way off them in either direction.
+          Use your own numbers where you have them.
+        </p>
+      </div>
+
+      <div class="overflow-x-auto rounded-2xl border border-gray-200 bg-white shadow-sm">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-navy text-white text-left">
+              <th class="px-4 py-3 font-heading font-semibold">Industry</th>
+              <th class="px-4 py-3 font-heading font-semibold text-right">CTR</th>
+              <th class="px-4 py-3 font-heading font-semibold text-right">CPC (published)</th>
+              <th class="px-4 py-3 font-heading font-semibold text-right">CPC (GBP)</th>
+              <th class="px-4 py-3 font-heading font-semibold text-right">Conv. rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            {SEARCH_BENCHMARKS.map((b, i) => (
+              <tr class={i % 2 ? 'bg-gray-50' : 'bg-white'}>
+                <td class="px-4 py-2.5 text-gray-800">{b.name}</td>
+                <td class="px-4 py-2.5 text-right text-gray-700">{b.ctr.toFixed(2)}%</td>
+                <td class="px-4 py-2.5 text-right text-gray-700">${b.cpc.toFixed(2)}</td>
+                <td class="px-4 py-2.5 text-right font-semibold text-navy">{gbp(b.cpc)}</td>
+                <td class="px-4 py-2.5 text-right text-gray-700">{b.cvr.toFixed(2)}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="mt-4 text-sm text-slate">
+        Source: <a href={SEARCH_BENCHMARK_SOURCE.url} rel="nofollow noopener" target="_blank" class="text-electric hover:underline">{SEARCH_BENCHMARK_SOURCE.name}</a>,
+        updated {SEARCH_BENCHMARK_SOURCE.updated}. {SEARCH_BENCHMARK_SOURCE.note} Converted at the
+        {' '}{FX.source} of {FX.date}.
+      </p>
+    </div>
+  </section>
+
+  <!-- Honesty box -->
+  <section class="py-16 lg:py-20 bg-white" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="rounded-2xl border-2 border-amber/30 bg-amber/5 p-7">
+        <h2 class="text-xl sm:text-2xl font-heading font-bold text-navy mb-4">What this forecast cannot see</h2>
+        <ul class="space-y-3 text-gray-700 leading-relaxed">
+          <li class="flex gap-3"><span class="text-amber font-bold shrink-0">&bull;</span><span><strong class="text-navy">How much demand exists.</strong> If only 400 people a month search for what you sell, no budget buys 2,000 clicks. A keyword plan is the only way to know.</span></li>
+          <li class="flex gap-3"><span class="text-amber font-bold shrink-0">&bull;</span><span><strong class="text-navy">Whether the tracking is honest.</strong> Half the accounts we audit count something twice, or count a basket as a sale. A conversion rate built on that is fiction, and so is any forecast using it.</span></li>
+          <li class="flex gap-3"><span class="text-amber font-bold shrink-0">&bull;</span><span><strong class="text-navy">Brand against non-brand.</strong> A blended conversion rate propped up by people searching your own name will not survive being spent against cold traffic.</span></li>
+          <li class="flex gap-3"><span class="text-amber font-bold shrink-0">&bull;</span><span><strong class="text-navy">The learning period.</strong> A new campaign spends its first few weeks finding out what works, so month one will not look like the forecast whatever the forecast says.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 lg:py-24 bg-gray-50" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-10">PPC budget FAQs</h2>
+      <div class="space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl border border-gray-200 bg-white p-6">
+            <summary class="flex items-start justify-between gap-4 cursor-pointer list-none font-heading font-bold text-navy">
+              {f.question}
+              <svg class="w-5 h-5 shrink-0 mt-0.5 text-electric transition-transform group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+            </summary>
+            <p class="mt-4 text-gray-700 leading-relaxed">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related -->
+  <section class="py-16 lg:py-20 bg-white" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Next, with the same numbers</h2>
+      <div class="grid sm:grid-cols-3 gap-5">
+        <a href="/tools/media-planner" class="group block p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-electric hover:shadow-lg transition-all duration-200">
+          <h3 class="font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">Media planner</h3>
+          <p class="text-sm text-gray-700">Split the budget across Search, social, video and display, and see the reach each one buys.</p>
+        </a>
+        <a href="/tools/ad-test-significance" class="group block p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-electric hover:shadow-lg transition-all duration-200">
+          <h3 class="font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">Ad test significance</h3>
+          <p class="text-sm text-gray-700">Check the testing allowance is big enough to prove anything before you set it.</p>
+        </a>
+        <a href="/roas-vs-profit" class="group block p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-electric hover:shadow-lg transition-all duration-200">
+          <h3 class="font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">ROAS vs profit</h3>
+          <p class="text-sm text-gray-700">The break-even ROAS your margin demands, and what a 4x really leaves you.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-20 bg-navy" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-4">
+        Or put the forecast next to the real account
+      </h2>
+      <p class="text-lg text-slate-light leading-relaxed mb-8">
+        We will compare it with what the account is actually doing: where the spend goes, which
+        campaigns clear your break-even ROAS and which quietly do not, and what we would change first.
+      </p>
+      <a href="/free-ads-audit" class="inline-flex items-center justify-center px-8 py-4 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-lg hover:shadow-xl">
+        Book a profit audit
+      </a>
+    </div>
+  </section>
+</Layout>

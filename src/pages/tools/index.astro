@@ -5,7 +5,41 @@ import { GOLDEN_QUARTER_GUIDES } from '../../data/golden-quarter-guides';
 
 // The Tools section. Everything listed here exists: nothing is a placeholder, because a hub of
 // "coming soon" cards is worse than a short hub.
-const calculators = [
+//
+// The four calculators are free and open on purpose. A gate would capture a few more addresses
+// and cost the links and rankings that are the whole reason to build a tool in the first place.
+const tools = [
+  {
+    title: 'PPC budget calculator',
+    href: '/tools/ppc-budget-calculator',
+    kind: 'Calculator',
+    body: 'Turn a monthly budget into the clicks, leads or sales it should buy. Then put your margin in and find out whether the plan actually makes money.',
+    points: ['Benchmarks for 23 industries, all editable', 'Break-even ROAS and profit, not just revenue'],
+  },
+  {
+    title: 'Ad test significance calculator',
+    href: '/tools/ad-test-significance',
+    kind: 'Calculator',
+    body: 'Paste a running A/B test and get a straight verdict: call it, keep running, or accept the two ads are too close to separate. Plan mode sizes the next test before you start it.',
+    points: ['Works with Google Ads, Meta, Microsoft and TikTok', 'Tells you the sample size and the finish date'],
+  },
+  {
+    title: 'Media planner',
+    href: '/tools/media-planner',
+    kind: 'Planner',
+    body: 'Split a budget across thirteen channels from a funnel split, and see the CPM, impressions and clicks behind every line. Change any assumption and the plan moves.',
+    points: ['Every CPM and CTR editable', 'Copy the plan or export it as CSV'],
+  },
+  {
+    title: 'Weather-based bidding tool',
+    href: '/tools/weather-bidding',
+    kind: 'Tool',
+    body: 'Seven days of UK forecast turned into daily budget and bid moves for weather-sensitive categories, with different advice for Smart Bidding and manual.',
+    points: ['Live forecast for any UK town', 'Says when a bid adjustment will do nothing'],
+  },
+];
+
+const references = [
   {
     title: 'ROAS vs profit calculator',
     href: '/roas-vs-profit',
@@ -37,9 +71,9 @@ const schema = {
   '@graph': [
     {
       '@type': 'CollectionPage',
-      name: 'Tools and guides for e-commerce advertisers',
+      name: 'Free PPC tools, calculators and guides',
       description:
-        'Free calculators, references and downloadable guides for e-commerce brands running Google Ads, Amazon, Meta Ads and SEO.',
+        'Free PPC calculators and planners for budget forecasting, ad test significance, cross-channel media planning and weather-based bidding, plus downloadable guides.',
       url: 'https://visible-ads.com/tools',
       publisher: { '@type': 'Organization', name: 'Visible Ads' },
     },
@@ -57,8 +91,8 @@ const totalPages = GOLDEN_QUARTER_GUIDES.reduce((sum, g) => sum + g.pages, 0);
 ---
 
 <Layout
-  title="Tools and Guides for Ecommerce Advertisers | Visible Ads"
-  description="Free calculators, references and downloadable guides for e-commerce brands running Google Ads, Amazon, Meta Ads and SEO. Built around profit, not ROAS."
+  title="Free PPC Tools, Calculators and Guides | Visible Ads"
+  description="Free PPC calculators and planners: budget forecasting, ad test significance, cross-channel media planning and weather-based bidding. No login, no email."
   schema={schema}
 >
   <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Tools' }]} />
@@ -82,8 +116,50 @@ const totalPages = GOLDEN_QUARTER_GUIDES.reduce((sum, g) => sum + g.pages, 0);
     </div>
   </section>
 
+  <!-- The four calculators, the reason most people land here -->
+  <section class="py-16 lg:py-24 bg-white" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-10">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">Calculators and planners</h2>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          Free, no login, nothing to download. They run in your browser, so nothing you type
+          reaches us. Every assumption is on screen and every one of them can be edited.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        {tools.map((t) => (
+          <a
+            href={t.href}
+            class="group flex flex-col p-7 rounded-2xl bg-gray-50 border border-gray-200 hover:border-electric hover:shadow-lg transition-all duration-200"
+          >
+            <span class="inline-block self-start text-xs font-semibold tracking-wide uppercase text-electric bg-electric/10 px-2.5 py-1 rounded-full mb-4">
+              {t.kind}
+            </span>
+            <h3 class="text-xl font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">
+              {t.title}
+            </h3>
+            <p class="text-gray-700 leading-relaxed text-sm mb-4">{t.body}</p>
+            <ul class="space-y-1.5 mb-5">
+              {t.points.map((pt) => (
+                <li class="flex items-start gap-2 text-sm text-slate-dark">
+                  <svg class="w-4 h-4 text-success shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  {pt}
+                </li>
+              ))}
+            </ul>
+            <span class="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-navy group-hover:text-electric transition-colors">
+              Open the tool
+              <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Featured: the Golden Quarter guides -->
-  <section class="py-20 lg:py-28 bg-white" data-animate>
+  <section class="py-20 lg:py-28 bg-sky-tint" data-animate>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-10">Downloadable guides</h2>
 
@@ -135,23 +211,23 @@ const totalPages = GOLDEN_QUARTER_GUIDES.reduce((sum, g) => sum + g.pages, 0);
     </div>
   </section>
 
-  <!-- Calculators and references -->
-  <section class="py-20 lg:py-28 bg-sky-tint" data-animate>
+  <!-- References -->
+  <section class="py-20 lg:py-28 bg-white" data-animate>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mb-12">
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">
-          Calculators and references
+          Reference tables and frameworks
         </h2>
         <p class="text-lg text-gray-700 leading-relaxed">
-          No email needed for any of these. Open them, use them, close the tab.
+          The numbers we work from, written down. No email needed for any of these either.
         </p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-6">
-        {calculators.map((c) => (
+        {references.map((c) => (
           <a
             href={c.href}
-            class="group block p-7 rounded-2xl bg-white border border-gray-100 shadow-sm hover:border-electric hover:shadow-lg transition-all duration-200"
+            class="group block p-7 rounded-2xl bg-gray-50 border border-gray-200 hover:border-electric hover:shadow-lg transition-all duration-200"
           >
             <span class="inline-block text-xs font-semibold tracking-wide uppercase text-slate bg-gray-100 px-2.5 py-1 rounded-full mb-4">
               {c.kind}

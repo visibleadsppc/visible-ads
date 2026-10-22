@@ -1,0 +1,438 @@
+---
+// Cross-channel media planner. Budget plus a funnel split plus a channel list, out comes a
+// plan with the reach each line buys.
+//
+// Every CPM and CTR in the table is an input, not a label. Published CPM figures for these
+// channels disagree by a factor of three depending on who published them, so presenting ours
+// as fact would be dishonest. They are starting points, and the page says so.
+import { PLANNER_CHANNELS, PLANNER_AUDIENCES } from '../data/tool-benchmarks';
+
+const groups = [...new Set(PLANNER_CHANNELS.map((c) => c.group))];
+---
+
+<div class="bg-gradient-to-br from-[#0A1628] to-[#132240] rounded-3xl p-5 sm:p-8 lg:p-10 shadow-2xl" id="mp"
+  data-channels={JSON.stringify(PLANNER_CHANNELS)}
+  data-audiences={JSON.stringify(PLANNER_AUDIENCES)}
+>
+  <div class="grid lg:grid-cols-2 gap-5 lg:gap-7 mb-7">
+    <div>
+      <label for="mp-budget" class="block text-[#94A3B8] text-sm mb-1.5">Monthly budget</label>
+      <div class="relative">
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748B]">&pound;</span>
+        <input type="text" id="mp-budget" inputmode="numeric" autocomplete="off" value="10,000" class="mp-input pl-7" />
+      </div>
+    </div>
+    <div>
+      <label for="mp-audience" class="block text-[#94A3B8] text-sm mb-1.5">Who you are selling to</label>
+      <select id="mp-audience" class="mp-input">
+        <option value="b2b">Business to business</option>
+        <option value="b2c">Consumer, considered purchase</option>
+        <option value="ecommerce" selected>Ecommerce</option>
+      </select>
+      <p id="mp-audience-note" class="text-xs text-[#64748B] mt-1.5"></p>
+    </div>
+  </div>
+
+  <!-- Funnel split -->
+  <div class="rounded-2xl bg-white/5 border border-white/10 p-5 sm:p-6 mb-7">
+    <div class="flex flex-wrap items-baseline justify-between gap-3 mb-1">
+      <p class="font-heading font-bold text-white">What each part of the budget is for</p>
+      <span id="mp-funnel-total" class="text-sm font-semibold">100%</span>
+    </div>
+    <p class="text-sm text-[#94A3B8] mb-5">
+      The single biggest lever in the plan, and the one most people never touch. Set it from your
+      sales cycle rather than from habit.
+    </p>
+    <div class="grid sm:grid-cols-3 gap-4">
+      <div>
+        <label for="mp-f0" class="block text-[#94A3B8] text-sm mb-1.5">Awareness</label>
+        <div class="relative">
+          <input type="number" id="mp-f0" inputmode="numeric" min="0" max="100" step="5" value="25" class="mp-input pr-8" />
+          <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[#64748B] text-sm">%</span>
+        </div>
+      </div>
+      <div>
+        <label for="mp-f1" class="block text-[#94A3B8] text-sm mb-1.5">Consideration</label>
+        <div class="relative">
+          <input type="number" id="mp-f1" inputmode="numeric" min="0" max="100" step="5" value="20" class="mp-input pr-8" />
+          <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[#64748B] text-sm">%</span>
+        </div>
+      </div>
+      <div>
+        <label for="mp-f2" class="block text-[#94A3B8] text-sm mb-1.5">Direct response</label>
+        <div class="relative">
+          <input type="number" id="mp-f2" inputmode="numeric" min="0" max="100" step="5" value="55" class="mp-input pr-8" />
+          <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[#64748B] text-sm">%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Channels -->
+  <div class="mb-7">
+    <div class="flex flex-wrap items-baseline justify-between gap-3 mb-3">
+      <p class="font-heading font-bold text-white">Channels in the plan</p>
+      <span id="mp-chan-count" class="text-sm text-[#94A3B8]"></span>
+    </div>
+    {groups.map((g) => (
+      <div class="mb-3">
+        <p class="text-xs uppercase tracking-widest text-[#64748B] mb-2">{g}</p>
+        <div class="flex flex-wrap gap-2">
+          {PLANNER_CHANNELS.filter((c) => c.group === g).map((c) => (
+            <button type="button" class="mp-chan mp-chan-on" data-id={c.id} aria-pressed="true">{c.name}</button>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Plan -->
+  <div class="rounded-2xl bg-white/5 border border-white/10 overflow-hidden mb-6">
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm min-w-[640px]">
+        <thead>
+          <tr class="text-left text-[#64748B] text-xs uppercase tracking-wide">
+            <th class="px-4 py-3 font-semibold">Channel</th>
+            <th class="px-4 py-3 font-semibold text-right">Budget</th>
+            <th class="px-4 py-3 font-semibold text-right">CPM</th>
+            <th class="px-4 py-3 font-semibold text-right">CTR</th>
+            <th class="px-4 py-3 font-semibold text-right">Impressions</th>
+            <th class="px-4 py-3 font-semibold text-right">Clicks</th>
+            <th class="px-4 py-3 font-semibold text-right">CPC</th>
+          </tr>
+        </thead>
+        <tbody id="mp-rows"></tbody>
+        <tfoot id="mp-foot" class="border-t border-white/10"></tfoot>
+      </table>
+    </div>
+  </div>
+
+  <p class="text-sm text-[#94A3B8] mb-7">
+    CPM and CTR are editable. They are our planning starting points, not measured benchmarks:
+    published figures for these channels vary by a factor of three depending on the source, so
+    replace them with your own rate card or account data wherever you have it.
+  </p>
+
+  <div id="mp-read" class="rounded-2xl bg-black/20 border border-white/10 p-6 mb-6">
+    <p id="mp-read-body" class="text-[#CBD5E1] leading-relaxed"></p>
+  </div>
+
+  <div class="flex flex-wrap items-center gap-3">
+    <button type="button" id="mp-copy" class="text-sm font-semibold px-4 py-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors">Copy the plan</button>
+    <button type="button" id="mp-csv" class="text-sm font-semibold px-4 py-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors">Download CSV</button>
+    <span id="mp-copied" class="text-sm text-[#10B981] opacity-0 transition-opacity">Copied</span>
+  </div>
+
+  <p class="mt-6 text-xs text-[#64748B] leading-relaxed">
+    Impressions = budget &divide; (CPM &divide; 1,000). Clicks = impressions &times; CTR. Nothing more
+    complicated is happening, and nothing you type leaves your browser. Broadcast channels show no
+    clicks on purpose: there is nothing to click on a television or a billboard.
+  </p>
+</div>
+
+<!--
+  is:global is load-bearing. Astro scopes a component's styles by stamping an attribute on the
+  elements it can see at build time, and every cell in these tables and grids is created at
+  runtime with innerHTML, so it never gets stamped. Scoped, the rules below silently miss:
+  the editable CPM cells rendered as default dark body text on a dark card, and the rerun grid
+  collapsed to nothing because its aspect-ratio never applied. Every selector here is prefixed
+  with this component's own id, so going global leaks nothing.
+-->
+<style is:global>
+  #mp .mp-input {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 0.6rem;
+    padding: 0.6rem 0.75rem;
+    color: #FFFFFF; font-size: 1rem; font-weight: 600; outline: none;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  #mp .mp-input:focus { border-color: #3B82F6; background: rgba(255,255,255,0.1); }
+  #mp select.mp-input { appearance: none; }
+  #mp select.mp-input option { background: #132240; color: #fff; }
+
+  #mp .mp-chan {
+    font-size: 0.8125rem; font-weight: 600; padding: 0.4rem 0.85rem; border-radius: 9999px;
+    border: 1px solid transparent; transition: background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  #mp .mp-chan-on { background: rgba(37,99,235,0.25); border-color: #3B82F6; color: #FFFFFF; }
+  #mp .mp-chan-off { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.12); color: #94A3B8; }
+  #mp .mp-chan-off:hover { background: rgba(255,255,255,0.1); color: #CBD5E1; }
+
+  #mp .mp-cell {
+    width: 5.25rem; text-align: right;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 0.4rem; padding: 0.25rem 0.45rem; color: #fff; font-size: 0.8125rem;
+    font-weight: 600; outline: none;
+  }
+  #mp .mp-cell:focus { border-color: #3B82F6; }
+  #mp tbody tr { border-top: 1px solid rgba(255,255,255,0.07); }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const root = document.getElementById('mp');
+    if (!root) return;
+
+    type Channel = {
+      id: string; name: string; group: string; cpm: number; ctr: number;
+      weights: number[]; clicksMatter: boolean; role: string;
+    };
+    const CHANNELS: Channel[] = JSON.parse(root.dataset.channels || '[]');
+    const AUDIENCES: Record<string, { label: string; split: number[]; note: string }> =
+      JSON.parse(root.dataset.audiences || '{}');
+
+    // Our view of how much each channel is worth to each kind of advertiser. Opinion, and
+    // labelled as such on the page: LinkedIn earns its CPM on a £40k deal and nothing else.
+    const AUDIENCE_TILT: Record<string, Record<string, number>> = {
+      b2b: { linkedin: 2.6, 'google-search': 1.3, tiktok: 0.2, meta: 0.6, dooh: 0.4, ctv: 0.5, 'google-shopping': 0.2 },
+      b2c: { linkedin: 0.15, meta: 1.2, tiktok: 1.1, 'google-shopping': 0.7 },
+      ecommerce: { linkedin: 0.1, 'google-shopping': 1.9, meta: 1.4, tiktok: 1.2, dooh: 0.5 },
+    };
+
+    const $ = (id: string) => document.getElementById(id) as HTMLElement;
+    const el = (id: string) => document.getElementById(id) as HTMLInputElement;
+    const numOf = (v: string) => { const n = parseFloat(v.replace(/[^0-9.\-]/g, '')); return isFinite(n) ? n : 0; };
+    const num = (id: string) => numOf(el(id).value);
+    const int = (n: number) => Math.round(n).toLocaleString('en-GB');
+    const gbp = (n: number, dp = 0) => '£' + n.toLocaleString('en-GB', { minimumFractionDigits: dp, maximumFractionDigits: dp });
+
+    el('mp-budget').addEventListener('input', () => {
+      const input = el('mp-budget');
+      const before = input.value.slice(0, input.selectionStart ?? 0).replace(/[^0-9]/g, '').length;
+      const digits = input.value.replace(/[^0-9]/g, '');
+      if (!digits) { input.value = ''; return; }
+      const out = parseInt(digits, 10).toLocaleString('en-GB');
+      input.value = out;
+      let seen = 0, pos = out.length;
+      for (let i = 0; i < out.length; i++) {
+        if (/[0-9]/.test(out[i])) seen++;
+        if (seen === before) { pos = i + 1; break; }
+      }
+      if (before === 0) pos = 0;
+      input.setSelectionRange(pos, pos);
+    });
+
+    // Per-channel overrides live here, so switching a channel off and back on keeps an edit.
+    const overrides: Record<string, { cpm?: number; ctr?: number }> = {};
+    const selected = new Set(CHANNELS.map((c) => c.id));
+
+    const chanButtons = root.querySelectorAll('.mp-chan') as NodeListOf<HTMLElement>;
+    chanButtons.forEach((b) => b.addEventListener('click', () => {
+      const id = b.dataset.id!;
+      if (selected.has(id)) selected.delete(id); else selected.add(id);
+      b.className = 'mp-chan ' + (selected.has(id) ? 'mp-chan-on' : 'mp-chan-off');
+      b.setAttribute('aria-pressed', String(selected.has(id)));
+      render();
+    }));
+
+    el('mp-audience').addEventListener('change', () => {
+      const a = AUDIENCES[el('mp-audience').value];
+      el('mp-f0').value = String(a.split[0]);
+      el('mp-f1').value = String(a.split[1]);
+      el('mp-f2').value = String(a.split[2]);
+      $('mp-audience-note').textContent = a.note;
+      render();
+    });
+
+    function cpmOf(c: Channel) { return overrides[c.id]?.cpm ?? c.cpm; }
+    function ctrOf(c: Channel) { return overrides[c.id]?.ctr ?? c.ctr; }
+
+    function buildPlan() {
+      const budget = num('mp-budget');
+      const raw = [num('mp-f0'), num('mp-f1'), num('mp-f2')];
+      const sum = raw.reduce((a, b) => a + b, 0);
+      // A split that does not add to 100 is normalised rather than refused. Someone typing
+      // 40/40/40 means "weight them evenly", not "stop".
+      const split = sum > 0 ? raw.map((v) => v / sum) : [0, 0, 1];
+      const tilt = AUDIENCE_TILT[el('mp-audience').value] || {};
+      const live = CHANNELS.filter((c) => selected.has(c.id));
+
+      const alloc: Record<string, number> = {};
+      live.forEach((c) => { alloc[c.id] = 0; });
+
+      for (let stage = 0; stage < 3; stage++) {
+        const pot = budget * split[stage];
+        if (pot <= 0) continue;
+        const weights = live.map((c) => c.weights[stage] * (tilt[c.id] ?? 1));
+        const total = weights.reduce((a, b) => a + b, 0);
+        if (total <= 0) continue;
+        live.forEach((c, i) => { alloc[c.id] += pot * (weights[i] / total); });
+      }
+
+      return live
+        .map((c) => {
+          const spend = alloc[c.id];
+          const cpm = cpmOf(c), ctr = ctrOf(c);
+          const impressions = cpm > 0 ? spend / (cpm / 1000) : 0;
+          const clicks = c.clicksMatter ? impressions * (ctr / 100) : 0;
+          return { c, spend, cpm, ctr, impressions, clicks, cpc: clicks > 0 ? spend / clicks : 0 };
+        })
+        .filter((r) => r.spend > 0.5)
+        .sort((a, b) => b.spend - a.spend);
+    }
+
+    /** Rebuilds the table structure. Only called when the channel set or inputs change. */
+    function render() {
+      const budget = num('mp-budget');
+      const rows = buildPlan();
+      const body = $('mp-rows');
+      body.innerHTML = '';
+
+      $('mp-chan-count').textContent = selected.size + ' of ' + CHANNELS.length + ' selected';
+
+      if (!rows.length || budget <= 0) {
+        body.innerHTML = '<tr><td colspan="7" class="px-4 py-8 text-center text-[#94A3B8]">'
+          + (budget <= 0 ? 'Put a monthly budget in above.' : 'Switch at least one channel on.')
+          + '</td></tr>';
+        $('mp-foot').innerHTML = '';
+        $('mp-read-body').textContent = '';
+        return;
+      }
+
+      rows.forEach((r) => {
+        const tr = document.createElement('tr');
+        tr.dataset.row = r.c.id;
+        tr.innerHTML =
+          '<td class="px-4 py-2.5"><span class="text-white font-medium">' + r.c.name + '</span>'
+            + '<span class="block text-xs text-[#64748B]">' + r.c.group + '</span></td>'
+          + '<td class="px-4 py-2.5 text-right text-white font-semibold" data-out="spend"></td>'
+          + '<td class="px-4 py-2.5 text-right"><input type="text" inputmode="decimal" value="' + r.cpm + '" class="mp-cell" data-edit="cpm" data-id="' + r.c.id + '" aria-label="CPM for ' + r.c.name + '" /></td>'
+          + '<td class="px-4 py-2.5 text-right">'
+            + (r.c.clicksMatter
+              ? '<input type="text" inputmode="decimal" value="' + r.ctr + '" class="mp-cell" data-edit="ctr" data-id="' + r.c.id + '" aria-label="CTR for ' + r.c.name + '" />'
+              : '<span class="text-[#64748B]">n/a</span>')
+          + '</td>'
+          + '<td class="px-4 py-2.5 text-right text-[#CBD5E1]" data-out="impr"></td>'
+          + '<td class="px-4 py-2.5 text-right text-[#CBD5E1]" data-out="clicks"></td>'
+          + '<td class="px-4 py-2.5 text-right text-[#CBD5E1]" data-out="cpc"></td>';
+        body.appendChild(tr);
+      });
+
+      // Editing a CPM must not rebuild the table: that would rip the input out from under the
+      // caret and turn a half-typed "12." into "0". Only the derived cells are rewritten.
+      body.querySelectorAll('input[data-edit]').forEach((input) => {
+        input.addEventListener('input', (e) => {
+          const t = e.target as HTMLInputElement;
+          const id = t.dataset.id!, field = t.dataset.edit as 'cpm' | 'ctr';
+          overrides[id] = overrides[id] || {};
+          overrides[id][field] = numOf(t.value);
+          recalc();
+        });
+      });
+
+      recalc();
+    }
+
+    /** Recomputes the numbers in place, leaving every input alone. */
+    function recalc() {
+      const budget = num('mp-budget');
+      const raw = [num('mp-f0'), num('mp-f1'), num('mp-f2')];
+      const sum = raw.reduce((a, b) => a + b, 0);
+      const totalEl = $('mp-funnel-total');
+      totalEl.className = 'text-sm font-semibold ' + (sum === 100 ? 'text-[#10B981]' : 'text-[#F59E0B]');
+      totalEl.textContent = sum === 100 ? '100%' : sum + '% · scaled to 100%';
+
+      const rows = buildPlan();
+      if (!rows.length || budget <= 0) return;
+
+      rows.forEach((r) => {
+        const tr = $('mp-rows').querySelector('[data-row="' + r.c.id + '"]') as HTMLElement | null;
+        if (!tr) return;
+        const put = (key: string, text: string) => {
+          const cell = tr.querySelector('[data-out="' + key + '"]');
+          if (cell) cell.textContent = text;
+        };
+        put('spend', gbp(r.spend));
+        put('impr', int(r.impressions));
+        put('clicks', r.c.clicksMatter ? int(r.clicks) : 'n/a');
+        put('cpc', r.clicks > 0 ? gbp(r.cpc, 2) : 'n/a');
+      });
+
+      const totImpr = rows.reduce((a, r) => a + r.impressions, 0);
+      const totClicks = rows.reduce((a, r) => a + r.clicks, 0);
+      const totSpend = rows.reduce((a, r) => a + r.spend, 0);
+      $('mp-foot').innerHTML =
+        '<tr class="bg-white/5"><td class="px-4 py-3 font-heading font-bold text-white">Total</td>'
+        + '<td class="px-4 py-3 text-right font-bold text-white">' + gbp(totSpend) + '</td>'
+        + '<td class="px-4 py-3 text-right text-[#94A3B8]">' + (totImpr > 0 ? gbp(totSpend / (totImpr / 1000), 2) : 'n/a') + '</td>'
+        + '<td class="px-4 py-3 text-right text-[#94A3B8]">' + (totImpr > 0 ? (totClicks / totImpr * 100).toFixed(2) + '%' : 'n/a') + '</td>'
+        + '<td class="px-4 py-3 text-right font-bold text-white">' + int(totImpr) + '</td>'
+        + '<td class="px-4 py-3 text-right font-bold text-white">' + int(totClicks) + '</td>'
+        + '<td class="px-4 py-3 text-right text-[#94A3B8]">' + (totClicks > 0 ? gbp(totSpend / totClicks, 2) : 'n/a') + '</td></tr>';
+
+      // The read. Says the one thing a table of numbers cannot.
+      const top = rows[0];
+      const capture = rows.filter((r) => r.c.group === 'Search').reduce((a, r) => a + r.spend, 0);
+      const capturePct = totSpend > 0 ? capture / totSpend * 100 : 0;
+      const noClick = rows.filter((r) => !r.c.clicksMatter).reduce((a, r) => a + r.spend, 0);
+      const noClickPct = totSpend > 0 ? noClick / totSpend * 100 : 0;
+
+      let read = 'The plan puts ' + gbp(top.spend) + ' into ' + top.c.name
+        + ', the largest single line, and buys about ' + int(totImpr) + ' impressions in total';
+      read += totClicks > 0 ? ' and ' + int(totClicks) + ' clicks.' : '.';
+      read += ' ' + capturePct.toFixed(0) + '% of it sits in demand capture on Google.';
+      if (capturePct < 20) {
+        read += ' That is light. Demand creation only pays back if something is catching the searches it causes, so check there is a Search campaign able to take the extra volume before signing this off.';
+      }
+      if (noClickPct > 25) {
+        read += ' ' + noClickPct.toFixed(0) + '% is in channels with nothing to click, so decide now how you will judge them: reach, frequency and a lift in brand searches, not a click column.';
+      }
+      if (budget < 3000 && rows.length > 3) {
+        read += ' At ' + gbp(budget) + ' a month across ' + rows.length
+          + ' channels, several lines are too small to resource creative for, let alone optimise. Two or three channels done properly normally beats spreading it.';
+      }
+      $('mp-read-body').textContent = read;
+    }
+
+    function planText() {
+      const rows = buildPlan();
+      const lines = [
+        'Media plan, ' + gbp(num('mp-budget')) + ' a month, '
+          + (el('mp-audience') as HTMLSelectElement).selectedOptions[0].text,
+        'Funnel split: ' + num('mp-f0') + '% awareness, ' + num('mp-f1') + '% consideration, ' + num('mp-f2') + '% direct response',
+        '',
+      ];
+      rows.forEach((r) => {
+        lines.push(r.c.name + ': ' + gbp(r.spend) + ' · CPM ' + gbp(r.cpm, 2) + ' · '
+          + Math.round(r.impressions).toLocaleString('en-GB') + ' impressions'
+          + (r.c.clicksMatter ? ' · ' + Math.round(r.clicks).toLocaleString('en-GB') + ' clicks at ' + gbp(r.cpc, 2) : ''));
+      });
+      lines.push('', 'Built with the free planner at https://visible-ads.com/tools/media-planner');
+      return lines.join('\n');
+    }
+
+    $('mp-copy').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(planText());
+        const flag = $('mp-copied');
+        flag.style.opacity = '1';
+        setTimeout(() => { flag.style.opacity = '0'; }, 1800);
+      } catch { /* insecure context, nothing useful to say */ }
+    });
+
+    $('mp-csv').addEventListener('click', () => {
+      const rows = buildPlan();
+      const csv = [['Channel', 'Group', 'Budget', 'CPM', 'CTR %', 'Impressions', 'Clicks', 'CPC']]
+        .concat(rows.map((r) => [
+          r.c.name, r.c.group, r.spend.toFixed(2), r.cpm.toFixed(2),
+          r.c.clicksMatter ? r.ctr.toFixed(2) : '', Math.round(r.impressions).toString(),
+          r.c.clicksMatter ? Math.round(r.clicks).toString() : '', r.clicks > 0 ? r.cpc.toFixed(2) : '',
+        ]))
+        .map((line) => line.map((cell) => '"' + String(cell).replace(/"/g, '""') + '"').join(','))
+        .join('\r\n');
+      const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'visible-ads-media-plan.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    ['mp-budget', 'mp-f0', 'mp-f1', 'mp-f2'].forEach((id) => el(id).addEventListener('input', render));
+
+    $('mp-audience-note').textContent = AUDIENCES[el('mp-audience').value].note;
+    render();
+  });
+</script>

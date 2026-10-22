@@ -45,6 +45,17 @@ We follow our proven 4-phase Blueprint: Discover → Strategise → Execute → 
 - Location: Kingston-Upon-Thames, Surrey, UK
 - Website: https://visible-ads.com
 
+## Free Tools
+All free, no login and no email required. Every calculation runs in the visitor's browser.
+- Tools hub: /tools
+- PPC Budget Calculator (/tools/ppc-budget-calculator): turns a monthly budget into forecast impressions, clicks, leads or sales, then checks the plan against gross margin and break-even ROAS. Industry benchmarks are LocaliQ's published averages and every assumption is editable.
+- Ad Test Significance Calculator (/tools/ad-test-significance): judges a running A/B ad test with a two-proportion test, or sizes a new test from daily budget, CPC and the smallest lift worth acting on. Works with Google Ads, Meta, Microsoft Ads and TikTok data.
+- Media Planner (/tools/media-planner): splits a monthly budget across thirteen channels from a funnel split, returning CPM, impressions, clicks and CPC per channel, with CSV export.
+- Weather-Based Bidding Tool (/tools/weather-bidding): turns a seven-day UK forecast into daily budget, bid and seasonality adjustments for weather-sensitive categories, with separate advice for Smart Bidding and manual bidding. Forecast data from MET Norway under CC BY 4.0.
+- ROAS vs Profit Calculator (/roas-vs-profit): whether a given ROAS is profitable once product margin is included.
+- Break-even ROAS by Margin (/blog/break-even-roas): the ROAS needed to break even at every margin from 20% to 60%.
+- Golden Quarter Tactics (/tools/golden-quarter-tactics): four downloadable peak-season guides (Google Ads, Amazon, Meta Ads, SEO). These require a confirmed email address; the calculators above do not.
+
 ## Pages
 - Home: /
 - Google Ads: /google-ads
@@ -78,3 +89,9 @@ We follow our proven 4-phase Blueprint: Discover → Strategise → Execute → 
 - Multi-Channel Attribution Guide: /blog/multi-channel-attribution
 - Microsoft Advertising UK Statistics (Bing share, Microsoft comScore claim, Ofcom reach, CSV download): /microsoft-advertising-uk-statistics
 - White-Label PPC & SEO Pricing UK: /white-label-ppc-seo-pricing-uk
+- Tools Hub: /tools
+- PPC Budget Calculator: /tools/ppc-budget-calculator
+- Ad Test Significance Calculator: /tools/ad-test-significance
+- Media Planner: /tools/media-planner
+- Weather-Based Bidding Tool: /tools/weather-bidding
+- ROAS vs Profit Calculator: /roas-vs-profit

@@ -1,0 +1,540 @@
+---
+// Ad test significance calculator. Two modes sharing one set of statistics:
+//
+//   Judge, paste a running test and get a verdict.
+//   Plan , size the next test from budget, CPC and the lift worth chasing.
+//
+// The denominator changes with the metric, which is the one thing most of these
+// calculators get wrong: a CTR test is clicks out of impressions, a conversion-rate test
+// is conversions out of CLICKS. Dividing conversions by impressions answers a question
+// nobody asked and makes every sample size look four times easier than it is.
+---
+
+<div class="bg-gradient-to-br from-[#0A1628] to-[#132240] rounded-3xl p-5 sm:p-8 lg:p-10 shadow-2xl" id="abt">
+  <!-- Mode -->
+  <div class="grid sm:grid-cols-2 gap-3 mb-8" role="tablist" aria-label="Calculator mode">
+    <button type="button" id="abt-tab-judge" role="tab" aria-selected="true" class="abt-tab abt-tab-on text-left p-4 rounded-2xl border transition-all duration-200">
+      <span class="block font-heading font-bold text-base">Judge a running test</span>
+      <span class="block text-sm mt-1 opacity-80">Paste the live numbers and get a verdict.</span>
+    </button>
+    <button type="button" id="abt-tab-plan" role="tab" aria-selected="false" class="abt-tab abt-tab-off text-left p-4 rounded-2xl border transition-all duration-200">
+      <span class="block font-heading font-bold text-base">Plan a new test</span>
+      <span class="block text-sm mt-1 opacity-80">Work out how long it runs, and what it costs.</span>
+    </button>
+  </div>
+
+  <!-- ============================ JUDGE ============================ -->
+  <div id="abt-judge">
+    <div class="flex flex-wrap items-center gap-2 mb-6">
+      <span class="text-[#94A3B8] text-sm font-medium mr-1">What are you testing?</span>
+      <button type="button" class="abt-metric abt-pill-on" data-metric="cvr">Conversion rate</button>
+      <button type="button" class="abt-metric abt-pill-off" data-metric="ctr">Click-through rate</button>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-4 sm:gap-6 mb-6">
+      <div class="rounded-2xl bg-white/5 border border-white/10 p-5">
+        <p class="font-heading font-bold text-white mb-4">Variant A <span class="text-[#94A3B8] font-normal text-sm">&middot; control</span></p>
+        <label for="abt-a-n" class="block text-[#94A3B8] text-sm mb-1.5 abt-denom-label">Clicks</label>
+        <input type="text" id="abt-a-n" inputmode="numeric" autocomplete="off" value="12,400" class="abt-input" />
+        <label for="abt-a-c" class="block text-[#94A3B8] text-sm mt-4 mb-1.5 abt-num-label">Conversions</label>
+        <input type="text" id="abt-a-c" inputmode="numeric" autocomplete="off" value="372" class="abt-input" />
+        <p class="mt-4 text-sm text-[#94A3B8]">Rate <span id="abt-a-rate" class="text-white font-semibold">3.00%</span></p>
+      </div>
+
+      <div class="rounded-2xl bg-white/5 border border-white/10 p-5">
+        <p class="font-heading font-bold text-white mb-4">Variant B <span class="text-[#94A3B8] font-normal text-sm">&middot; challenger</span></p>
+        <label for="abt-b-n" class="block text-[#94A3B8] text-sm mb-1.5 abt-denom-label">Clicks</label>
+        <input type="text" id="abt-b-n" inputmode="numeric" autocomplete="off" value="12,300" class="abt-input" />
+        <label for="abt-b-c" class="block text-[#94A3B8] text-sm mt-4 mb-1.5 abt-num-label">Conversions</label>
+        <input type="text" id="abt-b-c" inputmode="numeric" autocomplete="off" value="410" class="abt-input" />
+        <p class="mt-4 text-sm text-[#94A3B8]">Rate <span id="abt-b-rate" class="text-white font-semibold">3.33%</span></p>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-4 mb-8">
+      <div>
+        <label for="abt-days" class="block text-[#94A3B8] text-sm mb-1.5">Days running so far</label>
+        <input type="text" id="abt-days" inputmode="numeric" autocomplete="off" placeholder="optional" class="abt-input" />
+      </div>
+      <div>
+        <label for="abt-mde" class="block text-[#94A3B8] text-sm mb-1.5">Smallest lift worth having</label>
+        <div class="relative">
+          <input type="number" id="abt-mde" inputmode="numeric" min="1" max="200" step="1" value="10" class="abt-input pr-8" />
+          <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[#64748B] text-sm">%</span>
+        </div>
+      </div>
+      <div>
+        <label for="abt-conf" class="block text-[#94A3B8] text-sm mb-1.5">How strict</label>
+        <select id="abt-conf" class="abt-input">
+          <option value="90">Fast read (90%)</option>
+          <option value="95" selected>Standard (95%)</option>
+          <option value="99">High confidence (99%)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Verdict -->
+    <div id="abt-verdict" class="rounded-2xl p-6 sm:p-7 border mb-6">
+      <div class="flex flex-wrap items-center gap-3 mb-3">
+        <span id="abt-badge" class="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full">Keep running</span>
+        <span id="abt-headline" class="font-heading font-bold text-xl text-white">Promising, but not proven</span>
+      </div>
+      <p id="abt-explain" class="text-[#CBD5E1] leading-relaxed"></p>
+      <div class="grid sm:grid-cols-3 gap-4 mt-6">
+        <div class="rounded-xl bg-black/20 p-4">
+          <p class="text-xs uppercase tracking-wide text-[#64748B] mb-1">Confidence</p>
+          <p id="abt-conf-val" class="font-heading text-2xl font-bold text-white">n/a</p>
+          <p id="abt-conf-note" class="text-xs text-[#94A3B8] mt-1"></p>
+        </div>
+        <div class="rounded-xl bg-black/20 p-4">
+          <p class="text-xs uppercase tracking-wide text-[#64748B] mb-1">Difference</p>
+          <p id="abt-lift-val" class="font-heading text-2xl font-bold text-white">n/a</p>
+          <p id="abt-lift-note" class="text-xs text-[#94A3B8] mt-1"></p>
+        </div>
+        <div class="rounded-xl bg-black/20 p-4">
+          <p class="text-xs uppercase tracking-wide text-[#64748B] mb-1">Still needed</p>
+          <p id="abt-need-val" class="font-heading text-2xl font-bold text-white">n/a</p>
+          <p id="abt-need-note" class="text-xs text-[#94A3B8] mt-1"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rerun field -->
+    <div class="rounded-2xl bg-white/5 border border-white/10 p-5 sm:p-6">
+      <p class="font-heading font-bold text-white mb-1">Run this exact test 100 times</p>
+      <p class="text-sm text-[#94A3B8] mb-4">Same volume, same gap between the ads. Each square is one rerun, and the odds are
+        worked out rather than simulated, so the picture does not change when you reload.</p>
+      <div id="abt-grid" class="grid grid-cols-10 gap-1 sm:gap-1.5 max-w-md mb-4"></div>
+      <div class="flex flex-wrap gap-x-5 gap-y-2 text-xs text-[#94A3B8]">
+        <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-[#10B981] inline-block"></span><span id="abt-leg-win">n/a</span> found the winner</span>
+        <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-[#334155] inline-block"></span><span id="abt-leg-tie">n/a</span> read as a tie</span>
+        <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-[#EA4335] inline-block"></span><span id="abt-leg-lose">n/a</span> picked the loser</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ PLAN ============================ -->
+  <div id="abt-plan" class="hidden">
+    <div class="grid sm:grid-cols-2 gap-5 sm:gap-6 mb-8">
+      <div>
+        <label for="abt-p-budget" class="block text-[#94A3B8] text-sm mb-1.5">Daily budget for the test</label>
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748B]">&pound;</span>
+          <input type="text" id="abt-p-budget" inputmode="numeric" autocomplete="off" value="500" class="abt-input pl-7" />
+        </div>
+      </div>
+      <div>
+        <label for="abt-p-cpc" class="block text-[#94A3B8] text-sm mb-1.5">Cost per click</label>
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748B]">&pound;</span>
+          <input type="number" id="abt-p-cpc" inputmode="decimal" min="0.05" step="0.05" value="1.50" class="abt-input pl-7" />
+        </div>
+      </div>
+      <div>
+        <label for="abt-p-base" class="block text-[#94A3B8] text-sm mb-1.5">Current conversion rate</label>
+        <div class="relative">
+          <input type="number" id="abt-p-base" inputmode="decimal" min="0.05" max="99" step="0.1" value="5" class="abt-input pr-8" />
+          <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[#64748B] text-sm">%</span>
+        </div>
+      </div>
+      <div>
+        <label for="abt-p-mde" class="block text-[#94A3B8] text-sm mb-1.5">Smallest lift worth acting on</label>
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748B]">+</span>
+          <input type="number" id="abt-p-mde" inputmode="numeric" min="1" max="200" step="1" value="20" class="abt-input pl-7 pr-8" />
+          <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[#64748B] text-sm">%</span>
+        </div>
+        <p id="abt-p-mde-note" class="text-xs text-[#64748B] mt-1.5">5% would have to reach 6%</p>
+      </div>
+      <div>
+        <label for="abt-p-conf" class="block text-[#94A3B8] text-sm mb-1.5">How strict</label>
+        <select id="abt-p-conf" class="abt-input">
+          <option value="90">Fast read (90%)</option>
+          <option value="95" selected>Standard (95%)</option>
+          <option value="99">High confidence (99%)</option>
+        </select>
+      </div>
+      <div>
+        <label for="abt-p-value" class="block text-[#94A3B8] text-sm mb-1.5">Profit per conversion</label>
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748B]">&pound;</span>
+          <input type="text" id="abt-p-value" inputmode="numeric" autocomplete="off" placeholder="optional" class="abt-input pl-7" />
+        </div>
+        <p class="text-xs text-[#64748B] mt-1.5">Margin, not order value. Adds a payback line below.</p>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-4 mb-6">
+      <div class="rounded-2xl bg-white/5 border border-white/10 p-5">
+        <p class="text-xs uppercase tracking-wide text-[#64748B] mb-1">Clicks per variant</p>
+        <p id="abt-p-n" class="font-heading text-3xl font-bold text-white">n/a</p>
+        <p class="text-xs text-[#94A3B8] mt-1">before you judge it</p>
+      </div>
+      <div class="rounded-2xl bg-white/5 border border-white/10 p-5">
+        <p class="text-xs uppercase tracking-wide text-[#64748B] mb-1">Days to run</p>
+        <p id="abt-p-days" class="font-heading text-3xl font-bold text-white">n/a</p>
+        <p id="abt-p-weeks" class="text-xs text-[#94A3B8] mt-1"></p>
+      </div>
+      <div class="rounded-2xl bg-white/5 border border-white/10 p-5">
+        <p class="text-xs uppercase tracking-wide text-[#64748B] mb-1">What it costs</p>
+        <p id="abt-p-cost" class="font-heading text-3xl font-bold text-white">n/a</p>
+        <p class="text-xs text-[#94A3B8] mt-1">at this daily budget</p>
+      </div>
+    </div>
+
+    <div id="abt-p-verdict" class="rounded-2xl p-6 border border-white/10 bg-black/20">
+      <p id="abt-p-read" class="text-[#CBD5E1] leading-relaxed"></p>
+      <p id="abt-p-payback" class="text-[#CBD5E1] leading-relaxed mt-3 hidden"></p>
+    </div>
+  </div>
+
+  <p class="mt-7 text-xs text-[#64748B] leading-relaxed">
+    Verdicts use a two-tailed test of two proportions at 80% power. Nothing you type is sent
+    anywhere: the whole calculation runs in your browser.
+  </p>
+</div>
+
+<!--
+  is:global is load-bearing. Astro scopes a component's styles by stamping an attribute on the
+  elements it can see at build time, and every cell in these tables and grids is created at
+  runtime with innerHTML, so it never gets stamped. Scoped, the rules below silently miss:
+  the editable CPM cells rendered as default dark body text on a dark card, and the rerun grid
+  collapsed to nothing because its aspect-ratio never applied. Every selector here is prefixed
+  with this component's own id, so going global leaks nothing.
+-->
+<style is:global>
+  #abt .abt-input {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 0.6rem;
+    padding: 0.6rem 0.75rem;
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: 600;
+    outline: none;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  #abt .abt-input::placeholder { color: #64748B; font-weight: 400; }
+  #abt .abt-input:focus { border-color: #3B82F6; background: rgba(255,255,255,0.1); }
+  #abt select.abt-input { appearance: none; background-image: none; }
+  #abt select.abt-input option { background: #132240; color: #fff; }
+
+  #abt .abt-tab { border-color: rgba(255,255,255,0.12); }
+  #abt .abt-tab-on { background: rgba(37,99,235,0.18); border-color: #3B82F6; color: #FFFFFF; }
+  #abt .abt-tab-off { background: rgba(255,255,255,0.04); color: #94A3B8; }
+  #abt .abt-tab-off:hover { background: rgba(255,255,255,0.08); color: #CBD5E1; }
+
+  #abt .abt-metric, #abt .abt-pill-on, #abt .abt-pill-off {
+    font-size: 0.875rem; font-weight: 600; padding: 0.4rem 0.9rem; border-radius: 9999px;
+    transition: background .15s ease, color .15s ease;
+  }
+  #abt .abt-pill-on { background: #2563EB; color: #FFFFFF; }
+  #abt .abt-pill-off { background: rgba(255,255,255,0.06); color: #94A3B8; }
+  #abt .abt-pill-off:hover { background: rgba(255,255,255,0.12); color: #CBD5E1; }
+
+  #abt .abt-cell { aspect-ratio: 1; border-radius: 3px; }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const root = document.getElementById('abt');
+    if (!root) return;
+
+    // ---------- statistics ----------
+    // Abramowitz & Stegun 26.2.17. Accurate to ~7.5e-8, which is far beyond anything a
+    // confidence percentage rounded to a whole number can show.
+    function normCdf(z: number): number {
+      const b = [0.319381530, -0.356563782, 1.781477937, -1.821255978, 1.330274429];
+      const t = 1 / (1 + 0.2316419 * Math.abs(z));
+      const pdf = Math.exp(-z * z / 2) / Math.sqrt(2 * Math.PI);
+      let poly = 0, tp = t;
+      for (let i = 0; i < b.length; i++) { poly += b[i] * tp; tp *= t; }
+      const upperTail = pdf * poly;
+      return z >= 0 ? 1 - upperTail : upperTail;
+    }
+
+    const Z_CRIT: Record<string, number> = { '90': 1.6449, '95': 1.9600, '99': 2.5758 };
+    const Z_POWER = 0.8416; // 80% power
+
+    /** Clicks (or impressions) needed per variant to detect p1 -> p2 at this confidence. */
+    function sampleNeeded(p1: number, p2: number, zc: number): number {
+      const d = Math.abs(p2 - p1);
+      if (d <= 0) return Infinity;
+      return Math.ceil(((zc + Z_POWER) ** 2 * (p1 * (1 - p1) + p2 * (1 - p2))) / (d * d));
+    }
+
+    // ---------- helpers ----------
+    const $ = (id: string) => document.getElementById(id) as HTMLElement;
+    const val = (id: string) => (document.getElementById(id) as HTMLInputElement).value;
+    const num = (id: string) => {
+      const n = parseFloat(val(id).replace(/[^0-9.\-]/g, ''));
+      return isFinite(n) ? n : 0;
+    };
+    const gbp = (n: number) =>
+      '£' + Math.round(n).toLocaleString('en-GB');
+    const int = (n: number) => Math.round(n).toLocaleString('en-GB');
+
+    /** Thousands separators while typing, without moving the caret to the end. */
+    function groupOnInput(el: HTMLInputElement) {
+      el.addEventListener('input', () => {
+        const before = el.value.slice(0, el.selectionStart ?? 0).replace(/[^0-9]/g, '').length;
+        const digits = el.value.replace(/[^0-9]/g, '');
+        if (!digits) { el.value = ''; return; }
+        const out = parseInt(digits, 10).toLocaleString('en-GB');
+        el.value = out;
+        let seen = 0, pos = out.length;
+        for (let i = 0; i < out.length; i++) {
+          if (/[0-9]/.test(out[i])) seen++;
+          if (seen === before) { pos = i + 1; break; }
+        }
+        if (before === 0) pos = 0;
+        el.setSelectionRange(pos, pos);
+      });
+    }
+
+    // ---------- mode ----------
+    const judgePane = $('abt-judge'), planPane = $('abt-plan');
+    const tabJudge = $('abt-tab-judge'), tabPlan = $('abt-tab-plan');
+    function setMode(mode: string) {
+      const judging = mode === 'judge';
+      judgePane.classList.toggle('hidden', !judging);
+      planPane.classList.toggle('hidden', judging);
+      tabJudge.className = 'abt-tab text-left p-4 rounded-2xl border transition-all duration-200 ' + (judging ? 'abt-tab-on' : 'abt-tab-off');
+      tabPlan.className = 'abt-tab text-left p-4 rounded-2xl border transition-all duration-200 ' + (judging ? 'abt-tab-off' : 'abt-tab-on');
+      tabJudge.setAttribute('aria-selected', String(judging));
+      tabPlan.setAttribute('aria-selected', String(!judging));
+    }
+    tabJudge.addEventListener('click', () => setMode('judge'));
+    tabPlan.addEventListener('click', () => setMode('plan'));
+
+    // ---------- metric ----------
+    // A conversion-rate test counts conversions out of CLICKS. A click-through-rate test
+    // counts clicks out of IMPRESSIONS. Swapping the labels with the metric is the whole
+    // difference between a sample size that is right and one that is four times too small.
+    let metric = 'cvr';
+    const metricBtns = root.querySelectorAll('.abt-metric') as NodeListOf<HTMLElement>;
+    metricBtns.forEach((b) => b.addEventListener('click', () => {
+      metric = b.dataset.metric || 'cvr';
+      metricBtns.forEach((o) => { o.className = 'abt-metric ' + (o === b ? 'abt-pill-on' : 'abt-pill-off'); });
+      const denom = metric === 'cvr' ? 'Clicks' : 'Impressions';
+      const numer = metric === 'cvr' ? 'Conversions' : 'Clicks';
+      root.querySelectorAll('.abt-denom-label').forEach((l) => { l.textContent = denom; });
+      root.querySelectorAll('.abt-num-label').forEach((l) => { l.textContent = numer; });
+      judge();
+    }));
+
+    // ---------- judge ----------
+    const grid = $('abt-grid');
+    for (let i = 0; i < 100; i++) {
+      const cell = document.createElement('span');
+      cell.className = 'abt-cell bg-[#334155]';
+      grid.appendChild(cell);
+    }
+    const cells = Array.from(grid.children) as HTMLElement[];
+
+    function paintGrid(win: number, lose: number) {
+      cells.forEach((c, i) => {
+        const colour = i < win ? '#10B981' : i >= 100 - lose ? '#EA4335' : '#334155';
+        c.style.background = colour;
+      });
+    }
+
+    function judge() {
+      const nA = num('abt-a-n'), cA = num('abt-a-c');
+      const nB = num('abt-b-n'), cB = num('abt-b-c');
+      const conf = val('abt-conf');
+      const zc = Z_CRIT[conf];
+      const mde = Math.max(num('abt-mde'), 0.1) / 100;
+      const unit = metric === 'cvr' ? 'clicks' : 'impressions';
+
+      const badge = $('abt-badge'), box = $('abt-verdict');
+      const setState = (state: string, label: string, headline: string) => {
+        const map: Record<string, string[]> = {
+          call:  ['bg-[#10B981] text-[#052E1B]', 'border-[#10B981]/40 bg-[#10B981]/10'],
+          run:   ['bg-[#F59E0B] text-[#3B2503]', 'border-[#F59E0B]/40 bg-[#F59E0B]/10'],
+          stop:  ['bg-[#EA4335] text-white',     'border-[#EA4335]/40 bg-[#EA4335]/10'],
+          empty: ['bg-[#334155] text-[#CBD5E1]', 'border-white/10 bg-white/5'],
+        };
+        badge.className = 'text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full ' + map[state][0];
+        box.className = 'rounded-2xl p-6 sm:p-7 border mb-6 ' + map[state][1];
+        badge.textContent = label;
+        $('abt-headline').textContent = headline;
+      };
+
+      const blank = (msg: string) => {
+        setState('empty', 'Waiting', 'Nothing to judge yet');
+        $('abt-explain').textContent = msg;
+        ['abt-conf-val', 'abt-lift-val', 'abt-need-val'].forEach((id) => { $(id).textContent = 'n/a'; });
+        ['abt-conf-note', 'abt-lift-note', 'abt-need-note'].forEach((id) => { $(id).textContent = ''; });
+        $('abt-a-rate').textContent = 'n/a';
+        $('abt-b-rate').textContent = 'n/a';
+        paintGrid(0, 0);
+        $('abt-leg-win').textContent = 'n/a';
+        $('abt-leg-tie').textContent = 'n/a';
+        $('abt-leg-lose').textContent = 'n/a';
+      };
+
+      if (nA <= 0 || nB <= 0) return blank('Put the ' + unit + ' and ' + (metric === 'cvr' ? 'conversions' : 'clicks') + ' for both variants in above.');
+      if (cA > nA || cB > nB) return blank('One variant has more ' + (metric === 'cvr' ? 'conversions than clicks' : 'clicks than impressions') + '. Check the columns you copied.');
+
+      const p1 = cA / nA, p2 = cB / nB;
+      $('abt-a-rate').textContent = (p1 * 100).toFixed(2) + '%';
+      $('abt-b-rate').textContent = (p2 * 100).toFixed(2) + '%';
+
+      const pooled = (cA + cB) / (nA + nB);
+      const sePooled = Math.sqrt(pooled * (1 - pooled) * (1 / nA + 1 / nB));
+      const z = sePooled > 0 ? (p2 - p1) / sePooled : 0;
+      const pValue = 2 * (1 - normCdf(Math.abs(z)));
+      const confidence = (1 - pValue) * 100;
+
+      const relLift = p1 > 0 ? (p2 - p1) / p1 * 100 : 0;
+      const winner = p2 > p1 ? 'B' : 'A';
+      const loser = winner === 'B' ? 'A' : 'B';
+
+      $('abt-conf-val').textContent = confidence.toFixed(0) + '%';
+      $('abt-conf-note').textContent = 'that ' + winner + ' is better. You asked for ' + conf + '%.';
+      $('abt-lift-val').textContent = (relLift >= 0 ? '+' : '') + relLift.toFixed(1) + '%';
+      $('abt-lift-note').textContent = (p1 * 100).toFixed(2) + '% against ' + (p2 * 100).toFixed(2) + '%';
+
+      // How far there is left to go, judged against the gap actually showing.
+      const needObserved = sampleNeeded(p1, p2, zc);
+      const have = Math.min(nA, nB);
+      const moreNeeded = Math.max(0, needObserved - have);
+
+      // And the volume that would settle the smallest lift worth having, which is what
+      // decides whether a flat-looking test is unfinished or genuinely finished.
+      const needMde = sampleNeeded(p1, p1 * (1 + mde), zc);
+
+      // How often this exact test, at this volume and gap, lands each way.
+      const seUn = Math.sqrt(p1 * (1 - p1) / nA + p2 * (1 - p2) / nB);
+      const drift = seUn > 0 ? Math.abs(p2 - p1) / seUn : 0;
+      const pWin = 1 - normCdf(zc - drift);
+      const pLose = normCdf(-zc - drift);
+      const win100 = Math.round(pWin * 100);
+      const lose100 = Math.round(pLose * 100);
+      const tie100 = Math.max(0, 100 - win100 - lose100);
+      paintGrid(win100, lose100);
+      $('abt-leg-win').textContent = String(win100);
+      $('abt-leg-tie').textContent = String(tie100);
+      $('abt-leg-lose').textContent = String(lose100);
+
+      const days = num('abt-days');
+      let timing = '';
+      if (moreNeeded > 0 && days > 0) {
+        const perDay = have / days;
+        if (perDay > 0) {
+          const daysLeft = Math.ceil(moreNeeded / perDay);
+          const end = new Date(Date.now() + daysLeft * 86400000);
+          timing = ' At the rate it has been running, that is about ' + daysLeft + ' more '
+            + (daysLeft === 1 ? 'day' : 'days') + ', so around '
+            + end.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' }) + '.';
+        }
+      }
+
+      if (confidence >= parseFloat(conf)) {
+        setState('call', 'Safe to call', 'Variant ' + winner + ' wins');
+        $('abt-explain').textContent =
+          'Variant ' + winner + ' is ' + Math.abs(relLift).toFixed(1) + '% better than ' + loser + ', and at this volume a gap that size turns up by luck in fewer than '
+          + (pValue < 0.001 ? 'one test in a thousand' : 'about one test in ' + Math.max(2, Math.round(1 / pValue)))
+          + '. Ship ' + winner + ' and put the next test up. Run the week out first if you are mid-week: weekend buyers are not the same people as Tuesday morning researchers.';
+        $('abt-need-val').textContent = 'Done';
+        $('abt-need-note').textContent = int(have) + ' ' + unit + ' per variant was enough';
+      } else if (have >= needMde) {
+        setState('stop', 'Call it a draw', 'These two ads are too close to separate');
+        $('abt-explain').textContent =
+          'At ' + int(have) + ' ' + unit + ' per variant you would already have caught a '
+          + num('abt-mde') + '% lift if one existed, and it has not shown up. Running longer buys very little. '
+          + 'Keep whichever you prefer and spend the traffic on a bigger change: a different offer or a different promise, not a reworded headline.';
+        $('abt-need-val').textContent = 'Enough';
+        $('abt-need-note').textContent = 'more volume will not settle this';
+      } else {
+        setState('run', 'Keep running', 'Promising, but not proven');
+        const odds = pValue > 0 ? Math.max(2, Math.round(1 / pValue)) : 1000;
+        $('abt-explain').textContent =
+          (Math.abs(relLift) < 0.05
+            ? 'The two ads are level so far, so there is nothing to call yet.'
+            : 'Variant ' + winner + ' is ' + Math.abs(relLift).toFixed(1) + '% ahead, but at this volume a gap this size still appears by luck in roughly one test in ' + odds + '. Calling it today is close to a coin flip.')
+          + ' Decide the finish line now and hold to it: stopping a test the first time it looks good is how false winners get shipped.' + timing;
+        $('abt-need-val').textContent = moreNeeded === Infinity ? 'n/a' : int(moreNeeded);
+        $('abt-need-note').textContent = 'more ' + unit + ' per variant';
+      }
+    }
+
+    // ---------- plan ----------
+    function plan() {
+      const budget = num('abt-p-budget');
+      const cpc = num('abt-p-cpc');
+      const base = num('abt-p-base') / 100;
+      const mde = num('abt-p-mde') / 100;
+      const zc = Z_CRIT[val('abt-p-conf')];
+      const profit = num('abt-p-value');
+
+      $('abt-p-mde-note').textContent = base > 0 && mde > 0
+        ? (base * 100).toFixed(2).replace(/\.?0+$/, '') + '% would have to reach ' + (base * (1 + mde) * 100).toFixed(2).replace(/0+$/, '').replace(/\.$/, '') + '%'
+        : '';
+
+      const out = (n: string, d: string, c: string, read: string) => {
+        $('abt-p-n').textContent = n; $('abt-p-days').textContent = d; $('abt-p-cost').textContent = c;
+        $('abt-p-read').textContent = read;
+      };
+
+      if (base <= 0 || base >= 1 || mde <= 0 || cpc <= 0 || budget <= 0) {
+        $('abt-p-payback').classList.add('hidden');
+        return out('n/a', 'n/a', 'n/a', 'Fill in the budget, cost per click, current conversion rate and the lift worth chasing.');
+      }
+
+      const p2 = Math.min(base * (1 + mde), 0.999999);
+      const perVariant = sampleNeeded(base, p2, zc);
+      const clicksPerDay = budget / cpc;
+      const days = Math.ceil((perVariant * 2) / clicksPerDay);
+      const cost = days * budget;
+      const weeks = days / 7;
+
+      $('abt-p-weeks').textContent = weeks >= 1
+        ? '≈ ' + (Math.ceil(weeks * 10) / 10).toFixed(1) + ' weeks. Run whole weeks.'
+        : 'Still run it a full week.';
+
+      let read = 'You need ' + int(perVariant) + ' clicks on each ad, so ' + int(perVariant * 2)
+        + ' in total, before the test can answer a ' + num('abt-p-mde') + '% lift either way. '
+        + 'At £' + cpc.toFixed(2) + ' a click and £' + int(budget) + ' a day that is '
+        + days + ' ' + (days === 1 ? 'day' : 'days') + ' and ' + gbp(cost) + '.';
+      if (days > 56) {
+        read += ' That is a long time to hold an account still. Either test a bigger change, so the lift you are '
+          + 'hunting is larger, or accept a 90% read and a higher chance of a false winner.';
+      } else if (days < 7) {
+        read += ' Run the full seven days anyway. A test that stops on Thursday has never met your weekend buyers.';
+      }
+      out(int(perVariant), String(days), gbp(cost), read);
+
+      const payEl = $('abt-p-payback');
+      if (profit > 0) {
+        const convPerDay = clicksPerDay * base;
+        const extraPerDay = convPerDay * mde * profit;
+        const payback = extraPerDay > 0 ? cost / extraPerDay : 0;
+        payEl.classList.remove('hidden');
+        payEl.textContent = 'If the winner holds, a ' + num('abt-p-mde') + '% lift is worth about '
+          + gbp(extraPerDay * 30) + ' of extra profit a month at this traffic. The test pays for itself in '
+          + Math.ceil(payback) + ' ' + (Math.ceil(payback) === 1 ? 'day' : 'days') + ' and earns roughly '
+          + gbp(extraPerDay * 365) + ' over a year. That is the number that decides whether the test is worth the wait, not the confidence percentage.';
+      } else {
+        payEl.classList.add('hidden');
+      }
+    }
+
+    // ---------- wiring ----------
+    ['abt-a-n', 'abt-a-c', 'abt-b-n', 'abt-b-c', 'abt-days', 'abt-p-budget', 'abt-p-value']
+      .forEach((id) => groupOnInput(document.getElementById(id) as HTMLInputElement));
+
+    ['abt-a-n', 'abt-a-c', 'abt-b-n', 'abt-b-c', 'abt-days', 'abt-mde', 'abt-conf']
+      .forEach((id) => document.getElementById(id)!.addEventListener('input', judge));
+    $('abt-conf').addEventListener('change', judge);
+
+    ['abt-p-budget', 'abt-p-cpc', 'abt-p-base', 'abt-p-mde', 'abt-p-conf', 'abt-p-value']
+      .forEach((id) => document.getElementById(id)!.addEventListener('input', plan));
+    $('abt-p-conf').addEventListener('change', plan);
+
+    judge();
+    plan();
+  });
+</script>

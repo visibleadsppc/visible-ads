@@ -1,0 +1,346 @@
+---
+// Weather-based bidding tool. A seven-day forecast turned into bid, budget and seasonality
+// moves for weather-sensitive categories.
+//
+// Two things make this more than a toy:
+//
+//   * Smart Bidding and manual bidding get different advice, because they are different
+//     levers. You cannot set a day-of-week bid modifier on a tROAS campaign and expect it to
+//     do what you want; the Smart Bidding answer is a seasonality adjustment and a budget move.
+//   * It says out loud that a bid adjustment on a budget-limited campaign changes nothing.
+//     That is the single most common reason a weather strategy appears not to work.
+//
+// Forecast data: MET Norway, CC BY 4.0, proxied through our own /api/weather so the request
+// carries the identifying User-Agent their terms require and gets cached once for everybody.
+import { WEATHER_CATEGORIES, UK_LOCATIONS } from '../data/tool-benchmarks';
+---
+
+<div class="bg-gradient-to-br from-[#0A1628] to-[#132240] rounded-3xl p-5 sm:p-8 lg:p-10 shadow-2xl" id="wb"
+  data-categories={JSON.stringify(WEATHER_CATEGORIES)}
+  data-locations={JSON.stringify(UK_LOCATIONS)}
+>
+  <div class="grid lg:grid-cols-3 gap-5 mb-6">
+    <div>
+      <label for="wb-location" class="block text-[#94A3B8] text-sm mb-1.5">Where your customers are</label>
+      <input list="wb-locations" id="wb-location" autocomplete="off" value="London" class="wb-input" />
+      <datalist id="wb-locations">
+        {UK_LOCATIONS.map((l) => <option value={l.name}></option>)}
+      </datalist>
+      <button type="button" id="wb-geo" class="mt-2 text-sm font-semibold text-[#3B82F6] hover:text-white transition-colors">
+        Use my location
+      </button>
+    </div>
+    <div>
+      <label for="wb-category" class="block text-[#94A3B8] text-sm mb-1.5">What you sell</label>
+      <select id="wb-category" class="wb-input">
+        {WEATHER_CATEGORIES.map((c) => <option value={c.id}>{c.name}</option>)}
+      </select>
+    </div>
+    <div>
+      <label for="wb-mode" class="block text-[#94A3B8] text-sm mb-1.5">How the campaign bids</label>
+      <select id="wb-mode" class="wb-input">
+        <option value="smart">Smart Bidding (tCPA, tROAS, Maximise)</option>
+        <option value="manual">Manual CPC or enhanced CPC</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap items-center gap-3 mb-8">
+    <button type="button" id="wb-go" class="px-5 py-2.5 rounded-lg bg-cta text-white font-semibold hover:bg-electric transition-colors">
+      Read the forecast
+    </button>
+    <span id="wb-status" class="text-sm text-[#94A3B8]"></span>
+  </div>
+
+  <div id="wb-note" class="rounded-2xl bg-white/5 border border-white/10 p-5 mb-6">
+    <p id="wb-cat-note" class="text-sm text-[#CBD5E1] leading-relaxed"></p>
+  </div>
+
+  <div id="wb-days" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 mb-7"></div>
+
+  <div id="wb-actions" class="space-y-3 mb-7"></div>
+
+  <div id="wb-caveat" class="rounded-2xl border border-[#F59E0B]/40 bg-[#F59E0B]/10 p-5 sm:p-6 hidden">
+    <p class="font-heading font-bold text-white mb-2">Before you change a single bid</p>
+    <p id="wb-caveat-body" class="text-sm text-[#CBD5E1] leading-relaxed"></p>
+  </div>
+
+  <p class="mt-7 text-xs text-[#64748B] leading-relaxed">
+    Forecast from <a href="https://www.met.no/en" rel="noopener nofollow" target="_blank" class="text-[#94A3B8] underline hover:text-white">MET Norway</a>,
+    used under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener nofollow" target="_blank" class="text-[#94A3B8] underline hover:text-white">CC BY 4.0</a>.
+    The moves above are directional: they come from how a category normally responds to weather, not
+    from your sales history. Treat them as the days worth watching, and let your own data settle the size of the move.
+  </p>
+</div>
+
+<!--
+  is:global is load-bearing. Astro scopes a component's styles by stamping an attribute on the
+  elements it can see at build time, and every cell in these tables and grids is created at
+  runtime with innerHTML, so it never gets stamped. Scoped, the rules below silently miss:
+  the editable CPM cells rendered as default dark body text on a dark card, and the rerun grid
+  collapsed to nothing because its aspect-ratio never applied. Every selector here is prefixed
+  with this component's own id, so going global leaks nothing.
+-->
+<style is:global>
+  #wb .wb-input {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 0.6rem;
+    padding: 0.6rem 0.75rem;
+    color: #FFFFFF; font-size: 1rem; font-weight: 600; outline: none;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  #wb .wb-input:focus { border-color: #3B82F6; background: rgba(255,255,255,0.1); }
+  #wb select.wb-input { appearance: none; }
+  #wb select.wb-input option { background: #132240; color: #fff; }
+  #wb .wb-day { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; padding: 0.9rem; }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const root = document.getElementById('wb');
+    if (!root) return;
+
+    type Cat = { id: string; name: string; tempIdeal: number; tempSpread: number; rain: number; wind: number; note: string };
+    type Loc = { name: string; lat: number; lon: number };
+    type Day = { date: string; tempMax: number; tempMin: number; wind: number; rain: number; symbol: string };
+
+    const CATS: Cat[] = JSON.parse(root.dataset.categories || '[]');
+    const LOCS: Loc[] = JSON.parse(root.dataset.locations || '[]');
+
+    const $ = (id: string) => document.getElementById(id) as HTMLElement;
+    const el = (id: string) => document.getElementById(id) as HTMLInputElement;
+
+    const ICONS: Record<string, string> = {
+      clearsky: '<circle cx="12" cy="12" r="4.2" fill="#F59E0B"/><g stroke="#F59E0B" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v2"/><path d="M12 19v2"/><path d="M3 12h2"/><path d="M19 12h2"/><path d="M5.6 5.6l1.4 1.4"/><path d="M17 17l1.4 1.4"/><path d="M18.4 5.6L17 7"/><path d="M7 17l-1.4 1.4"/></g>',
+      fair: '<circle cx="9.5" cy="9.5" r="3.4" fill="#F59E0B"/><path d="M7 19h9.5a3.5 3.5 0 0 0 0-7 5 5 0 0 0-9.6 1.2A3 3 0 0 0 7 19z" fill="#CBD5E1"/>',
+      partlycloudy: '<circle cx="9.5" cy="9.5" r="3.4" fill="#F59E0B"/><path d="M7 19h9.5a3.5 3.5 0 0 0 0-7 5 5 0 0 0-9.6 1.2A3 3 0 0 0 7 19z" fill="#CBD5E1"/>',
+      cloudy: '<path d="M7 18h9.5a3.5 3.5 0 0 0 0-7 5 5 0 0 0-9.6 1.2A3 3 0 0 0 7 18z" fill="#94A3B8"/>',
+      fog: '<path d="M7 14h9.5a3.5 3.5 0 0 0 0-7 5 5 0 0 0-9.6 1.2A3 3 0 0 0 7 14z" fill="#94A3B8"/><g stroke="#64748B" stroke-width="1.6" stroke-linecap="round"><path d="M5 17.5h14"/><path d="M7 20.5h10"/></g>',
+      rain: '<path d="M7 14h9.5a3.5 3.5 0 0 0 0-7 5 5 0 0 0-9.6 1.2A3 3 0 0 0 7 14z" fill="#94A3B8"/><g stroke="#3B82F6" stroke-width="1.8" stroke-linecap="round"><path d="M9 16.5l-1 3"/><path d="M13 16.5l-1 3"/><path d="M17 16.5l-1 3"/></g>',
+      heavyrain: '<path d="M7 14h9.5a3.5 3.5 0 0 0 0-7 5 5 0 0 0-9.6 1.2A3 3 0 0 0 7 14z" fill="#64748B"/><g stroke="#3B82F6" stroke-width="2.1" stroke-linecap="round"><path d="M8 16l-1.4 4"/><path d="M12 16l-1.4 4"/><path d="M16 16l-1.4 4"/></g>',
+      lightrain: '<path d="M7 14h9.5a3.5 3.5 0 0 0 0-7 5 5 0 0 0-9.6 1.2A3 3 0 0 0 7 14z" fill="#94A3B8"/><g stroke="#3B82F6" stroke-width="1.6" stroke-linecap="round"><path d="M10 16.5l-1 2.5"/><path d="M14 16.5l-1 2.5"/></g>',
+      snow: '<path d="M7 14h9.5a3.5 3.5 0 0 0 0-7 5 5 0 0 0-9.6 1.2A3 3 0 0 0 7 14z" fill="#CBD5E1"/><g fill="#E2E8F0"><circle cx="9" cy="18" r="1.1"/><circle cx="12.5" cy="19.5" r="1.1"/><circle cx="16" cy="18" r="1.1"/></g>',
+      sleet: '<path d="M7 14h9.5a3.5 3.5 0 0 0 0-7 5 5 0 0 0-9.6 1.2A3 3 0 0 0 7 14z" fill="#94A3B8"/><g stroke="#3B82F6" stroke-width="1.6" stroke-linecap="round"><path d="M9.5 16.5l-1 3"/><path d="M15 16.5l-1 3"/></g><circle cx="12.3" cy="18.5" r="1.1" fill="#E2E8F0"/>',
+    };
+    const icon = (code: string) => ICONS[code] || ICONS.cloudy;
+
+    function catOf(): Cat { return CATS.find((c) => c.id === el('wb-category').value) || CATS[0]; }
+
+    /**
+     * Demand index for a day. A bell curve on temperature around where the category peaks,
+     * multiplied by a rain response and a wind response.
+     *
+     * Multiplied rather than added, deliberately. Subtracting a rain penalty pushed cold wet
+     * days below zero, they all pinned to the same floor, and every day in the week then came
+     * out at the same clamped number: six identical cards reading "cut 40%", which is noise
+     * dressed as advice. As a multiplier, rain scales whatever demand the temperature allowed,
+     * so a wet mild day and a wet cold day stay different from each other.
+     */
+    function scoreDay(d: Day, c: Cat) {
+      const t = d.tempMax * 0.7 + d.tempMin * 0.3;
+      const temp = Math.exp(-((t - c.tempIdeal) ** 2) / (2 * c.tempSpread ** 2));
+      const rainFactor = Math.min(d.rain / 8, 1);
+      const windFactor = Math.min(Math.max(d.wind - 5, 0) / 12, 1);
+      return temp * (1 + c.rain * rainFactor) * (1 + c.wind * windFactor);
+    }
+
+    const MAX_MOVE = 35;
+    /** Compressed, so one freak day cannot push every other day to the same clamped extreme. */
+    function moveFor(score: number, mean: number) {
+      if (mean <= 0) return 0;
+      return Math.round(MAX_MOVE * Math.tanh((score - mean) / mean));
+    }
+
+    let lastDays: Day[] = [];
+    let lastPlace = 'London';
+
+    function render() {
+      const c = catOf();
+      $('wb-cat-note').textContent = c.note;
+      if (!lastDays.length) return;
+
+      const mode = el('wb-mode').value;
+      const scores = lastDays.map((d) => scoreDay(d, c));
+      const mean = scores.reduce((a, b) => a + b, 0) / scores.length;
+      const peak = Math.max(...scores);
+
+      // A category can be genuinely out of season, and then "cut 20% on Tuesday" is the wrong
+      // thing to say: the whole week is the problem, not Tuesday.
+      const outOfSeason = peak < 0.3;
+
+      const host = $('wb-days');
+      host.innerHTML = '';
+      const actions = $('wb-actions');
+      actions.innerHTML = '';
+
+      const rows = lastDays.map((d, i) => {
+        const change = moveFor(scores[i], mean);
+        const date = new Date(d.date + 'T12:00:00');
+        return {
+          d, i, change,
+          weekday: date.toLocaleDateString('en-GB', { weekday: 'short' }),
+          dayNum: date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }),
+        };
+      });
+
+      rows.forEach((r) => {
+        const worthIt = Math.abs(r.change) >= 8 && !outOfSeason;
+        const colour = !worthIt ? '#94A3B8' : r.change > 0 ? '#10B981' : '#EA4335';
+        const card = document.createElement('div');
+        card.className = 'wb-day text-center';
+        card.innerHTML =
+          '<p class="text-xs font-semibold text-white">' + r.weekday + '</p>'
+          + '<p class="text-[11px] text-[#64748B] mb-2">' + r.dayNum + '</p>'
+          + '<svg viewBox="0 0 24 24" class="w-9 h-9 mx-auto mb-2" aria-hidden="true">' + icon(r.d.symbol) + '</svg>'
+          + '<p class="text-sm font-bold text-white">' + Math.round(r.d.tempMax) + '&deg;<span class="text-[#64748B] font-normal">/' + Math.round(r.d.tempMin) + '&deg;</span></p>'
+          + '<p class="text-[11px] text-[#64748B] mb-2">' + r.d.rain.toFixed(1) + 'mm, ' + Math.round(r.d.wind) + 'm/s</p>'
+          + '<p class="text-sm font-bold" style="color:' + colour + '">'
+            + (worthIt ? (r.change > 0 ? '+' : '') + r.change + '%' : outOfSeason ? 'quiet' : 'flat') + '</p>';
+        host.appendChild(card);
+      });
+
+      if (outOfSeason) {
+        const line = document.createElement('div');
+        line.className = 'rounded-xl border border-white/10 bg-white/5 p-5';
+        line.innerHTML = '<p class="font-heading font-bold text-white mb-1">This category is out of season this week</p>'
+          + '<p class="text-sm text-[#CBD5E1] leading-relaxed">Nothing in the next seven days in ' + lastPlace
+          + ' comes close to the weather ' + c.name.toLowerCase() + ' needs, so the gaps between these days are gaps '
+          + 'between one quiet day and another. Moving budget around inside that is not worth the learning it disturbs. '
+          + 'Hold the campaigns at a low baseline, keep the best-converting keywords live so the account stays warm, '
+          + 'and put the money where demand actually is until the forecast turns.</p>';
+        actions.appendChild(line);
+      } else {
+        // Only the days worth acting on, biggest first, capped so the page stays a list of
+        // decisions rather than a diary of the week.
+        const worth = rows.filter((r) => Math.abs(r.change) >= 8)
+          .sort((a, b) => Math.abs(b.change) - Math.abs(a.change))
+          .slice(0, 5)
+          .sort((a, b) => a.i - b.i);
+
+        worth.forEach((r) => {
+          const up = r.change > 0;
+          const size = Math.abs(r.change);
+          const line = document.createElement('div');
+          line.className = 'rounded-xl border p-4 ' + (up ? 'border-[#10B981]/40 bg-[#10B981]/10' : 'border-[#EA4335]/40 bg-[#EA4335]/10');
+
+          const t = r.d.tempMax * 0.7 + r.d.tempMin * 0.3;
+          const bits: string[] = [];
+          const deg = Math.round(r.d.tempMax) + ' degrees';
+          if (Math.abs(t - c.tempIdeal) < c.tempSpread * 0.6) bits.push('at ' + deg + ' it is close to where this category peaks');
+          else if (t > c.tempIdeal) bits.push('at ' + deg + ' it is warmer than this category wants');
+          else bits.push('at ' + deg + ' it is colder than this category wants');
+          if (r.d.rain >= 3) {
+            bits.push(c.rain >= 0
+              ? r.d.rain.toFixed(0) + 'mm of rain works in your favour'
+              : r.d.rain.toFixed(0) + 'mm of rain is forecast');
+          } else if (r.d.rain < 0.5 && c.rain < 0) {
+            bits.push('it stays dry');
+          }
+          if (r.d.wind >= 11) {
+            bits.push(c.wind > 0 ? 'the wind is strong enough to create jobs' : 'the wind keeps people indoors');
+          }
+          const why = bits.length > 1
+            ? bits.slice(0, -1).join(', ') + ' and ' + bits[bits.length - 1]
+            : bits[0];
+
+          const action = mode === 'smart'
+            ? (up
+              ? 'Raise the daily budget by about ' + size + '% and add a seasonality adjustment of +' + size
+                + '% expected conversion rate for ' + r.weekday + ' only. Smart Bidding will not find a one-day shift on its own: it is reading the last few weeks, and a day it has never seen looks like noise.'
+              : 'Take about ' + size + '% off the daily budget for ' + r.weekday
+                + ' and leave the targets alone. Moving a tCPA or tROAS target drags the learning for days after the weather has passed, and the budget gets you the same saving with none of that.')
+            : (up
+              ? 'Set an ad schedule bid adjustment of +' + size + '% for ' + r.weekday
+                + '. Check the campaign is not already spending its cap first, or the modifier buys you nothing but a higher price.'
+              : 'Set an ad schedule bid adjustment of -' + size + '% for ' + r.weekday
+                + '. This is the half with no risk in it: you are declining clicks that were not going to convert.');
+
+          line.innerHTML =
+            '<p class="font-heading font-bold text-white mb-1">' + r.weekday + ' ' + r.dayNum + ': '
+              + (up ? 'demand up ' : 'demand down ') + size + '%</p>'
+            + '<p class="text-sm text-[#CBD5E1] leading-relaxed mb-2">Against the rest of the week, ' + why + '.</p>'
+            + '<p class="text-sm text-white leading-relaxed">' + action + '</p>';
+          actions.appendChild(line);
+        });
+
+        if (!worth.length) {
+          const line = document.createElement('div');
+          line.className = 'rounded-xl border border-white/10 bg-white/5 p-5';
+          line.innerHTML = '<p class="font-heading font-bold text-white mb-1">Nothing worth changing this week</p>'
+            + '<p class="text-sm text-[#CBD5E1] leading-relaxed">Every day scores within 8% of the others for '
+            + c.name.toLowerCase() + ' in ' + lastPlace + '. Weather bidding earns its keep on the weeks with a real '
+            + 'swing in them, and fiddling on a flat week resets the learning for nothing.</p>';
+          actions.appendChild(line);
+        }
+      }
+
+      const caveat = $('wb-caveat');
+      caveat.classList.remove('hidden');
+      $('wb-caveat-body').textContent = mode === 'smart'
+        ? 'Check the headroom before you move anything. A budget rise only buys volume if the campaign is actually capped, so look first at whether it spends its full budget on a normal day. And keep seasonality adjustments to the one to seven days they are built for: left running, they teach the bidding the wrong baseline and you spend the following fortnight undoing it.'
+        : 'A bid adjustment on a campaign that already spends its whole budget every day changes almost nothing. It raises what you pay per click, the budget cap still decides how many clicks you get, and you buy the same traffic at a higher price. Raise the budget first, or the modifier is theatre.';
+    }
+
+    async function load() {
+      const typed = el('wb-location').value.trim();
+      const match = LOCS.find((l) => l.name.toLowerCase() === typed.toLowerCase())
+        || LOCS.find((l) => l.name.toLowerCase().startsWith(typed.toLowerCase()));
+      if (!match) {
+        $('wb-status').textContent = 'Pick a town from the list, or use your location.';
+        return;
+      }
+      lastPlace = match.name;
+      el('wb-location').value = match.name;
+      await fetchFor(match.lat, match.lon, match.name);
+    }
+
+    async function fetchFor(lat: number, lon: number, label: string) {
+      $('wb-status').textContent = 'Reading the forecast for ' + label + '…';
+      try {
+        const res = await fetch('/api/weather?lat=' + lat.toFixed(4) + '&lon=' + lon.toFixed(4));
+        if (!res.ok) throw new Error('status ' + res.status);
+        const data = await res.json();
+        if (!data.days || !data.days.length) throw new Error('empty');
+        lastDays = data.days;
+        lastPlace = label;
+        $('wb-status').textContent = 'Seven days for ' + label + '.';
+        render();
+      } catch {
+        $('wb-status').textContent = 'The forecast feed is not answering. Try again in a minute.';
+      }
+    }
+
+    $('wb-go').addEventListener('click', load);
+    el('wb-location').addEventListener('change', load);
+    el('wb-category').addEventListener('change', render);
+    el('wb-mode').addEventListener('change', render);
+
+    $('wb-geo').addEventListener('click', () => {
+      if (!navigator.geolocation) {
+        $('wb-status').textContent = 'This browser will not share a location. Pick a town instead.';
+        return;
+      }
+      $('wb-status').textContent = 'Asking your browser where you are…';
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const { latitude, longitude } = pos.coords;
+          // Name it after the nearest town we hold, so the copy reads like a place.
+          let best = LOCS[0], bestDist = Infinity;
+          LOCS.forEach((l) => {
+            const d = (l.lat - latitude) ** 2 + (l.lon - longitude) ** 2;
+            if (d < bestDist) { bestDist = d; best = l; }
+          });
+          el('wb-location').value = best.name;
+          fetchFor(latitude, longitude, 'your location, nearest ' + best.name);
+        },
+        () => { $('wb-status').textContent = 'Location refused. Pick a town from the list instead.'; },
+        { timeout: 8000 },
+      );
+    });
+
+    $('wb-cat-note').textContent = catOf().note;
+    load();
+  });
+</script>

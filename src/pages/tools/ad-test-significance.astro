@@ -1,0 +1,250 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import AdTestCalculator from '../../components/AdTestCalculator.astro';
+
+const faqs = [
+  {
+    question: 'How do I know if my ad test is statistically significant?',
+    answer: 'Put the clicks and conversions for each variant into the calculator above. It runs a two-tailed test of two proportions and gives you one of three answers: safe to call, keep running, or call it a draw. At 95% confidence, "safe to call" means a gap this size would turn up by chance in fewer than one test in twenty.',
+  },
+  {
+    question: 'How long should an ad test run?',
+    answer: 'Until each variant has the sample size the lift needs, and never less than a full week. The sample size depends on your current conversion rate and the smallest improvement worth acting on, not on how the test looks so far. Plan mode turns your daily budget and cost per click into a length in days and a cost in pounds, so you can see the bill before you start.',
+  },
+  {
+    question: 'What sample size does an ad test need?',
+    answer: 'More than almost anyone expects. Detecting a 10% lift on a 3% conversion rate takes roughly 47,000 clicks per variant at 95% confidence, and halving the lift you are hunting roughly quadruples that. This is the single most common reason ad tests never conclude: the budget was never going to fund the sample.',
+  },
+  {
+    question: 'Is 90% confidence enough to call an ad test?',
+    answer: 'Sometimes. Dropping from 95% to 90% shortens the test but doubles how often you ship a false winner. That is a fair trade for rotating creative in a small ad group, and a poor one for a change that will carry real budget, like a new offer or a landing page.',
+  },
+  {
+    question: 'Why does the calculator ask for clicks rather than impressions?',
+    answer: 'Because a conversion rate is conversions divided by clicks. Dividing conversions by impressions answers a different question and makes every sample size look about four times easier than it is. Switch the metric to click-through rate and the calculator asks for impressions instead, which is the right denominator for that test.',
+  },
+  {
+    question: 'Does this work for Google Ads experiments and Meta A/B tests?',
+    answer: 'Yes. The maths does not care which platform produced the numbers. Google Ads experiments, Meta A/B tests, Microsoft Ads and TikTok split tests can all be judged here. The platforms run a similar test internally, but they rarely tell you how much more data you need before their verdict means anything.',
+  },
+  {
+    question: 'Can a test still mislead me at 95% confidence?',
+    answer: 'Yes. Confidence covers random noise and nothing else. Traffic mix shifts mid-test, one ad can win the morning auction and lose the evening one, and a real lift can be smaller than the one you planned to detect. Significance is the floor for a decision, not a promise about next month.',
+  },
+  {
+    question: 'What is peeking, and why does it matter?',
+    answer: 'Peeking is checking a running test every day and stopping it the first time it looks significant. It feels efficient and it quietly multiplies false winners, because you are giving the test many chances to cross the line by luck. Decide the sample size before launch, then judge the test once it gets there.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      name: 'Ad Test Significance Calculator',
+      url: 'https://visible-ads.com/tools/ad-test-significance',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Any',
+      description:
+        'Free A/B test significance calculator for Google Ads, Meta and any other ad platform. Judge a running ad test, or size the next one from your budget and cost per click.',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'GBP' },
+      publisher: { '@type': 'Organization', name: 'Visible Ads' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://visible-ads.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://visible-ads.com/tools' },
+        { '@type': 'ListItem', position: 3, name: 'Ad test significance calculator', item: 'https://visible-ads.com/tools/ad-test-significance' },
+      ],
+    },
+  ],
+};
+
+const mistakes = [
+  {
+    n: '01',
+    title: 'Stopping the test on its best day',
+    body: 'Checking a running test daily is fine. Stopping it the first time the numbers cross the line is not. A test you look at every day and stop on its best reading ships false winners several times more often than the 95% on the screen suggests, because you have given it twenty chances to get lucky instead of one. Decide the finish line before launch, then judge it once it arrives.',
+  },
+  {
+    n: '02',
+    title: 'Hunting a small lift on a small budget',
+    body: 'A 10% improvement sounds modest, so it feels like it should be easy to prove. It is the opposite. Finding a 10% lift takes roughly four times the traffic of a 20% lift, and most accounts do not have it. If the budget cannot fund the sample, test a bigger change: a different offer, a different promise, a different landing page. Not a reworded headline.',
+  },
+  {
+    n: '03',
+    title: 'Running Monday to Thursday',
+    body: 'Weekend buyers are not the same people as Tuesday morning researchers, and in most accounts they convert at a different rate. A test that runs four weekdays has compared one audience against itself, and it can flip the moment the weekend lands. Run whole weeks, even when the sample size arrives on a Wednesday.',
+  },
+];
+
+const terms = [
+  { term: 'Significance', body: 'A result is significant when the gap between two ads is big enough, at the volume tested, that it would rarely appear by chance. It says nothing about whether the gap is large enough to matter commercially.' },
+  { term: 'Confidence', body: 'How sure you want to be before calling a winner. At 95%, a gap this size would appear by luck in fewer than one test in twenty. More confidence costs more data.' },
+  { term: 'Power', body: 'The chance your test spots a winner that genuinely exists. These calculations use 80% power, so even with a real winner running, one test in five reads as a draw.' },
+  { term: 'Sample size', body: 'The clicks each variant needs before the test can answer. It comes from your current rate and the smallest lift you care about, not from how the test is going.' },
+  { term: 'Minimum detectable effect', body: 'The smallest improvement the test is set up to find. Chasing a smaller one costs a much bigger sample: halving the effect roughly quadruples the traffic needed.' },
+  { term: 'Peeking', body: 'Checking repeatedly and stopping the moment it looks significant. The most common way a careful advertiser ends up shipping a worse ad.' },
+];
+---
+
+<Layout
+  title="Ad Test Significance Calculator (Free A/B Test Tool) | Visible Ads"
+  description="Free A/B test significance calculator for Google Ads, Meta and any ad platform. Get a plain-English verdict on a running ad test, or size the next one from your budget and CPC."
+  schema={schema}
+>
+  <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Tools', href: '/tools' }, { label: 'Ad test significance' }]} />
+
+  <!-- Hero -->
+  <section class="py-14 lg:py-20 bg-gradient-to-br from-navy to-navy-light relative overflow-hidden" data-animate>
+    <div class="absolute inset-0 dot-pattern opacity-5"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="max-w-3xl">
+        <span class="inline-block text-electric-light font-heading font-semibold text-sm tracking-wide uppercase mb-4">
+          Free tool &middot; no login, no email
+        </span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white mb-6 leading-tight">
+          Ad test significance calculator
+        </h1>
+        <p class="text-lg sm:text-xl text-slate-light leading-relaxed">
+          Paste the numbers from a running ad test and get a straight answer: call it, keep
+          running, or accept that the two ads are too close to separate. Then size the next test
+          before you spend a penny on it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The tool -->
+  <section class="py-12 lg:py-16 bg-gray-50" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <AdTestCalculator />
+    </div>
+  </section>
+
+  <!-- Common mistakes -->
+  <section class="py-16 lg:py-24 bg-white" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">
+          Three ways ad tests go wrong
+        </h2>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          These are the patterns we find most often when we audit an account that has been
+          testing creative for months without much to show for it.
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        {mistakes.map((m) => (
+          <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:p-8">
+            <div class="flex items-start gap-5">
+              <span class="font-heading text-3xl font-extrabold text-electric/30 leading-none shrink-0">{m.n}</span>
+              <div>
+                <h3 class="text-xl font-heading font-bold text-navy mb-2">{m.title}</h3>
+                <p class="text-gray-700 leading-relaxed">{m.body}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Glossary -->
+  <section class="py-16 lg:py-24 bg-sky-tint" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-10">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">
+          The six words behind the verdict
+        </h2>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          The calculator runs a two-proportion test, which is the same maths sitting behind
+          Google Ads experiments and Meta A/B tests. These are the terms it turns on.
+        </p>
+      </div>
+
+      <dl class="grid md:grid-cols-2 gap-5">
+        {terms.map((t) => (
+          <div class="rounded-2xl bg-white border border-gray-100 p-6 shadow-sm">
+            <dt class="font-heading font-bold text-navy mb-2">{t.term}</dt>
+            <dd class="text-gray-700 leading-relaxed text-sm">{t.body}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 lg:py-24 bg-white" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-10">
+        Ad test significance FAQs
+      </h2>
+      <div class="space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl border border-gray-200 bg-gray-50 p-6">
+            <summary class="flex items-start justify-between gap-4 cursor-pointer list-none font-heading font-bold text-navy">
+              {f.question}
+              <svg class="w-5 h-5 shrink-0 mt-0.5 text-electric transition-transform group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+            </summary>
+            <p class="mt-4 text-gray-700 leading-relaxed">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related tools -->
+  <section class="py-16 lg:py-20 bg-gray-50" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-3">The rest of the toolkit</h2>
+      <p class="text-gray-700 mb-8">Four steps, four free tools. This one is the last of them.</p>
+      <div class="grid sm:grid-cols-3 gap-5">
+        <a href="/tools/ppc-budget-calculator" class="group block p-6 rounded-2xl bg-white border border-gray-100 shadow-sm hover:border-electric hover:shadow-lg transition-all duration-200">
+          <span class="block text-xs font-semibold tracking-wide uppercase text-slate mb-2">Step one</span>
+          <h3 class="font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">PPC budget calculator</h3>
+          <p class="text-sm text-gray-700">Set the spend the test needs, and check the maths still works at your margin.</p>
+        </a>
+        <a href="/tools/media-planner" class="group block p-6 rounded-2xl bg-white border border-gray-100 shadow-sm hover:border-electric hover:shadow-lg transition-all duration-200">
+          <span class="block text-xs font-semibold tracking-wide uppercase text-slate mb-2">Step two</span>
+          <h3 class="font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">Media planner</h3>
+          <p class="text-sm text-gray-700">Split the budget across channels before you decide where the test runs.</p>
+        </a>
+        <a href="/roas-vs-profit" class="group block p-6 rounded-2xl bg-white border border-gray-100 shadow-sm hover:border-electric hover:shadow-lg transition-all duration-200">
+          <span class="block text-xs font-semibold tracking-wide uppercase text-slate mb-2">Step three</span>
+          <h3 class="font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">ROAS vs profit</h3>
+          <p class="text-sm text-gray-700">Check the winner is actually making money once your margin is in.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 lg:py-20 bg-navy" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-4">
+        Testing the ads is the easy half
+      </h2>
+      <p class="text-lg text-slate-light leading-relaxed mb-8">
+        The harder question is whether the winners are getting the budget. We will look at the
+        account around your tests: where the spend leaks, whether the tracking can be trusted,
+        and what the winning ads are actually worth at your margin.
+      </p>
+      <a href="/free-ads-audit" class="inline-flex items-center justify-center px-8 py-4 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-lg hover:shadow-xl">
+        Book a profit audit
+      </a>
+    </div>
+  </section>
+</Layout>

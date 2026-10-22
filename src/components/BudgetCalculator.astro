@@ -1,0 +1,438 @@
+---
+// PPC budget calculator. A monthly budget in, a forecast out.
+//
+// The three numbers the forecast hangs on (CTR, CPC, conversion rate) are pre-filled from
+// LocaliQ's published averages and are EDITABLE. That is deliberate. A forecast built on a
+// category average is a guess dressed as a number, and anyone with their own account data
+// should be able to overwrite ours and get an answer worth having.
+//
+// It also asks for margin, which most budget calculators do not, because a forecast that
+// stops at revenue cannot tell you whether the plan makes money.
+import { SEARCH_BENCHMARKS, SEARCH_BENCHMARK_SOURCE, FX, CURRENCIES } from '../data/tool-benchmarks';
+---
+
+<div class="bg-gradient-to-br from-[#0A1628] to-[#132240] rounded-3xl p-5 sm:p-8 lg:p-10 shadow-2xl" id="bc"
+  data-benchmarks={JSON.stringify(SEARCH_BENCHMARKS)}
+  data-fx={JSON.stringify(FX.usdTo)}
+  data-symbols={JSON.stringify(CURRENCIES)}
+>
+  <div class="grid lg:grid-cols-2 gap-5 lg:gap-7 mb-8">
+    <div>
+      <label for="bc-industry" class="block text-[#94A3B8] text-sm mb-1.5">Industry</label>
+      <select id="bc-industry" class="bc-input">
+        {SEARCH_BENCHMARKS.map((b) => <option value={b.id}>{b.name}</option>)}
+      </select>
+    </div>
+    <div>
+      <label for="bc-objective" class="block text-[#94A3B8] text-sm mb-1.5">What the budget is for</label>
+      <select id="bc-objective" class="bc-input">
+        <option value="sales">Online sales</option>
+        <option value="leads-b2c">Leads, consumer</option>
+        <option value="leads-b2b">Leads, business to business</option>
+        <option value="traffic">Traffic and awareness</option>
+      </select>
+    </div>
+    <div>
+      <label for="bc-budget" class="block text-[#94A3B8] text-sm mb-1.5">Monthly budget</label>
+      <div class="relative">
+        <span id="bc-budget-sym" class="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748B]">&pound;</span>
+        <input type="text" id="bc-budget" inputmode="numeric" autocomplete="off" value="5,000" class="bc-input pl-7" />
+      </div>
+    </div>
+    <div>
+      <label for="bc-currency" class="block text-[#94A3B8] text-sm mb-1.5">Currency</label>
+      <select id="bc-currency" class="bc-input">
+        <option value="GBP" selected>Pounds (GBP)</option>
+        <option value="USD">Dollars (USD)</option>
+        <option value="EUR">Euros (EUR)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- The assumptions, out in the open -->
+  <div class="rounded-2xl bg-white/5 border border-white/10 p-5 sm:p-6 mb-8">
+    <div class="flex flex-wrap items-baseline justify-between gap-3 mb-1">
+      <p class="font-heading font-bold text-white">The three numbers doing the work</p>
+      <button type="button" id="bc-reset" class="text-sm font-semibold text-[#3B82F6] hover:text-white transition-colors">
+        Reset to the benchmark
+      </button>
+    </div>
+    <p class="text-sm text-[#94A3B8] mb-5">
+      Pre-filled from {SEARCH_BENCHMARK_SOURCE.name}, updated {SEARCH_BENCHMARK_SOURCE.updated}. Those are
+      averages across a mostly US account set, so treat them as a starting point. If you know your own
+      figures, type them in: the forecast is only as good as these three.
+    </p>
+    <div class="grid sm:grid-cols-3 gap-4">
+      <div>
+        <label for="bc-ctr" class="block text-[#94A3B8] text-sm mb-1.5">Click-through rate</label>
+        <div class="relative">
+          <input type="number" id="bc-ctr" inputmode="decimal" min="0.01" max="100" step="0.01" value="6.64" class="bc-input pr-8" />
+          <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[#64748B] text-sm">%</span>
+        </div>
+      </div>
+      <div>
+        <label for="bc-cpc" class="block text-[#94A3B8] text-sm mb-1.5">Cost per click</label>
+        <div class="relative">
+          <span id="bc-cpc-sym" class="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748B]">&pound;</span>
+          <input type="number" id="bc-cpc" inputmode="decimal" min="0.01" step="0.01" value="3.31" class="bc-input pl-7" />
+        </div>
+      </div>
+      <div>
+        <label for="bc-cvr" class="block text-[#94A3B8] text-sm mb-1.5">Conversion rate</label>
+        <div class="relative">
+          <input type="number" id="bc-cvr" inputmode="decimal" min="0.01" max="100" step="0.01" value="4.50" class="bc-input pr-8" />
+          <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[#64748B] text-sm">%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Commercial inputs -->
+  <div class="grid sm:grid-cols-2 gap-5 mb-8" id="bc-commercial">
+    <div>
+      <label for="bc-value" id="bc-value-label" class="block text-[#94A3B8] text-sm mb-1.5">Average order value</label>
+      <div class="relative">
+        <span id="bc-value-sym" class="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748B]">&pound;</span>
+        <input type="text" id="bc-value" inputmode="numeric" autocomplete="off" value="80" class="bc-input pl-7" />
+      </div>
+    </div>
+    <div>
+      <label for="bc-margin" class="block text-[#94A3B8] text-sm mb-1.5">Gross margin</label>
+      <div class="relative">
+        <input type="number" id="bc-margin" inputmode="numeric" min="1" max="100" step="1" value="40" class="bc-input pr-8" />
+        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[#64748B] text-sm">%</span>
+      </div>
+      <p class="text-xs text-[#64748B] mt-1.5">What is left after the cost of the product or delivering the service.</p>
+    </div>
+  </div>
+
+  <!-- Forecast -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+    <div class="rounded-2xl bg-white/5 border border-white/10 p-4 sm:p-5">
+      <p class="text-xs uppercase tracking-wide text-[#64748B] mb-1">Impressions</p>
+      <p id="bc-impr" class="font-heading text-2xl sm:text-3xl font-bold text-white">n/a</p>
+      <p class="text-xs text-[#94A3B8] mt-1">a month</p>
+    </div>
+    <div class="rounded-2xl bg-white/5 border border-white/10 p-4 sm:p-5">
+      <p class="text-xs uppercase tracking-wide text-[#64748B] mb-1">Clicks</p>
+      <p id="bc-clicks" class="font-heading text-2xl sm:text-3xl font-bold text-white">n/a</p>
+      <p id="bc-clicks-note" class="text-xs text-[#94A3B8] mt-1"></p>
+    </div>
+    <div class="rounded-2xl bg-white/5 border border-white/10 p-4 sm:p-5">
+      <p id="bc-conv-label" class="text-xs uppercase tracking-wide text-[#64748B] mb-1">Sales</p>
+      <p id="bc-conv" class="font-heading text-2xl sm:text-3xl font-bold text-white">n/a</p>
+      <p id="bc-conv-note" class="text-xs text-[#94A3B8] mt-1"></p>
+    </div>
+    <div class="rounded-2xl bg-white/5 border border-white/10 p-4 sm:p-5">
+      <p id="bc-cpa-label" class="text-xs uppercase tracking-wide text-[#64748B] mb-1">Cost per sale</p>
+      <p id="bc-cpa" class="font-heading text-2xl sm:text-3xl font-bold text-white">n/a</p>
+      <p class="text-xs text-[#94A3B8] mt-1">at this budget</p>
+    </div>
+  </div>
+
+  <!-- The profit read -->
+  <div id="bc-profit" class="rounded-2xl p-6 sm:p-7 border mb-6">
+    <div class="flex flex-wrap items-center gap-3 mb-3">
+      <span id="bc-profit-badge" class="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full">n/a</span>
+      <span id="bc-profit-headline" class="font-heading font-bold text-xl text-white">n/a</span>
+    </div>
+    <p id="bc-profit-body" class="text-[#CBD5E1] leading-relaxed"></p>
+    <div class="grid sm:grid-cols-3 gap-4 mt-6">
+      <div class="rounded-xl bg-black/20 p-4">
+        <p class="text-xs uppercase tracking-wide text-[#64748B] mb-1">Revenue</p>
+        <p id="bc-rev" class="font-heading text-xl font-bold text-white">n/a</p>
+      </div>
+      <div class="rounded-xl bg-black/20 p-4">
+        <p class="text-xs uppercase tracking-wide text-[#64748B] mb-1">ROAS, and break-even</p>
+        <p id="bc-roas" class="font-heading text-xl font-bold text-white">n/a</p>
+      </div>
+      <div class="rounded-xl bg-black/20 p-4">
+        <p class="text-xs uppercase tracking-wide text-[#64748B] mb-1">Profit after ad spend</p>
+        <p id="bc-prof" class="font-heading text-xl font-bold text-white">n/a</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Channel split -->
+  <div class="rounded-2xl bg-white/5 border border-white/10 p-5 sm:p-6">
+    <p class="font-heading font-bold text-white mb-1">Where we would start with it</p>
+    <p class="text-sm text-[#94A3B8] mb-5">
+      Our opinion, not a benchmark. Small budgets go almost entirely into catching demand that
+      already exists, because that is the cheapest money in the account. Creating new demand
+      earns a share once capture starts running out of room.
+    </p>
+    <div id="bc-split" class="space-y-3"></div>
+    <p id="bc-split-note" class="text-sm text-[#94A3B8] mt-5"></p>
+  </div>
+
+  <div class="mt-7 flex flex-wrap items-center gap-3">
+    <button type="button" id="bc-copy" class="text-sm font-semibold px-4 py-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors">
+      Copy the forecast
+    </button>
+    <span id="bc-copied" class="text-sm text-[#10B981] opacity-0 transition-opacity">Copied</span>
+  </div>
+
+  <p class="mt-6 text-xs text-[#64748B] leading-relaxed">
+    Converted from US dollars at the {FX.source} of {FX.date}. A planning estimate, not a promise:
+    real results move with demand, account structure, tracking, creative and the offer. Nothing you
+    type leaves your browser.
+  </p>
+</div>
+
+<!--
+  is:global is load-bearing. Astro scopes a component's styles by stamping an attribute on the
+  elements it can see at build time, and every cell in these tables and grids is created at
+  runtime with innerHTML, so it never gets stamped. Scoped, the rules below silently miss:
+  the editable CPM cells rendered as default dark body text on a dark card, and the rerun grid
+  collapsed to nothing because its aspect-ratio never applied. Every selector here is prefixed
+  with this component's own id, so going global leaks nothing.
+-->
+<style is:global>
+  #bc .bc-input {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 0.6rem;
+    padding: 0.6rem 0.75rem;
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: 600;
+    outline: none;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  #bc .bc-input:focus { border-color: #3B82F6; background: rgba(255,255,255,0.1); }
+  #bc select.bc-input { appearance: none; }
+  #bc select.bc-input option { background: #132240; color: #fff; }
+  #bc .bc-bar { height: 0.5rem; border-radius: 9999px; transition: width .4s ease; }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const root = document.getElementById('bc');
+    if (!root) return;
+
+    type Bench = { id: string; name: string; ctr: number; cpc: number; cvr: number };
+    const BENCH: Bench[] = JSON.parse(root.dataset.benchmarks || '[]');
+    const FXR: Record<string, number> = JSON.parse(root.dataset.fx || '{}');
+    const SYM: Record<string, { symbol: string }> = JSON.parse(root.dataset.symbols || '{}');
+
+    const $ = (id: string) => document.getElementById(id) as HTMLElement;
+    const el = (id: string) => document.getElementById(id) as HTMLInputElement;
+    const num = (id: string) => {
+      const n = parseFloat(el(id).value.replace(/[^0-9.\-]/g, ''));
+      return isFinite(n) ? n : 0;
+    };
+    const int = (n: number) => Math.round(n).toLocaleString('en-GB');
+
+    function groupOnInput(input: HTMLInputElement) {
+      input.addEventListener('input', () => {
+        const before = input.value.slice(0, input.selectionStart ?? 0).replace(/[^0-9]/g, '').length;
+        const digits = input.value.replace(/[^0-9]/g, '');
+        if (!digits) { input.value = ''; return; }
+        const out = parseInt(digits, 10).toLocaleString('en-GB');
+        input.value = out;
+        let seen = 0, pos = out.length;
+        for (let i = 0; i < out.length; i++) {
+          if (/[0-9]/.test(out[i])) seen++;
+          if (seen === before) { pos = i + 1; break; }
+        }
+        if (before === 0) pos = 0;
+        input.setSelectionRange(pos, pos);
+      });
+    }
+    ['bc-budget', 'bc-value'].forEach((id) => groupOnInput(el(id)));
+
+    let currency = 'GBP';
+    const sym = () => (SYM[currency] ? SYM[currency].symbol : '£');
+    const money = (n: number, dp = 0) =>
+      sym() + n.toLocaleString('en-GB', { minimumFractionDigits: dp, maximumFractionDigits: dp });
+
+    /** Benchmark CPC is published in US dollars, so it converts; everything else is a rate. */
+    function fillBenchmark() {
+      // Read the currency from the control, not from the module variable: render() is what
+      // updates that, and on a currency change this runs first, so the variable is a step behind.
+      currency = el('bc-currency').value;
+      const b = BENCH.find((x) => x.id === el('bc-industry').value) || BENCH[0];
+      el('bc-ctr').value = b.ctr.toFixed(2);
+      el('bc-cvr').value = b.cvr.toFixed(2);
+      el('bc-cpc').value = (b.cpc * (FXR[currency] ?? 1)).toFixed(2);
+    }
+
+    // Our starting channel splits. Deliberately simple and deliberately labelled as opinion:
+    // capture first, demand creation once capture saturates.
+    function splitFor(objective: string, monthly: number) {
+      const band = monthly < 2000 ? 0 : monthly < 7500 ? 1 : 2;
+      const table: Record<string, { name: string; pct: number[]; colour: string }[]> = {
+        sales: [
+          { name: 'Google Search, Shopping and PMax', pct: [85, 70, 58], colour: '#3B82F6' },
+          { name: 'Meta (Facebook and Instagram)', pct: [15, 28, 36], colour: '#10B981' },
+          { name: 'Demand Gen, YouTube or TikTok', pct: [0, 2, 6], colour: '#F59E0B' },
+        ],
+        'leads-b2c': [
+          { name: 'Google Search', pct: [90, 75, 62], colour: '#3B82F6' },
+          { name: 'Meta (Facebook and Instagram)', pct: [10, 23, 32], colour: '#10B981' },
+          { name: 'Demand Gen or YouTube', pct: [0, 2, 6], colour: '#F59E0B' },
+        ],
+        'leads-b2b': [
+          { name: 'Google Search', pct: [85, 68, 52], colour: '#3B82F6' },
+          { name: 'LinkedIn', pct: [10, 22, 32], colour: '#10B981' },
+          { name: 'Meta retargeting and YouTube', pct: [5, 10, 16], colour: '#F59E0B' },
+        ],
+        traffic: [
+          { name: 'Meta (Facebook and Instagram)', pct: [45, 48, 50], colour: '#10B981' },
+          { name: 'Google Demand Gen and YouTube', pct: [25, 27, 30], colour: '#F59E0B' },
+          { name: 'Google Search, brand and category', pct: [30, 25, 20], colour: '#3B82F6' },
+        ],
+      };
+      const notes = [
+        'Under ' + money(2000) + ' a month there is not enough budget to do two jobs properly. Catch the demand that already exists, prove the tracking, then widen.',
+        'At this level the capture campaigns can usually take everything they can profitably spend, so the rest goes to building demand for next quarter.',
+        'Above ' + money(7500) + ' a month, Search normally runs out of profitable headroom before the budget does. That is the point to put real money behind demand creation.',
+      ];
+      return { rows: (table[objective] || table.sales).map((r) => ({ ...r, pct: r.pct[band] })), note: notes[band] };
+    }
+
+    function render() {
+      currency = el('bc-currency').value;
+      const s = sym();
+      ['bc-budget-sym', 'bc-cpc-sym', 'bc-value-sym'].forEach((id) => { $(id).innerHTML = s; });
+
+      const objective = el('bc-objective').value;
+      const isSales = objective === 'sales';
+      const isTraffic = objective === 'traffic';
+      const leadWord = isSales ? 'sale' : 'lead';
+
+      $('bc-conv-label').textContent = isSales ? 'Sales' : 'Leads';
+      $('bc-cpa-label').textContent = isSales ? 'Cost per sale' : 'Cost per lead';
+      $('bc-value-label').textContent = isSales ? 'Average order value' : 'What a lead is worth to you';
+      ($('bc-commercial') as HTMLElement).style.display = isTraffic ? 'none' : '';
+
+      const budget = num('bc-budget');
+      const ctr = num('bc-ctr') / 100;
+      const cpc = num('bc-cpc');
+      const cvr = num('bc-cvr') / 100;
+      const value = num('bc-value');
+      const margin = num('bc-margin') / 100;
+
+      if (budget <= 0 || cpc <= 0 || ctr <= 0) {
+        ['bc-impr', 'bc-clicks', 'bc-conv', 'bc-cpa'].forEach((id) => { $(id).textContent = 'n/a'; });
+        return;
+      }
+
+      const clicks = budget / cpc;
+      const impressions = clicks / ctr;
+      const conversions = clicks * cvr;
+      const cpa = conversions > 0 ? budget / conversions : 0;
+
+      $('bc-impr').textContent = int(impressions);
+      $('bc-clicks').textContent = int(clicks);
+      $('bc-clicks-note').textContent = int(clicks / 30.4) + ' a day';
+      $('bc-conv').textContent = conversions >= 10 ? int(conversions) : conversions.toFixed(1);
+      $('bc-conv-note').textContent = conversions > 0 ? (conversions / 30.4).toFixed(1) + ' a day' : '';
+      $('bc-cpa').textContent = conversions > 0 ? money(cpa, cpa < 20 ? 2 : 0) : 'n/a';
+
+      // The profit read, which is the part most budget calculators leave out.
+      const box = $('bc-profit'), badge = $('bc-profit-badge');
+      const setProfitState = (state: string, label: string, headline: string) => {
+        const map: Record<string, string[]> = {
+          good: ['bg-[#10B981] text-[#052E1B]', 'border-[#10B981]/40 bg-[#10B981]/10'],
+          thin: ['bg-[#F59E0B] text-[#3B2503]', 'border-[#F59E0B]/40 bg-[#F59E0B]/10'],
+          bad:  ['bg-[#EA4335] text-white',     'border-[#EA4335]/40 bg-[#EA4335]/10'],
+          none: ['bg-[#334155] text-[#CBD5E1]', 'border-white/10 bg-white/5'],
+        };
+        badge.className = 'text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full ' + map[state][0];
+        box.className = 'rounded-2xl p-6 sm:p-7 border mb-6 ' + map[state][1];
+        badge.textContent = label;
+        $('bc-profit-headline').textContent = headline;
+      };
+
+      if (isTraffic || value <= 0 || margin <= 0) {
+        setProfitState('none', 'No margin yet', isTraffic ? 'Traffic has no profit line' : 'Add a value and a margin');
+        $('bc-profit-body').textContent = isTraffic
+          ? 'A traffic budget buys attention, not orders, so there is nothing here to put against the spend. Judge it on reach and on what the capture campaigns do afterwards, and keep a separate budget for catching the demand it creates.'
+          : 'Put in what one ' + leadWord + ' is worth and your gross margin, and this becomes the only line on the page that matters: whether the plan makes money.';
+        ['bc-rev', 'bc-roas', 'bc-prof'].forEach((id) => { $(id).textContent = 'n/a'; });
+      } else {
+        const revenue = conversions * value;
+        const roas = budget > 0 ? revenue / budget : 0;
+        const breakEven = margin > 0 ? 1 / margin : 0;
+        const profit = revenue * margin - budget;
+
+        $('bc-rev').textContent = money(revenue);
+        $('bc-roas').textContent = roas.toFixed(2) + 'x of ' + breakEven.toFixed(2) + 'x';
+        $('bc-prof').textContent = (profit < 0 ? '-' : '') + money(Math.abs(profit));
+
+        const gap = roas - breakEven;
+        if (profit > 0 && gap / breakEven > 0.25) {
+          setProfitState('good', 'Profitable', 'This budget works at your margin');
+          $('bc-profit-body').textContent =
+            'At a ' + (margin * 100).toFixed(0) + '% margin you break even at ' + breakEven.toFixed(2)
+            + 'x, and the forecast lands at ' + roas.toFixed(2) + 'x. That is ' + money(profit)
+            + ' a month left after the product cost and the ad spend. The headroom is wide enough that you can afford to bid up for volume, which is usually worth more than protecting the ROAS number.';
+        } else if (profit > 0) {
+          setProfitState('thin', 'Thin', 'It works, but there is no room in it');
+          $('bc-profit-body').textContent =
+            'Break-even is ' + breakEven.toFixed(2) + 'x and the forecast is ' + roas.toFixed(2)
+            + 'x, so the whole plan rests on ' + money(profit) + ' a month. A slightly worse conversion rate or a slightly higher CPC wipes that out. Before committing the budget, either lift the margin, lift the conversion rate, or cut the categories dragging the average down.';
+        } else {
+          setProfitState('bad', 'Loses money', 'At this margin the plan does not pay');
+          $('bc-profit-body').textContent =
+            'You need ' + breakEven.toFixed(2) + 'x just to stand still at a ' + (margin * 100).toFixed(0)
+            + '% margin, and the forecast is ' + roas.toFixed(2) + 'x. That is ' + money(Math.abs(profit))
+            + ' a month going out of the door. The fix is almost never a bigger budget: it is a better conversion rate, a higher order value, or walking away from the keywords that cannot clear the bar.';
+        }
+      }
+
+      // Split
+      const split = splitFor(objective, budget);
+      const host = $('bc-split');
+      host.innerHTML = '';
+      split.rows.filter((r) => r.pct > 0).forEach((r) => {
+        const row = document.createElement('div');
+        row.innerHTML =
+          '<div class="flex items-baseline justify-between gap-3 mb-1.5">' +
+          '<span class="text-sm text-[#CBD5E1]">' + r.name + '</span>' +
+          '<span class="text-sm font-semibold text-white">' + money(budget * r.pct / 100) + ' <span class="text-[#64748B] font-normal">&middot; ' + r.pct + '%</span></span>' +
+          '</div>' +
+          '<div class="h-2 rounded-full bg-white/10 overflow-hidden"><span class="bc-bar block" style="width:' + r.pct + '%;background:' + r.colour + '"></span></div>';
+        host.appendChild(row);
+      });
+      $('bc-split-note').textContent = split.note;
+    }
+
+    el('bc-industry').addEventListener('change', () => { fillBenchmark(); render(); });
+    el('bc-currency').addEventListener('change', () => { fillBenchmark(); render(); });
+    el('bc-objective').addEventListener('change', render);
+    $('bc-reset').addEventListener('click', () => { fillBenchmark(); render(); });
+    ['bc-budget', 'bc-ctr', 'bc-cpc', 'bc-cvr', 'bc-value', 'bc-margin']
+      .forEach((id) => el(id).addEventListener('input', render));
+
+    $('bc-copy').addEventListener('click', async () => {
+      const lines = [
+        'PPC forecast, ' + (el('bc-industry') as HTMLSelectElement).selectedOptions[0].text,
+        'Budget: ' + money(num('bc-budget')) + ' a month',
+        'Assumptions: ' + num('bc-ctr') + '% CTR, ' + money(num('bc-cpc'), 2) + ' CPC, ' + num('bc-cvr') + '% conversion rate',
+        'Impressions: ' + $('bc-impr').textContent,
+        'Clicks: ' + $('bc-clicks').textContent,
+        $('bc-conv-label').textContent + ': ' + $('bc-conv').textContent,
+        $('bc-cpa-label').textContent + ': ' + $('bc-cpa').textContent,
+        'Revenue: ' + $('bc-rev').textContent,
+        'ROAS of break-even: ' + $('bc-roas').textContent,
+        'Profit after ad spend: ' + $('bc-prof').textContent,
+        '',
+        'Built with the free calculator at https://visible-ads.com/tools/ppc-budget-calculator',
+      ];
+      try {
+        await navigator.clipboard.writeText(lines.join('\n'));
+        const flag = $('bc-copied');
+        flag.style.opacity = '1';
+        setTimeout(() => { flag.style.opacity = '0'; }, 1800);
+      } catch {
+        /* Clipboard refused, usually an insecure context. Nothing useful to say about it. */
+      }
+    });
+
+    fillBenchmark();
+    render();
+  });
+</script>

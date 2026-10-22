@@ -1,0 +1,198 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import MediaPlanner from '../../components/MediaPlanner.astro';
+import { PLANNER_CHANNELS } from '../../data/tool-benchmarks';
+
+const faqs = [
+  {
+    question: 'How do I split a paid media budget across channels?',
+    answer: 'Decide what each part of the budget is for before you decide where it goes. Capture budget catches people already looking for what you sell, which is the cheapest money in any account. Creation budget makes people look in the first place, and it only pays back if the capture layer is big enough to take the searches it causes. Set that split first, then the channel list follows from it.',
+  },
+  {
+    question: 'What funnel split should I start with?',
+    answer: 'It should reflect your sales cycle, not a convention. A long, considered B2B purchase justifies more awareness and consideration, because the buyer needs to know you months before they buy. High-frequency ecommerce can weight direct response, because the buyer is already in market. The planner starts you somewhere sensible for each and lets you change it.',
+  },
+  {
+    question: 'Are the CPM figures in here real benchmarks?',
+    answer: 'No, and we will not pretend otherwise. Published CPM figures for these channels disagree by a factor of three depending on who published them, and most come from vendor blogs with no stated method. Ours are planning starting points. Every CPM and CTR in the table is editable, so replace them with your rate card or your own account data and the plan becomes genuinely yours.',
+  },
+  {
+    question: 'Why do some channels show no clicks?',
+    answer: 'Because there is nothing to click on a television, a billboard or a podcast. Connected TV, digital out-of-home and streaming audio are bought for reach and frequency, and judged on completion rates and on whether brand searches rise while they run. A click column for them would be a made-up number.',
+  },
+  {
+    question: 'How many channels should a small budget run on?',
+    answer: 'Fewer than most plans assume. Each channel needs creative built for it, someone watching it, and enough spend to get out of the learning phase. Below about £3,000 a month, two or three channels done properly will beat eight done thinly, and the planner says so when it spots that shape.',
+  },
+  {
+    question: 'Does this replace a proper media plan?',
+    answer: 'No. It gives you a defensible starting position fast, so you can argue about the right things: the funnel split, the channel list and the creative needed. The real plan needs your own costs, your seasonality, your measurement setup and a view on what each channel has done for you before.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      name: 'Media Planner',
+      url: 'https://visible-ads.com/tools/media-planner',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Any',
+      description:
+        'Free cross-channel media planner. Turn a monthly budget and a funnel split into a channel plan with CPMs, impressions and clicks for Search, paid social, video, display and broadcast.',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'GBP' },
+      publisher: { '@type': 'Organization', name: 'Visible Ads' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://visible-ads.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://visible-ads.com/tools' },
+        { '@type': 'ListItem', position: 3, name: 'Media planner', item: 'https://visible-ads.com/tools/media-planner' },
+      ],
+    },
+  ],
+};
+
+const groups = [...new Set(PLANNER_CHANNELS.map((c) => c.group))];
+---
+
+<Layout
+  title="Media Planner: Split a Paid Media Budget Across Channels | Visible Ads"
+  description="Free cross-channel media planner. Turn a monthly budget and a funnel split into a channel plan with CPMs, impressions and clicks. Every assumption editable, CSV export, no login."
+  schema={schema}
+>
+  <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Tools', href: '/tools' }, { label: 'Media planner' }]} />
+
+  <section class="py-14 lg:py-20 bg-gradient-to-br from-navy to-navy-light relative overflow-hidden" data-animate>
+    <div class="absolute inset-0 dot-pattern opacity-5"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="max-w-3xl">
+        <span class="inline-block text-electric-light font-heading font-semibold text-sm tracking-wide uppercase mb-4">
+          Free tool &middot; no login, no email
+        </span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white mb-6 leading-tight">
+          Media planner
+        </h1>
+        <p class="text-lg sm:text-xl text-slate-light leading-relaxed">
+          A budget, a funnel split and a channel list in. A plan with the reach each line buys
+          out. Change any assumption in the table and the whole thing moves, so you can argue
+          with it before anyone spends a pound.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 lg:py-16 bg-gray-50" data-animate>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <MediaPlanner />
+    </div>
+  </section>
+
+  <!-- Method -->
+  <section class="py-16 lg:py-24 bg-white" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-10">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">
+          How to plan a cross-channel budget
+        </h2>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          A media plan answers one question: where does the next pound go to move a real
+          commercial number? Four decisions get you there, in this order.
+        </p>
+      </div>
+
+      <div class="space-y-5">
+        <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:p-7">
+          <h3 class="text-lg font-heading font-bold text-navy mb-2">1. Separate creating demand from catching it</h3>
+          <p class="text-gray-700 leading-relaxed">Paid social, video, audio and out-of-home create demand in people who are not searching yet. Search and Shopping catch it once they are. Plan them together: a creation budget with no capture layer gives away the interest it builds, usually to a competitor bidding on the category term, and a capture-only account eventually runs out of demand to harvest.</p>
+        </div>
+        <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:p-7">
+          <h3 class="text-lg font-heading font-bold text-navy mb-2">2. Set the funnel split before the channel list</h3>
+          <p class="text-gray-700 leading-relaxed">This is the biggest lever in the plan and the one most people never touch. Decide how much goes to awareness, consideration and direct response first, from your sales cycle rather than from habit. The channel list should fall out of that decision, not drive it.</p>
+        </div>
+        <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:p-7">
+          <h3 class="text-lg font-heading font-bold text-navy mb-2">3. Match the channel to the job</h3>
+          <p class="text-gray-700 leading-relaxed">Resist spreading a small budget across everything. Concentrate where you can resource the creative and the measurement properly, prove it, and add channels from there. A line too small to brief creative for is a line that will underperform and get blamed for it.</p>
+        </div>
+        <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:p-7">
+          <h3 class="text-lg font-heading font-bold text-navy mb-2">4. Decide how you will judge it before it launches</h3>
+          <p class="text-gray-700 leading-relaxed">Upper-funnel channels will not show up properly in last-click reporting, and arguing about that after the fact never ends well. Agree in advance what success looks like for the reach lines: brand search volume, direct traffic, assisted conversions, or a holdout region with no spend in it at all.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Channel roles -->
+  <section class="py-16 lg:py-24 bg-sky-tint" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-10">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">
+          What each channel is actually for
+        </h2>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          The planner spreads budget across thirteen channels. Here is the job each one does,
+          which is the thing to agree on before the numbers.
+        </p>
+      </div>
+
+      {groups.map((g) => (
+        <div class="mb-8">
+          <h3 class="text-xs font-semibold uppercase tracking-widest text-slate mb-3">{g}</h3>
+          <div class="grid md:grid-cols-2 gap-4">
+            {PLANNER_CHANNELS.filter((c) => c.group === g).map((c) => (
+              <div class="rounded-2xl bg-white border border-gray-100 p-5 shadow-sm">
+                <p class="font-heading font-bold text-navy mb-1.5">{c.name}</p>
+                <p class="text-sm text-gray-700 leading-relaxed">{c.role}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 lg:py-24 bg-white" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-10">Media planning FAQs</h2>
+      <div class="space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl border border-gray-200 bg-gray-50 p-6">
+            <summary class="flex items-start justify-between gap-4 cursor-pointer list-none font-heading font-bold text-navy">
+              {f.question}
+              <svg class="w-5 h-5 shrink-0 mt-0.5 text-electric transition-transform group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+            </summary>
+            <p class="mt-4 text-gray-700 leading-relaxed">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-20 bg-navy" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-4">
+        A plan is a starting position
+      </h2>
+      <p class="text-lg text-slate-light leading-relaxed mb-8">
+        We will pressure-test it against your real account data: what each channel has actually
+        returned, where the spend leaks, and whether the measurement can even see the upper funnel
+        you are about to buy.
+      </p>
+      <a href="/free-ads-audit" class="inline-flex items-center justify-center px-8 py-4 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-lg hover:shadow-xl">
+        Book a profit audit
+      </a>
+    </div>
+  </section>
+</Layout>
