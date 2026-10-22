@@ -70,7 +70,32 @@ Boh supplied GA4 measurement ID G-ZZ6RF754RW. Installed in `src/layouts/Layout.a
 - 🔴 **Repo `origin` changed, discovered 2026-09-12: now `visibleadsppc/visible-ads`, NOT `sunnyp81/visible-ads`.** Someone on Boh's side has commit/push access and is actively shipping (7 commits landed mid-session, unannounced) — likely the Aug 5-6 infra-handover completing. **Always `git fetch` and check for divergence before pushing here from now on**, don't assume this is a Sunny-only repo anymore. Local: `C:\Users\sunny\repos\visible-ads`.
 - ✅ Cloudflare Turnstile is DONE (shipped by Boh's side ~Sep 2026, not "drafted" as earlier entries below say): `src/components/Turnstile.astro`, full token-refresh + replay-protection logic, wired into all 5 site forms. Superseded an earlier half-finished Sunny-side Turnstile attempt.
 - New feature (Boh's side, live): exit-intent popup (`GuidePopup.astro`) gating a Q4 playbook PDF behind an emailed confirmation link, routes `/playbook/` and `/guide-sent/`.
-- Deploy: 🔴 NOT git-connected (`wrangler pages project list` shows Git Provider: No, confirmed 2026-08-27). Manual deploy required after every push: `npm install` (if fresh clone) → `npm run build` → `npx wrangler pages deploy dist --project-name visible-ads --commit-dirty=true` (wrangler OAuth login, sunnypat81 CF account `aba0a6722a4510842ca473315a8ba13e` — no valid API token needed, `cfut_143a...` is dead).
+- Deploy: 🔴 NOT git-connected (`wrangler pages project list` shows Git Provider: No, re-confirmed 2026-10-22). Manual deploy required after every push: `npm install` (if fresh clone), `npm run build`, then `npx wrangler pages deploy dist --project-name visible-ads --commit-dirty=true`.
+  ✅ **Credentials corrected 2026-10-22.** The zone moved to the **TBT Solutions** account in the Aug cutover, so the `CLOUDFLARE_API_TOKEN` in `~/.zshrc` is now the right one and wrangler reads it straight from the environment. The old note here (wrangler OAuth against sunnypat81, account `aba0a672...`) is dead; ignore it.
+  ⚠️ `npx wrangler deploy` on **visible-ads-forms** always ends with a `/zones/{id}/workers/routes` "No access to the specified resource" error. **The code still uploads and goes live** and the existing route survives. Do not read it as a failed deploy; verify by hitting the endpoint.
+  🔴 **`git fetch` and check `git rev-list --left-right --count HEAD...origin/master` BEFORE writing code here, not just before pushing.** On 2026-10-22 this clone was **70 commits behind** with nothing on screen saying so, and deploying that build would have rolled the live site back past a fortnight of other people's work.
+
+## Oct 22 2026 - four free PPC tools live under /tools
+
+Boh asked (Slack) for the tool section to be built out, linking Adalysis's A/B testing tool and
+Clean Digital's calculators. Shipped `/tools/ad-test-significance`, `/tools/ppc-budget-calculator`,
+`/tools/media-planner` and `/tools/weather-bidding`, all free and ungated, plus `/api/weather` on
+the forms worker proxying MET Norway (CC BY 4.0). Shared data in `src/data/tool-benchmarks.ts`.
+
+Three things that must not be "tidied up" later:
+
+* **Search benchmarks are LocaliQ's published averages**, cited and dated, converted from USD at a
+  pinned ECB rate, and every one is editable on screen. Channel CPMs are explicitly labelled as our
+  planning starting points, because published CPM figures disagree by a factor of three. **No
+  Visible Ads account data is used anywhere**: that needs Boh's sign-off first.
+* **`<style is:global>` in the four tool components is load-bearing.** Astro scoped styles never
+  reach elements built at runtime with innerHTML, and scoping them again silently renders the
+  editable cells as dark text on a dark card. Every selector is id-prefixed so nothing leaks.
+* **A conversion-rate test divides by CLICKS, not impressions.** The denominator label changes with
+  the metric on purpose.
+
+Verified: 60 browser checks against the build, 58 against the live site, statistics checked against
+exact values separately.
 
 ## Sep 19 2026 — all open "For Boh" blockers closed, one plan reversal
 
