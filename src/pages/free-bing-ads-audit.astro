@@ -97,26 +97,32 @@ const schema = {
 const checks = [
   {
     title: 'Is your account a stale Google import?',
+    short: 'Stale Google import: what came across and what has drifted',
     body: 'Most Microsoft Advertising accounts were imported from Google Ads once and never touched again. We check what came across and what broke on the way. Then we check what has drifted since.',
   },
   {
     title: 'Search Partner Network placement',
+    short: 'Search Partner Network placements',
     body: 'Your ads may be serving across partner sites you have never reviewed. We check where your spend is actually landing and whether the placements are earning it.',
   },
   {
     title: 'LinkedIn profile targeting',
+    short: 'LinkedIn profile targeting',
     body: 'Microsoft Advertising can target by company, job function and industry through LinkedIn profile data. Google cannot. We check whether you use it and whether it suits your buyer.',
   },
   {
     title: 'Audience Network settings',
+    short: 'Microsoft Audience Network settings',
     body: 'The Microsoft Audience Network is on by default in places people do not expect. We check whether it is working for you or quietly absorbing budget.',
   },
   {
     title: 'Keywords, match types and negatives',
+    short: 'Keywords, match types and negative keywords',
     body: 'We review your match type structure and negative keyword coverage. That finds the queries you pay for that were never worth a click.',
   },
   {
     title: 'UET tag and conversion tracking',
+    short: 'UET tag and conversion tracking accuracy',
     body: 'A misfiring UET tag makes every decision after it guesswork. We verify conversions record accurately before reading anything else.',
   },
 ];
@@ -124,8 +130,8 @@ const checks = [
 ---
 
 <Layout
-  title="Free Microsoft Ads Audit (Bing Ads Audit) | Visible Ads"
-  description="Free Microsoft Ads (Bing Ads) account audit from a Microsoft Advertising Partner. We find wasted spend and tracking gaps, then give you a prioritised fix list."
+  title="Free Microsoft Ads Audit (Bing Ads) | Written Report"
+  description="Free Microsoft Ads (Bing Ads) audit from a Microsoft Advertising Partner. We review your account and send written findings you keep, with or without us."
   schema={schema}
 >
 
@@ -138,37 +144,19 @@ const checks = [
         <div class="lg:pt-4">
           <span class="inline-block px-3 py-1 rounded-full bg-sky-tint text-electric text-xs font-semibold tracking-wide uppercase mb-5">Microsoft Advertising Partner</span>
           <h1 class="text-4xl sm:text-5xl font-heading font-extrabold text-navy mb-6 leading-tight">Free Microsoft Ads Audit (Bing Ads)</h1>
-          <p class="text-lg text-gray-700 leading-relaxed mb-6">Most Microsoft Advertising accounts were imported from Google Ads once. Nobody opened them again. Yours is probably paying for clicks nobody chose to buy.</p>
-          <p class="text-lg text-gray-700 leading-relaxed mb-8">We review your account and tell you what is wrong with it. The findings arrive in writing. You keep them whether you work with us or not.</p>
+          <p class="text-lg text-gray-700 leading-relaxed mb-6">This is a free audit of your Microsoft Advertising (Bing Ads) account, done by a Microsoft Advertising Partner. We check six areas, listed below, and send you the findings in writing. You keep them whether or not you work with us.</p>
+          <p class="text-lg text-gray-700 leading-relaxed mb-6">Most Microsoft Advertising accounts were imported from Google Ads once and never opened again, so yours may be paying for clicks nobody chose to buy.</p>
 
-          <div class="space-y-5 mb-10">
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-lg bg-sky-tint flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-electric" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-              </div>
-              <div>
-                <h3 class="font-heading font-bold text-navy mb-1">A written report, not a sales call</h3>
-                <p class="text-gray-700 text-sm">Findings arrive in writing. A call follows to talk them through. The report is yours either way.</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-lg bg-sky-tint flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-electric" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-              </div>
-              <div>
-                <h3 class="font-heading font-bold text-navy mb-1">The import problem, spelled out</h3>
-                <p class="text-gray-700 text-sm">We list what came across from Google and what broke in transit. Then we show what has drifted since.</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-lg bg-sky-tint flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-electric" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              </div>
-              <div>
-                <h3 class="font-heading font-bold text-navy mb-1">Where your spend is actually going</h3>
-                <p class="text-gray-700 text-sm">We review your Search Partner Network placements and Audience Network settings line by line. You may never have chosen them.</p>
-              </div>
-            </div>
+          <div class="mb-10">
+            <h2 class="text-xl font-heading font-bold text-navy mb-3">What we check in a Microsoft Ads audit</h2>
+            <ul class="space-y-2 text-gray-700">
+              {checks.map((c) => (
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-success mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                  <span>{c.short}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div class="flex items-center gap-6 flex-wrap">
@@ -259,7 +247,7 @@ const checks = [
   <section class="py-20 lg:py-28 bg-sky-tint" data-animate>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">What We Check</h2>
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">What each check finds</h2>
         <p class="text-lg text-gray-700 max-w-2xl mx-auto">Microsoft Advertising is not Google Ads with a different logo. These are the things that go wrong specifically here.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
