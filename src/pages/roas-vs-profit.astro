@@ -16,27 +16,32 @@ const faqs = [
 
 const quickAnswers = [
   {
-    question: 'What is net ROAS?',
-    answer: 'Net ROAS is revenue after returns, cancellations and discounts, divided by ad spend. It is a stricter version of the platform figure because it only counts money you actually kept from those orders. There is no single official definition, so write down what your business takes off (VAT and refunds are the usual ones) and use the same version every month.',
+    question: 'What is net ROAS and how is it different from ROAS?',
+    answer: 'Net ROAS is the revenue you kept after returns, cancellations and discounts, divided by ad spend. It is a stricter version of the platform figure because it only counts money you actually kept from those orders. There is no single official definition, so write down what your business takes off (VAT and refunds are the usual ones) and use the same version every month.',
   },
   {
-    question: 'What is gross ROAS?',
+    question: 'What is gross ROAS and where do I find it?',
     answer: 'Gross ROAS is the figure the ad platform shows: conversion revenue divided by ad spend, before refunds, cancellations or product costs come off. Depending on how your conversion value is set up, VAT can still be inside it. It is handy for comparing campaigns against each other. It is not enough on its own to tell you whether you made money.',
   },
   {
     question: 'What is profit ROAS (profit on ad spend)?',
     answer: 'Profit ROAS is another name for POAS, profit on ad spend. Take the contribution from your sales (revenue less product cost and the other direct costs you include), then divide it by what you spent on ads. A POAS of 1.0 means the sales exactly covered their own cost plus the ad spend. Anything above 1.0 is money left over.',
-    more: { href: '/blog/break-even-roas', label: 'How to work out your break-even ROAS' },
   },
   {
-    question: 'What is a high ROAS?',
-    answer: 'A high ROAS is one that sits comfortably above your own break-even ROAS, which is 1 divided by your margin. No single number is high for everyone. A 4x ROAS is well above break-even on a 50% margin and below it on a 20% margin. Find your margin in the table below or in the calculator above before you judge any figure.',
-    more: { href: '/blog/target-roas-by-margin', label: 'How to set a target ROAS from your margin' },
+    question: 'What is a high ROAS, and what counts as a bad one?',
+    answer: 'A high ROAS is one that sits comfortably above your own break-even ROAS, which is 1 divided by your margin. A bad ROAS is one below it, because every sale then costs more than it earns. No single number is high or bad for everyone. A 4x ROAS is well above break-even on a 50% margin and below it on a 20% margin. Find your margin in the break-even table further down or in the calculator above before you judge any figure.',
+    more: { href: '/blog/target-roas-by-margin', label: 'What counts as a high target ROAS for your margin' },
   },
   {
     question: 'Why is my ROAS high but my profit low?',
     answer: 'Because ROAS only compares revenue with ad spend. Profit also has to pay for the product, payment fees, delivery and returns, and in your P&L the agency fee as well. The usual causes are a thin margin, a high return rate, discounted lines outselling full-price ones, VAT sitting inside reported revenue, and the same sale being claimed by more than one platform.',
   },
+];
+
+const compareRows = [
+  { name: 'Gross ROAS', definition: 'Conversion revenue divided by ad spend', includes: 'Revenue as the platform reports it, before refunds, cancellations or product costs. VAT can still be inside it.', use: 'Comparing campaigns against each other' },
+  { name: 'Net ROAS', definition: 'Revenue you kept after returns, cancellations and discounts, divided by ad spend', includes: 'Only the money you kept from those orders. You choose what to take off, so write the version down.', use: 'Checking how much of the reported revenue was real' },
+  { name: 'Profit ROAS (POAS)', definition: 'Contribution divided by ad spend', includes: 'Revenue less product cost and the other direct costs you include. Above 1.0 is money left over.', use: 'Deciding whether the spend made money' },
 ];
 
 const reconcile = {
@@ -137,6 +142,26 @@ const breakEvenRows = [
             {qa.more && <p class="mt-2"><a href={qa.more.href} class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">{qa.more.label}</a></p>}
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Gross, net and profit ROAS table -->
+  <section class="py-20 lg:py-24 bg-white" data-animate>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Gross, net and profit ROAS side by side</h2>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">All three divide by the same ad spend. They differ in what comes off the top line first.</p>
+      <p class="text-sm text-gray-700 mb-2 md:hidden">Swipe sideways to see every column.</p>
+      <div class="overflow-x-auto rounded-2xl border border-gray-200" tabindex="0" role="region" aria-label="Gross, net and profit ROAS compared, scrolls sideways on small screens">
+        <table class="w-full min-w-[640px] text-left text-base">
+          <caption class="sr-only">Gross ROAS, net ROAS and profit ROAS: definition, what each includes and when to use it</caption>
+          <thead class="bg-navy text-white"><tr><th scope="col" class="p-4">Measure</th><th scope="col" class="p-4">Definition</th><th scope="col" class="p-4">What it includes</th><th scope="col" class="p-4">Best used for</th></tr></thead>
+          <tbody class="text-gray-700">
+            {compareRows.map((r, i) => (
+              <tr class={i % 2 ? 'border-t bg-sky-tint/40' : 'border-t'}><th scope="row" class="p-4 font-semibold text-navy align-top">{r.name}</th><td class="p-4 align-top">{r.definition}</td><td class="p-4 align-top">{r.includes}</td><td class="p-4 align-top">{r.use}</td></tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
