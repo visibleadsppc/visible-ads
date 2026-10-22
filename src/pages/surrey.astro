@@ -5,14 +5,13 @@ import PartnerBadges from '../components/PartnerBadges.astro';
 import ClientLogos from '../components/ClientLogos.astro';
 
 const faqs = [
-  { q: "Which Surrey towns does Visible Ads cover?", a: "We work with businesses across Surrey, including Guildford, Woking, Godalming, Farnham, Epsom, Reigate, Redhill, Dorking, Staines and Camberley, and into South West London. Campaigns are built around the towns you sell into, not treated as one county postcode." },
+  { q: "Which Surrey towns does Visible Ads cover?", a: "We work with businesses across Surrey, in towns including Guildford, Woking, Godalming, Farnham, Epsom, Reigate, Redhill, Dorking, Staines and Camberley, and into South West London. Campaigns are built around the towns you sell into, not treated as one county postcode." },
   { q: "How much does PPC management cost for Surrey businesses?", a: "Fees are set per channel and rise with your ad budget, from £1,000 a month plus VAT on the entry tier. A free audit comes first, so you see a proposal before agreeing the three-month minimum term.", link: { href: "/ppc-management/#pricing", text: "See all three pricing tiers" } },
   { q: "Can a small Surrey business use a PPC agency?", a: "Yes. The entry tier is built for ad budgets up to £3,000 a month and includes 10 hours of work a month, a KPI dashboard and weekly calls or video updates. The free audit shows whether your budget can support management, so you know before you commit." },
-  { q: "Do you work with Surrey ecommerce brands as well as local service firms?", a: "Yes. Ecommerce brands in Surrey usually sell UK-wide, so we plan around product margin and keep county targeting for collection or local delivery. Local service firms, by contrast, get town-level campaigns with call and form tracking." },
-  { q: "What does Google Ads management in Surrey include?", a: "Search, Shopping and Performance Max campaigns, conversion tracking, search term and feed reviews, weekly budget decisions and regular reporting. We also run Microsoft Advertising, Meta, Amazon and LinkedIn where they fit, each priced separately with unlimited campaigns on that channel." },
-  { q: "How do you target several Surrey towns without overspending?", a: "We group towns into clusters, give each cluster its own budget, and exclude areas you cannot serve. That stops one busy town using up the whole budget, and it shows which towns return profit." },
-  { q: "Where is Visible Ads based, and can we meet?", a: "Our office is in Kingston upon Thames, a London borough on the Surrey border. We do not have a Surrey office, so most account work runs by weekly call or video, and you are welcome to come to Kingston to meet the team." },
-  { q: "Is a Surrey PPC agency different from a London one?", a: "The discipline is the same, but the targeting differs. Surrey firms often sell across several market towns and into South West London, while London firms usually need borough or postcode control.", link: { href: "/ppc-london/", text: "See how we handle PPC for London businesses" } },
+  { q: "Do you work with Surrey ecommerce brands as well as local service firms?", a: "Yes, and the setup differs. For ecommerce we start from product margin and set the target ROAS before choosing locations, while local service firms need call and form tracking so enquiries can be traced to the campaign that produced them." },
+  { q: "What does Google Ads management in Surrey include?", a: "Search, Shopping and Performance Max campaigns, conversion tracking, search term and feed reviews, weekly budget decisions and regular reporting. We also run Meta, Amazon and LinkedIn where they fit, each priced per channel with unlimited campaigns, and Microsoft Advertising is quoted when the account is scoped." },
+  { q: "Where is Visible Ads based, and can we meet?", a: "Kingston upon Thames, a London borough, so we have no Surrey office. Most account work runs by weekly call or video, and you're welcome to visit us in Kingston." },
+  { q: "Is a Surrey PPC agency different from a London one?", a: "Yes, the targeting differs, although the discipline is the same. Surrey firms often sell across several market towns and into South West London, while London firms usually need borough or postcode control.", link: { href: "/ppc-london/", text: "See how we handle PPC for London businesses" } },
 ];
 
 const surreyTowns = ["Surrey", "Guildford", "Woking", "Godalming", "Farnham", "Epsom", "Reigate", "Redhill", "Dorking", "Staines", "Camberley"];
@@ -30,12 +29,11 @@ const schema = {
       "email": "Boh@Visible-Ads.com",
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": "Kingston-Upon-Thames",
+        "addressLocality": "Kingston upon Thames",
         "addressRegion": "Greater London",
         "addressCountry": "GB"
       },
       "areaServed": surreyTowns.map((n, i) => ({ "@type": i === 0 ? "AdministrativeArea" : "City", "name": n })),
-      "priceRange": "$$$$",
       "knowsAbout": ["Google Ads", "PPC Management", "SEO", "Amazon Advertising", "Paid Social", "Conversion Rate Optimisation"]
     },
     {
@@ -50,7 +48,7 @@ const schema = {
       "@type": "BreadcrumbList",
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://visible-ads.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Surrey", "item": "https://visible-ads.com/surrey" }
+        { "@type": "ListItem", "position": 2, "name": "Surrey", "item": "https://visible-ads.com/surrey/" }
       ]
     },
     {
@@ -103,7 +101,7 @@ const schema = {
       <div class="max-w-3xl mx-auto">
         <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Why Surrey Businesses Choose Visible Ads</h2>
         <p class="text-lg text-gray-700 mb-6 leading-relaxed">Surrey customers are spread over market towns such as Guildford, Woking, Epsom, Reigate, Farnham, Staines and Camberley, so one flat county target wastes budget in the busiest town and starves the rest.</p>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">Visible Ads is a founder-led team, so the people you meet are the people running your account. We are a Google Partner, Microsoft Advertising Partner, Amazon Ads Verified Partner and Meta Business Partner, we manage £3M a year in ad spend, and we won at the UK Search Awards 2022.</p>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">Visible Ads is a founder-led team, and we are a Google Partner, Microsoft Advertising Partner, Amazon Ads Verified Partner and Meta Business Partner. We manage £3M a year in ad spend and won at the UK Search Awards 2022.</p>
         <p class="text-lg text-gray-700 leading-relaxed">This suits businesses whose ad spend is not returning what it should, or that plan to scale across several towns. We start with a free audit, then set the strategy and manage it weekly.</p>
       </div>
     </div>
@@ -114,7 +112,7 @@ const schema = {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">PPC Services for Surrey Businesses</h2>
-        <p class="text-lg text-gray-700 max-w-2xl mx-auto">A full suite of performance marketing services, each designed to deliver measurable ROI.</p>
+        <p class="text-lg text-gray-700 max-w-2xl mx-auto">Each channel below can be run for a Surrey business, and each is priced per channel.</p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <a href="/google-ads" class="group bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-200 hover:shadow-lg hover:border-electric/20 transition-all duration-300">
@@ -175,7 +173,7 @@ const schema = {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mx-auto mb-12">
         <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">How We Build Google Ads Campaigns Across Surrey Towns</h2>
-        <p class="text-lg text-gray-700 leading-relaxed">We split the county into clusters before any money is spent, because a campaign that treats Surrey as one block tends to overspend in the busiest town. Below, each cluster gets its own budget, and its own report line.</p>
+        <p class="text-lg text-gray-700 leading-relaxed">We split the county into clusters before any money is spent, because a campaign that treats Surrey as one block tends to overspend in the busiest town. Each cluster below gets its own budget and report line.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
         <div class="bg-sky-tint rounded-2xl p-6 border border-gray-200">
@@ -192,38 +190,12 @@ const schema = {
         </div>
       </div>
       <div class="max-w-3xl mx-auto">
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">That split shows which towns return profit, so budget moves weekly under our scaling rules, and areas you cannot serve are excluded. Locations are set to people in, or regularly in, the area.</p>
-        <p class="text-lg text-gray-700 leading-relaxed">Ecommerce brands in Surrey usually sell UK-wide, so for them the county matters less than product margin. We set target ROAS from your margin, using the <a href="/roas-vs-profit/" class="text-electric underline hover:text-electric-dark">ROAS vs profit calculator</a> and keep county targeting for collection or local delivery.</p>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">That split shows which towns return profit. Budget then moves weekly under our scaling rules, and we exclude areas you cannot serve. Locations are set to people in or regularly in the area.</p>
+        <p class="text-lg text-gray-700 leading-relaxed">Ecommerce brands in Surrey usually sell UK-wide, so for them the county matters less than product margin. We set target ROAS from your margin using the <a href="/roas-vs-profit/" class="text-electric underline hover:text-electric-dark">ROAS vs profit calculator</a>, and keep county targeting for collection or local delivery.</p>
       </div>
     </div>
   </section>
 
-  <!-- Pricing -->
-  <section class="py-20 lg:py-28 bg-sky-tint" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto">
-        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">What PPC Management Costs for a Surrey Business</h2>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">Fees are charged per channel plus VAT, with unlimited campaigns on that channel, and your ad budget is paid to the platforms separately.</p>
-        <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700 mb-6 leading-relaxed">
-          <li>Silver is £1,000 a month for ad budgets up to £3,000, with 10 hours of work a month.</li>
-          <li>Gold is £1,500 a month for budgets up to £20,000, with 20 hours.</li>
-          <li>Platinum is £2,000 a month plus 5% for budgets over £20,000, with 35 hours and click fraud protection.</li>
-        </ul>
-        <p class="text-lg text-gray-700 leading-relaxed">Creative is not included, Meta and Google need a one-off £1,000 tracking setup, and the minimum term is three months, then rolling monthly with 30 days notice. A performance model with a reduced retainer is available by application, and the <a href="/ppc-management/#pricing" class="text-electric underline hover:text-electric-dark">full pricing breakdown</a> lists what each tier includes.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Working from Kingston -->
-  <section class="py-20 lg:py-28 bg-white" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto">
-        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Working with Visible Ads from Kingston upon Thames</h2>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">Our office is in Kingston upon Thames, a London borough on the Surrey border, and we do not have a Surrey office. Most Surrey accounts run by weekly call or video with a quarterly review, and you are welcome to come to Kingston to meet the team.</p>
-        <p class="text-lg text-gray-700 leading-relaxed">Some Surrey campaigns cross the border into South West London, so if your customers are on the London side, see our <a href="/kingston-upon-thames/" class="text-electric underline hover:text-electric-dark">PPC agency in Kingston upon Thames</a> page.</p>
-      </div>
-    </div>
-  </section>
 
   <!-- Surrey in numbers -->
   <section class="py-20 lg:py-28 bg-sky-tint" data-animate>
@@ -250,6 +222,34 @@ const schema = {
       </div>
     </div>
   </section>
+
+  <!-- Pricing -->
+  <section class="py-20 lg:py-28 bg-sky-tint" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">What PPC Management Costs for a Surrey Business</h2>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">PPC management for a Surrey business costs from £1,000 a month plus VAT per channel, with unlimited campaigns on that channel. Your ad budget is paid to the platforms separately.</p>
+        <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700 mb-6 leading-relaxed">
+          <li>Silver is £1,000 a month for ad budgets up to £3,000, with 10 hours of work a month.</li>
+          <li>Gold is £1,500 a month for budgets up to £20,000, with 20 hours.</li>
+          <li>Platinum is £2,000 a month plus 5% for budgets over £20,000, with 35 hours and click fraud protection.</li>
+        </ul>
+        <p class="text-lg text-gray-700 leading-relaxed">Your ad budget, creative and a one-off £1,000 tracking setup for Meta and Google sit outside the fee. We ask for three months to start, then it's month to month with 30 days' notice. A performance model with a reduced retainer is available by application, and the <a href="/ppc-management/#pricing" class="text-electric underline hover:text-electric-dark">full pricing breakdown</a> lists what each tier includes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Working from Kingston -->
+  <section class="py-20 lg:py-28 bg-white" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Where We Work From and How Surrey Accounts Run</h2>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">We're based in Kingston upon Thames, a London borough just over the Surrey border. We have no Surrey office, so most Surrey accounts run by weekly call or video with a quarterly review, and you're welcome to visit us in Kingston.</p>
+        <p class="text-lg text-gray-700 leading-relaxed">Some Surrey campaigns cross into South West London. If your customers are on the London side, see our <a href="/kingston-upon-thames/" class="text-electric underline hover:text-electric-dark">PPC agency in Kingston upon Thames</a> page.</p>
+      </div>
+    </div>
+  </section>
+
 
 
   <!-- Proof -->
@@ -312,7 +312,7 @@ const schema = {
     <div class="absolute inset-0 dot-pattern opacity-5"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">Ready to Grow Your Surrey Business?</h2>
-      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">Get a free, no-obligation audit of your digital advertising. We will show you exactly where you are leaving money on the table and how to fix it.</p>
+      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">The audit is free. We will show you where your ad spend is leaking, and how to fix it.</p>
       <a href="/free-ads-audit" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Get Your Free Ads Audit</a>
     </div>
   </section>
