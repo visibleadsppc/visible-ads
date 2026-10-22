@@ -5,27 +5,26 @@ import PartnerBadges from '../components/PartnerBadges.astro';
 import GoogleReviews from '../components/GoogleReviews.astro';
 
 const faqs = [
-  { question: 'What is the difference between ROAS and profit?', answer: 'ROAS (return on ad spend) is revenue divided by ad spend. It ignores the cost of your products. Profit is what is left after both product cost and ad spend. A 4x ROAS sounds healthy, but if your gross margin is 25%, you need a 4x ROAS just to break even, so you make nothing.' },
+  { question: 'What is the difference between ROAS and profit?', answer: 'ROAS (return on ad spend) is revenue divided by ad spend. It ignores the cost of your products. Profit is what is left after both product cost and ad spend. A 4x ROAS sounds healthy. At a 25% gross margin it is exactly break-even and you make nothing.' },
   { question: 'What is break-even ROAS?', answer: 'Break-even ROAS is 1 divided by your margin, so a 25% margin needs 4x before you make anything. The break-even ROAS guide shows how to build it on contribution margin.' },
-  { question: 'Why do agencies report ROAS instead of profit?', answer: 'ROAS is easy to pull from the Google Ads dashboard and it usually looks impressive. Profit needs your margins and your P&L, which takes more work and is harder to flatter. We optimise to profit, not ROAS, because ROAS does not pay your bills.' },
-  { question: 'Does POAS work for low-margin businesses?', answer: 'Yes, and it matters more there. Thin margins mean the gap between a break-even ROAS and a genuinely profitable one is small. A POAS-first approach is what stops those campaigns quietly draining cash.' },
-  { question: 'How long does it take to move from ROAS to POAS reporting?', answer: 'Most accounts can have SKU-level margin data mapped and a first margin-weighted bidding pass live within a few weeks. This assumes we have accurate cost and margin data from you. A full rebuild timeline depends on catalogue size.' },
-  { question: 'What data do you need from me to calculate POAS?', answer: 'You need, at minimum, cost of goods sold or gross margin per product or category. Add any other true costs you want reflected, such as marketplace fees or return rates. The more granular the margin data, the more accurate the profit picture.' },
-  { question: 'My ROAS is 4x but I am barely making money. What is wrong?', answer: 'A 4x ROAS is exactly break-even at a 25% gross margin, so if your margin is 25% or lower you are making little or nothing before overheads. Check your real margin per product, then compare each campaign with its break-even ROAS (1 divided by margin). Campaigns selling low-margin products, discounted lines or high-return items are usually where the money goes.' },
+  { question: 'Why do agencies report ROAS instead of profit?', answer: 'ROAS is easy to pull from the Google Ads dashboard and it usually looks impressive. Profit needs your margins and your P&L. That takes more work and is harder to flatter. We manage to ROAS targets set from your margin and judge the result on profit.' },
+  { question: 'Does POAS work for low-margin businesses?', answer: 'Yes. It matters more there because thin margins make the gap between a break-even ROAS and a profitable one small. A POAS-first approach stops those campaigns draining cash.' },
+  { question: 'How long does it take to move from ROAS to POAS reporting?', answer: 'It depends on how complete your cost and margin data is and how large the catalogue is. A small catalogue with clean margin data is quicker to map than a large one with gaps.' },
+  { question: 'What data do you need from me to calculate POAS?', answer: 'At minimum you need cost of goods sold or gross margin per product or category. Add any other true costs you want counted, such as marketplace fees or return rates. The more granular the margin data, the more accurate the profit picture.' },
 ];
 
 const quickAnswers = [
   {
     question: 'What is net ROAS and how is it different from ROAS?',
-    answer: 'Net ROAS is the revenue you kept after returns, cancellations and discounts, divided by ad spend. It is a stricter version of the platform figure because it only counts money you actually kept from those orders. There is no single official definition, so write down what your business takes off (VAT and refunds are the usual ones) and use the same version every month.',
+    answer: 'Net ROAS is revenue after VAT, refunds and cancellations, divided by ad spend. It is a stricter version of the platform figure because it only counts money you kept from those orders. There is no single official definition, so write down what your business takes off and use the same version every month.',
   },
   {
     question: 'What is gross ROAS and where do I find it?',
-    answer: 'Gross ROAS is the figure the ad platform shows: conversion revenue divided by ad spend, before refunds, cancellations or product costs come off. Depending on how your conversion value is set up, VAT can still be inside it. It is handy for comparing campaigns against each other. It is not enough on its own to tell you whether you made money.',
+    answer: 'Gross ROAS is the figure the ad platform shows. It is conversion revenue divided by ad spend, with nothing taken off for refunds, cancellations or product costs. In Google Ads it is the Conv. value / cost column. VAT can still be inside it, depending on how your conversion value is set up. It compares campaigns well but cannot tell you on its own whether you made money.',
   },
   {
     question: 'What is profit ROAS (profit on ad spend)?',
-    answer: 'Profit ROAS is another name for POAS, profit on ad spend. Take the contribution from your sales (revenue less product cost and the other direct costs you include), then divide it by what you spent on ads. A POAS of 1.0 means the sales exactly covered their own cost plus the ad spend. Anything above 1.0 is money left over.',
+    answer: 'Profit ROAS is another name for POAS, profit on ad spend. Take the contribution from your sales (revenue less product cost and the other direct costs you include) and divide it by what you spent on ads. A POAS of 1.0 means the sales exactly covered their own cost plus the ad spend. Anything above 1.0 is money left over.',
   },
   {
     question: 'What is a high ROAS, and what counts as a bad one?',
@@ -34,23 +33,23 @@ const quickAnswers = [
   },
   {
     question: 'Why is my ROAS high but my profit low?',
-    answer: 'Because ROAS only compares revenue with ad spend. Profit also has to pay for the product, payment fees, delivery and returns, and in your P&L the agency fee as well. The usual causes are a thin margin, a high return rate, discounted lines outselling full-price ones, VAT sitting inside reported revenue, and the same sale being claimed by more than one platform.',
+    answer: 'Because ROAS only compares revenue with ad spend. Profit also has to pay for the product, payment fees, delivery and refunds, plus the agency fee in your P&L. A 4x ROAS is exactly break-even at a 25% gross margin, so any lower margin leaves little or nothing before overheads. The usual causes are a thin margin, a high return rate, discounted lines outselling full-price ones, VAT sitting inside reported revenue, and the same sale being claimed by more than one platform.',
   },
 ];
 
 const compareRows = [
-  { name: 'Gross ROAS', definition: 'Conversion revenue divided by ad spend', includes: 'Revenue as the platform reports it, before refunds, cancellations or product costs. VAT can still be inside it.', use: 'Comparing campaigns against each other' },
-  { name: 'Net ROAS', definition: 'Revenue you kept after returns, cancellations and discounts, divided by ad spend', includes: 'Only the money you kept from those orders. You choose what to take off, so write the version down.', use: 'Checking how much of the reported revenue was real' },
-  { name: 'Profit ROAS (POAS)', definition: 'Contribution divided by ad spend', includes: 'Revenue less product cost and the other direct costs you include. Above 1.0 is money left over.', use: 'Deciding whether the spend made money' },
+  { use: 'Comparing campaigns against each other', name: 'Gross ROAS', definition: 'Conversion revenue divided by ad spend', includes: 'Revenue as the platform reports it. Refunds, cancellations and product costs are not taken off, and VAT can still be inside it.' },
+  { use: 'Checking how much of the reported revenue you kept', name: 'Net ROAS', definition: 'Revenue after VAT, refunds and cancellations, divided by ad spend', includes: 'Only the money you kept from those orders. You choose what to take off, so write the version down.' },
+  { use: 'Deciding whether the spend made money', name: 'Profit ROAS (POAS)', definition: 'Contribution divided by ad spend', includes: 'Revenue less product cost and the other direct costs you include.' },
 ];
 
 const reconcile = {
   question: 'My agency reports platform ROAS but my P&L says we lost money. How do I reconcile them?',
-  answer: 'Both numbers can be right, because they measure different things. Platform ROAS is attributed revenue divided by ad spend. Your P&L is real money after every cost. Work through the gap in this order.',
+  answer: 'Both numbers can be right because they measure different things. Platform ROAS is attributed revenue divided by ad spend. Your P&L is real money after every cost. Work through the gap in this order.',
   steps: [
     'Match the dates. Platforms date a sale by click or conversion time, your P&L by order or payment date. Use the same period for both.',
     'Compare platform conversions with real orders from your shop or accounts system for those dates. If the platforms together report more sales than you took, some are being counted twice.',
-    'Take VAT, refunds, cancellations and discounts off the revenue to get net revenue.',
+    'Take VAT, refunds and cancellations off the revenue to get net revenue.',
     'Take off product cost, payment fees and delivery to get contribution.',
     'Take off ad spend, and the agency fee if your P&L carries it. The ad platform never includes that fee in ROAS.',
     'Divide the contribution by ad spend to get POAS, and compare your ROAS with your break-even ROAS. If the profit is still negative, your ROAS was below break-even.',
@@ -107,7 +106,7 @@ const breakEvenRows = [
       <div class="max-w-3xl mx-auto text-center">
         <span class="inline-block text-electric-light font-heading font-semibold text-sm tracking-wide uppercase mb-4">ROAS vs Profit</span>
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white mb-6 leading-tight">A 4x ROAS can still lose you money</h1>
-        <p class="text-lg sm:text-xl text-slate-light leading-relaxed">ROAS measures revenue, not profit. Once you factor in your product margin, a number that looks healthy on the dashboard can be quietly running at a loss. Put your own figures into the calculator and see where you really stand.</p>
+        <p class="text-lg sm:text-xl text-slate-light leading-relaxed">ROAS measures revenue, not profit. Once you factor in your product margin, a number that looks healthy on the dashboard can be running at a loss. Put your own figures into the calculator and see where you really stand.</p>
       </div>
     </div>
   </section>
@@ -125,7 +124,7 @@ const breakEvenRows = [
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">The difference, in plain terms</h2>
       <p class="text-gray-700 leading-relaxed mb-5"><strong class="text-navy">ROAS</strong> is revenue divided by ad spend. Spend £10,000, make £40,000 back, and your ROAS is 4x. It says nothing about whether you kept any of it.</p>
       <p class="text-gray-700 leading-relaxed mb-5"><strong class="text-navy">Profit</strong> is what is left after the product cost and the ad spend. If those sales carry a 25% gross margin, that £40,000 of revenue is only £10,000 of gross profit, and you spent £10,000 to get it. You broke even. The 4x ROAS made nothing.</p>
-      <p class="text-gray-700 leading-relaxed mb-5"><strong class="text-navy">Break-even ROAS</strong> is the line between the two. It is 1 divided by your margin. Below it you lose money on every extra pound, above it you are in profit. It is the single most useful number most accounts are not tracking.</p>
+      <p class="text-gray-700 leading-relaxed mb-5"><strong class="text-navy">Break-even ROAS</strong> is the line between the two. It is 1 divided by your margin. Below it you lose money on every extra pound. Above it you are in profit. It is the single most useful number most accounts are not tracking.</p>
       <p class="text-gray-700 leading-relaxed"><strong class="text-navy">POAS</strong> (profit on ad spend) is contribution divided by ad spend. A POAS of 1.0 means the sales covered their own costs and the ad spend, and anything above 1.0 is profit.</p>
     </div>
   </section>
@@ -149,16 +148,16 @@ const breakEvenRows = [
   <!-- Gross, net and profit ROAS table -->
   <section class="py-20 lg:py-24 bg-white" data-animate>
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Gross, net and profit ROAS side by side</h2>
-      <p class="text-lg text-gray-700 mb-8 leading-relaxed">All three divide by the same ad spend. They differ in what comes off the top line first.</p>
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Which ROAS figure to use for which decision</h2>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">All three divide by the same ad spend. They differ in what comes off the revenue first.</p>
       <p class="text-sm text-gray-700 mb-2 md:hidden">Swipe sideways to see every column.</p>
       <div class="overflow-x-auto rounded-2xl border border-gray-200" tabindex="0" role="region" aria-label="Gross, net and profit ROAS compared, scrolls sideways on small screens">
         <table class="w-full min-w-[640px] text-left text-base">
-          <caption class="sr-only">Gross ROAS, net ROAS and profit ROAS: definition, what each includes and when to use it</caption>
-          <thead class="bg-navy text-white"><tr><th scope="col" class="p-4">Measure</th><th scope="col" class="p-4">Definition</th><th scope="col" class="p-4">What it includes</th><th scope="col" class="p-4">Best used for</th></tr></thead>
+          <caption class="sr-only">Which ROAS figure to use for which decision, with definition and what each includes</caption>
+          <thead class="bg-navy text-white"><tr><th scope="col" class="p-4">Best used for</th><th scope="col" class="p-4">Measure</th><th scope="col" class="p-4">Definition</th><th scope="col" class="p-4">What it includes</th></tr></thead>
           <tbody class="text-gray-700">
             {compareRows.map((r, i) => (
-              <tr class={i % 2 ? 'border-t bg-sky-tint/40' : 'border-t'}><th scope="row" class="p-4 font-semibold text-navy align-top">{r.name}</th><td class="p-4 align-top">{r.definition}</td><td class="p-4 align-top">{r.includes}</td><td class="p-4 align-top">{r.use}</td></tr>
+              <tr class={i % 2 ? 'border-t bg-sky-tint/40' : 'border-t'}><th scope="row" class="p-4 font-semibold text-navy align-top">{r.use}</th><td class="p-4 align-top font-semibold text-navy">{r.name}</td><td class="p-4 align-top">{r.definition}</td><td class="p-4 align-top">{r.includes}</td></tr>
             ))}
           </tbody>
         </table>
@@ -170,7 +169,7 @@ const breakEvenRows = [
   <section class="py-20 lg:py-28 bg-gray-50" data-animate>
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-14">
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">Signs your ROAS is lying to you</h2>
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">Signs your ROAS is overstating profit</h2>
         <p class="text-lg text-gray-700 max-w-2xl mx-auto">A healthy-looking ROAS can hide a business that is losing money. These are the usual signs.</p>
       </div>
       <div class="grid sm:grid-cols-2 gap-6">
@@ -180,7 +179,7 @@ const breakEvenRows = [
         </div>
         <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 border-t-4 border-amber-500">
           <h3 class="font-heading text-lg font-bold text-navy mb-3">Margins shrink as you scale</h3>
-          <p class="text-gray-700 text-sm leading-relaxed">Every extra pound of spend chases lower-margin sales, quietly diluting the average.</p>
+          <p class="text-gray-700 text-sm leading-relaxed">Every extra pound of spend chases lower-margin sales and dilutes the average.</p>
         </div>
         <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 border-t-4 border-purple-600">
           <h3 class="font-heading text-lg font-bold text-navy mb-3">Your best-looking SKUs aren't your best-earning ones</h3>
@@ -225,7 +224,7 @@ const breakEvenRows = [
           <li class="flex gap-3 text-gray-700 leading-relaxed"><span class="text-electric font-heading font-bold shrink-0">{i + 1}.</span><span>{step}</span></li>
         ))}
       </ol>
-      <p class="text-gray-700 leading-relaxed">If you want the working in one place, the <a href="/how-we-audit" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">profit audit method</a> does this match-up for you, order by order.</p>
+      <p class="text-gray-700 leading-relaxed">The <a href="/how-we-audit" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">profit audit method</a> shows how we check platform revenue against your orders.</p>
     </div>
   </section>
 
