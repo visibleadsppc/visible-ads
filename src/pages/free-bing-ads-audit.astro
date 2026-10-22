@@ -6,10 +6,6 @@ import Turnstile from '../components/Turnstile.astro';
 
 const faqs = [
   {
-    question: 'What do you check in a Bing Ads audit?',
-    answer: 'We check six things: whether your account is a stale Google import, Search Partner Network placements, LinkedIn profile targeting, Microsoft Audience Network settings, keyword, match type and negative keyword coverage, and whether your UET tag records conversions accurately.',
-  },
-  {
     question: 'Is the Bing Ads audit really free?',
     answer: 'Yes. There is no cost and no obligation. You receive the written findings whether or not you work with us. You are free to implement them yourself.',
   },
@@ -23,7 +19,7 @@ const faqs = [
   },
   {
     question: 'Is Microsoft Advertising worth running if I already use Google Ads?',
-    answer: 'That depends on your market. The audit answers it with your own numbers rather than a rule of thumb. Microsoft Advertising reaches searchers across Bing, Yahoo and DuckDuckGo. It offers LinkedIn profile targeting that Google does not. Competition in the auction is often thinner. The catch is that most accounts get set up once as a Google import and then left alone. The real question is whether yours has ever been run properly rather than whether the channel works.',
+    answer: 'It can be, if the account is set up for it, and the audit answers it with your own numbers rather than a rule of thumb. Microsoft Advertising reaches searchers across Bing, Yahoo and DuckDuckGo. It offers LinkedIn profile targeting that Google does not. Competition in the auction is often thinner. The catch is that most accounts get set up once as a Google import and then left alone. The real question is whether yours has ever been run properly rather than whether the channel works.',
   },
 ];
 const auditAnswers = [
@@ -113,7 +109,7 @@ const checks = [
   {
     title: 'Audience Network settings',
     short: 'Microsoft Audience Network settings',
-    body: 'The Microsoft Audience Network is on by default in places people do not expect. We check whether it is working for you or quietly absorbing budget.',
+    body: 'The Microsoft Audience Network can carry spend you never reviewed. We check whether it is working for you or quietly absorbing budget.',
   },
   {
     title: 'Keywords, match types and negatives',
@@ -130,8 +126,8 @@ const checks = [
 ---
 
 <Layout
-  title="Free Microsoft Ads Audit (Bing Ads) | Written Report"
-  description="Free Microsoft Ads (Bing Ads) audit from a Microsoft Advertising Partner. We review your account and send written findings you keep, with or without us."
+  title="Free Microsoft Ads Audit (Bing Ads Audit) | Written Report"
+  description="Free Microsoft Ads (Bing Ads) audit from a Microsoft Advertising Partner. We find wasted spend and tracking gaps and send written findings you keep."
   schema={schema}
 >
 
@@ -144,8 +140,8 @@ const checks = [
         <div class="lg:pt-4">
           <span class="inline-block px-3 py-1 rounded-full bg-sky-tint text-electric text-xs font-semibold tracking-wide uppercase mb-5">Microsoft Advertising Partner</span>
           <h1 class="text-4xl sm:text-5xl font-heading font-extrabold text-navy mb-6 leading-tight">Free Microsoft Ads Audit (Bing Ads)</h1>
-          <p class="text-lg text-gray-700 leading-relaxed mb-6">This is a free audit of your Microsoft Advertising (Bing Ads) account, done by a Microsoft Advertising Partner. We check six areas, listed below, and send you the findings in writing. You keep them whether or not you work with us.</p>
-          <p class="text-lg text-gray-700 leading-relaxed mb-6">Most Microsoft Advertising accounts were imported from Google Ads once and never opened again, so yours may be paying for clicks nobody chose to buy.</p>
+          <p class="text-lg text-gray-700 leading-relaxed mb-6">We audit your Microsoft Advertising (Bing Ads) account for free. Visible Ads is a Microsoft Advertising Partner. We check the six areas below and send you the findings in writing. You keep them whether or not you work with us.</p>
+          <p class="text-lg text-gray-700 leading-relaxed mb-6">Many Microsoft Advertising accounts were imported from Google Ads once and never opened again. Yours may be paying for clicks nobody chose to buy.</p>
 
           <div class="mb-10">
             <h2 class="text-xl font-heading font-bold text-navy mb-3">What we check in a Microsoft Ads audit</h2>
@@ -170,7 +166,7 @@ const checks = [
             </div>
             <div class="flex items-center gap-2">
               <svg class="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-              <span class="text-sm font-medium text-gray-700">Account access</span>
+              <span class="text-sm font-medium text-gray-700">Written findings</span>
             </div>
           </div>
         </div>
@@ -203,8 +199,8 @@ const checks = [
                 <option value="" disabled selected>Select your monthly spend</option>
                 <option value="not-running">Not running Microsoft Ads yet</option>
                 <option value="under-5k">Under £5,000</option>
-                <option value="5k-20k">£5,000 - £20,000</option>
-                <option value="20k-50k">£20,000 - £50,000</option>
+                <option value="5k-20k">£5,000 to £20,000</option>
+                <option value="20k-50k">£20,000 to £50,000</option>
                 <option value="50k-plus">£50,000+</option>
               </select>
             </div>
@@ -248,7 +244,7 @@ const checks = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">What each check finds</h2>
-        <p class="text-lg text-gray-700 max-w-2xl mx-auto">Microsoft Advertising is not Google Ads with a different logo. These are the things that go wrong specifically here.</p>
+        <p class="text-lg text-gray-700 max-w-2xl mx-auto">These are the things that most often go wrong in a Microsoft Advertising account.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {checks.map((c) => (
