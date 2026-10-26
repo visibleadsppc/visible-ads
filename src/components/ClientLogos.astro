@@ -20,6 +20,10 @@ const clients = [
   { name: 'Haden', src: '/images/clients/haden.webp' },
   { name: 'OnlyBBGuns', src: '/images/clients/onlybbguns.webp' },
   { name: 'London Cask Traders', src: '/images/clients/london-cask-traders.webp' },
+  { name: 'Marco Dal Maso', src: '/images/clients/marco-dal-maso.webp' },
+  { name: 'Powell Europe', src: '/images/clients/powell-europe.webp' },
+  { name: 'Kutchenhaus', src: '/images/clients/kutchenhaus.webp' },
+  { name: 'Fragrance Hub', src: '/images/clients/fragrance-hub.webp' },
 ];
 ---
 
@@ -27,9 +31,9 @@ const clients = [
   {!compact && (
     <p class="text-center text-sm font-medium text-slate-light uppercase tracking-widest mb-8">Trusted by Leading Brands</p>
   )}
-  <div class={`grid ${compact ? 'grid-cols-3 sm:grid-cols-5 gap-4 sm:gap-6' : 'grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-10'} items-center justify-items-center`}>
+  <div class={`flex flex-wrap items-center justify-center ${compact ? 'gap-4 sm:gap-6' : 'gap-6 sm:gap-8 lg:gap-10'}`}>
     {clients.map(c => (
-      <div class={`${compact ? 'h-10' : 'h-12 sm:h-14'} flex items-center justify-center w-full hover:scale-105 transition-transform duration-300`}>
+      <div class={`${compact ? 'h-10 basis-[calc((100%-2rem)/3)] sm:basis-[calc((100%-6rem)/5)]' : 'h-12 sm:h-14 basis-[calc((100%-3rem)/3)] sm:basis-[calc((100%-6rem)/4)] lg:basis-[calc((100%-10rem)/5)]'} flex items-center justify-center hover:scale-105 transition-transform duration-300`}>
         <img src={c.src} alt={c.name} class="max-w-full max-h-full object-contain" loading="lazy" />
       </div>
     ))}
