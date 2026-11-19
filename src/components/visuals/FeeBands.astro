@@ -4,7 +4,7 @@ interface Props { interactive?: boolean; id?: string; class?: string; heading?: 
 const { interactive = false, id = 'fee', class: cls = '', heading = '', note = '', terms = true } = Astro.props;
 const tiers = [
   { name: 'Silver', fee: '£1,000 a month', band: 'Up to £3,000', hours: '10 hours a month' },
-  { name: 'Gold', fee: '£1,500 a month', band: '£3,000 to £20,000', hours: '20 hours a month' },
+  { name: 'Gold', fee: '£1,500 a month', band: 'Over £3,000 to £20,000', hours: '20 hours a month' },
   { name: 'Platinum', fee: '£2,000 a month plus 5%', band: 'Over £20,000', hours: '35 hours a month' },
 ];
 ---
