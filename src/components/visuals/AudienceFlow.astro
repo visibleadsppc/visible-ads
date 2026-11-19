@@ -4,9 +4,9 @@ interface Props { class?: string }
 const { class: cls = '' } = Astro.props;
 const stages = [
   { t: 'Visitors and customers', b: 'People who have visited your site or bought from you.' },
-  { t: 'One audience map', b: 'Lists built by buying stage, shared across channels.' },
-  { t: 'Three channels', b: 'Search audience lists, Meta retargeting and display, frequency capped.' },
-  { t: 'One measurement layer', b: 'Remarketing is reported apart and holdout tested.' },
+  { t: 'One audience map', b: 'Example: audience lists grouped by buying stage.' },
+  { t: 'Three channels', b: 'Example: search audience lists, Meta retargeting and display.' },
+  { t: 'One measurement layer', b: 'Example: remarketing reported separately from other campaigns.' },
 ];
 ---
 <figure class={`kit-fig kit-flow ${cls}`} data-kit>
@@ -18,5 +18,5 @@ const stages = [
       </li>
     ))}
   </ol>
-  <figcaption>Visitors and customers feed one audience map. The map feeds search, Meta and display. All three report into one measurement layer.</figcaption>
+  <figcaption>Example set-up, not a description of every account. Visitors and customers feed one audience map. The map feeds search, Meta and display. All three report into one measurement layer.</figcaption>
 </figure>
