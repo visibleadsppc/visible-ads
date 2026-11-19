@@ -8,21 +8,19 @@ const { title, bars } = Astro.props;
 const maxValue = Math.max(...bars.map(b => b.value));
 ---
 
-<div class="growth-chart" data-animate>
+<div class="growth-chart" data-kit>
   {title && <h3 class="font-heading text-lg font-bold text-navy mb-6">{title}</h3>}
   <div class="space-y-4">
     {bars.map((bar, i) => (
       <div class="growth-bar-row">
         <div class="flex justify-between items-center mb-1.5">
           <span class="text-sm font-medium text-gray-700">{bar.label}</span>
-          <span class="text-sm font-bold text-electric bar-value" data-target={bar.value}>0%</span>
+          <span class="text-sm font-bold text-electric bar-value">{bar.value}%</span>
         </div>
         <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
           <div
-            class="growth-bar h-full rounded-full transition-all duration-1000 ease-out"
-            data-width={`${(bar.value / maxValue) * 100}%`}
-            style={`width: 0%; background: linear-gradient(90deg, ${bar.color || '#2563EB'}, ${bar.color ? bar.color + '80' : '#3B82F6'});`}
-            data-delay={i * 150}
+            class="growth-bar h-full rounded-full"
+            style={`width: ${(bar.value / maxValue) * 100}%; transition-delay: ${i * 150}ms; background: linear-gradient(90deg, ${bar.color || '#2563EB'}, ${bar.color ? bar.color + '80' : '#3B82F6'});`}
           ></div>
         </div>
       </div>
@@ -30,41 +28,9 @@ const maxValue = Math.max(...bars.map(b => b.value));
   </div>
 </div>
 
-<script>
-  document.addEventListener('astro:page-load', () => {
-    const charts = document.querySelectorAll('.growth-chart');
-    const chartObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const bars = entry.target.querySelectorAll('.growth-bar') as NodeListOf<HTMLElement>;
-        const values = entry.target.querySelectorAll('.bar-value') as NodeListOf<HTMLElement>;
-        bars.forEach((bar) => {
-          const delay = parseInt(bar.dataset.delay || '0');
-          const targetWidth = bar.dataset.width || '0%';
-          setTimeout(() => {
-            bar.style.width = targetWidth;
-          }, delay);
-        });
-        values.forEach((val, i) => {
-          const target = parseInt(val.dataset.target || '0');
-          const delay = i * 150;
-          setTimeout(() => {
-            const duration = 1000;
-            const startTime = performance.now();
-            function tick(now: number) {
-              const elapsed = now - startTime;
-              const progress = Math.min(elapsed / duration, 1);
-              const eased = 1 - Math.pow(1 - progress, 3);
-              val.textContent = Math.floor(target * eased) + '%';
-              if (progress < 1) requestAnimationFrame(tick);
-              else val.textContent = target + '%';
-            }
-            requestAnimationFrame(tick);
-          }, delay);
-        });
-        chartObserver.unobserve(entry.target);
-      });
-    }, { threshold: 0.2 });
-    charts.forEach((c) => chartObserver.observe(c));
-  });
-</script>
+<style is:global>
+  @media (prefers-reduced-motion: no-preference) {
+    html.js .growth-chart .growth-bar { transform-origin: left; transition: transform 1s ease-out; }
+    html.js .growth-chart:not(.is-in) .growth-bar { transform: scaleX(0); transition-delay: 0s; }
+  }
+</style>
