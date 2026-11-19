@@ -67,7 +67,7 @@ const schema = {
       <nav class="text-sm text-slate-light mb-8">
         <a href="/" class="hover:text-white transition-colors">Home</a>
         <span class="mx-2">/</span>
-        <a href="/blog" class="hover:text-white transition-colors">Blog</a>
+        <a href="/blog/" class="hover:text-white transition-colors">Blog</a>
         <span class="mx-2">/</span>
         <span class="text-white">Value-Based Bidding</span>
       </nav>
@@ -94,7 +94,7 @@ const schema = {
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Why revenue-based values mislead the algorithm</h2>
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">By default, most ecommerce tracking reports order revenue as the conversion value. On the surface this looks right: a sale is worth what the customer paid. The trouble is that revenue and profit are not the same. The gap between them varies wildly from product to product. When you feed revenue, you tell Google that a 100 pound order is worth 100 pounds whether it carries a 60 percent margin or a 10 percent one.</p>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">The bidding system then does exactly what you asked. It hunts for the cheapest possible revenue, which usually means low-margin bestsellers, discounted lines and easy-to-sell products that return almost nothing once cost of goods, fees, shipping and returns come out. Budget drifts towards volume that looks productive in the revenue column and contributes little or nothing in the profit column. The account can post a strong revenue-based ROAS every week while the underlying margin thins out. This is the same trap covered in <a href="/roas-vs-profit" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">ROAS vs profit and break-even</a>, where a high headline ROAS still loses money.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">The bidding system then does exactly what you asked. It hunts for the cheapest possible revenue, which usually means low-margin bestsellers, discounted lines and easy-to-sell products that return almost nothing once cost of goods, fees, shipping and returns come out. Budget drifts towards volume that looks productive in the revenue column and contributes little or nothing in the profit column. The account can post a strong revenue-based ROAS every week while the underlying margin thins out. This is the same trap covered in <a href="/roas-vs-profit/" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">ROAS vs profit and break-even</a>, where a high headline ROAS still loses money.</p>
       <p class="text-lg text-gray-700 leading-relaxed">The failure is not in the algorithm. It optimised faithfully to the goal it was given. The failure is upstream, in the definition of value. Fixing it means changing what the platform sees before you touch bids, budgets or structure.</p>
     </div>
   </section>
@@ -148,7 +148,7 @@ const schema = {
         <li class="flex gap-3"><span class="text-electric font-bold shrink-0">2.</span><span><strong class="text-navy">Offline or enhanced conversions carrying profit.</strong> Where you can calculate contribution profit per order in your back end, send that exact figure back to Google through offline conversion imports or enhanced conversions. This is the most accurate route because the value reflects real costs on real orders rather than an averaged margin band.</span></li>
         <li class="flex gap-3"><span class="text-electric font-bold shrink-0">3.</span><span><strong class="text-navy">Margin at the product-feed level in Merchant Center.</strong> For Shopping and Performance Max, supplying cost of goods on the product feed lets Merchant Center work in profit terms per item. This is the natural home for margin data when the profit signal needs to vary product by product across a catalogue.</span></li>
       </ul>
-      <p class="text-lg text-gray-700 leading-relaxed">For retailers with large catalogues, feed-level margin is usually the workhorse, because managing thousands of individual values by hand is not realistic. We cover how to structure that scale in <a href="/high-sku-advertising" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">advertising a high-SKU catalogue</a>.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">For retailers with large catalogues, feed-level margin is usually the workhorse, because managing thousands of individual values by hand is not realistic. We cover how to structure that scale in <a href="/high-sku-advertising/" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">advertising a high-SKU catalogue</a>.</p>
     </div>
   </section>
 
@@ -158,7 +158,7 @@ const schema = {
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Pair profit values with a target above break-even</h2>
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">Changing the conversion value changes what your target ROAS means. When you fed revenue, break-even sat at your inverse margin: a 25 percent margin needed a 4x revenue ROAS just to stand still. Once you feed profit, the value already has the margin baked in. Break-even then moves to 1x. At a profit ROAS of 1x, the campaign returns exactly as much profit as it cost in ad spend and nets zero.</p>
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">That makes the target simpler to reason about. Set it above 1x by the cushion you want to keep after the media cost. A profit ROAS target of 1.5x means you aim to keep 50 pence of profit for every pound of ad spend, on top of covering the spend itself. The important discipline is not to reuse your old revenue-based number, because a 4x target that made sense on revenue values would be wildly restrictive on profit values and would choke the account.</p>
-      <p class="text-lg text-gray-700 leading-relaxed">Because the correct target depends on the margin of what a campaign actually sells, a single account-wide figure rarely fits. Setting the target band by margin is its own exercise, which we work through in <a href="/blog/target-roas-by-margin" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">setting target ROAS by margin</a>.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">Because the correct target depends on the margin of what a campaign actually sells, a single account-wide figure rarely fits. Setting the target band by margin is its own exercise, which we work through in <a href="/blog/target-roas-by-margin/" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">setting target ROAS by margin</a>.</p>
     </div>
   </section>
 
@@ -183,7 +183,7 @@ const schema = {
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">What changes once profit is the signal</h2>
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">The visible effect of switching to profit values is a redistribution of budget. Spend flows away from the low-margin lines that looked productive on revenue and towards the products that actually contribute. High-margin items that were previously undervalued by the bidding start to win more auctions, while thin-margin volume that was quietly draining the account gets throttled back. Headline revenue may dip. Contribution profit is what you are now steering by, and that is the number that should rise.</p>
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">Expect a relearning period. The bid strategy has to recalibrate to the new value signal, and performance can wobble for a couple of weeks while it does. This is normal and it is the reason to make the change deliberately, with the data clean and the target recalibrated, rather than flipping the value and reusing the old settings on top of it.</p>
-      <p class="text-lg text-gray-700 leading-relaxed">Value-based bidding is one piece of managing an account to profit rather than revenue. It handles the automated bidding layer, but it works best alongside the account structure, targets and reporting that read everything in profit terms. We tie the whole approach together in our guide to <a href="/blog/profit-first-ppc" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">profit-first PPC</a>.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">Value-based bidding is one piece of managing an account to profit rather than revenue. It handles the automated bidding layer, but it works best alongside the account structure, targets and reporting that read everything in profit terms. We tie the whole approach together in our guide to <a href="/blog/profit-first-ppc/" class="text-electric font-semibold hover:text-electric-dark underline decoration-electric/30">profit-first PPC</a>.</p>
     </div>
   </section>
 
@@ -236,17 +236,17 @@ const schema = {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-heading font-bold text-navy text-center mb-8">Related Services</h2>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
-        <a href="/google-ads" class="group bg-white rounded-2xl p-6 shadow-md border border-gray-100 ring-1 ring-electric/10 hover:ring-electric/30 hover:shadow-lg transition-all duration-300">
+        <a href="/google-ads/" class="group bg-white rounded-2xl p-6 shadow-md border border-gray-100 ring-1 ring-electric/10 hover:ring-electric/30 hover:shadow-lg transition-all duration-300">
           <h3 class="text-lg font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">Google Ads</h3>
           <p class="text-gray-700 text-sm mb-3">Profit-first PPC management built around your real margins.</p>
           <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
         </a>
-        <a href="/how-we-audit" class="group bg-white rounded-2xl p-6 shadow-md border border-gray-100 ring-1 ring-electric/10 hover:ring-electric/30 hover:shadow-lg transition-all duration-300">
+        <a href="/how-we-audit/" class="group bg-white rounded-2xl p-6 shadow-md border border-gray-100 ring-1 ring-electric/10 hover:ring-electric/30 hover:shadow-lg transition-all duration-300">
           <h3 class="text-lg font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">How We Audit</h3>
           <p class="text-gray-700 text-sm mb-3">The Profit Contribution Framework that maps profit before bids.</p>
           <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
         </a>
-        <a href="/high-sku-advertising" class="group bg-white rounded-2xl p-6 shadow-md border border-gray-100 ring-1 ring-electric/10 hover:ring-electric/30 hover:shadow-lg transition-all duration-300">
+        <a href="/high-sku-advertising/" class="group bg-white rounded-2xl p-6 shadow-md border border-gray-100 ring-1 ring-electric/10 hover:ring-electric/30 hover:shadow-lg transition-all duration-300">
           <h3 class="text-lg font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">High-SKU Advertising</h3>
           <p class="text-gray-700 text-sm mb-3">Feed-level margin and structure for large catalogues.</p>
           <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
@@ -268,7 +268,7 @@ const schema = {
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">Feed the right value to your bidding</h2>
       <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">Our free profit audit checks what value your account is really sending Google and maps your margins against your ad data, so the bidding optimises to profit instead of cheap revenue.</p>
-      <a href="/free-ads-audit" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a Profit Audit</a>
+      <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a Profit Audit</a>
     </div>
   </section>
 
