@@ -1,27 +1,29 @@
 ---
 const services = [
   { name: 'PPC Management', href: '/ppc-management/' },
-  { name: 'Google Ads', href: '/google-ads' },
-  { name: 'Paid Social', href: '/paid-social' },
-  { name: 'Bing Ads', href: '/bing-ads' },
-  { name: 'Display', href: '/display-advertising' },
-  { name: 'Amazon', href: '/amazon' },
-  { name: 'eCRO', href: '/ecro' },
-  { name: 'SEO', href: '/seo' },
-  { name: 'Large SKU Catalogues', href: '/high-sku-advertising' },
+  { name: 'Google Ads', href: '/google-ads/' },
+  { name: 'Ecommerce PPC', href: '/ecommerce-ppc-agency/' },
+  { name: 'Google Shopping Ads', href: '/google-shopping-ads/' },
+  { name: 'Paid Social', href: '/paid-social/' },
+  { name: 'Bing Ads', href: '/bing-ads/' },
+  { name: 'Display', href: '/display-advertising/' },
+  { name: 'Amazon', href: '/amazon/' },
+  { name: 'eCRO', href: '/ecro/' },
+  { name: 'SEO', href: '/seo/' },
+  { name: 'Large SKU Catalogues', href: '/high-sku-advertising/' },
   { name: 'Professional Services & Agencies', href: '/ppc-for-professional-services/' },
 ];
 
 // ROAS vs Profit used to sit at the top level. It is a calculator, so it belongs here, and
 // moving it keeps the traffic it already gets while making room for the rest of the section.
 const tools = [
-  { name: 'Golden Quarter Tactics', href: '/tools/golden-quarter-tactics', note: '4 free guides' },
-  { name: 'PPC Budget Calculator', href: '/tools/ppc-budget-calculator' },
-  { name: 'Ad Test Significance', href: '/tools/ad-test-significance' },
-  { name: 'Media Planner', href: '/tools/media-planner' },
-  { name: 'Weather-Based Bidding', href: '/tools/weather-bidding' },
-  { name: 'ROAS vs Profit Calculator', href: '/roas-vs-profit' },
-  { name: 'Break-even ROAS by Margin', href: '/blog/break-even-roas' },
+  { name: 'Golden Quarter Tactics', href: '/tools/golden-quarter-tactics/', note: '4 free guides' },
+  { name: 'PPC Budget Calculator', href: '/tools/ppc-budget-calculator/' },
+  { name: 'Ad Test Significance', href: '/tools/ad-test-significance/' },
+  { name: 'Media Planner', href: '/tools/media-planner/' },
+  { name: 'Weather-Based Bidding', href: '/tools/weather-bidding/' },
+  { name: 'ROAS vs Profit Calculator', href: '/roas-vs-profit/' },
+  { name: 'Break-even ROAS by Margin', href: '/blog/break-even-roas/' },
 ];
 ---
 
@@ -34,31 +36,31 @@ const tools = [
 
       <nav class="hidden xl:flex items-center gap-5 xl:gap-7">
         <div class="relative group">
-          <a href="/multi-channel-services" class="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-electric transition-colors whitespace-nowrap" aria-haspopup="true" aria-expanded="false">
+          <a href="/multi-channel-services/" class="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-electric transition-colors whitespace-nowrap" aria-haspopup="true" aria-expanded="false">
             Services
             <svg class="w-4 h-4 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
           </a>
           <div class="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 py-2">
-            <a href="/multi-channel-services" class="block px-4 py-2.5 text-sm font-semibold text-navy hover:text-electric hover:bg-sky-tint transition-colors">Multi-Channel Overview</a>
+            <a href="/multi-channel-services/" class="block px-4 py-2.5 text-sm font-semibold text-navy hover:text-electric hover:bg-sky-tint transition-colors">Multi-Channel Overview</a>
             <div class="border-t border-gray-100 my-1"></div>
             {services.map(s => (
               <a href={s.href} class="block px-4 py-2.5 text-sm text-gray-700 hover:text-electric hover:bg-sky-tint transition-colors">{s.name}</a>
             ))}
           </div>
         </div>
-        <a href="/blueprint" class="text-sm font-medium text-gray-700 hover:text-electric transition-colors whitespace-nowrap">Blueprint</a>
-        <a href="/how-we-audit" class="text-sm font-medium text-gray-700 hover:text-electric transition-colors whitespace-nowrap">How We Audit</a>
+        <a href="/blueprint/" class="text-sm font-medium text-gray-700 hover:text-electric transition-colors whitespace-nowrap">Blueprint</a>
+        <a href="/how-we-audit/" class="text-sm font-medium text-gray-700 hover:text-electric transition-colors whitespace-nowrap">How We Audit</a>
         <div class="relative group">
-          <a href="/tools" class="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-electric transition-colors whitespace-nowrap" aria-haspopup="true" aria-expanded="false">
+          <a href="/tools/" class="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-electric transition-colors whitespace-nowrap" aria-haspopup="true" aria-expanded="false">
             Tools
             <svg class="w-4 h-4 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
           </a>
           <div class="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 py-2">
-            <a href="/tools" class="block px-4 py-2.5 text-sm font-semibold text-navy hover:text-electric hover:bg-sky-tint transition-colors">All Tools &amp; Guides</a>
+            <a href="/tools/" class="block px-4 py-2.5 text-sm font-semibold text-navy hover:text-electric hover:bg-sky-tint transition-colors">All Tools &amp; Guides</a>
             <div class="border-t border-gray-100 my-1"></div>
             {tools.map(t => (
               <a href={t.href} class="block px-4 py-2.5 text-sm text-gray-700 hover:text-electric hover:bg-sky-tint transition-colors">
@@ -68,14 +70,14 @@ const tools = [
             ))}
           </div>
         </div>
-        <a href="/case-studies" class="text-sm font-medium text-gray-700 hover:text-electric transition-colors whitespace-nowrap">Case Studies</a>
-        <a href="/about" class="text-sm font-medium text-gray-700 hover:text-electric transition-colors whitespace-nowrap">About</a>
-        <a href="/blog" class="text-sm font-medium text-gray-700 hover:text-electric transition-colors whitespace-nowrap">Blog</a>
-        <a href="/contact" class="text-sm font-medium text-gray-700 hover:text-electric transition-colors whitespace-nowrap">Contact</a>
+        <a href="/case-studies/" class="text-sm font-medium text-gray-700 hover:text-electric transition-colors whitespace-nowrap">Case Studies</a>
+        <a href="/about/" class="text-sm font-medium text-gray-700 hover:text-electric transition-colors whitespace-nowrap">About</a>
+        <a href="/blog/" class="text-sm font-medium text-gray-700 hover:text-electric transition-colors whitespace-nowrap">Blog</a>
+        <a href="/contact/" class="text-sm font-medium text-gray-700 hover:text-electric transition-colors whitespace-nowrap">Contact</a>
       </nav>
 
       <div class="hidden xl:block shrink-0">
-        <a href="/free-ads-audit" class="inline-flex items-center px-5 py-2.5 bg-cta text-white text-sm font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-sm hover:shadow-md hover:shadow-cta/25 whitespace-nowrap">
+        <a href="/free-ads-audit/" class="inline-flex items-center px-5 py-2.5 bg-cta text-white text-sm font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-sm hover:shadow-md hover:shadow-cta/25 whitespace-nowrap">
           Book a Profit Audit
         </a>
       </div>
@@ -96,7 +98,7 @@ const tools = [
 
 <nav id="mobile-menu" class="xl:hidden fixed top-16 right-0 bottom-0 w-full max-w-sm bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 ease-out overflow-y-auto">
   <div class="px-5 py-6">
-    <a href="/multi-channel-services" class="mobile-link flex items-center px-3 py-3 text-base font-medium text-navy hover:text-electric hover:bg-sky-tint rounded-xl transition-colors">Multi-Channel Services</a>
+    <a href="/multi-channel-services/" class="mobile-link flex items-center px-3 py-3 text-base font-medium text-navy hover:text-electric hover:bg-sky-tint rounded-xl transition-colors">Multi-Channel Services</a>
     <p class="px-3 pt-4 pb-2 text-xs font-semibold text-slate uppercase tracking-widest">Services</p>
     <div class="space-y-0.5">
       {services.map(s => (
@@ -117,16 +119,16 @@ const tools = [
     </div>
     <div class="border-t border-gray-100 my-4"></div>
     <div class="space-y-0.5">
-      <a href="/blueprint" class="mobile-link flex items-center px-3 py-3 text-base font-medium text-navy hover:text-electric hover:bg-sky-tint rounded-xl transition-colors">Blueprint</a>
-      <a href="/how-we-audit" class="mobile-link flex items-center px-3 py-3 text-base font-medium text-navy hover:text-electric hover:bg-sky-tint rounded-xl transition-colors">How We Audit</a>
-      <a href="/tools" class="mobile-link flex items-center px-3 py-3 text-base font-medium text-navy hover:text-electric hover:bg-sky-tint rounded-xl transition-colors">Tools &amp; Guides</a>
-      <a href="/case-studies" class="mobile-link flex items-center px-3 py-3 text-base font-medium text-navy hover:text-electric hover:bg-sky-tint rounded-xl transition-colors">Case Studies</a>
-      <a href="/about" class="mobile-link flex items-center px-3 py-3 text-base font-medium text-navy hover:text-electric hover:bg-sky-tint rounded-xl transition-colors">About</a>
-      <a href="/blog" class="mobile-link flex items-center px-3 py-3 text-base font-medium text-navy hover:text-electric hover:bg-sky-tint rounded-xl transition-colors">Blog</a>
-      <a href="/contact" class="mobile-link flex items-center px-3 py-3 text-base font-medium text-navy hover:text-electric hover:bg-sky-tint rounded-xl transition-colors">Contact</a>
+      <a href="/blueprint/" class="mobile-link flex items-center px-3 py-3 text-base font-medium text-navy hover:text-electric hover:bg-sky-tint rounded-xl transition-colors">Blueprint</a>
+      <a href="/how-we-audit/" class="mobile-link flex items-center px-3 py-3 text-base font-medium text-navy hover:text-electric hover:bg-sky-tint rounded-xl transition-colors">How We Audit</a>
+      <a href="/tools/" class="mobile-link flex items-center px-3 py-3 text-base font-medium text-navy hover:text-electric hover:bg-sky-tint rounded-xl transition-colors">Tools &amp; Guides</a>
+      <a href="/case-studies/" class="mobile-link flex items-center px-3 py-3 text-base font-medium text-navy hover:text-electric hover:bg-sky-tint rounded-xl transition-colors">Case Studies</a>
+      <a href="/about/" class="mobile-link flex items-center px-3 py-3 text-base font-medium text-navy hover:text-electric hover:bg-sky-tint rounded-xl transition-colors">About</a>
+      <a href="/blog/" class="mobile-link flex items-center px-3 py-3 text-base font-medium text-navy hover:text-electric hover:bg-sky-tint rounded-xl transition-colors">Blog</a>
+      <a href="/contact/" class="mobile-link flex items-center px-3 py-3 text-base font-medium text-navy hover:text-electric hover:bg-sky-tint rounded-xl transition-colors">Contact</a>
     </div>
     <div class="mt-6">
-      <a href="/free-ads-audit" class="mobile-link block w-full text-center px-5 py-3.5 bg-cta text-white font-semibold rounded-xl hover:bg-electric transition-colors shadow-lg shadow-cta/25 text-base">
+      <a href="/free-ads-audit/" class="mobile-link block w-full text-center px-5 py-3.5 bg-cta text-white font-semibold rounded-xl hover:bg-electric transition-colors shadow-lg shadow-cta/25 text-base">
         Book a Profit Audit
       </a>
     </div>

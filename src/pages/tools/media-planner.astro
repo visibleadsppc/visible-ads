@@ -72,7 +72,7 @@ const groups = [...new Set(PLANNER_CHANNELS.map((c) => c.group))];
   description="Free cross-channel media planner. Turn a monthly budget and a funnel split into a channel plan with CPMs, impressions and clicks. Every assumption editable, CSV export, no login."
   schema={schema}
 >
-  <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Tools', href: '/tools' }, { label: 'Media planner' }]} />
+  <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Tools', href: '/tools/' }, { label: 'Media planner' }]} />
 
   <section class="py-14 lg:py-20 bg-gradient-to-br from-navy to-navy-light relative overflow-hidden" data-animate>
     <div class="absolute inset-0 dot-pattern opacity-5"></div>
@@ -190,7 +190,7 @@ const groups = [...new Set(PLANNER_CHANNELS.map((c) => c.group))];
         returned, where the spend leaks, and whether the measurement can even see the upper funnel
         you are about to buy.
       </p>
-      <a href="/free-ads-audit" class="inline-flex items-center justify-center px-8 py-4 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-lg hover:shadow-xl">
+      <a href="/free-ads-audit/" class="inline-flex items-center justify-center px-8 py-4 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-lg hover:shadow-xl">
         Book a profit audit
       </a>
     </div>

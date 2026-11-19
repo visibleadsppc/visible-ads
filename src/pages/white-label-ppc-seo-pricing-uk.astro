@@ -3,12 +3,12 @@ import Layout from '../layouts/Layout.astro';
 import PartnerBadges from '../components/PartnerBadges.astro';
 
 const channels = [
-  { name: 'Google Ads', href: '/google-ads', note: 'Our flagship channel: search, PMax and Shopping.' },
-  { name: 'Microsoft Advertising (Bing)', href: '/bing-ads', note: 'Near-zero competition.' },
-  { name: 'Paid Social', href: '/paid-social', note: 'Meta, LinkedIn and TikTok.' },
-  { name: 'Amazon Advertising', href: '/amazon', note: 'Sponsored campaigns and listing optimisation.' },
-  { name: 'SEO', href: '/seo', note: 'Organic alongside paid, under the same brief.' },
-  { name: 'eCRO', href: '/ecro', note: 'Conversion rate optimisation for the traffic already bought.' },
+  { name: 'Google Ads', href: '/google-ads/', note: 'Our flagship channel: search, PMax and Shopping.' },
+  { name: 'Microsoft Advertising (Bing)', href: '/bing-ads/', note: 'Near-zero competition.' },
+  { name: 'Paid Social', href: '/paid-social/', note: 'Meta, LinkedIn and TikTok.' },
+  { name: 'Amazon Advertising', href: '/amazon/', note: 'Sponsored campaigns and listing optimisation.' },
+  { name: 'SEO', href: '/seo/', note: 'Organic alongside paid, under the same brief.' },
+  { name: 'eCRO', href: '/ecro/', note: 'Conversion rate optimisation for the traffic already bought.' },
 ];
 
 const notFor = [
@@ -24,9 +24,9 @@ const goodFit = [
 ];
 
 const proof = [
-  { name: 'CFW', href: '/case-studies/cfw', stat: '£6.7M return from £555K Google Ads spend', label: '12x ROAS' },
-  { name: 'Sephra Europe', href: '/case-studies/sephra', stat: '£2.31M ad-driven revenue', label: 'Google + Amazon' },
-  { name: 'iWholesales', href: '/case-studies/iwholesales', stat: '450% sales growth', label: 'eCommerce' },
+  { name: 'CFW', href: '/case-studies/cfw/', stat: '£6.7M return from £555K Google Ads spend', label: '12x ROAS' },
+  { name: 'Sephra Europe', href: '/case-studies/sephra/', stat: '£2.31M ad-driven revenue', label: 'Google + Amazon' },
+  { name: 'iWholesales', href: '/case-studies/iwholesales/', stat: '450% sales growth', label: 'eCommerce' },
 ];
 
 const schema = { '@context': 'https://schema.org', '@graph': [
@@ -49,13 +49,13 @@ const schema = { '@context': 'https://schema.org', '@graph': [
 
   <section class="py-16 lg:py-20 bg-sky-tint" data-animate><div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">What changes the price above the floor</h2><div class="grid md:grid-cols-2 gap-6"><div class="bg-white p-6 rounded-2xl border border-gray-100"><h3 class="text-xl font-heading font-bold text-navy mb-3">Channel scope</h3><p class="text-gray-700">Single-channel Google Ads management costs less than a multi-channel account spanning Google, Meta and Amazon under one arrangement.</p></div><div class="bg-white p-6 rounded-2xl border border-gray-100"><h3 class="text-xl font-heading font-bold text-navy mb-3">Account complexity</h3><p class="text-gray-700">Ad spend, SKU count, number of markets and campaign structure change the hours required to manage an account well.</p></div><div class="bg-white p-6 rounded-2xl border border-gray-100"><h3 class="text-xl font-heading font-bold text-navy mb-3">Delivery responsibilities</h3><p class="text-gray-700">Who owns strategy, who owns client communication, and whether Visible Ads works under the agency's brand or its own, all affect the fee.</p></div><div class="bg-white p-6 rounded-2xl border border-gray-100"><h3 class="text-xl font-heading font-bold text-navy mb-3">Reporting requirements</h3><p class="text-gray-700">A white-labelled report matching the agency's own branding and cadence takes more time than a standard monthly summary.</p></div></div></div></section>
 
-  <section class="py-16 lg:py-20 bg-white" data-animate><div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8"><h2>How the arrangement works</h2><p class="text-lg text-gray-700 mb-6 leading-relaxed">The partner agency keeps the client relationship. Visible Ads does the campaign work behind the scenes: strategy, build, optimisation and reporting, to the arrangement agreed with the agency. The agency can present the work under its own brand.</p><p class="text-lg text-gray-700 leading-relaxed">See the full <a href="/ppc-for-professional-services" class="text-electric underline hover:text-electric-dark">professional services and agency partners page</a> for what to bring to a first conversation: client brief, channel scope, access and commercial terms.</p></div></section>
+  <section class="py-16 lg:py-20 bg-white" data-animate><div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8"><h2>How the arrangement works</h2><p class="text-lg text-gray-700 mb-6 leading-relaxed">The partner agency keeps the client relationship. Visible Ads does the campaign work behind the scenes: strategy, build, optimisation and reporting, to the arrangement agreed with the agency. The agency can present the work under its own brand.</p><p class="text-lg text-gray-700 leading-relaxed">See the full <a href="/ppc-for-professional-services/" class="text-electric underline hover:text-electric-dark">professional services and agency partners page</a> for what to bring to a first conversation: client brief, channel scope, access and commercial terms.</p></div></section>
 
   <section class="py-16 lg:py-20 bg-sky-tint" data-animate><div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Channels that can be white-labelled</h2><div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">{channels.map((c) => (<a href={c.href} class="block bg-white p-5 rounded-2xl border border-gray-100 hover:shadow-md hover:border-electric/20 transition-all"><h3 class="font-heading font-bold text-navy mb-1">{c.name}</h3><p class="text-sm text-gray-700">{c.note}</p></a>))}</div><p class="mt-8 text-gray-700 leading-relaxed">All six can be discussed within the same brief. Channels can be added at any point once the first account is running.</p></div></section>
 
   <section class="py-16 lg:py-20 bg-white" data-animate><div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Is this the right fit?</h2><div class="grid md:grid-cols-2 gap-8"><div class="bg-white p-6 rounded-2xl border-2 border-emerald-200"><h3 class="text-lg font-heading font-bold text-navy mb-4">Good fit</h3><ul class="space-y-3">{goodFit.map((item) => (<li class="flex gap-3 text-gray-700"><span class="text-emerald-600 font-bold shrink-0">&#10003;</span><span>{item}</span></li>))}</ul></div><div class="bg-white p-6 rounded-2xl border-2 border-gray-200"><h3 class="text-lg font-heading font-bold text-navy mb-4">Not a fit</h3><ul class="space-y-3">{notFor.map((item) => (<li class="flex gap-3 text-gray-700"><span class="text-gray-400 font-bold shrink-0">&#10005;</span><span>{item}</span></li>))}</ul></div></div></div></section>
 
-  <section class="py-16 lg:py-20 bg-sky-tint" data-animate><div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">The delivery, proven on our own client accounts</h2><p class="text-gray-700 leading-relaxed mb-8">A white-labelled account runs on the same <a href="/blueprint" class="text-electric underline hover:text-electric-dark">4-phase Blueprint</a> applied to every Visible Ads engagement: Discover, Strategise, Execute, Optimise.</p><div class="grid md:grid-cols-3 gap-6">{proof.map((p) => (<a href={p.href} class="block bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-md hover:border-electric/20 transition-all"><h3 class="font-heading font-bold text-navy mb-2">{p.name}</h3><p class="text-electric font-heading font-extrabold text-xl mb-1">{p.stat}</p><p class="text-sm text-gray-700">{p.label}</p></a>))}</div></div></section>
+  <section class="py-16 lg:py-20 bg-sky-tint" data-animate><div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">The delivery, proven on our own client accounts</h2><p class="text-gray-700 leading-relaxed mb-8">A white-labelled account runs on the same <a href="/blueprint/" class="text-electric underline hover:text-electric-dark">4-phase Blueprint</a> applied to every Visible Ads engagement: Discover, Strategise, Execute, Optimise.</p><div class="grid md:grid-cols-3 gap-6">{proof.map((p) => (<a href={p.href} class="block bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-md hover:border-electric/20 transition-all"><h3 class="font-heading font-bold text-navy mb-2">{p.name}</h3><p class="text-electric font-heading font-extrabold text-xl mb-1">{p.stat}</p><p class="text-sm text-gray-700">{p.label}</p></a>))}</div></div></section>
 
   <section class="py-12 bg-white" data-animate><div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><PartnerBadges compact /></div></section>
 

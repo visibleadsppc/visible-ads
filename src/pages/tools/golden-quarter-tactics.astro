@@ -100,7 +100,7 @@ const totalPages = GOLDEN_QUARTER_GUIDES.reduce((sum, g) => sum + g.pages, 0);
   <Breadcrumb
     items={[
       { label: 'Home', href: '/' },
-      { label: 'Tools', href: '/tools' },
+      { label: 'Tools', href: '/tools/' },
       { label: 'Golden Quarter Tactics' },
     ]}
   />
@@ -296,7 +296,7 @@ const totalPages = GOLDEN_QUARTER_GUIDES.reduce((sum, g) => sum + g.pages, 0);
             <input
               type="hidden"
               name="_next"
-              value="https://visible-ads.com/tools/golden-quarter-tactics/sent"
+              value="https://visible-ads.com/tools/golden-quarter-tactics/sent/"
             />
             <input type="hidden" id="gq-source" name="source_page" value="/tools/golden-quarter-tactics" />
             <input
@@ -346,7 +346,7 @@ const totalPages = GOLDEN_QUARTER_GUIDES.reduce((sum, g) => sum + g.pages, 0);
           <p class="mt-4 text-xs leading-relaxed text-slate-light">
             Confirm your address from the email and the guides open. We may follow up once to see
             if they were useful, and you can tell us to stop at any time. See our
-            <a href="/privacy-policy" class="underline hover:text-electric">privacy policy</a>.
+            <a href="/privacy-policy/" class="underline hover:text-electric">privacy policy</a>.
           </p>
         </div>
       </div>
@@ -382,7 +382,7 @@ const totalPages = GOLDEN_QUARTER_GUIDES.reduce((sum, g) => sum + g.pages, 0);
         tell you what we would change before peak and what it is worth.
       </p>
       <a
-        href="/free-ads-audit"
+        href="/free-ads-audit/"
         class="inline-flex items-center justify-center px-8 py-4 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-lg hover:shadow-xl"
       >
         Book a profit audit
@@ -435,8 +435,8 @@ const totalPages = GOLDEN_QUARTER_GUIDES.reduce((sum, g) => sum + g.pages, 0);
         /* private browsing, nothing to do */
       }
       if (typeof (window as any).gtag === 'function') {
-        (window as any).gtag('event', 'generate_lead', {
-          form: 'golden_quarter_landing',
+        (window as any).gtag('event', 'guide_signup', {
+          form_name: 'golden_quarter_landing',
           guide: slugField?.value || '',
         });
       }

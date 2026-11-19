@@ -76,7 +76,7 @@ const GUIDE_TITLE = "Don't Waste Peak Season: 5 Google Ads Tactics to Win the Go
         <form id="guide-popup-form" action="/api/guide" method="POST" data-astro-reload class="space-y-3">
           <input type="hidden" name="_form" value="guide" />
           <input type="hidden" name="_guide" value="q4-playbook" />
-          <input type="hidden" name="_next" value="https://visible-ads.com/guide-sent" />
+          <input type="hidden" name="_next" value="https://visible-ads.com/guide-sent/" />
           <input type="hidden" id="guide-popup-source" name="source_page" value="" />
           <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;pointer-events:none" />
 
@@ -118,7 +118,7 @@ const GUIDE_TITLE = "Don't Waste Peak Season: 5 Google Ads Tactics to Win the Go
         <p class="mt-4 text-xs leading-relaxed text-slate-light">
           Confirm your address from the email and the playbook opens. We may follow up once to
           see if it was useful, and you can tell us to stop at any time. See our
-          <a href="/privacy-policy" class="underline hover:text-electric">privacy policy</a>.
+          <a href="/privacy-policy/" class="underline hover:text-electric">privacy policy</a>.
         </p>
       </div>
     </div>
@@ -176,6 +176,9 @@ const GUIDE_TITLE = "Don't Waste Peak Season: 5 Google Ads Tactics to Win the Go
   }
 
   function suppressedHere(): boolean {
+    // Blog pages only, and never from 28 Nov 2026 00:00 Europe/London (GMT, so UTC).
+    if (!window.location.pathname.startsWith('/blog/')) return true;
+    if (Date.now() >= Date.UTC(2026, 10, 28)) return true;
     const path = window.location.pathname.replace(/\/+$/, '') || '/';
     return SUPPRESSED.some((p) => path === p);
   }
@@ -314,8 +317,8 @@ const GUIDE_TITLE = "Don't Waste Peak Season: 5 Google Ads Tactics to Win the Go
     document.getElementById('guide-popup-form')?.addEventListener('submit', () => {
       remember(DONE_KEY, String(Date.now()));
       if (typeof (window as any).gtag === 'function') {
-        (window as any).gtag('event', 'generate_lead', {
-          form: 'guide_popup',
+        (window as any).gtag('event', 'guide_signup', {
+          form_name: 'guide_popup',
           guide: 'q4-playbook',
         });
       }
