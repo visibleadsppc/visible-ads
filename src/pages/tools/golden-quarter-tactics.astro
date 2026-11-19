@@ -435,8 +435,8 @@ const totalPages = GOLDEN_QUARTER_GUIDES.reduce((sum, g) => sum + g.pages, 0);
         /* private browsing, nothing to do */
       }
       if (typeof (window as any).gtag === 'function') {
-        (window as any).gtag('event', 'generate_lead', {
-          form: 'golden_quarter_landing',
+        (window as any).gtag('event', 'guide_signup', {
+          form_name: 'golden_quarter_landing',
           guide: slugField?.value || '',
         });
       }

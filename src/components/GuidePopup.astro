@@ -314,8 +314,8 @@ const GUIDE_TITLE = "Don't Waste Peak Season: 5 Google Ads Tactics to Win the Go
     document.getElementById('guide-popup-form')?.addEventListener('submit', () => {
       remember(DONE_KEY, String(Date.now()));
       if (typeof (window as any).gtag === 'function') {
-        (window as any).gtag('event', 'generate_lead', {
-          form: 'guide_popup',
+        (window as any).gtag('event', 'guide_signup', {
+          form_name: 'guide_popup',
           guide: 'q4-playbook',
         });
       }
