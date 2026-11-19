@@ -19,28 +19,28 @@ const faqs = [
   },
   {
     q: "How do you measure GEO results?",
-    a: "We run a fixed panel of buyer prompts across ChatGPT, Perplexity, Google AI Overviews and Copilot. We repeat it every month. Mentions and citations are counted separately. We read them next to AI referral sessions in GA4 and your enquiries."
+    a: "We run a fixed panel of buyer prompts across ChatGPT, Perplexity, Google AI Overviews and Copilot, where each is available. Runs where an engine gives no answer, or no AI Overview appears, are recorded separately. Retained clients get the same panel every month. Mentions and citations are counted separately and can overlap. We read them next to AI referral sessions in GA4 and your enquiries."
   },
   {
     q: "How much do SEO and GEO cost?",
-    a: "No price is published. The monthly SEO and GEO fee is quoted after the free check. It depends on the size of the site, the number of buyer prompts and the markets you sell in."
+    a: "No price is published. The monthly SEO and GEO fee is quoted after the free check."
   },
   {
-    q: "Which areas do you cover?",
-    a: "We are based in Kingston upon Thames and cover Kingston, Surbiton, New Malden, Richmond, Twickenham, Wimbledon, Esher, Thames Ditton, Epsom, Leatherhead, Woking and Guildford. We also work with ecommerce and B2B brands across the UK. Work runs by call or video."
+    q: "Which areas do you work in?",
+    a: "We are based in Kingston upon Thames. We work with businesses in Kingston, Surbiton, New Malden, Richmond, Twickenham, Wimbledon, Esher, Thames Ditton, Epsom, Leatherhead, Woking and Guildford, and with ecommerce and B2B brands across the UK."
   },
   {
     q: "How does SEO and GEO fit with Google Ads?",
-    a: "Paid search buys demand today. SEO and GEO build visibility that carries on when the budget stops. Search terms from paid campaigns also give us real buyer questions for the prompt panel."
+    a: "Paid search can reach buyers while campaigns are running. SEO and GEO aim to build organic visibility that can continue after paid campaigns stop. Search terms from paid campaigns also give us real buyer questions for the prompt panel."
   },
   {
     q: "How long until I see results?",
-    a: "We give no date. Fixes to crawling and indexing can be seen soon after they go live. Changes in rankings and AI answers vary by site and competition. We repeat the same panel monthly and report what moved."
+    a: "We give no date. Fixes to crawling and indexing can be seen soon after they go live. Changes in rankings and AI answers vary by site and competition. For retained clients we repeat the same panel monthly and report what changed."
   }
 ];
 
 const areas = [
-  { name: "Kingston upon Thames", line: "Our home borough. We test prompts that name Kingston and prompts that do not. We record which brings your business up." },
+  { name: "Kingston upon Thames", line: "Where Visible Ads is based. We test prompts that name Kingston and prompts that do not. We record which brings your business up." },
   { name: "Surbiton", line: "Part of the Royal Borough of Kingston. Buyers may write Surbiton or Kingston. We test both place names." },
   { name: "New Malden", line: "Also in the Royal Borough of Kingston. We check that your site and your profiles give the same address and service area." },
   { name: "Richmond", line: "Richmond upon Thames is its own borough. We test whether answers place your business in Richmond or in neighbouring Kingston." },
@@ -55,9 +55,9 @@ const areas = [
 ];
 
 const signals = [
-  { signal: "Mentions", counts: "Runs where an engine names your brand without a link to your site.", source: "Prompt panel" },
-  { signal: "Citations", counts: "Runs where an answer cites a URL on your site.", source: "Prompt panel" },
-  { signal: "Recommendations", counts: "Runs where your brand is named first.", source: "Prompt panel" },
+  { signal: "Mentions", counts: "Runs where an engine names your brand, whether or not it cites your site.", source: "Prompt panel" },
+  { signal: "Citations", counts: "Runs where an answer cites a URL on your site, whether or not it names your brand.", source: "Prompt panel" },
+  { signal: "Recommendations", counts: "Runs where an engine explicitly recommends your brand.", source: "Prompt panel" },
   { signal: "AI referral sessions", counts: "Visits that arrive from AI assistants and carry a referrer.", source: "GA4" },
   { signal: "Enquiries", counts: "Form, call and email enquiries, plus how the buyer says they found you.", source: "Your enquiry tracking" }
 ];
@@ -65,8 +65,8 @@ const signals = [
 const steps = [
   { t: "Technical SEO foundations", d: "Crawling, indexing, page speed and internal links come first. Google and the AI search products must be able to read the site and reach the pages that bring enquiries." },
   { t: "Content that answers buyer questions", d: "Each section opens with the answer and keeps its evidence close. Pages are built around the question a buyer asks. The prompts from your check supply those questions." },
-  { t: "Entity consistency", d: "One set of facts for your name, services, location and people. We make the site and your profiles say the same thing. Engines then have no conflicting details to repeat." },
-  { t: "Mentions on the sources answers cite", d: "The check lists the sources each answer cites. Answers may lean on directories, review sites or trade publications. For those you get the accurate listing changes to make. We promise no links and no coverage." }
+  { t: "Entity consistency", d: "One set of facts for your name, services, location and people. We make the site and your profiles say the same thing. Consistent site and profile information can reduce conflicting details." },
+  { t: "Mentions on the sources answers cite", d: "The check lists the sources each answer cites. Answers may lean on directories, review sites or trade publications. Where they do, accurate listings may be a next step. We promise no links and no coverage." }
 ];
 
 const places = areas.map((a) => a.name);
@@ -93,6 +93,7 @@ const schema = {
       "url": canonical,
       "provider": { "@id": "https://visible-ads.com/#organization" },
       "areaServed": [
+        { "@type": "Country", "name": "United Kingdom" },
         { "@type": "AdministrativeArea", "name": "Surrey" },
         ...places.map((n) => ({ "@type": "Place", "name": n }))
       ]
@@ -139,17 +140,17 @@ const related = [
       <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14 items-start">
         <div>
           <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-5">SEO and GEO agency in Kingston upon Thames and Surrey</h1>
-          <p class="text-lg sm:text-xl text-slate-light mb-6 leading-relaxed">Visible Ads gets UK ecommerce and B2B brands found in Google and named in AI answers from ChatGPT, Perplexity, Google AI Overviews and Copilot. We start with a free AI search visibility check.</p>
+          <p class="text-lg sm:text-xl text-slate-light mb-6 leading-relaxed">Visible Ads helps UK ecommerce and B2B brands improve their visibility in Google and measures how they appear in AI answers. We start with a free AI search visibility check.</p>
           <ol class="space-y-3 mb-8 text-white">
-            <li class="flex gap-3"><span class="shrink-0 w-7 h-7 rounded-full bg-white text-navy font-bold text-sm flex items-center justify-center" aria-hidden="true">1</span><span>We test a fixed set of buyer prompts across all four engines.</span></li>
-            <li class="flex gap-3"><span class="shrink-0 w-7 h-7 rounded-full bg-white text-navy font-bold text-sm flex items-center justify-center" aria-hidden="true">2</span><span>You see where your brand appears and where competitors appear instead.</span></li>
+            <li class="flex gap-3"><span class="shrink-0 w-7 h-7 rounded-full bg-white text-navy font-bold text-sm flex items-center justify-center" aria-hidden="true">1</span><span>We test a fixed set of buyer prompts in ChatGPT, Perplexity, Google AI Overviews and Copilot, where each is available.</span></li>
+            <li class="flex gap-3"><span class="shrink-0 w-7 h-7 rounded-full bg-white text-navy font-bold text-sm flex items-center justify-center" aria-hidden="true">2</span><span>You see where your brand appears and who is named instead.</span></li>
             <li class="flex gap-3"><span class="shrink-0 w-7 h-7 rounded-full bg-white text-navy font-bold text-sm flex items-center justify-center" aria-hidden="true">3</span><span>You see which sources the answers cite.</span></li>
           </ol>
           <div class="flex flex-col sm:flex-row gap-4">
-            <a href="/contact/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors text-lg">Book your free check</a>
+            <a href="/contact/?topic=seo-geo-check" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors text-lg">Book your free check</a>
             <a href="#measure" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/30 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors">See how we measure it</a>
           </div>
-          <p class="text-sm text-slate-light mt-5">No price is published. The monthly SEO and GEO fee is quoted after the check. First reply to your enquiry within 1 working day.</p>
+          <p class="text-sm text-slate-light mt-5">The check is free. If you want ongoing support, we quote a monthly fee after the check. First reply to your enquiry within 1 working day.</p>
         </div>
 
         <figure class="bg-white rounded-2xl p-4 sm:p-5 shadow-xl">
@@ -188,7 +189,7 @@ const related = [
               <text x="0" y="358" font-size="12" fill="#475569">Example layout with placeholders. Not a result.</text>
             </g>
           </svg>
-          <figcaption class="text-sm text-gray-700 mt-3 leading-relaxed">For each engine the report records one outcome: absent, mentioned, cited or recommended. It also lists who is named instead and the sources cited. The entries above are placeholders.</figcaption>
+          <figcaption class="text-sm text-gray-700 mt-3 leading-relaxed">For each prompt and engine the worst run sets the result shown: absent, mentioned, cited or recommended. Mentions and citations are also counted as separate signals and can overlap. The report also lists who is named instead and the sources cited. The entries above are placeholders.</figcaption>
         </figure>
       </div>
     </div>
@@ -204,9 +205,9 @@ const related = [
   <section class="py-16 lg:py-20 bg-white">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">What the free AI search visibility check covers</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">The check tests the questions your buyers ask AI engines and shows what each engine says. We write the prompts from your Search Console queries, your sales questions and the words buyers use for the need. Prompts that name Kingston or Surrey are added when your buyers are local.</p>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Each prompt runs in a fresh logged-out session with no follow-up questions. Each prompt runs at least three times over at least two days. The worst run is the score we report. Some engines need manual capture. We log which runs were manual.</p>
-      <p class="text-lg text-gray-700 leading-relaxed">You receive four things: where your brand appears, where competitors appear instead, the sources each answer cites, and any wrong facts an engine states about you.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">The check tests the questions your buyers ask AI engines in ChatGPT, Perplexity, Google AI Overviews and Copilot, where each is available, and records what each engine says. Prompts are based on the words your buyers use for the need. Prompts that name Kingston or Surrey are added when your buyers are local.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Each prompt runs at least three times over at least two days. The worst run sets the score for that prompt and engine. Runs where an engine gives no answer, or where no AI Overview appears, are recorded separately and are not counted as your brand being absent.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">The check records where your brand appears, who is named instead and the sources each answer cites. For retained clients the same panel is repeated monthly.</p>
     </div>
   </section>
 
@@ -214,7 +215,7 @@ const related = [
   <section id="measure" class="py-16 lg:py-20 bg-sky-tint scroll-mt-24">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">How we measure GEO</h2>
-      <p class="text-lg text-gray-700 mb-8 leading-relaxed">We measure GEO with five separate signals. They are never merged into one score. None of them is read as proof of revenue.</p>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">We report five separate signals and never merge them into one score. For the three panel signals, the worst run sets the result for each prompt and engine. None of them is read as proof of revenue.</p>
       <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
         <table class="w-full text-left">
           <caption class="sr-only">The five signals used to measure GEO</caption>
@@ -236,7 +237,7 @@ const related = [
           </tbody>
         </table>
       </div>
-      <p class="text-lg text-gray-700 mt-8 mb-6 leading-relaxed">We repeat the same prompt panel every month. A change then means something. A citation is not a recommendation. A mention is not a citation.</p>
+      <p class="text-lg text-gray-700 mt-8 mb-6 leading-relaxed">For retained clients we repeat the same prompt panel every month, so a change is something we can observe, not proof of cause. A citation is not a recommendation. A mention is not a citation, though one run can be both.</p>
       <p class="text-lg text-gray-700 leading-relaxed">Counts under about 30 are reported as counts with no percentage growth. GA4 only sees visits that carry a referrer. We record the gap. We read the panel next to your enquiries and report both.</p>
     </div>
   </section>
@@ -269,7 +270,7 @@ const related = [
   <section id="areas" class="py-16 lg:py-20 bg-sky-tint scroll-mt-24">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">SEO and GEO for Kingston upon Thames and Surrey businesses</h2>
-      <p class="text-lg text-gray-700 mb-10 max-w-3xl leading-relaxed">Visible Ads is based in Kingston upon Thames and works with businesses across Surrey and South West London. We have no Surrey office. Work runs by call or video. Local SEO and GEO start with the place names your buyers use. The areas below show what we test for each.</p>
+      <p class="text-lg text-gray-700 mb-10 max-w-3xl leading-relaxed">Visible Ads is based in Kingston upon Thames and works with businesses in the places below and across the UK. Local SEO and GEO start with the place names your buyers use. The areas below show what we test for each.</p>
       <ul class="grid sm:grid-cols-2 gap-x-10">
         {areas.map((a) => (
           <li class="py-4 border-t border-slate-light/50">
@@ -294,11 +295,11 @@ const related = [
   <section class="py-16 lg:py-20 bg-white">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Why SEO and GEO are judged on enquiries and profit</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Visible Ads is a profit-first agency. SEO and GEO follow the same rule as our paid search. Visibility that brings no enquiry or sale is a cost. The check ends with a ranked list of fixes tied to the pages that bring enquiries. Pages that do not lead to an enquiry come later.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Visible Ads is a profit-first agency. SEO and GEO follow the same rule as our paid search. Visibility that brings no enquiry or sale is a cost. After the check, fixes are prioritised towards the pages that bring enquiries. Pages that do not lead to an enquiry come later.</p>
       <p class="text-lg text-gray-700 mb-10 leading-relaxed">Enquiries are counted from your own tracking. If that tracking is missing, fixing it is the first job.</p>
 
       <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">How SEO and GEO work alongside paid search</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Paid search buys demand today. SEO and GEO build visibility that carries on when the budget stops. When we manage both, search terms from paid campaigns give the prompt panel real buyer questions.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Paid search can reach buyers while campaigns are running. SEO and GEO aim to build organic visibility that can continue after paid campaigns stop. When we manage both, search terms from paid campaigns give the prompt panel real buyer questions.</p>
       <p class="text-lg text-gray-700 mb-8 leading-relaxed">Paid placements in AI products follow separate rules from organic visibility. They are covered on their own pages. We keep their results out of the GEO signals above.</p>
       <ul class="grid sm:grid-cols-2 gap-4">
         {related.map((r) => (
@@ -336,9 +337,9 @@ const related = [
     <div class="absolute inset-0 dot-pattern opacity-5"></div>
     <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-5">Start with the free AI search visibility check</h2>
-      <p class="text-lg text-slate-light mb-4 leading-relaxed">After the check you get the findings and a quote for a monthly SEO and GEO plan. The fee depends on the size of the site, the number of buyer prompts and the markets you sell in.</p>
-      <p class="text-slate-light mb-8 leading-relaxed">We need access to Search Console and GA4 from you. We guarantee no citations, rankings or traffic.</p>
-      <a href="/contact/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-bold px-10 py-4 rounded-xl hover:bg-cta-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors text-lg">Book your free check</a>
+      <p class="text-lg text-slate-light mb-4 leading-relaxed">After the check you get the findings and a quote for a monthly SEO and GEO plan. The check itself is free.</p>
+      <p class="text-slate-light mb-8 leading-relaxed">We guarantee no citations, rankings or traffic.</p>
+      <a href="/contact/?topic=seo-geo-check" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-bold px-10 py-4 rounded-xl hover:bg-cta-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors text-lg">Book your free check</a>
     </div>
   </section>
 
