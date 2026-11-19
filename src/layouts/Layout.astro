@@ -104,7 +104,11 @@ import '../styles/global.css';
 <body class="antialiased" data-pathname={Astro.url.pathname}>
   <style>
     body[data-pathname="/contact"] #sticky-cta,
-    body[data-pathname="/contact/"] #sticky-cta { display: none !important; }
+    body[data-pathname="/contact/"] #sticky-cta,
+    body[data-pathname="/free-ads-audit"] #sticky-cta,
+    body[data-pathname="/free-ads-audit/"] #sticky-cta,
+    body[data-pathname="/free-bing-ads-audit"] #sticky-cta,
+    body[data-pathname="/free-bing-ads-audit/"] #sticky-cta { display: none !important; }
   </style>
   <Nav />
   <main>
