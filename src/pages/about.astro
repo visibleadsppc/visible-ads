@@ -1,5 +1,6 @@
 ﻿---
 import Layout from '../layouts/Layout.astro';
+import ProofStrip from '../components/visuals/ProofStrip.astro';
 import CountUp from '../components/CountUp.astro';
 import PartnerBadges from '../components/PartnerBadges.astro';
 import ClientLogos from '../components/ClientLogos.astro';
@@ -145,14 +146,9 @@ const certifications = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">Our Impact</h2>
-        <p class="text-lg text-gray-700">The numbers behind two decades of digital advertising.</p>
+        <p class="text-lg text-gray-700">The figures we can show, with where they come from.</p>
       </div>
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
-        <CountUp value="20" suffix="+" label="Years Experience" />
-        <CountUp value="50" suffix="+" label="Businesses Scaled" />
-        <CountUp prefix="£" value="10" suffix="M+" label="Revenue Generated" />
-        <CountUp value="4" label="Certified Partnerships" />
-      </div>
+      <ProofStrip />
     </div>
   </section>
 
