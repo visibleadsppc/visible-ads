@@ -176,6 +176,9 @@ const GUIDE_TITLE = "Don't Waste Peak Season: 5 Google Ads Tactics to Win the Go
   }
 
   function suppressedHere(): boolean {
+    // Blog pages only, and never from 28 Nov 2026 00:00 Europe/London (GMT, so UTC).
+    if (!window.location.pathname.startsWith('/blog/')) return true;
+    if (Date.now() >= Date.UTC(2026, 10, 28)) return true;
     const path = window.location.pathname.replace(/\/+$/, '') || '/';
     return SUPPRESSED.some((p) => path === p);
   }
