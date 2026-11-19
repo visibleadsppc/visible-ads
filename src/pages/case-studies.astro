@@ -9,7 +9,7 @@ const schema = {
     {
       "@type": "CollectionPage",
       "name": "Case Studies | Client Results",
-      "description": "Explore Visible Ads client results, including CFW's £6.7M return from £555K in Google Ads spend.",
+      "description": "Explore Visible Ads client results, including CFW's £6.7M return from £555K in Google Ads spend and Sephra Europe's £2.31M in ad-driven revenue.",
       "url": "https://visible-ads.com/case-studies",
       "publisher": {
         "@type": "Organization",
@@ -44,10 +44,10 @@ const caseStudies = [
     title: 'iWholesales',
     subtitle: 'Skyrocketing Airsoft Sales',
     channels: 'Online visibility + conversion',
-    metric: '',
-    metricLabel: '',
+    metric: '+450%',
+    metricLabel: 'Sales',
     industry: 'eCommerce',
-    description: 'Online visibility and conversion work for an airsoft retailer.',
+    description: 'iWholesales achieved 450% sales growth alongside work on its online visibility and conversion experience.',
     color: 'from-electric to-violet-500',
     logo: null,
   },
@@ -68,10 +68,10 @@ const caseStudies = [
     title: 'Sephra Europe',
     subtitle: 'Exceptional Business Growth',
     channels: 'Multi-channel',
-    metric: '',
-    metricLabel: '',
+    metric: '£2.31M',
+    metricLabel: 'Ad-Driven Revenue',
     industry: 'Food & Beverage',
-    description: 'Sephra Europe sells commercial chocolate fountains and ingredients across the UK and Europe. We managed their full advertising stack: Google Search, Shopping, Display, Bing, and Amazon. Sephra Europe ran Google and Amazon advertising as one strategy, with 1,149% ROAS.',
+    description: 'Sephra Europe sells commercial chocolate fountains and ingredients across the UK and Europe. We managed their full advertising stack: Google Search, Shopping, Display, Bing, and Amazon. Sephra Europe achieved £2.31M in ad-driven revenue and 1,149% ROAS.',
     color: 'from-electric to-amber-500',
     logo: '/images/clients/sephra.webp',
   },
@@ -130,12 +130,10 @@ const caseStudies = [
               )}
               <h2 class="text-2xl font-heading font-bold text-navy mb-1 group-hover:text-electric transition-colors">{study.title}</h2>
               <p class="text-lg font-heading font-semibold text-gray-700 mb-4">{study.subtitle}</p>
-              {study.metric && (
               <div class="flex items-baseline gap-2 mb-6">
                 <span class="text-5xl font-heading font-extrabold text-electric index-metric" data-count-target={study.metric}>{study.metric}</span>
                 <span class="text-lg font-semibold text-gray-700">{study.metricLabel}</span>
               </div>
-              )}
               <p class="text-gray-700 leading-relaxed mb-6">{study.description}</p>
               <span class="inline-flex items-center text-sm font-semibold text-electric group-hover:gap-3 gap-2 transition-all">
                 Read full case study
