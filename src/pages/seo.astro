@@ -1,5 +1,6 @@
 ﻿---
 import Layout from '../layouts/Layout.astro';
+import AiAnswerPanel from '../components/visuals/AiAnswerPanel.astro';
 import PartnerBadges from '../components/PartnerBadges.astro';
 
 const canonical = "https://visible-ads.com/seo/";
@@ -153,44 +154,7 @@ const related = [
           <p class="text-sm text-slate-light mt-5">The check is free. If you want ongoing support, we quote a monthly fee after the check. First reply to your enquiry within 1 working day.</p>
         </div>
 
-        <figure class="bg-white rounded-2xl p-4 sm:p-5 shadow-xl">
-          <svg viewBox="0 0 360 372" role="img" aria-labelledby="check-title check-desc" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
-            <title id="check-title">Example layout of the free AI search visibility check</title>
-            <desc id="check-desc">One buyer prompt is tested on ChatGPT, Perplexity, Google AI Overviews and Copilot. Each row shows who the engine names. A final row lists the sources cited. All entries are placeholders.</desc>
-            <rect x="0" y="0" width="360" height="64" rx="8" fill="#0A1628"/>
-            <text x="14" y="26" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#94A3B8">Buyer prompt, fixed and repeated monthly</text>
-            <text x="14" y="49" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">Best [category] in [place]?</text>
-
-            <g font-family="Inter, system-ui, sans-serif" font-size="14">
-              <text x="0" y="94" font-weight="700" fill="#0A1628">ChatGPT</text>
-              <rect x="172" y="76" width="188" height="28" rx="6" fill="#FEE2E2" stroke="#B91C1C"/>
-              <text x="182" y="95" fill="#7F1D1D">Competitor A named</text>
-
-              <text x="0" y="136" font-weight="700" fill="#0A1628">Perplexity</text>
-              <rect x="172" y="118" width="188" height="28" rx="6" fill="#DCFCE7" stroke="#15803D"/>
-              <text x="182" y="137" fill="#14532D">Your URL cited</text>
-
-              <text x="0" y="178" font-weight="700" fill="#0A1628">Google AI Overviews</text>
-              <rect x="172" y="160" width="188" height="28" rx="6" fill="#F1F5F9" stroke="#475569" stroke-dasharray="4 3"/>
-              <text x="182" y="179" fill="#334155">Not named</text>
-
-              <text x="0" y="220" font-weight="700" fill="#0A1628">Copilot</text>
-              <rect x="172" y="202" width="188" height="28" rx="6" fill="#DBEAFE" stroke="#1D4ED8"/>
-              <text x="182" y="221" fill="#1E3A8A">Your brand named</text>
-            </g>
-
-            <line x1="0" y1="248" x2="360" y2="248" stroke="#CBD5E1"/>
-            <g font-family="Inter, system-ui, sans-serif" font-size="14">
-              <text x="0" y="272" font-weight="700" fill="#0A1628">Sources the answers cite</text>
-              <text x="0" y="296" fill="#334155">1. Directory listing</text>
-              <text x="0" y="318" fill="#334155">2. Review site</text>
-              <text x="180" y="296" fill="#334155">3. Competitor A site</text>
-              <text x="180" y="318" fill="#334155">4. Your site</text>
-              <text x="0" y="358" font-size="12" fill="#475569">Example layout with placeholders. Not a result.</text>
-            </g>
-          </svg>
-          <figcaption class="text-sm text-gray-700 mt-3 leading-relaxed">For each prompt and engine the worst run sets the result shown: absent, mentioned, cited or recommended. Mentions and citations are also counted as separate signals and can overlap. The report also lists who is named instead and the sources cited. The entries above are placeholders.</figcaption>
-        </figure>
+        <AiAnswerPanel>For each prompt and engine the worst run sets the result shown: absent, mentioned, cited or recommended. Mentions and citations are also counted as separate signals and can overlap. The report also lists who is named instead and the sources cited. The entries above are placeholders.</AiAnswerPanel>
       </div>
     </div>
   </section>
@@ -239,6 +203,7 @@ const related = [
       </div>
       <p class="text-lg text-gray-700 mt-8 mb-6 leading-relaxed">For retained clients we repeat the same prompt panel every month, so a change is something we can observe, not proof of cause. A citation is not a recommendation. A mention is not a citation, though one run can be both.</p>
       <p class="text-lg text-gray-700 leading-relaxed">Counts under about 30 are reported as counts with no percentage growth. GA4 only sees visits that carry a referrer. We record the gap. We read the panel next to your enquiries and report both.</p>
+      <AiAnswerPanel mode="method" id="method" class="mt-8" />
     </div>
   </section>
 

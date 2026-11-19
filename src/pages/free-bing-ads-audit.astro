@@ -1,5 +1,8 @@
 ---
+import { bingAuditSteps } from '../data/audit-steps';
 import Layout from '../layouts/Layout.astro';
+import AuditSteps from '../components/visuals/AuditSteps.astro';
+import SourcedChart from '../components/visuals/SourcedChart.astro';
 import PartnerBadges from '../components/PartnerBadges.astro';
 import GoogleReviews from '../components/GoogleReviews.astro';
 import Turnstile from '../components/Turnstile.astro';
@@ -263,6 +266,7 @@ const checks = [
       <p class="text-lg text-gray-700 leading-relaxed mb-5">The usual story runs like this. Someone ticks the import box in Google Ads. The campaigns copy across and the account goes live. Nobody rebuilds it for a different auction or a different set of partner placements. Then it gets judged on results it was never set up to produce.</p>
       <p class="text-lg text-gray-700 leading-relaxed mb-5">That is a shame. The platform has things Google does not. Microsoft Advertising reaches searchers across Bing, Yahoo and DuckDuckGo. It targets by company, job function and industry through LinkedIn profile data. Competition in the auction is often thinner than the equivalent Google auction.</p>
       <p class="text-lg text-gray-700 leading-relaxed mb-8">None of that helps if the account is a two year old import nobody has opened. The audit tells you which situation you are in. It uses your numbers.</p>
+      <SourcedChart id="sc-bing-audit" class="mb-8" />
       <div class="flex flex-wrap gap-4 justify-center">
         <a href="/bing-ads/" class="px-6 py-3 rounded-lg border border-electric text-electric font-semibold hover:bg-sky-tint transition-all">Our Microsoft Ads service</a>
         <a href="/free-ads-audit/" class="px-6 py-3 rounded-lg border border-gray-200 text-navy font-semibold hover:bg-gray-50 transition-all">Auditing another channel?</a>
@@ -276,23 +280,7 @@ const checks = [
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">What Happens Next?</h2>
         <p class="text-lg text-gray-700">Three steps from enquiry to findings.</p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-        <div class="text-center">
-          <div class="w-16 h-16 rounded-full bg-electric text-white font-heading font-bold text-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-electric/30">1</div>
-          <h3 class="text-lg font-heading font-bold text-navy mb-2">You Give Us Access</h3>
-          <p class="text-gray-700 text-sm leading-relaxed">Access to your Microsoft Advertising account so we can review it.</p>
-        </div>
-        <div class="text-center">
-          <div class="w-16 h-16 rounded-full bg-electric text-white font-heading font-bold text-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-electric/30">2</div>
-          <h3 class="text-lg font-heading font-bold text-navy mb-2">We Send a Written Report</h3>
-          <p class="text-gray-700 text-sm leading-relaxed">You get what is wasting money, what is missing and what we would do first.</p>
-        </div>
-        <div class="text-center">
-          <div class="w-16 h-16 rounded-full bg-electric text-white font-heading font-bold text-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-electric/30">3</div>
-          <h3 class="text-lg font-heading font-bold text-navy mb-2">We Walk You Through It</h3>
-          <p class="text-gray-700 text-sm leading-relaxed">A call to talk through the findings and answer questions. No pressure to buy anything.</p>
-        </div>
-      </div>
+      <AuditSteps steps={bingAuditSteps} />
     </div>
   </section>
 

@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import ScalingLadder from '../../components/visuals/ScalingLadder.astro';
+import FeeBands from '../../components/visuals/FeeBands.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import BudgetCalculator from '../../components/BudgetCalculator.astro';
 import { SEARCH_BENCHMARKS, SEARCH_BENCHMARK_SOURCE, FX } from '../../data/tool-benchmarks';
@@ -133,6 +135,7 @@ const steps = [
           </div>
         ))}
       </div>
+      <div class="max-w-3xl mt-10"><ScalingLadder heading="After launch, budgets move on fixed rules" /></div>
     </div>
   </section>
 
@@ -235,6 +238,16 @@ const steps = [
           <p class="text-sm text-gray-700">The break-even ROAS your margin demands, and what a 4x really leaves you.</p>
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- Visible Ads pricing, separate from the neutral tool -->
+  <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="inline-block text-sm font-semibold text-navy bg-white border border-gray-200 rounded-full px-3 py-1 mb-4">Visible Ads pricing, our own fees</p>
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-3">What Visible Ads charges at this budget</h2>
+      <p class="text-gray-700 leading-relaxed mb-2">This is our fee list, set apart from the calculator above. It does not change your results.</p>
+      <FeeBands id="fee-calc" interactive />
     </div>
   </section>
 

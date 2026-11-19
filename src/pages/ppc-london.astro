@@ -1,5 +1,8 @@
 ﻿---
 import Layout from '../layouts/Layout.astro';
+import ChannelMap from '../components/visuals/ChannelMap.astro';
+import ScalingLadder from '../components/visuals/ScalingLadder.astro';
+import ProofStrip from '../components/visuals/ProofStrip.astro';
 import CountUp from '../components/CountUp.astro';
 import PartnerBadges from '../components/PartnerBadges.astro';
 import ClientLogos from '../components/ClientLogos.astro';
@@ -175,6 +178,7 @@ const schema = {
           <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
         </a>
       </div>
+      <ChannelMap class="mt-10" />
     </div>
   </section>
 
@@ -205,6 +209,7 @@ const schema = {
           </ul>
         </div>
       </div>
+      <div class="max-w-3xl mx-auto mt-10"><ScalingLadder heading="How budgets move each week" /></div>
     </div>
   </section>
 
@@ -240,10 +245,7 @@ const schema = {
       <div class="text-center mb-10">
         <h2 class="font-heading text-2xl sm:text-3xl font-bold text-navy">Results at a Glance</h2>
       </div>
-      <div class="grid grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto">
-        <CountUp value="3" prefix="£" suffix="M" label="Annual Ad Spend Managed" />
-        <CountUp value="4" label="Platform Partner Certifications" />
-      </div>
+      <ProofStrip />
     </div>
   </section>
 

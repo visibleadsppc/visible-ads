@@ -1,5 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ChannelMap from '../components/visuals/ChannelMap.astro';
+import ScalingLadder from '../components/visuals/ScalingLadder.astro';
+import FeeBands from '../components/visuals/FeeBands.astro';
+import ResultBeforeAfter from '../components/visuals/ResultBeforeAfter.astro';
 import CountUp from '../components/CountUp.astro';
 import PartnerBadges from '../components/PartnerBadges.astro';
 import ClientLogos from '../components/ClientLogos.astro';
@@ -164,6 +168,7 @@ const schema = {
           <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
         </a>
       </div>
+      <ChannelMap class="mt-10" />
     </div>
   </section>
 
@@ -193,6 +198,7 @@ const schema = {
         <p class="text-lg text-gray-700 mb-6 leading-relaxed">That split shows which towns return profit, and budget then moves weekly under our scaling rules. We exclude areas you cannot serve, and locations are set to people in or regularly in the area.</p>
         <p class="text-lg text-gray-700 leading-relaxed">Ecommerce brands in Surrey usually sell UK-wide, so for them the county matters less than product margin. We set target ROAS from your margin using the <a href="/roas-vs-profit/" class="text-electric underline hover:text-electric-dark">ROAS vs profit calculator</a> and keep county targeting for collection or local delivery.</p>
       </div>
+      <div class="max-w-3xl mx-auto mt-10"><ScalingLadder heading="How budgets move each week" /></div>
     </div>
   </section>
 
@@ -229,11 +235,7 @@ const schema = {
       <div class="max-w-3xl mx-auto">
         <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">What PPC Management Costs for a Surrey Business</h2>
         <p class="text-lg text-gray-700 mb-6 leading-relaxed">PPC management for a Surrey business costs from £1,000 a month plus VAT per channel, with unlimited campaigns on that channel. Your ad budget is paid to the platforms separately.</p>
-        <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700 mb-6 leading-relaxed">
-          <li>Silver is £1,000 a month for ad budgets up to £3,000, with 10 hours of work a month.</li>
-          <li>Gold is £1,500 a month for budgets up to £20,000, with 20 hours.</li>
-          <li>Platinum is £2,000 a month plus 5% for budgets over £20,000, with 35 hours and click fraud protection.</li>
-        </ul>
+        <FeeBands id="fee-surrey" terms={false} class="mb-6" />
         <p class="text-lg text-gray-700 leading-relaxed">Your ad budget, creative and a one-off £1,000 tracking setup for Meta and Google sit outside the fee. We ask for three months to start, then it's month to month with 30 days' notice. A performance model with a reduced retainer is available by application, and the <a href="/ppc-management/#pricing" class="text-electric underline hover:text-electric-dark">full pricing breakdown</a> lists what each tier includes.</p>
       </div>
     </div>
@@ -277,6 +279,7 @@ const schema = {
           <p class="text-gray-700 font-medium">Leads rose from 6 to 107 in four months on the same budget, a lead-generation account.</p>
         </div>
       </div>
+      <div class="max-w-3xl mx-auto mt-10"><ResultBeforeAfter pair="japan-centre" /></div>
     </div>
   </section>
 

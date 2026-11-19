@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import AuditSteps from '../components/visuals/AuditSteps.astro';
+import ResultBeforeAfter from '../components/visuals/ResultBeforeAfter.astro';
+import { adsAuditSteps } from '../data/audit-steps';
 import CountUp from '../components/CountUp.astro';
 import PartnerBadges from '../components/PartnerBadges.astro';
 import ClientLogos from '../components/ClientLogos.astro';
@@ -170,6 +173,10 @@ const schema = {
           <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
         </a>
       </div>
+      <div class="mt-16 max-w-4xl mx-auto">
+        <h3 class="text-xl font-heading font-bold text-navy mb-6 text-center">What happens when you ask for a free audit</h3>
+        <AuditSteps steps={adsAuditSteps} />
+      </div>
     </div>
   </section>
 
@@ -218,6 +225,7 @@ const schema = {
           <a href="/case-studies/sephra/" class="text-electric font-semibold text-sm hover:underline">Read Case Study &rarr;</a>
         </div>
       </div>
+      <div class="max-w-3xl mx-auto mt-10"><ResultBeforeAfter pair="lead-generation" /></div>
     </div>
   </section>
 

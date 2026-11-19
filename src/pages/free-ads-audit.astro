@@ -1,5 +1,7 @@
 ---
+import { adsAuditSteps } from '../data/audit-steps';
 import Layout from '../layouts/Layout.astro';
+import AuditSteps from '../components/visuals/AuditSteps.astro';
 import PartnerBadges from '../components/PartnerBadges.astro';
 import GoogleReviews from '../components/GoogleReviews.astro';
 import Turnstile from '../components/Turnstile.astro';
@@ -172,23 +174,7 @@ const faqs = [
       <div class="text-center mb-16">
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">What happens next?</h2>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-        <div class="text-center">
-          <div class="w-16 h-16 rounded-full bg-electric text-white font-heading font-bold text-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-electric/30">1</div>
-          <h3 class="text-lg font-heading font-bold text-navy mb-2">We review your campaigns</h3>
-          <p class="text-gray-700 text-sm leading-relaxed">Our team goes through your accounts. They look at structure, keywords and bids. They also check creatives and conversion paths.</p>
-        </div>
-        <div class="text-center">
-          <div class="w-16 h-16 rounded-full bg-electric text-white font-heading font-bold text-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-electric/30">2</div>
-          <h3 class="text-lg font-heading font-bold text-navy mb-2">We prepare a detailed report</h3>
-          <p class="text-gray-700 text-sm leading-relaxed">You receive a written report. It covers the findings and the wasted spend. It also lists missed opportunities and specific recommendations.</p>
-        </div>
-        <div class="text-center">
-          <div class="w-16 h-16 rounded-full bg-electric text-white font-heading font-bold text-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-electric/30">3</div>
-          <h3 class="text-lg font-heading font-bold text-navy mb-2">We walk you through it</h3>
-          <p class="text-gray-700 text-sm leading-relaxed">We schedule a call to walk through the findings. You can ask questions and we discuss how to put the changes in place.</p>
-        </div>
-      </div>
+      <AuditSteps steps={adsAuditSteps} />
       <p class="text-gray-700 text-center mt-10">Our <a href="/ppc-management/" class="text-electric underline hover:text-electric-dark">PPC management services</a> can pick up from the findings if you want ongoing help.</p>
     </div>
   </section>

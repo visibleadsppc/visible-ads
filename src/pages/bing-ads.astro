@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SourcedChart from '../components/visuals/SourcedChart.astro';
+import ChannelMap from '../components/visuals/ChannelMap.astro';
 import PartnerBadges from '../components/PartnerBadges.astro';
 import ClientLogos from '../components/ClientLogos.astro';
 import ServiceLinks from '../components/ServiceLinks.astro';
@@ -120,6 +122,7 @@ const faqHtml = (f) => f.link ? f.answer.replace(f.link.text, `<a href="${f.link
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Where Microsoft Advertising fits beside Google Ads</h2>
       <p class="text-lg text-gray-700 mb-6 leading-relaxed">Microsoft Advertising can run as a second channel next to Google Ads. We manage the two together under one profit target.</p>
       <p class="text-lg text-gray-700 leading-relaxed">We start on a trial budget and compare the sales Microsoft reports with your own order records. We keep budget where it pays its way on contribution. Our <a href="/microsoft-advertising-uk-statistics/" class="text-electric underline hover:text-electric-dark">Microsoft Advertising UK statistics</a> page sources and dates each figure for Bing's UK share and reach.</p>
+      <SourcedChart id="sc-bing" class="mt-8" />
     </div>
   </section>
 
@@ -153,6 +156,7 @@ const faqHtml = (f) => f.link ? f.answer.replace(f.link.text, `<a href="${f.link
           </div>
         ))}
       </div>
+      <ChannelMap class="mt-10" />
       <p class="text-lg text-gray-700 mt-10 max-w-3xl mx-auto text-center leading-relaxed">Deciding between the two platforms first? Read <a href="/blog/google-ads-vs-bing-ads/" class="text-electric underline hover:text-electric-dark">Google Ads vs Bing Ads</a>.</p>
     </div>
   </section>

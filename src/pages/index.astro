@@ -1,5 +1,8 @@
 ﻿---
 import Layout from '../layouts/Layout.astro';
+import ChannelMap from '../components/visuals/ChannelMap.astro';
+import ResultBeforeAfter from '../components/visuals/ResultBeforeAfter.astro';
+import MarginSplit from '../components/visuals/MarginSplit.astro';
 import CountUp from '../components/CountUp.astro';
 import GrowthChart from '../components/GrowthChart.astro';
 import ClientLogos from '../components/ClientLogos.astro';
@@ -234,6 +237,7 @@ const schema = {
         <span class="text-purple-600 font-semibold text-sm group-hover:underline">Explore &rarr;</span>
       </a>
     </div>
+    <ChannelMap class="mt-12 max-w-5xl mx-auto" />
     <p class="text-center text-slate mt-10 max-w-3xl mx-auto leading-relaxed">Based in Kingston upon Thames, we work with businesses across the south east: <a href="/ppc-london/" class="text-electric underline hover:text-electric-dark">PPC agency in London</a>, <a href="/surrey/" class="text-electric underline hover:text-electric-dark">PPC agency in Surrey</a>, <a href="/kingston-upon-thames/" class="text-electric underline hover:text-electric-dark">PPC agency in Kingston upon Thames</a> and <a href="/richmond-upon-thames/" class="text-electric underline hover:text-electric-dark">PPC company in Richmond upon Thames</a>.</p>
   </div>
 </section>
@@ -342,6 +346,7 @@ const schema = {
         <a href="/case-studies/sephra/" class="text-electric font-semibold text-sm hover:underline">Read Case Study &rarr;</a>
       </div>
     </div>
+    <div class="mt-10 grid md:grid-cols-2 gap-6 max-w-5xl mx-auto"><ResultBeforeAfter pair="japan-centre" class="my-0" /><ResultBeforeAfter pair="lead-generation" class="my-0" /></div>
     <div class="mt-12 text-center">
       <a href="/case-studies/" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-cta hover:bg-electric text-white font-heading font-bold rounded-xl shadow-lg shadow-cta/25 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5">
         View All Case Studies
@@ -415,6 +420,15 @@ const schema = {
 
 <div class="h-px bg-gradient-to-r from-transparent via-electric/20 to-transparent"></div>
 
+<section class="bg-white py-16 lg:py-20" data-animate>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="font-heading text-2xl sm:text-3xl font-bold text-navy mb-3">Why the same ROAS can lose money</h2>
+    <p class="text-lg text-slate leading-relaxed">Profit depends on your margin as well as your ROAS. Move the slider to see where your own margin lands.</p>
+    <MarginSplit id="ms-home" interactive />
+  </div>
+</section>
+
+<div class="h-px bg-gradient-to-r from-transparent via-electric/20 to-transparent"></div>
 <section class="bg-gray-50 py-20 lg:py-28" data-animate>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-14">
