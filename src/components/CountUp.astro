@@ -15,7 +15,7 @@ const displayValue = decimals > 0 ? numericValue.toFixed(decimals) : numericValu
 
 <div class="count-up-card glass-card p-6 sm:p-8 text-center group hover:shadow-xl hover:-translate-y-1 transition-[transform,box-shadow] duration-300" data-kit>
   <div class="text-4xl sm:text-5xl font-heading font-extrabold text-electric mb-2">
-    <span class="count-wrap"><span class="count-real">{prefix}{displayValue}{suffix}</span><span aria-hidden="true" data-count-twin data-to={numericValue} data-decimals={decimals} data-prefix={prefix} data-suffix={suffix}></span></span>
+    <span class="count-wrap"><span class="count-real">{prefix}{displayValue}{suffix}</span></span>
   </div>
   <div class="text-sm font-semibold text-navy uppercase tracking-wide">{label}</div>
   <div class="count-bar mt-3 h-1 w-full bg-gradient-to-r from-electric to-cyan-400 rounded-full mx-auto"></div>
