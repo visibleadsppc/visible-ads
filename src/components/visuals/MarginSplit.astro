@@ -28,7 +28,7 @@ const label = (p: number) => (p < 0 ? `Loss of ${gbp(Math.abs(p))}` : p === 0 ? 
       );
     })}
     {interactive && (
-      <g class="kit-ms-live">
+      <g class="kit-ms-live" display="none">
         <rect class="kit-ms-liveup" x={275} y={Z - 1} width="64" height="1" fill="#2563EB" style="transform-box:fill-box;transform-origin:bottom" />
         <rect class="kit-ms-livedn" x={275} y={Z} width="64" height="1" fill="#fff" stroke="#B91C1C" stroke-width="2" stroke-dasharray="5 3" style="transform-box:fill-box;transform-origin:top" />
         <text class="kit-ms-livelabel" x={307} y={Z - 8} text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="#0A1628"></text>
@@ -46,9 +46,10 @@ const label = (p: number) => (p < 0 ? `Loss of ${gbp(Math.abs(p))}` : p === 0 ? 
     </table>
   </div>
   {interactive && (
-    <div class="kit-ms-input">
-      <label for={`${id}-m`}>Your margin: <output for={`${id}-m`} aria-live="polite" data-ms-out>30%</output></label>
-      <input id={`${id}-m`} type="range" min="1" max="80" step="1" value="30" />
+    <div class="kit-ms-input" hidden data-ms-ui>
+      <label for={`${id}-m`}>Your margin: <output for={`${id}-m`} data-ms-out>30%</output></label>
+      <input id={`${id}-m`} type="range" min="1" max="80" step="1" value="30" aria-describedby={`${id}-r`} />
+      <p class="kit-ms-result" id={`${id}-r`} aria-live="polite" data-ms-result></p>
     </div>
   )}
   <figcaption>Worked example, not client data. 4x ROAS means £4 of revenue for every £1 of ad spend. Profit here is revenue times margin, minus ad spend. <a href={calcHref}>Work out your own break-even ROAS</a>.</figcaption>
@@ -61,6 +62,9 @@ const label = (p: number) => (p < 0 ? `Loss of ${gbp(Math.abs(p))}` : p === 0 ? 
       if (!r || (r as any)._b) return;
       (r as any)._b = 1;
       const o = fig.querySelector('[data-ms-out]') as HTMLElement;
+      const res = fig.querySelector('[data-ms-result]') as HTMLElement;
+      fig.querySelector('[data-ms-ui]')?.removeAttribute('hidden');
+      fig.querySelector('.kit-ms-live')?.removeAttribute('display');
       const up = fig.querySelector('.kit-ms-liveup') as SVGElement, dn = fig.querySelector('.kit-ms-livedn') as SVGElement, lb = fig.querySelector('.kit-ms-livelabel') as SVGTextElement;
       const rev = Number(fig.dataset.spend) * Number(fig.dataset.roas), sp = Number(fig.dataset.spend);
       const go = () => {
@@ -68,7 +72,9 @@ const label = (p: number) => (p < 0 ? `Loss of ${gbp(Math.abs(p))}` : p === 0 ? 
         o.textContent = m + '%';
         up.style.transform = `scaleY(${p > 0 ? h : 0})`; dn.style.transform = `scaleY(${p < 0 ? h : 0})`;
         lb.setAttribute('y', String(p >= 0 ? 160 - h - 8 : 160 + h + 16));
-        lb.textContent = p === 0 ? '£0' : (p < 0 ? '-' : '') + '£' + Math.abs(p).toLocaleString('en-GB');
+        const amt = '£' + Math.abs(p).toLocaleString('en-GB');
+        lb.textContent = p === 0 ? '£0' : (p < 0 ? '-' : '') + amt;
+        res.textContent = `At a ${m}% margin, 4x ROAS on £1,000 of ad spend gives ` + (p < 0 ? `a loss of ${amt}` : p === 0 ? 'break-even, £0' : `a profit of ${amt}`) + '.';
       };
       r.addEventListener('input', go); go();
     });

@@ -185,6 +185,8 @@ html {
 .kit-ms-dn { transform-origin: top; vector-effect: non-scaling-stroke; }
 .kit-ms-livedn { vector-effect: non-scaling-stroke; }
 .kit-ms-input { display: grid; gap: 8px; margin: 16px 0 0; max-width: 24rem; }
+.kit-ms-input[hidden] { display: none; }
+.kit-ms-result { margin: 0; font-weight: 600; color: var(--color-navy); font-size: 0.95rem; }
 .kit-ms-input input { width: 100%; accent-color: var(--color-electric-dark); }
 
 /* K4 steps */
