@@ -4,6 +4,19 @@ import PartnerBadges from '../components/PartnerBadges.astro';
 import ClientLogos from '../components/ClientLogos.astro';
 import ServiceLinks from '../components/ServiceLinks.astro';
 
+const faqs = [
+  { q: "What is POAS and how is it different from ROAS?", a: "ROAS measures revenue against ad spend. POAS measures profit against ad spend, after product cost, fulfilment and fees. A campaign can deliver strong ROAS while still being unprofitable if margins are thin. We set POAS targets before campaigns launch so every pound of ad spend is measured against a real profit outcome." },
+  { q: "Which Meta platforms do you advertise on?", a: "We run campaigns across Facebook, Instagram, and Messenger. For ecommerce clients, Instagram and Facebook Feed and Reels typically deliver the strongest returns. We recommend placements based on where your audience spends time and where creative performs best for your product category." },
+  { q: "Do you create Meta ad creative?", a: "We develop ad concepts, copy, and design direction, covering static images, carousels, and video concepts, tailored to each audience segment and funnel stage. We run structured creative testing to identify winning concepts and retire underperformers. Creative production is quoted separately from the management fee." },
+  { q: "Should I use Advantage+ sales campaigns or manual campaigns?", a: "It depends on your tracking, product range and creative supply. Advantage+ sales campaigns suit ecommerce accounts with reliable purchase tracking, a catalogue and a steady flow of creative, because Meta's system makes more of the delivery decisions. Manual campaigns suit cases where you need control over audiences, placements or budget by segment, or where purchase volume is low. We choose the structure for your account and judge it against your POAS target, using the platform's own ROAS only as a weekly signal." },
+  { q: "How many ads do I need to test on Meta?", a: "Enough distinct concepts for the system to find a winner, and no more than your budget can read. We plan a small set of genuinely different ideas in a few formats, test them against each other, retire the weakest and replace them on an agreed schedule. A smaller budget means fewer tests at a time." },
+  { q: "Why do my Meta numbers not match my shop or GA4?", a: "Meta credits sales using its own attribution settings and a total can include modelled (estimated) conversions. Your shop records actual orders, and GA4 applies its own attribution. The numbers rarely match, and a stable gap can be normal. We reconcile Meta, GA4 and order data on one defined basis before changing spend. Our guide to the Meta Ads and GA4 revenue mismatch shows how." },
+  { q: "What does Meta Business Partner mean?", a: "Meta describes Meta Business Partners as companies with a unique ability to help businesses grow, and those who qualify receive a Meta Business Partner badge. Visible Ads holds that status. It is Meta's recognition of the agency and carries no guarantee of results for your account." },
+  { q: "How much does Meta ads management cost?", a: "Fees are per channel plus VAT. Silver is £1,000 a month for ad budgets up to £3,000, Gold is £1,500 a month for budgets up to £20,000, and Platinum is £2,000 a month plus 5% for budgets above £20,000. Creative is not included, and Meta and Google need a one-off £1,000 tracking setup. The minimum term is three months, then rolling monthly with 30 days notice." },
+  { q: "What budget do you recommend for Meta ads?", a: "We recommend a minimum of £1,500 per month in ad spend to generate enough data for meaningful optimisation. Larger budgets allow faster creative and audience testing. We set spend levels relative to your POAS target so you are always operating within a profitable band." },
+  { q: "What happens after I ask for a Meta ads audit?", a: "You get an initial response within one working day. The audit maps your unit economics, tracking and current Meta structure, and sets out what profitable scaling would look like for your account." },
+];
+
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -22,40 +35,11 @@ const schema = {
     },
     {
       "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is POAS and how is it different from ROAS?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "ROAS (Return on Ad Spend) measures revenue against ad spend. POAS (Profit on Ad Spend) measures profit against ad spend, accounting for your product cost, fulfilment, and fees. A campaign can deliver strong ROAS while still being unprofitable if margins are thin. We set POAS targets before campaigns launch so every pound of ad spend is measured against a real profit outcome."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Which Meta platforms do you advertise on?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "We run campaigns across Facebook, Instagram, and Messenger. For ecommerce clients, Instagram and Facebook Feed and Reels typically deliver the best returns. We recommend placements based on where your audience spends time and where creative performs best for your product category."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do you create Meta ad creative?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. Creative is the primary performance lever on Meta. We develop ad concepts, copy, and design direction, static images, carousels, and video concepts, tailored to each audience segment and funnel stage. We run structured creative testing programmes to continuously identify winning concepts and retire underperformers."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What budget do you recommend for Meta ads?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "We recommend a minimum of £1,500 per month in ad spend to generate enough data for meaningful optimisation. Larger budgets allow faster creative and audience testing. We set spend levels relative to your POAS target so you are always operating within a profitable band."
-          }
-        }
-      ]
+      "mainEntity": faqs.map((f) => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
     },
     {
       "@type": "BreadcrumbList",
@@ -79,10 +63,19 @@ const schema = {
         <span class="inline-block px-4 py-1.5 bg-electric/20 text-electric-light text-sm font-medium rounded-full mb-6">Meta Business Partner</span>
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-6">Meta Ads That Scale on Unit Profit, Not Vanity Metrics</h1>
         <p class="text-lg sm:text-xl text-slate-light mb-8 leading-relaxed">We run Facebook and Instagram ad campaigns for ecommerce brands, with Profit on Ad Spend (POAS) and unit economics at the centre of every campaign decision. Paid social is now the fastest-growing ad channel for ecommerce. We are built for it.</p>
+        <p class="text-white font-semibold mb-3">What you get</p>
+        <ul class="text-slate-light mb-8 space-y-2 list-disc pl-5">
+          <li>A break-even ROAS and target POAS agreed before launch</li>
+          <li>Advantage+ or manual campaign structure chosen for your account</li>
+          <li>Conversions API tracking set up and checked against your orders</li>
+          <li>Creative concepts and a structured testing plan</li>
+          <li>Weekly budget decisions and monthly reporting against profit</li>
+        </ul>
         <div class="flex flex-col sm:flex-row gap-4">
           <a href="/free-ads-audit" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-8 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Get Your Free Meta Ads Audit</a>
-          <a href="#poas" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/20 hover:bg-white/10 transition-colors">Why POAS Matters</a>
+          <a href="/contact/" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/20 hover:bg-white/10 transition-colors">Talk to Us About Meta Ads</a>
         </div>
+        <p class="mt-4 text-sm text-slate-light">Initial response within one working day. <a href="#poas" class="underline hover:text-white">Why POAS matters</a></p>
       </div>
     </div>
   </section>
@@ -208,28 +201,105 @@ const schema = {
     </div>
   </section>
 
-  <!-- TikTok & LinkedIn -->
-  <section class="py-20 lg:py-28 bg-sky-tint" data-animate>
+  <!-- Advantage+ vs manual -->
+  <section id="advantage-plus" class="py-20 lg:py-28 bg-sky-tint" data-animate>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">We Also Run TikTok Ads & LinkedIn Ads</h2>
-        <p class="text-lg text-gray-700 max-w-2xl mx-auto">Paid social extends beyond Meta. We run TikTok campaigns for ecommerce brands reaching younger audiences, and LinkedIn campaigns for B2B and <a href="/ppc-for-professional-services/" class="text-electric underline hover:text-electric-dark">professional-services clients and agency partners</a>.</p>
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">Advantage+ or Manual Campaigns: When Each Fits</h2>
+        <p class="text-lg text-gray-700 leading-relaxed mb-4">Advantage+ sales campaigns hand more delivery decisions to Meta's system, while manual campaigns keep them with you. Neither structure wins by default, and the right one depends on your account.</p>
+        <p class="text-lg text-gray-700 leading-relaxed mb-4">Meta says <a href="https://www.facebook.com/business/ads/meta-advantage/advantage-plus-shopping-ads" target="_blank" rel="noopener noreferrer" class="text-electric underline hover:text-electric-dark">Advantage+ sales campaigns drive sales by optimising across creative, targeting, placements, budget and destination</a>. Meta has also renamed Advantage+ shopping campaigns to Advantage+ sales campaigns. Meta's developer documentation says they can offer similar performance to manual campaigns, with <a href="https://developers.facebook.com/documentation/ads-commerce/marketing-api/advantage-campaigns" target="_blank" rel="noopener noreferrer" class="text-electric underline hover:text-electric-dark">additional features such as extra conversion locations still available in manual campaigns</a>.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+          <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
+            <h3 class="text-xl font-heading font-bold text-navy mb-3">Advantage+ sales campaigns fit when</h3>
+            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+              <li>Purchase tracking is reliable and the order value is passed back correctly.</li>
+              <li>You have a catalogue with enough products to give the system choice.</li>
+              <li>You can keep a steady flow of different creative coming.</li>
+              <li>The goal is purchases, and you want less audience micromanagement.</li>
+            </ul>
+          </div>
+          <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
+            <h3 class="text-xl font-heading font-bold text-navy mb-3">Manual campaigns fit when</h3>
+            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+              <li>You need to control audiences, placements or budget by segment.</li>
+              <li>Purchase volume is low, so there is little for an automated system to learn from.</li>
+              <li>You are testing one variable, such as a single offer or audience.</li>
+              <li>The goal is leads or another action that needs a specific conversion location.</li>
+            </ul>
+          </div>
+        </div>
+        <p class="text-lg text-gray-700 leading-relaxed mt-8">We start from your tracking, product range and creative supply, pick the structure, and judge it against your target POAS. If the structure is not earning its place, we change it.</p>
+        <p class="mt-6"><a href="/free-ads-audit/" class="text-electric font-semibold underline hover:text-electric-dark">Get a free Meta ads audit of your current structure</a></p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
-          <div class="w-12 h-12 rounded-xl bg-black flex items-center justify-center mb-6">
-            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.29 6.29 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+    </div>
+  </section>
+
+  <!-- Creative volume and testing -->
+  <section id="creative-testing" class="py-20 lg:py-28 bg-white" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">How Much Creative Meta Ads Need</h2>
+        <p class="text-lg text-gray-700 leading-relaxed mb-6">Meta's system decides who sees which ad. Creative is the part you still control, which is why it carries so much of the result, particularly in Advantage+ campaigns where audience choices are largely automated.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-sky-tint rounded-2xl p-6 border border-gray-100">
+            <h3 class="font-heading font-bold text-navy mb-2">Different ideas, not small tweaks</h3>
+            <p class="text-gray-700 text-sm">A new headline on the same image is a variant. A new angle, offer or proof point is a concept. We plan a small set of genuinely different concepts in static, carousel and video formats.</p>
           </div>
-          <h3 class="text-xl font-heading font-bold text-navy mb-3">TikTok Ads</h3>
-          <p class="text-gray-700 leading-relaxed text-sm">Short-form video advertising for ecommerce brands reaching 18-34 audiences. In-Feed Ads and TopView placements managed with the same creative-first, POAS-grounded approach we apply on Meta. Best for visually compelling products with strong creative potential.</p>
-        </div>
-        <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
-          <div class="w-12 h-12 rounded-xl bg-blue-700 flex items-center justify-center mb-6">
-            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          <div class="bg-sky-tint rounded-2xl p-6 border border-gray-100">
+            <h3 class="font-heading font-bold text-navy mb-2">Tests sized to your budget</h3>
+            <p class="text-gray-700 text-sm">Each test needs enough purchases to read. A smaller budget means fewer concepts tested at once. We tell you what your budget can support before we plan the schedule.</p>
           </div>
-          <h3 class="text-xl font-heading font-bold text-navy mb-3">LinkedIn Ads</h3>
-          <p class="text-gray-700 leading-relaxed text-sm">Sponsored Content, Lead Gen Forms, and Message Ads for B2B and professional-services clients. Precise targeting by job title, seniority, company size, and industry. The highest-cost-per-click social platform, only worth it when the deal value justifies it.</p>
+          <div class="bg-sky-tint rounded-2xl p-6 border border-gray-100">
+            <h3 class="font-heading font-bold text-navy mb-2">Judged on profit</h3>
+            <p class="text-gray-700 text-sm">Winners and losers are called against your POAS target. A concept that gets cheap clicks but low-margin orders gets retired, and a refresh schedule is agreed so fatigue does not creep in.</p>
+          </div>
         </div>
+        <p class="text-lg text-gray-700 leading-relaxed mt-8">Creative production is quoted separately from the management fee. You can supply assets, commission them from us or use your own team, and we brief and judge the work either way.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Measurement -->
+  <section id="measurement" class="py-20 lg:py-28 bg-sky-tint" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">Honest Meta Ads Measurement After iOS 14</h2>
+        <p class="text-lg text-gray-700 leading-relaxed mb-4">Accurate Meta reporting starts with accurate events. We set up Conversions API so purchase events and order values reach Meta from your server as well as the browser, then check them against your real orders.</p>
+        <p class="text-lg text-gray-700 leading-relaxed mb-4">Meta's Conversions API is designed to create a connection between your marketing data and Meta's systems, and Meta says it helps <a href="https://developers.facebook.com/docs/marketing-api/conversions-api/" target="_blank" rel="noopener noreferrer" class="text-electric underline hover:text-electric-dark">optimise ad targeting, decrease cost per result and measure outcomes</a>. It can run alongside the Meta Pixel, and server events are processed like pixel events.</p>
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm mb-6">
+          <h3 class="text-xl font-heading font-bold text-navy mb-4">What a platform-reported number can and cannot tell you</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <p class="font-semibold text-navy mb-2">It can show</p>
+              <ul class="list-disc pl-5 space-y-2 text-gray-700 text-sm">
+                <li>Which ads, audiences and creative the platform credits with sales under your attribution settings.</li>
+                <li>Direction of travel: whether results are improving week on week.</li>
+                <li>Relative performance between concepts in the same account.</li>
+              </ul>
+            </div>
+            <div>
+              <p class="font-semibold text-navy mb-2">It cannot show</p>
+              <ul class="list-disc pl-5 space-y-2 text-gray-700 text-sm">
+                <li>Your profit, because it does not know product cost, fees, fulfilment or returns.</li>
+                <li>Which sales would have happened anyway without the ad.</li>
+                <li>How Meta, Google, Amazon and email overlap, since each platform reports from its own view.</li>
+                <li>Which conversions are modelled estimates and which were observed directly, once the two sit in one total.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p class="text-lg text-gray-700 leading-relaxed mb-4">So we treat Meta's figures as one view, compare them with order data and GA4 on one defined basis, then set budget against profit. For a worked method, read <a href="/meta-ads-ga4-revenue-mismatch/" class="text-electric underline hover:text-electric-dark">why Meta Ads ROAS and GA4 revenue do not match</a>. Meta and Google tracking setup is a one-off £1,000.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Business Partner -->
+  <section id="business-partner" class="py-16 lg:py-20 bg-white" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">What Meta Business Partner Status Means</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">Visible Ads is a Meta Business Partner. Meta describes <a href="https://en-gb.facebook.com/business/marketing-partners" target="_blank" rel="noopener noreferrer" class="text-electric underline hover:text-electric-dark">Meta Business Partners as companies with a unique ability to help businesses grow</a>, and says those who qualify are recognised with a Meta Business Partner badge.</p>
+        <p class="text-gray-700 leading-relaxed">In plain terms, it is Meta's own recognition of the agency. It is a useful check that an agency is known to Meta. It carries no guarantee of results for your account and does not change what you pay for ads, which is why we pair it with a profit target and weekly reporting you can check.</p>
       </div>
     </div>
   </section>
@@ -267,40 +337,31 @@ const schema = {
     </div>
   </section>
 
+  <!-- TikTok & LinkedIn -->
+  <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">We Also Run TikTok Ads and LinkedIn Ads</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">Alongside Meta we manage <strong>TikTok Ads</strong>, short-form video for ecommerce brands reaching 18 to 34 audiences, with the same creative-first, POAS-grounded approach. We also manage <strong>LinkedIn Ads</strong> for B2B and <a href="/ppc-for-professional-services/" class="text-electric underline hover:text-electric-dark">professional-services clients and agency partners</a>, with targeting by job title, seniority, company size and industry. LinkedIn is the highest-cost-per-click social platform, so it is only worth it when the deal value justifies it. See <a href="/ppc-management/" class="text-electric underline hover:text-electric-dark">PPC management</a> for how channels fit under one plan.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section class="py-20 lg:py-28 bg-white" data-animate>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mx-auto">
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-10">Frequently Asked Questions</h2>
         <div class="space-y-4">
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              What is POAS and how is it different from ROAS?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">ROAS measures revenue against ad spend. POAS measures profit against ad spend, after product cost, fulfilment and fees. A campaign can deliver strong ROAS while still being unprofitable if margins are thin. We set POAS targets before campaigns launch so every pound of ad spend is measured against a real profit outcome.</div>
-          </details>
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              Which Meta platforms do you advertise on?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">We run campaigns across Facebook, Instagram, and Messenger. For ecommerce clients, Instagram and Facebook Feed and Reels typically deliver the strongest returns. We recommend placements based on where your audience spends time and where creative performs best for your product category.</div>
-          </details>
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              Do you create Meta ad creative?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">Yes. Creative is the primary performance lever on Meta. We develop ad concepts, copy, and design direction, static images, carousels, and video concepts, tailored to each audience segment and funnel stage. We run structured creative testing programmes to continuously identify winning concepts and retire underperformers.</div>
-          </details>
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              What budget do you recommend for Meta ads?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">We recommend a minimum of £1,500 per month in ad spend to generate enough data for meaningful optimisation. Larger budgets allow faster creative and audience testing. We set spend levels relative to your POAS target so you are always operating within a profitable band.</div>
-          </details>
+          {faqs.map((f) => (
+            <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
+                {f.q}
+                <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <div class="px-6 pb-6 text-gray-700 leading-relaxed">{f.a}</div>
+            </details>
+          ))}
         </div>
       </div>
     </div>
