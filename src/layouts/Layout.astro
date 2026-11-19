@@ -133,6 +133,21 @@ import '../styles/global.css';
     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5"/></svg>
   </button>
   <script>
+    // One delegated listener on document, so it survives view transitions and covers every link.
+    document.addEventListener('click', (e) => {
+      const a = (e.target as Element | null)?.closest?.('a[href]') as HTMLAnchorElement | null;
+      if (!a) return;
+      const href = a.getAttribute('href') || '';
+      let type = '';
+      if (/^tel:/i.test(href)) type = 'phone';
+      else if (/^mailto:/i.test(href)) type = 'email';
+      else if (/^https?:\/\/(wa\.me|api\.whatsapp\.com)(\/|\?|$)/i.test(href)) type = 'whatsapp';
+      if (!type) return;
+      const g = (window as any).gtag;
+      if (typeof g === 'function') g('event', 'contact_click', { link_type: type, link_url: href });
+    });
+  </script>
+  <script>
     document.addEventListener('astro:page-load', () => {
       if (typeof gtag === 'function') {
         gtag('event', 'page_view', {
