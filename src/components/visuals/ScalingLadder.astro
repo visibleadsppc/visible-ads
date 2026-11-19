@@ -5,11 +5,12 @@ const { class: cls = '', heading = '' } = Astro.props;
 type Row = { band: string; action: string; kind: 'up' | 'hold' | 'cut' | 'off' | 'gap'; size?: number };
 const rows: Row[] = [
   { band: 'Above 1,200%', action: 'Raise budget 20% a week', kind: 'up', size: 100 },
-  { band: '1,100% to 1,200%', action: 'Between bands', kind: 'gap' },
+  { band: 'Exactly 1,200%', action: 'Not specified', kind: 'gap' },
+  { band: 'Above 1,100% and below 1,200%', action: 'Not specified', kind: 'gap' },
   { band: '900% to 1,100%', action: 'Raise budget 10% a week', kind: 'up', size: 50 },
-  { band: '800% to 900%', action: 'Between bands', kind: 'gap' },
+  { band: 'Above 800% and below 900%', action: 'Not specified', kind: 'gap' },
   { band: '600% to 800%', action: 'Hold budget', kind: 'hold' },
-  { band: '500% to 600%', action: 'Between bands', kind: 'gap' },
+  { band: 'Above 500% and below 600%', action: 'Not specified', kind: 'gap' },
   { band: '300% to 500%', action: 'Cut budget 20%', kind: 'cut', size: 100 },
   { band: 'Below 300%', action: 'Switch spend off', kind: 'off' },
 ];
@@ -29,5 +30,5 @@ const rows: Row[] = [
       </li>
     ))}
   </ol>
-  <figcaption>Our weekly budget rule. ROAS is checked against your margin each week; the target is profit. Source: Visible Ads scaling rules.</figcaption>
+  <figcaption>Our weekly budget rule, set by ROAS band. Bands not listed here are not specified. Source: Visible Ads scaling rules.</figcaption>
 </figure>
