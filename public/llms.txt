@@ -4,6 +4,7 @@
 
 ## Core Services
 - Google Ads Management (our flagship service): /google-ads
+- PPC Consultant (founder-led consultancy, London): /ppc-consultant
 - Ecommerce PPC Agency: /ecommerce-ppc-agency
 - Google Shopping Ads Management: /google-shopping-ads
 - Bing Ads Management: /bing-ads
