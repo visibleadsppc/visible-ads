@@ -11,7 +11,7 @@
 - Paid Social (Meta, LinkedIn, TikTok): /paid-social
 - Amazon Advertising: /amazon
 - eCommerce Conversion Rate Optimisation (eCRO): /ecro
-- SEO: /seo
+- SEO and GEO (free AI search visibility check, Kingston upon Thames and Surrey): /seo/
 
 ## Key Results
 - £6.7M return from £555K Google Ads spend for CFW (12x ROAS)
@@ -67,7 +67,7 @@ All free, no login and no email required. Every calculation runs in the visitor'
 - PPC Remarketing Agency: /ppc-remarketing-agency
 - Amazon: /amazon
 - eCRO: /ecro
-- SEO: /seo
+- SEO and GEO (free AI search visibility check, Kingston upon Thames and Surrey): /seo/
 - Blueprint (Methodology): /blueprint
 - Case Studies: /case-studies
 - CFW Case Study: /case-studies/cfw

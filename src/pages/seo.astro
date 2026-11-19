@@ -1,277 +1,344 @@
 ﻿---
 import Layout from '../layouts/Layout.astro';
 import PartnerBadges from '../components/PartnerBadges.astro';
-import ClientLogos from '../components/ClientLogos.astro';
-import ServiceLinks from '../components/ServiceLinks.astro';
+
+const canonical = "https://visible-ads.com/seo/";
+
+const faqs = [
+  {
+    q: "What is GEO?",
+    a: "GEO (generative engine optimisation) is the work of making a brand easy for AI answer engines to find, understand and name accurately, then measuring whether they do. It sits on top of normal SEO and uses the same site, content and profiles."
+  },
+  {
+    q: "Do I need llms.txt or special schema to appear in AI answers?",
+    a: "No. Google Search Central says: \"You don't need to create new machine readable files, AI text files, or markup to appear in these features.\" It also says: \"There's also no special schema.org structured data that you need to add.\" We do not sell either as a route into AI answers."
+  },
+  {
+    q: "Can you guarantee that ChatGPT will recommend my business?",
+    a: "No. Nobody controls what an AI engine writes. We measure the answers, fix the causes we can reach on your site and profiles, and report the result next to your enquiries. We do not guarantee citations, rankings or traffic."
+  },
+  {
+    q: "How do you measure GEO results?",
+    a: "We run a fixed panel of buyer prompts across ChatGPT, Perplexity, Google AI Overviews and Copilot. We repeat it every month. Mentions and citations are counted separately. We read them next to AI referral sessions in GA4 and your enquiries."
+  },
+  {
+    q: "How much do SEO and GEO cost?",
+    a: "No price is published. The monthly SEO and GEO fee is quoted after the free check. It depends on the size of the site, the number of buyer prompts and the markets you sell in."
+  },
+  {
+    q: "Which areas do you cover?",
+    a: "We are based in Kingston upon Thames and cover Kingston, Surbiton, New Malden, Richmond, Twickenham, Wimbledon, Esher, Thames Ditton, Epsom, Leatherhead, Woking and Guildford. We also work with ecommerce and B2B brands across the UK. Work runs by call or video."
+  },
+  {
+    q: "How does SEO and GEO fit with Google Ads?",
+    a: "Paid search buys demand today. SEO and GEO build visibility that carries on when the budget stops. Search terms from paid campaigns also give us real buyer questions for the prompt panel."
+  },
+  {
+    q: "How long until I see results?",
+    a: "We give no date. Fixes to crawling and indexing can be seen soon after they go live. Changes in rankings and AI answers vary by site and competition. We repeat the same panel monthly and report what moved."
+  }
+];
+
+const areas = [
+  { name: "Kingston upon Thames", line: "Our home borough. We test prompts that name Kingston and prompts that do not. We record which brings your business up." },
+  { name: "Surbiton", line: "Part of the Royal Borough of Kingston. Buyers may write Surbiton or Kingston. We test both place names." },
+  { name: "New Malden", line: "Also in the Royal Borough of Kingston. We check that your site and your profiles give the same address and service area." },
+  { name: "Richmond", line: "Richmond upon Thames is its own borough. We test whether answers place your business in Richmond or in neighbouring Kingston." },
+  { name: "Twickenham", line: "In the London Borough of Richmond upon Thames. We compare how Google results and AI answers describe your service area." },
+  { name: "Wimbledon", line: "In the London Borough of Merton, close to Kingston. We record which firms the engines name for Wimbledon prompts." },
+  { name: "Esher", line: "In Surrey, close to Kingston. We test prompts with Surrey and London place names. The panel then reflects how your buyers describe you." },
+  { name: "Thames Ditton", line: "In Surrey, next to Kingston. We test prompts that name Thames Ditton, Kingston or both." },
+  { name: "Epsom", line: "In Surrey. We test local prompts and prompts from buyers who compare firms across several Surrey towns." },
+  { name: "Leatherhead", line: "In Surrey. We check that your listings and your site state the same service area and the same services." },
+  { name: "Woking", line: "In Surrey. We test whether answers name local firms or national ones for Woking prompts." },
+  { name: "Guildford", line: "In Surrey. We map which directories and review sites the answers cite for Guildford prompts." }
+];
+
+const signals = [
+  { signal: "Mentions", counts: "Runs where an engine names your brand without a link to your site.", source: "Prompt panel" },
+  { signal: "Citations", counts: "Runs where an answer cites a URL on your site.", source: "Prompt panel" },
+  { signal: "Recommendations", counts: "Runs where your brand is named first.", source: "Prompt panel" },
+  { signal: "AI referral sessions", counts: "Visits that arrive from AI assistants and carry a referrer.", source: "GA4" },
+  { signal: "Enquiries", counts: "Form, call and email enquiries, plus how the buyer says they found you.", source: "Your enquiry tracking" }
+];
+
+const steps = [
+  { t: "Technical SEO foundations", d: "Crawling, indexing, page speed and internal links come first. Google and the AI search products must be able to read the site and reach the pages that bring enquiries." },
+  { t: "Content that answers buyer questions", d: "Each section opens with the answer and keeps its evidence close. Pages are built around the question a buyer asks. The prompts from your check supply those questions." },
+  { t: "Entity consistency", d: "One set of facts for your name, services, location and people. We make the site and your profiles say the same thing. Engines then have no conflicting details to repeat." },
+  { t: "Mentions on the sources answers cite", d: "The check lists the sources each answer cites. Answers may lean on directories, review sites or trade publications. For those you get the accurate listing changes to make. We promise no links and no coverage." }
+];
+
+const places = areas.map((a) => a.name);
 
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "ProfessionalService",
+      "@id": "https://visible-ads.com/#organization",
+      "name": "Visible Ads",
+      "url": "https://visible-ads.com/",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Kingston-Upon-Thames",
+        "addressCountry": "GB"
+      }
+    },
+    {
       "@type": "Service",
-      "name": "SEO Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Visible Ads",
-        "url": "https://visible-ads.com"
-      },
-      "description": "Strategic SEO services that complement your paid campaigns. Technical audits, content strategy, and sustainable organic growth.",
-      "url": "https://visible-ads.com/seo",
-      "serviceType": "Search Engine Optimisation",
-      "areaServed": "GB"
+      "name": "SEO and GEO",
+      "serviceType": "Search engine optimisation and generative engine optimisation",
+      "description": "SEO and AI search visibility (GEO) for UK ecommerce and B2B brands, starting with a free AI search visibility check.",
+      "url": canonical,
+      "provider": { "@id": "https://visible-ads.com/#organization" },
+      "areaServed": [
+        { "@type": "AdministrativeArea", "name": "Surrey" },
+        ...places.map((n) => ({ "@type": "Place", "name": n }))
+      ]
     },
     {
       "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What's the difference between SEO and PPC?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "PPC delivers immediate traffic by paying for each click. SEO builds organic visibility over time, you earn clicks without paying per visit. The smartest strategy uses both: PPC for immediate results and testing, SEO for long-term compounding growth. Together, they dominate the search results page."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How long does SEO take to show results?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Technical fixes can show impact within weeks. Content and authority building typically takes 3-6 months to produce measurable organic growth. SEO is a compounding investment, the longer you invest, the greater the returns. We provide monthly reports so you can track progress from day one."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What's included in your SEO services?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Our SEO service covers technical site audits, on-page optimisation, content strategy and creation, internal linking architecture, and authority building through digital PR and link acquisition. We also provide monthly reporting, keyword tracking, and strategic recommendations."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do you report on SEO performance?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "We provide monthly SEO reports covering keyword rankings, organic traffic, conversion data, and technical health metrics. Reports include plain-English commentary on what's working, what's changed, and what we're focusing on next. You also get access to live dashboards for real-time visibility."
-          }
-        }
-      ]
+      "mainEntity": faqs.map((f) => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://visible-ads.com/" },
-        { "@type": "ListItem", "position": 2, "name": "SEO", "item": "https://visible-ads.com/seo" }
+        { "@type": "ListItem", "position": 2, "name": "SEO and GEO", "item": canonical }
       ]
     }
   ]
 };
+
+const related = [
+  { href: "/google-ads/", t: "Google Ads management", d: "Paid search that buys demand today." },
+  { href: "/ppc-management/", t: "PPC management", d: "Multi-channel paid media management." },
+  { href: "/chatgpt-ads-ecommerce/", t: "ChatGPT ads and commerce readiness", d: "The paid side of ChatGPT, kept apart from organic visibility." },
+  { href: "/blog/chatgpt-ads/", t: "ChatGPT ads in the UK", d: "Availability, rules and a controlled test." },
+  { href: "/blog/ads-in-the-age-of-ai-summaries/", t: "Ads in the age of AI summaries", d: "Why ads, organic links and citations are reported separately." }
+];
 ---
 
-<Layout title="SEO Services | Organic Search Growth | Visible Ads" description="Strategic SEO services that complement your paid campaigns. Technical audits, content strategy, and sustainable organic growth." schema={schema}>
+<Layout title="SEO Agency Kingston and Surrey | SEO and GEO | Visible Ads" description="SEO and GEO agency in Kingston upon Thames and Surrey. Start with a free AI search visibility check across ChatGPT, Perplexity, Google AI Overviews and Copilot." canonical={canonical} schema={schema}>
 
-  <!-- Hero -->
-  <section class="relative py-20 lg:py-28 overflow-hidden bg-navy" data-animate>
-    <div class="absolute inset-0 bg-gradient-to-br from-navy via-purple-900 to-navy-light"></div>
+  <!-- Hero: the first screen is the offer and a picture of its report -->
+  <section class="relative py-14 lg:py-20 overflow-hidden bg-navy">
+    <div class="absolute inset-0 bg-gradient-to-br from-navy to-navy-light"></div>
     <div class="absolute inset-0 dot-pattern opacity-10"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl">
-        <span class="inline-block px-4 py-1.5 bg-electric/20 text-electric-light text-sm font-medium rounded-full mb-6">Organic Search Growth</span>
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-6">SEO That Compounds Your Paid Search Investment</h1>
-        <p class="text-lg sm:text-xl text-slate-light mb-4 leading-relaxed">PPC captures demand. SEO creates it. Together, they own the search results page. Our SEO services are built to amplify the ROI of your entire digital marketing stack.</p>
-        <p class="text-sm text-slate-light/80 mb-8">Part of our integrated <a href="/multi-channel-services/" class="text-electric-light underline hover:text-white">multi-channel growth strategy</a></p>
-        <div class="flex flex-col sm:flex-row gap-4">
-          <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-8 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Get Your Free SEO Audit</a>
-          <a href="#approach" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/20 hover:bg-white/10 transition-colors">See Our Approach</a>
+      <nav class="text-sm text-slate-light mb-6" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <span class="mx-2 text-slate">/</span>
+        <span class="text-white" aria-current="page">SEO and GEO</span>
+      </nav>
+      <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14 items-start">
+        <div>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-5">SEO and GEO agency in Kingston upon Thames and Surrey</h1>
+          <p class="text-lg sm:text-xl text-slate-light mb-6 leading-relaxed">Visible Ads gets UK ecommerce and B2B brands found in Google and named in AI answers from ChatGPT, Perplexity, Google AI Overviews and Copilot. We start with a free AI search visibility check.</p>
+          <ol class="space-y-3 mb-8 text-white">
+            <li class="flex gap-3"><span class="shrink-0 w-7 h-7 rounded-full bg-white text-navy font-bold text-sm flex items-center justify-center" aria-hidden="true">1</span><span>We test a fixed set of buyer prompts across all four engines.</span></li>
+            <li class="flex gap-3"><span class="shrink-0 w-7 h-7 rounded-full bg-white text-navy font-bold text-sm flex items-center justify-center" aria-hidden="true">2</span><span>You see where your brand appears and where competitors appear instead.</span></li>
+            <li class="flex gap-3"><span class="shrink-0 w-7 h-7 rounded-full bg-white text-navy font-bold text-sm flex items-center justify-center" aria-hidden="true">3</span><span>You see which sources the answers cite.</span></li>
+          </ol>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="/contact/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors text-lg">Book your free check</a>
+            <a href="#measure" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/30 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors">See how we measure it</a>
+          </div>
+          <p class="text-sm text-slate-light mt-5">No price is published. The monthly SEO and GEO fee is quoted after the check. First reply to your enquiry within 1 working day.</p>
         </div>
+
+        <figure class="bg-white rounded-2xl p-4 sm:p-5 shadow-xl">
+          <svg viewBox="0 0 360 372" role="img" aria-labelledby="check-title check-desc" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+            <title id="check-title">Example layout of the free AI search visibility check</title>
+            <desc id="check-desc">One buyer prompt is tested on ChatGPT, Perplexity, Google AI Overviews and Copilot. Each row shows who the engine names. A final row lists the sources cited. All entries are placeholders.</desc>
+            <rect x="0" y="0" width="360" height="64" rx="8" fill="#0A1628"/>
+            <text x="14" y="26" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#94A3B8">Buyer prompt, fixed and repeated monthly</text>
+            <text x="14" y="49" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">Best [category] in [place]?</text>
+
+            <g font-family="Inter, system-ui, sans-serif" font-size="14">
+              <text x="0" y="94" font-weight="700" fill="#0A1628">ChatGPT</text>
+              <rect x="172" y="76" width="188" height="28" rx="6" fill="#FEE2E2" stroke="#B91C1C"/>
+              <text x="182" y="95" fill="#7F1D1D">Competitor A named</text>
+
+              <text x="0" y="136" font-weight="700" fill="#0A1628">Perplexity</text>
+              <rect x="172" y="118" width="188" height="28" rx="6" fill="#DCFCE7" stroke="#15803D"/>
+              <text x="182" y="137" fill="#14532D">Your URL cited</text>
+
+              <text x="0" y="178" font-weight="700" fill="#0A1628">Google AI Overviews</text>
+              <rect x="172" y="160" width="188" height="28" rx="6" fill="#F1F5F9" stroke="#475569" stroke-dasharray="4 3"/>
+              <text x="182" y="179" fill="#334155">Not named</text>
+
+              <text x="0" y="220" font-weight="700" fill="#0A1628">Copilot</text>
+              <rect x="172" y="202" width="188" height="28" rx="6" fill="#DBEAFE" stroke="#1D4ED8"/>
+              <text x="182" y="221" fill="#1E3A8A">Your brand named</text>
+            </g>
+
+            <line x1="0" y1="248" x2="360" y2="248" stroke="#CBD5E1"/>
+            <g font-family="Inter, system-ui, sans-serif" font-size="14">
+              <text x="0" y="272" font-weight="700" fill="#0A1628">Sources the answers cite</text>
+              <text x="0" y="296" fill="#334155">1. Directory listing</text>
+              <text x="0" y="318" fill="#334155">2. Review site</text>
+              <text x="180" y="296" fill="#334155">3. Competitor A site</text>
+              <text x="180" y="318" fill="#334155">4. Your site</text>
+              <text x="0" y="358" font-size="12" fill="#475569">Example layout with placeholders. Not a result.</text>
+            </g>
+          </svg>
+          <figcaption class="text-sm text-gray-700 mt-3 leading-relaxed">For each engine the report records one outcome: absent, mentioned, cited or recommended. It also lists who is named instead and the sources cited. The entries above are placeholders.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-
-  <!-- Partner Badges -->
-  <section class="py-12 bg-sky-tint border-y border-gray-100">
+  <section class="py-8 bg-sky-tint border-y border-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <PartnerBadges compact />
     </div>
   </section>
 
-  <!-- What We Do -->
-  <section class="py-20 lg:py-28 bg-white" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto">
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-8">What We Do</h2>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">We deliver SEO that works alongside your paid campaigns to dominate the search results page. When prospects see your brand in both paid and organic results, click-through rates increase by up to 30%. That synergy is what makes our approach different, we don't treat SEO as a separate channel, we treat it as a force multiplier for your entire search strategy.</p>
-        <p class="text-lg text-gray-700 mb-6 leading-relaxed">Our technical audits uncover the crawling, indexing, and performance issues that silently throttle your organic visibility. From Core Web Vitals and site architecture to structured data and internal linking, we fix the foundations before building on top of them. Every technical recommendation is prioritised by impact so you see results, not just a list of issues.</p>
-        <p class="text-lg text-gray-700 leading-relaxed">Content strategy is where SEO compounds. We identify the topics, questions, and intent patterns your audience searches for, then build content that earns rankings and drives conversions. Combined with our <a href="/google-ads/" class="text-electric underline hover:text-electric-dark">Google Ads management</a> and <a href="/ecro/" class="text-electric underline hover:text-electric-dark">conversion rate optimisation</a>, your organic presence grows month over month, reducing your long-term dependence on paid traffic while increasing overall profitability.</p>
+  <!-- What the check is -->
+  <section class="py-16 lg:py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">What the free AI search visibility check covers</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">The check tests the questions your buyers ask AI engines and shows what each engine says. We write the prompts from your Search Console queries, your sales questions and the words buyers use for the need. Prompts that name Kingston or Surrey are added when your buyers are local.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Each prompt runs in a fresh logged-out session with no follow-up questions. Each prompt runs at least three times over at least two days. The worst run is the score we report. Some engines need manual capture. We log which runs were manual.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">You receive four things: where your brand appears, where competitors appear instead, the sources each answer cites, and any wrong facts an engine states about you.</p>
+    </div>
+  </section>
+
+  <!-- Measurement -->
+  <section id="measure" class="py-16 lg:py-20 bg-sky-tint scroll-mt-24">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">How we measure GEO</h2>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">We measure GEO with five separate signals. They are never merged into one score. None of them is read as proof of revenue.</p>
+      <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+        <table class="w-full text-left">
+          <caption class="sr-only">The five signals used to measure GEO</caption>
+          <thead class="hidden sm:table-header-group bg-navy text-white text-sm">
+            <tr>
+              <th scope="col" class="px-5 py-3 font-semibold">Signal</th>
+              <th scope="col" class="px-5 py-3 font-semibold">What it counts</th>
+              <th scope="col" class="px-5 py-3 font-semibold">Where it comes from</th>
+            </tr>
+          </thead>
+          <tbody>
+            {signals.map((s) => (
+              <tr class="block sm:table-row border-b border-gray-200 last:border-b-0 px-5 py-4 sm:p-0">
+                <th scope="row" class="block sm:table-cell sm:px-5 sm:py-4 font-heading font-bold text-navy">{s.signal}</th>
+                <td class="block sm:table-cell sm:px-5 sm:py-4 text-gray-700">{s.counts}</td>
+                <td class="block sm:table-cell sm:px-5 sm:py-4 text-gray-700 text-sm sm:text-base"><span class="sm:hidden font-semibold text-navy">Source: </span>{s.source}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-lg text-gray-700 mt-8 mb-6 leading-relaxed">We repeat the same prompt panel every month. A change then means something. A citation is not a recommendation. A mention is not a citation.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">Counts under about 30 are reported as counts with no percentage growth. GA4 only sees visits that carry a referrer. We record the gap. We read the panel next to your enquiries and report both.</p>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section class="py-16 lg:py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">What the SEO and GEO work involves</h2>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">The work is four jobs, done in this order. Each one is on your site or in profiles you control.</p>
+      <ol class="space-y-6 mb-10">
+        {steps.map((s, i) => (
+          <li class="flex gap-4">
+            <span class="shrink-0 w-9 h-9 rounded-full bg-navy text-white font-heading font-bold flex items-center justify-center" aria-hidden="true">{i + 1}</span>
+            <div>
+              <h3 class="text-xl font-heading font-bold text-navy mb-1">{s.t}</h3>
+              <p class="text-gray-700 leading-relaxed">{s.d}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <blockquote class="border-l-4 border-electric bg-sky-tint rounded-r-xl p-6">
+        <p class="text-lg text-navy leading-relaxed mb-3">"There are no additional requirements to appear in AI Overviews or AI Mode, nor other special optimizations necessary."</p>
+        <footer class="text-sm text-gray-700">Google Search Central, <a href="https://developers.google.com/search/docs/appearance/ai-features" target="_blank" rel="noopener noreferrer" class="text-electric underline hover:text-electric-dark">AI features and your website</a></footer>
+      </blockquote>
+      <p class="text-lg text-gray-700 mt-6 leading-relaxed">Google's line sets the limit of what any agency can do. The work is good SEO plus honest measurement of what AI answers say. We do not sell llms.txt or schema as a way into AI answers.</p>
+    </div>
+  </section>
+
+  <!-- Areas -->
+  <section id="areas" class="py-16 lg:py-20 bg-sky-tint scroll-mt-24">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">SEO and GEO for Kingston upon Thames and Surrey businesses</h2>
+      <p class="text-lg text-gray-700 mb-10 max-w-3xl leading-relaxed">Visible Ads is based in Kingston upon Thames and works with businesses across Surrey and South West London. We have no Surrey office. Work runs by call or video. Local SEO and GEO start with the place names your buyers use. The areas below show what we test for each.</p>
+      <ul class="grid sm:grid-cols-2 gap-x-10">
+        {areas.map((a) => (
+          <li class="py-4 border-t border-slate-light/50">
+            <h3 class="font-heading font-bold text-navy mb-1">{a.name}</h3>
+            <p class="text-gray-700 leading-relaxed">{a.line}</p>
+          </li>
+        ))}
+      </ul>
+      <div class="mt-10 pt-6 border-t border-slate-light/50">
+        <h3 class="font-heading font-bold text-navy mb-3">Paid search in these areas</h3>
+        <p class="text-gray-700 mb-3">PPC and Google Ads for local businesses sit on their own pages.</p>
+        <ul class="flex flex-wrap gap-x-6 gap-y-2">
+          <li><a href="/kingston-upon-thames/" class="text-electric underline hover:text-electric-dark">PPC agency in Kingston upon Thames</a></li>
+          <li><a href="/surrey/" class="text-electric underline hover:text-electric-dark">PPC agency in Surrey</a></li>
+          <li><a href="/richmond-upon-thames/" class="text-electric underline hover:text-electric-dark">PPC agency in Richmond upon Thames</a></li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- Approach -->
-  <section id="approach" class="py-20 lg:py-28 bg-sky-tint" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">Our Approach</h2>
-        <p class="text-lg text-gray-700 max-w-2xl mx-auto">Systematic SEO that builds sustainable organic growth.</p>
-      </div>
-      <div class="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="hidden lg:block absolute top-10 left-[calc(12.5%+24px)] right-[calc(12.5%+24px)] h-0.5 bg-electric/20"></div>
-        <div class="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all duration-300">
-          <div class="relative z-10 w-12 h-12 bg-electric text-white rounded-full flex items-center justify-center text-xl font-bold mb-6">1</div>
-          <h3 class="text-xl font-heading font-bold text-navy mb-3">Technical Audit</h3>
-          <p class="text-gray-700">We crawl your entire site to identify technical barriers, crawl errors, slow pages, broken links, missing structured data, and indexing issues that suppress your rankings.</p>
-        </div>
-        <div class="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all duration-300">
-          <div class="relative z-10 w-12 h-12 bg-electric text-white rounded-full flex items-center justify-center text-xl font-bold mb-6">2</div>
-          <h3 class="text-xl font-heading font-bold text-navy mb-3">Content Strategy</h3>
-          <p class="text-gray-700">We map your keyword landscape, identify content gaps, and build an editorial calendar targeting topics with proven commercial intent and realistic ranking potential.</p>
-        </div>
-        <div class="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all duration-300">
-          <div class="relative z-10 w-12 h-12 bg-electric text-white rounded-full flex items-center justify-center text-xl font-bold mb-6">3</div>
-          <h3 class="text-xl font-heading font-bold text-navy mb-3">On-Page Optimisation</h3>
-          <p class="text-gray-700">We optimise titles, meta descriptions, headings, internal links, and content structure across your priority pages to maximise relevance and click-through rate.</p>
-        </div>
-        <div class="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all duration-300">
-          <div class="relative z-10 w-12 h-12 bg-electric text-white rounded-full flex items-center justify-center text-xl font-bold mb-6">4</div>
-          <h3 class="text-xl font-heading font-bold text-navy mb-3">Link Building & Authority</h3>
-          <p class="text-gray-700">We earn high-quality backlinks through digital PR, strategic partnerships, and content-led outreach that builds your domain authority and reinforces topical relevance.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Profit and paid -->
+  <section class="py-16 lg:py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Why SEO and GEO are judged on enquiries and profit</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Visible Ads is a profit-first agency. SEO and GEO follow the same rule as our paid search. Visibility that brings no enquiry or sale is a cost. The check ends with a ranked list of fixes tied to the pages that bring enquiries. Pages that do not lead to an enquiry come later.</p>
+      <p class="text-lg text-gray-700 mb-10 leading-relaxed">Enquiries are counted from your own tracking. If that tracking is missing, fixing it is the first job.</p>
 
-  <!-- Why Choose Us -->
-  <section class="py-20 lg:py-28 bg-white" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-4">Why Choose Us</h2>
-        <p class="text-lg text-gray-700 max-w-2xl mx-auto">SEO built for businesses that already run paid search.</p>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-gray-100 ring-1 ring-electric/10 hover:ring-electric/30 hover:shadow-lg transition-all duration-300 text-center">
-          <div class="text-4xl font-heading font-extrabold text-electric mb-2">+30%</div>
-          <div class="text-sm font-semibold text-navy uppercase tracking-wide mb-2">Combined CTR Lift</div>
-          <p class="text-gray-700 text-sm">Brands appearing in both paid and organic results see significantly higher click-through rates than either channel alone.</p>
-        </div>
-        <div class="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-gray-100 ring-1 ring-electric/10 hover:ring-electric/30 hover:shadow-lg transition-all duration-300 text-center">
-          <div class="text-4xl font-heading font-extrabold text-electric mb-2">£0</div>
-          <div class="text-sm font-semibold text-navy uppercase tracking-wide mb-2">Cost Per Organic Click</div>
-          <p class="text-gray-700 text-sm">Once you rank, every click is free. SEO compounds over time, the investment today pays dividends for years.</p>
-        </div>
-        <div class="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-gray-100 ring-1 ring-electric/10 hover:ring-electric/30 hover:shadow-lg transition-all duration-300 text-center">
-          <div class="text-4xl font-heading font-extrabold text-electric mb-2">PPC+SEO</div>
-          <div class="text-sm font-semibold text-navy uppercase tracking-wide mb-2">Integrated Strategy</div>
-          <p class="text-gray-700 text-sm">We use your PPC data to inform SEO priorities and vice versa, no siloed channels, just coordinated growth.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Case Study -->
-  <section class="py-20 lg:py-28 bg-gray-50" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="glass-card p-8 sm:p-12 lg:p-16 max-w-4xl mx-auto">
-        <span class="inline-block px-3 py-1 bg-electric/10 text-electric text-sm font-semibold rounded-full mb-6">Case Study</span>
-        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-4">Organic Growth That Amplifies Paid Performance</h2>
-        <p class="text-lg text-gray-700 mb-8 leading-relaxed">For clients running both SEO and PPC with us, the combined effect consistently outperforms either channel alone. By aligning keyword targeting, sharing conversion data between channels, and ensuring total SERP coverage, our integrated clients see organic traffic grow 40-60% within six months, while their paid campaigns become more efficient as organic picks up high-volume head terms.</p>
-        <div class="flex flex-wrap gap-8">
-          <div>
-            <div class="text-3xl font-heading font-extrabold text-electric">+52%</div>
-            <div class="text-sm text-gray-700">Organic Traffic Growth</div>
-          </div>
-          <div>
-            <div class="text-3xl font-heading font-extrabold text-electric">-23%</div>
-            <div class="text-sm text-gray-700">Blended CPA Reduction</div>
-          </div>
-          <div>
-            <div class="text-3xl font-heading font-extrabold text-electric">6 Months</div>
-            <div class="text-sm text-gray-700">Time to Measurable Impact</div>
-          </div>
-        </div>
-      </div>
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">How SEO and GEO work alongside paid search</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Paid search buys demand today. SEO and GEO build visibility that carries on when the budget stops. When we manage both, search terms from paid campaigns give the prompt panel real buyer questions.</p>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">Paid placements in AI products follow separate rules from organic visibility. They are covered on their own pages. We keep their results out of the GEO signals above.</p>
+      <ul class="grid sm:grid-cols-2 gap-4">
+        {related.map((r) => (
+          <li>
+            <a href={r.href} class="block h-full rounded-xl border border-gray-200 p-5 hover:border-electric/40 hover:shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-electric transition-colors">
+              <span class="block font-heading font-bold text-navy mb-1">{r.t}</span>
+              <span class="block text-sm text-gray-700">{r.d}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section class="py-20 lg:py-28 bg-sky-tint" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto">
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-10">Frequently Asked Questions</h2>
-        <div class="space-y-4">
+  <section class="py-16 lg:py-20 bg-sky-tint">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">SEO and GEO questions</h2>
+      <div class="space-y-4">
+        {faqs.map((f) => (
           <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              What's the difference between SEO and PPC?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            <summary class="flex items-center justify-between gap-4 cursor-pointer p-5 font-heading font-semibold text-navy text-lg hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-electric">
+              {f.q}
+              <svg class="w-5 h-5 text-electric shrink-0 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">PPC delivers immediate traffic by paying for each click. SEO builds organic visibility over time, you earn clicks without paying per visit. The smartest strategy uses both: PPC for immediate results and testing, SEO for long-term compounding growth. Together, they dominate the search results page.</div>
+            <div class="px-5 pb-5 text-gray-700 leading-relaxed">{f.a}</div>
           </details>
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              How long does SEO take to show results?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">Technical fixes can show impact within weeks. Content and authority building typically takes 3-6 months to produce measurable organic growth. SEO is a compounding investment, the longer you invest, the greater the returns. We provide monthly reports so you can track progress from day one.</div>
-          </details>
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              What's included in your SEO services?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">Our SEO service covers technical site audits, on-page optimisation, content strategy and creation, internal linking architecture, and authority building through digital PR and link acquisition. We also provide monthly reporting, keyword tracking, and strategic recommendations.</div>
-          </details>
-          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-6 font-heading font-semibold text-navy text-lg hover:bg-gray-50 transition-colors">
-              How do you report on SEO performance?
-              <svg class="w-5 h-5 text-electric shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="px-6 pb-6 text-gray-700 leading-relaxed">We provide monthly SEO reports covering keyword rankings, organic traffic, conversion data, and technical health metrics. Reports include plain-English commentary on what's working, what's changed, and what we're focusing on next. You also get access to live dashboards for real-time visibility.</div>
-          </details>
-        </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- Related Services -->
-  <section class="py-16 lg:py-20 bg-white" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl font-heading font-bold text-navy text-center mb-8">Related Services</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
-        <a href="/google-ads/" class="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-gray-100 ring-1 ring-electric/10 hover:ring-electric/30 hover:shadow-lg transition-all duration-300">
-          <h3 class="text-lg font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">Google Ads Management</h3>
-          <p class="text-gray-700 text-sm mb-3">Our core PPC service, capture demand instantly while your organic rankings build.</p>
-          <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
-        </a>
-        <a href="/ecro/" class="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-gray-100 ring-1 ring-electric/10 hover:ring-electric/30 hover:shadow-lg transition-all duration-300">
-          <h3 class="text-lg font-heading font-bold text-navy mb-2 group-hover:text-electric transition-colors">Conversion Rate Optimisation</h3>
-          <p class="text-gray-700 text-sm mb-3">Convert more of your organic traffic into revenue through data-driven testing.</p>
-          <span class="text-electric text-sm font-medium inline-flex items-center gap-1">Learn more <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Client Logos -->
-  <section class="py-16 lg:py-20 bg-white" data-animate>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <ClientLogos compact />
-    </div>
-  </section>
-
-  <!-- Service Links -->
-  <section class="py-16 lg:py-20 bg-sky-tint" data-animate>
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <ServiceLinks current="/seo" />
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="relative py-20 lg:py-28 bg-navy" data-animate>
+  <!-- Next step -->
+  <section class="relative py-16 lg:py-24 bg-navy">
     <div class="absolute inset-0 dot-pattern opacity-5"></div>
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">Ready to Own the Organic Results?</h2>
-      <p class="text-lg text-slate-light mb-8 max-w-2xl mx-auto">Get a free technical SEO audit that shows you exactly where your organic visibility is being held back, and how to fix it.</p>
-      <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-10 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Get Your Free SEO Audit</a>
+    <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-5">Start with the free AI search visibility check</h2>
+      <p class="text-lg text-slate-light mb-4 leading-relaxed">After the check you get the findings and a quote for a monthly SEO and GEO plan. The fee depends on the size of the site, the number of buyer prompts and the markets you sell in.</p>
+      <p class="text-slate-light mb-8 leading-relaxed">We need access to Search Console and GA4 from you. We guarantee no citations, rankings or traffic.</p>
+      <a href="/contact/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-bold px-10 py-4 rounded-xl hover:bg-cta-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors text-lg">Book your free check</a>
     </div>
   </section>
 
