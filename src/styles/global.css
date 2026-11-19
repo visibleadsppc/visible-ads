@@ -67,8 +67,8 @@ html {
 /* Scroll reveal. The start state exists only with JS and no reduced-motion preference, so
    no-JS visitors, crawlers, print and reduced-motion users get the final state. */
 @media (prefers-reduced-motion: no-preference) {
-  html.js [data-animate]:not(.is-in) { opacity: 0; transform: translateY(24px); }
-  html.js [data-animate].is-in { animation: fade-up 0.6s ease-out both; }
+  html.kit-ready [data-animate]:not(.is-in) { opacity: 0; transform: translateY(24px); }
+  html.kit-ready [data-animate].is-in { animation: fade-up 0.6s ease-out both; }
 }
 
 .animate-fade {
@@ -265,14 +265,14 @@ html {
   .kit-fade { transition: opacity 0.5s ease-out; transition-delay: calc(var(--i, 0) * 80ms); }
   .kit-line { transform-origin: top; transition: transform 0.6s ease-out; transition-delay: calc(var(--i, 0) * 100ms); }
   .kit-ms-liveup, .kit-ms-livedn { transition: transform 0.3s ease-out; }
-  html.js [data-kit]:not(.is-in) .kit-bar { transform: scaleX(0); }
-  html.js [data-kit]:not(.is-in) .kit-barY { transform: scaleY(0); }
-  html.js [data-kit]:not(.is-in) .kit-fade { opacity: 0; }
-  html.js [data-kit]:not(.is-in) .kit-line { transform: scaleY(0); }
+  html.kit-ready [data-kit]:not(.is-in) .kit-bar { transform: scaleX(0); }
+  html.kit-ready [data-kit]:not(.is-in) .kit-barY { transform: scaleY(0); }
+  html.kit-ready [data-kit]:not(.is-in) .kit-fade { opacity: 0; }
+  html.kit-ready [data-kit]:not(.is-in) .kit-line { transform: scaleY(0); }
 }
 @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
   .kit-steps .kit-step-line { transform-origin: left; }
-  html.js .kit-steps:not(.is-in) .kit-step-line { transform: scaleX(0); }
+  html.kit-ready .kit-steps:not(.is-in) .kit-step-line { transform: scaleX(0); }
 }
 
 /* Counters: the real value is always in the HTML; no count-up. */
