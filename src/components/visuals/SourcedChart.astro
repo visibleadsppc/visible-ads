@@ -29,8 +29,8 @@ const src = rows[0];
     <table class="kit-table">
       <caption class="sr-only">Search engine share in the UK by device, {src.dataLabel}</caption>
       <thead><tr><th scope="col">Device</th><th scope="col">Bing</th><th scope="col">Google</th></tr></thead>
-      <tbody>{rows.map((r) => (<tr><th scope="row">{r.device}</th><td>{r.bing}%</td><td>{r.google}%</td></tr>))}</tbody>
+      <tbody>{rows.map((r) => (<tr><th scope="row">{r.device} (<a href={r.sourceUrl} target="_blank" rel="noopener noreferrer">source</a>)</th><td>{r.bing}%</td><td>{r.google}%</td></tr>))}</tbody>
     </table>
   </details>
-  <figcaption>Source: <a href={src.sourceUrl} target="_blank" rel="noopener noreferrer">StatCounter Global Stats</a>, UK search engine market share, {src.dataLabel}, retrieved {stats.checkedLabel}. Bars start at zero and the scale stops at {AXIS}%.</figcaption>
+  <figcaption>Sources, one per device: {rows.map((r, i) => (<Fragment>{i > 0 && ", "}<a href={r.sourceUrl} target="_blank" rel="noopener noreferrer">StatCounter {r.device}</a></Fragment>))}. UK search engine market share, {src.dataLabel}, retrieved {stats.checkedLabel}. Bars start at zero and the scale stops at {AXIS}%.</figcaption>
 </figure>
