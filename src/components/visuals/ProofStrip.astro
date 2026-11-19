@@ -1,0 +1,29 @@
+---
+// K8. Fixed, non-scrolling proof strip. Facts only: visible-ads-facts (trust stats, certifications, awards).
+interface Props { class?: string; cfw?: boolean; dark?: boolean }
+const { class: cls = '', cfw = false, dark = false } = Astro.props;
+---
+<dl class={`kit-proof ${dark ? 'kit-proof-dark' : ''} ${cls}`} data-kit>
+  <div class="kit-proof-item">
+    <dt>Annual ad spend managed</dt>
+    <dd class="kit-proof-num"><span class="count-wrap"><span class="count-real">£3M</span><span aria-hidden="true" data-count-twin data-to="3" data-decimals="0" data-prefix="£" data-suffix="M"></span></span></dd>
+  </div>
+  <div class="kit-proof-item">
+    <dt>Platform partner statuses</dt>
+    <dd><span class="kit-proof-num">4</span><span class="kit-proof-sub">Google Partner, Microsoft Advertising Partner, Amazon Ads Verified Partner, Meta Business Partner</span></dd>
+  </div>
+  <div class="kit-proof-item">
+    <dt>Award win</dt>
+    <dd><span class="kit-proof-sub kit-proof-lead">UK Search Awards 2022 winner</span></dd>
+  </div>
+  <div class="kit-proof-item">
+    <dt>Award finalist</dt>
+    <dd><span class="kit-proof-sub">UK Search Awards 2024, UK eCommerce Awards 2024, National Digital Awards 2026</span></dd>
+  </div>
+  {cfw && (
+    <div class="kit-proof-item">
+      <dt>CFW, Google Ads, Aug 2023 to Sep 2026</dt>
+      <dd><span class="kit-proof-sub kit-proof-lead">12x ROAS: £6.7M conversion value from £555K spend</span><span class="kit-proof-sub">Return means Google's conversion value, not profit.</span></dd>
+    </div>
+  )}
+</dl>

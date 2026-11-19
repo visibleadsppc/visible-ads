@@ -1,0 +1,66 @@
+---
+// K5. AI answer panel. "example" is the existing hero panel, extracted unchanged (placeholders, not a result). "method" lists how the check is run.
+interface Props { mode?: 'example' | 'method'; id?: string; class?: string }
+const { mode = 'example', id = 'check', class: cls = '' } = Astro.props;
+const method = [
+  { t: 'Fixed prompts', b: 'A fixed set of buyer prompts, written from the words your buyers use.' },
+  { t: 'Four engines', b: 'ChatGPT, Perplexity, Google AI Overviews and Copilot, where each is available.' },
+  { t: 'At least 3 runs over at least 2 days', b: 'Each prompt and engine is run more than once on more than one day.' },
+  { t: 'Worst run counted', b: 'The weakest run sets the result for that prompt and engine.' },
+  { t: 'Sources recorded', b: 'The report lists who is named and which sources each answer cites.' },
+  { t: 'Repeated monthly', b: 'For retained clients the same panel is repeated every month.' },
+];
+---
+{mode === 'example' ? (
+  <figure class={`bg-white rounded-2xl p-4 sm:p-5 shadow-xl ${cls}`}>
+    <svg viewBox="0 0 360 372" role="img" aria-labelledby={`${id}-title ${id}-desc`} class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+            <title id={`${id}-title`}>Example layout of the free AI search visibility check</title>
+            <desc id={`${id}-desc`}>One buyer prompt is tested on ChatGPT, Perplexity, Google AI Overviews and Copilot. Each row shows who the engine names. A final row lists the sources cited. All entries are placeholders.</desc>
+            <rect x="0" y="0" width="360" height="64" rx="8" fill="#0A1628"/>
+            <text x="14" y="26" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#94A3B8">Buyer prompt, fixed and repeated monthly</text>
+            <text x="14" y="49" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">Best [category] in [place]?</text>
+
+            <g font-family="Inter, system-ui, sans-serif" font-size="14">
+              <text x="0" y="94" font-weight="700" fill="#0A1628">ChatGPT</text>
+              <rect x="172" y="76" width="188" height="28" rx="6" fill="#FEE2E2" stroke="#B91C1C"/>
+              <text x="182" y="95" fill="#7F1D1D">Competitor A named</text>
+
+              <text x="0" y="136" font-weight="700" fill="#0A1628">Perplexity</text>
+              <rect x="172" y="118" width="188" height="28" rx="6" fill="#DCFCE7" stroke="#15803D"/>
+              <text x="182" y="137" fill="#14532D">Your URL cited</text>
+
+              <text x="0" y="178" font-weight="700" fill="#0A1628">Google AI Overviews</text>
+              <rect x="172" y="160" width="188" height="28" rx="6" fill="#F1F5F9" stroke="#475569" stroke-dasharray="4 3"/>
+              <text x="182" y="179" fill="#334155">Not named</text>
+
+              <text x="0" y="220" font-weight="700" fill="#0A1628">Copilot</text>
+              <rect x="172" y="202" width="188" height="28" rx="6" fill="#DBEAFE" stroke="#1D4ED8"/>
+              <text x="182" y="221" fill="#1E3A8A">Your brand named</text>
+            </g>
+
+            <line x1="0" y1="248" x2="360" y2="248" stroke="#CBD5E1"/>
+            <g font-family="Inter, system-ui, sans-serif" font-size="14">
+              <text x="0" y="272" font-weight="700" fill="#0A1628">Sources the answers cite</text>
+              <text x="0" y="296" fill="#334155">1. Directory listing</text>
+              <text x="0" y="318" fill="#334155">2. Review site</text>
+              <text x="180" y="296" fill="#334155">3. Competitor A site</text>
+              <text x="180" y="318" fill="#334155">4. Your site</text>
+              <text x="0" y="358" font-size="12" fill="#475569">Example layout with placeholders. Not a result.</text>
+            </g>
+          </svg>
+    <figcaption class="text-sm text-gray-700 mt-3 leading-relaxed"><slot /></figcaption>
+  </figure>
+) : (
+  <figure class={`kit-fig kit-method ${cls}`} data-kit>
+    <p class="kit-fig-title">How each check is run</p>
+    <ol class="kit-method-list">
+      {method.map((m, i) => (
+        <li class="kit-method-item kit-fade" style={`--i:${i}`}>
+          <span class="kit-method-no" aria-hidden="true">{i + 1}</span>
+          <span><strong>{m.t}.</strong> {m.b}</span>
+        </li>
+      ))}
+    </ol>
+    <figcaption>This is the method, not a result.</figcaption>
+  </figure>
+)}

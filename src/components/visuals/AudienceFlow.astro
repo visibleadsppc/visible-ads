@@ -1,0 +1,22 @@
+---
+// K6. Remarketing map: one flow that reflows from a column on mobile to four stages on desktop. No numbers.
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+const stages = [
+  { t: 'Visitors and customers', b: 'People who have visited your site or bought from you.' },
+  { t: 'One audience map', b: 'Lists built by buying stage, shared across channels.' },
+  { t: 'Three channels', b: 'Search audience lists, Meta retargeting and display, frequency capped.' },
+  { t: 'One measurement layer', b: 'Remarketing is reported apart and holdout tested.' },
+];
+---
+<figure class={`kit-fig kit-flow ${cls}`} data-kit>
+  <ol class="kit-flow-list">
+    {stages.map((s, i) => (
+      <li class="kit-flow-node kit-fade" style={`--i:${i}`}>
+        <strong>{s.t}</strong>
+        <span>{s.b}</span>
+      </li>
+    ))}
+  </ol>
+  <figcaption>Visitors and customers feed one audience map. The map feeds search, Meta and display. All three report into one measurement layer.</figcaption>
+</figure>

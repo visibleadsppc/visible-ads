@@ -1,0 +1,36 @@
+---
+// K9. Two real pairs only, from visible-ads-facts. Zero-based bars, no truncated axes.
+interface Props { pair: 'japan-centre' | 'lead-generation'; class?: string }
+const { pair, class: cls = '' } = Astro.props;
+const data = {
+  'japan-centre': {
+    title: 'Japan Centre Google relaunch',
+    unit: 'ROAS',
+    before: { label: 'Previous agency', value: 2, text: '2x' },
+    after: { label: 'After the relaunch', value: 11, text: '11x (1,118%)' },
+    sentence: 'ROAS rose from 2x with the previous agency to 11x after the relaunch. £32K in sales came from £2.9K of spend in three weeks.',
+  },
+  'lead-generation': {
+    title: 'A lead-generation account',
+    unit: 'leads',
+    before: { label: 'Before', value: 6, text: '6 leads' },
+    after: { label: 'Four months later, same budget', value: 107, text: '107 leads' },
+    sentence: 'Leads rose from 6 to 107 in four months on the same budget. Year on year, cost per lead fell 75% and leads rose 800%.',
+  },
+}[pair];
+const max = Math.max(data.before.value, data.after.value);
+---
+<figure class={`kit-fig kit-ba ${cls}`} data-kit>
+  <p class="kit-fig-title">{data.title}</p>
+  <p class="kit-ba-sentence">{data.sentence}</p>
+  <div class="kit-ba-rows" aria-hidden="true">
+    {[data.before, data.after].map((v, i) => (
+      <div class="kit-ba-row">
+        <span class="kit-ba-label">{v.label}</span>
+        <span class="kit-ba-track"><span class={`kit-bar kit-ba-bar ${i ? 'kit-ba-after' : 'kit-ba-before'}`} style={`width:${(v.value / max) * 100}%;--i:${i * 4}`}></span></span>
+        <span class="kit-ba-val">{v.text}</span>
+      </div>
+    ))}
+  </div>
+  <figcaption>Source: Visible Ads client accounts, supplied by Visible Ads, May 2026. Bars start at zero.</figcaption>
+</figure>

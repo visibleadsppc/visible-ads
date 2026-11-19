@@ -1,0 +1,61 @@
+---
+// K2. Fee tiers placed on the ad-budget scale. Facts: visible-ads-facts (pricing). Gold and Platinum inclusions are not stated.
+interface Props { interactive?: boolean; id?: string; class?: string; heading?: string; note?: string; terms?: boolean }
+const { interactive = false, id = 'fee', class: cls = '', heading = '', note = '', terms = true } = Astro.props;
+const tiers = [
+  { name: 'Silver', fee: '£1,000 a month', band: 'Up to £3,000', hours: '10 hours a month' },
+  { name: 'Gold', fee: '£1,500 a month', band: '£3,000 to £20,000', hours: '20 hours a month' },
+  { name: 'Platinum', fee: '£2,000 a month plus 5%', band: 'Over £20,000', hours: '35 hours a month' },
+];
+---
+<figure class={`kit-fig kit-fee ${cls}`} data-kit data-fee={interactive ? '' : undefined}>
+  {heading && <p class="kit-fig-title">{heading}</p>}
+  {interactive && (
+    <div class="kit-fee-input">
+      <label for={`${id}-budget`}>Your monthly ad budget (£)</label>
+      <input id={`${id}-budget`} type="number" inputmode="numeric" min="0" step="100" placeholder="e.g. 8000" />
+      <p class="kit-fee-out" aria-live="polite" data-fee-out></p>
+    </div>
+  )}
+  <div class="kit-scale" aria-hidden="true">
+    {tiers.map((t, i) => (
+      <div class="kit-scale-seg kit-fade" data-tier={i} style={`--i:${i}`}><span>{t.band}</span><strong>{t.name}</strong></div>
+    ))}
+  </div>
+  <div class="kit-table-wrap">
+    <table class="kit-table">
+      <caption class="sr-only">Visible Ads management fees by monthly ad budget, per channel, plus VAT</caption>
+      <thead><tr><th scope="col">Tier</th><th scope="col">Fee per channel</th><th scope="col">Ad budget</th><th scope="col">Hours</th></tr></thead>
+      <tbody>
+        {tiers.map((t, i) => (
+          <tr data-tier={i}><th scope="row">{t.name} <span class="kit-yours" hidden>(your tier)</span></th><td>{t.fee}</td><td>{t.band}</td><td>{t.hours}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <figcaption>
+    Fees are per channel managed, plus VAT, with unlimited campaigns on that channel. Platinum adds click-fraud protection.{terms && " A performance model with a reduced or zero retainer and a revenue share is available by application. Creative is not included. Meta and Google need a one-off £1,000 tracking setup. The minimum term is three months, then rolling monthly on 30 days' notice."}{note && ` ${note}`}
+  </figcaption>
+</figure>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll<HTMLElement>('[data-fee]').forEach((fig) => {
+      const inp = fig.querySelector('input') as HTMLInputElement | null;
+      const out = fig.querySelector('[data-fee-out]') as HTMLElement | null;
+      if (!inp || !out || (inp as any)._b) return;
+      (inp as any)._b = 1;
+      const names = ['Silver', 'Gold', 'Platinum'];
+      inp.addEventListener('input', () => {
+        const v = parseFloat(inp.value);
+        const t = isNaN(v) || v < 0 ? -1 : v <= 3000 ? 0 : v <= 20000 ? 1 : 2;
+        fig.querySelectorAll<HTMLElement>('[data-tier]').forEach((el) => {
+          const on = Number(el.dataset.tier) === t;
+          if (on) el.setAttribute('aria-current', 'true'); else el.removeAttribute('aria-current');
+          const y = el.querySelector<HTMLElement>('.kit-yours'); if (y) y.hidden = !on;
+        });
+        out.textContent = t < 0 ? '' : `Your tier at this budget: ${names[t]}.`;
+      });
+    });
+  });
+</script>

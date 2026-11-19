@@ -1,0 +1,36 @@
+---
+// K10. Third-party data with its source. Dataset: UK search share by device (StatCounter), from src/data.
+import stats from '../../data/ms-advertising-uk-stats.json';
+interface Props { engine?: 'bing'; class?: string; id?: string; heading?: string }
+const { class: cls = '', id = 'sc', heading = "Bing's share of UK searches, by device" } = Astro.props;
+const order = ['SC-DESKTOP', 'SC-ALL', 'SC-MOBILE'];
+const rows = order.map((k) => stats.statcounter.find((r) => r.id === k)!);
+const AXIS = 20;
+const src = rows[0];
+---
+<figure class={`content-visual kit-fig kit-sc ${cls}`} data-kit>
+  <p class="kit-fig-title">{heading}</p>
+  <svg viewBox="0 0 360 150" role="img" aria-labelledby={`${id}-t ${id}-d`} class="kit-sc-svg">
+    <title id={`${id}-t`}>{heading}, {src.dataLabel}</title>
+    <desc id={`${id}-d`}>{rows.map((r) => `${r.device}: ${r.bing}%`).join('. ')}. Source: StatCounter Global Stats, {src.dataLabel}.</desc>
+    <line x1="96" y1="8" x2="96" y2="122" stroke="#94A3B8" />
+    {rows.map((r, i) => (
+      <g>
+        <text x="90" y={36 + i * 40} text-anchor="end" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#0A1628">{r.device}</text>
+        <rect class="kit-bar" x="96" y={20 + i * 40} width={Math.max((r.bing / AXIS) * 190, 1.5)} height="24" fill="#2563EB" style={`--i:${i}`} />
+        <text x={96 + Math.max((r.bing / AXIS) * 190, 1.5) + 8} y={37 + i * 40} font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="#0A1628">{r.bing}%</text>
+      </g>
+    ))}
+    <text x="96" y="144" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#475569">0%</text>
+    <text x="286" y="144" text-anchor="end" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#475569">{AXIS}%</text>
+  </svg>
+  <details class="kit-sc-details">
+    <summary>See the numbers</summary>
+    <table class="kit-table">
+      <caption class="sr-only">Search engine share in the UK by device, {src.dataLabel}</caption>
+      <thead><tr><th scope="col">Device</th><th scope="col">Bing</th><th scope="col">Google</th></tr></thead>
+      <tbody>{rows.map((r) => (<tr><th scope="row">{r.device}</th><td>{r.bing}%</td><td>{r.google}%</td></tr>))}</tbody>
+    </table>
+  </details>
+  <figcaption>Source: <a href={src.sourceUrl} target="_blank" rel="noopener noreferrer">StatCounter Global Stats</a>, UK search engine market share, {src.dataLabel}, retrieved {stats.checkedLabel}. Bars start at zero and the scale stops at {AXIS}%.</figcaption>
+</figure>

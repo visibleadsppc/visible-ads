@@ -1,0 +1,76 @@
+---
+// K3. Same 4x ROAS on £1,000 spend at three margins. Arithmetic only, labelled as a worked example.
+interface Props { interactive?: boolean; id?: string; class?: string; calcHref?: string }
+const { interactive = false, id = 'ms', class: cls = '', calcHref = '/roas-vs-profit/#profit-calc' } = Astro.props;
+const spend = 1000, roas = 4, rev = spend * roas;
+const cols = [20, 25, 40].map((m) => ({ m, gross: rev * m / 100, profit: rev * m / 100 - spend }));
+const gbp = (n: number) => (n < 0 ? '-' : '') + '£' + Math.abs(n).toLocaleString('en-GB');
+const Z = 160, K = 0.1;
+const label = (p: number) => (p < 0 ? `Loss of ${gbp(Math.abs(p))}` : p === 0 ? 'Break-even, £0' : `Profit of ${gbp(p)}`);
+---
+<figure class={`kit-fig kit-ms ${cls}`} data-kit data-ms={interactive ? '' : undefined} data-spend={spend} data-roas={roas}>
+  <p class="kit-fig-title">Same 4x ROAS, three different outcomes</p>
+  <svg viewBox="0 0 360 270" role="img" aria-labelledby={`${id}-t ${id}-d`} class="kit-ms-svg">
+    <title id={`${id}-t`}>Worked example: 4x ROAS on £1,000 of ad spend at three margins</title>
+    <desc id={`${id}-d`}>At a 20% margin the result is a loss of £200. At 25% it is break-even. At 40% it is a profit of £600. Worked example, not client data.</desc>
+    <line x1="0" y1={Z} x2="360" y2={Z} stroke="#94A3B8" stroke-width="1" />
+    {cols.map((c, i) => {
+      const x = 20 + i * (interactive ? 85 : 115);
+      const h = Math.min(Math.abs(c.profit) * K, 140);
+      return (
+        <g>
+          {c.profit > 0 && <rect class="kit-barY kit-ms-up" x={x} y={Z - h} width="64" height={h} fill="#2563EB" style={`--i:${i}`} />}
+          {c.profit < 0 && <rect class="kit-barY kit-ms-dn" x={x} y={Z} width="64" height={h} fill="#fff" stroke="#B91C1C" stroke-width="2" stroke-dasharray="5 3" style={`--i:${i}`} />}
+          {c.profit === 0 && <rect x={x} y={Z - 2} width="64" height="4" fill="#475569" />}
+          <text x={x + 32} y={c.profit >= 0 ? Z - h - 8 : Z + h + 16} text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="#0A1628">{c.profit === 0 ? '£0' : gbp(c.profit)}</text>
+          <text x={x + 32} y="236" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#334155">{c.m}% margin</text>
+        </g>
+      );
+    })}
+    {interactive && (
+      <g class="kit-ms-live">
+        <rect class="kit-ms-liveup" x={275} y={Z - 1} width="64" height="1" fill="#2563EB" style="transform-box:fill-box;transform-origin:bottom" />
+        <rect class="kit-ms-livedn" x={275} y={Z} width="64" height="1" fill="#fff" stroke="#B91C1C" stroke-width="2" stroke-dasharray="5 3" style="transform-box:fill-box;transform-origin:top" />
+        <text class="kit-ms-livelabel" x={307} y={Z - 8} text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="#0A1628"></text>
+        <text x={307} y="236" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#334155">Your margin</text>
+      </g>
+    )}
+  </svg>
+  <div class="kit-table-wrap">
+    <table class="kit-table">
+      <caption class="sr-only">Same 4x ROAS on £1,000 of ad spend at three contribution margins</caption>
+      <thead><tr><th scope="col">Margin</th><th scope="col">Ad spend</th><th scope="col">Revenue at 4x ROAS</th><th scope="col">Profit after product costs</th><th scope="col">Result after ad spend</th></tr></thead>
+      <tbody>
+        {cols.map((c) => (<tr><th scope="row">{c.m}%</th><td>{gbp(spend)}</td><td>{gbp(rev)}</td><td>{gbp(c.gross)}</td><td>{label(c.profit)}</td></tr>))}
+      </tbody>
+    </table>
+  </div>
+  {interactive && (
+    <div class="kit-ms-input">
+      <label for={`${id}-m`}>Your margin: <output for={`${id}-m`} aria-live="polite" data-ms-out>30%</output></label>
+      <input id={`${id}-m`} type="range" min="1" max="80" step="1" value="30" />
+    </div>
+  )}
+  <figcaption>Worked example, not client data. 4x ROAS means £4 of revenue for every £1 of ad spend. Profit here is revenue times margin, minus ad spend. <a href={calcHref}>Work out your own break-even ROAS</a>.</figcaption>
+</figure>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll<HTMLElement>('[data-ms]').forEach((fig) => {
+      const r = fig.querySelector('input') as HTMLInputElement | null;
+      if (!r || (r as any)._b) return;
+      (r as any)._b = 1;
+      const o = fig.querySelector('[data-ms-out]') as HTMLElement;
+      const up = fig.querySelector('.kit-ms-liveup') as SVGElement, dn = fig.querySelector('.kit-ms-livedn') as SVGElement, lb = fig.querySelector('.kit-ms-livelabel') as SVGTextElement;
+      const rev = Number(fig.dataset.spend) * Number(fig.dataset.roas), sp = Number(fig.dataset.spend);
+      const go = () => {
+        const m = Number(r.value), p = Math.round(rev * m / 100 - sp), h = Math.min(Math.abs(p) * 0.1, 140);
+        o.textContent = m + '%';
+        up.style.transform = `scaleY(${p > 0 ? h : 0})`; dn.style.transform = `scaleY(${p < 0 ? h : 0})`;
+        lb.setAttribute('y', String(p >= 0 ? 160 - h - 8 : 160 + h + 16));
+        lb.textContent = p === 0 ? '£0' : (p < 0 ? '-' : '') + '£' + Math.abs(p).toLocaleString('en-GB');
+      };
+      r.addEventListener('input', go); go();
+    });
+  });
+</script>
