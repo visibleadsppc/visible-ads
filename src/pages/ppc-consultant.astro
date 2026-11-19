@@ -5,27 +5,27 @@ import PartnerBadges from '../components/PartnerBadges.astro';
 const faqs = [
   {
     question: 'What does a PPC consultant do?',
-    answer: 'A PPC consultant plans, builds and runs your paid advertising and is accountable for what it earns. In practice that means checking tracking against your real orders or leads, structuring accounts, cutting wasted spend, deciding budgets every week, testing ads and landing pages, and explaining the numbers in plain English.',
+    answer: 'A PPC consultant plans, builds and runs your paid advertising and is accountable for what it earns. That means checking tracking against your real orders or leads, structuring accounts, cutting wasted spend, deciding budgets every week, testing ads and landing pages, and explaining the numbers in plain English.',
   },
   {
     question: 'How much does a PPC consultant cost?',
-    answer: 'Visible Ads charges per channel managed, plus VAT. Silver is £1,000 a month for ad budgets up to £3,000 (10 hours a month). Gold is £1,500 a month for budgets up to £20,000 (20 hours). Platinum is £2,000 a month plus 5% for budgets over £20,000 (35 hours, with click-fraud protection). Creative is not included, and Meta and Google need a one-off £1,000 tracking setup. The minimum term is three months, then rolling monthly with 30 days notice.',
+    answer: 'Visible Ads charges per channel managed plus VAT. Silver is £1,000 a month for ad budgets up to £3,000 (10 hours a month). Gold is £1,500 a month for budgets up to £20,000 (20 hours). Platinum is £2,000 a month plus 5% for budgets over £20,000 (35 hours and click-fraud protection). Creative is not included. Meta and Google need a one-off £1,000 tracking setup. The minimum term is three months and then it rolls monthly on 30 days notice.',
   },
   {
     question: 'Is a PPC consultant better than a PPC agency?',
-    answer: 'It depends on who does the work. A large agency can offer more people and more services. A founder-led consultancy keeps the people who set your strategy close to your account. Ask any firm you are considering who makes the weekly budget decisions on your account and how many hours a month are contracted.',
+    answer: 'Neither is better in every case. A large agency can offer more people and more services. A founder-led consultancy keeps the people who set your strategy close to your account. Ask any firm you are considering who makes the weekly budget decisions on your account and how many hours a month are contracted.',
   },
   {
     question: 'Do you work with businesses outside London?',
-    answer: 'Yes. Visible Ads is London-based and works with ecommerce and B2B clients in the UK, US and Europe. Calls and video updates run weekly, so location does not limit the service.',
+    answer: 'Yes. Visible Ads is London-based and works with ecommerce and B2B clients in the UK, US and Europe. Calls and video updates run weekly. Location does not limit the service.',
   },
   {
     question: 'Which platforms do you manage as a Google Ads consultant?',
-    answer: 'Google Ads is the most common starting point, covering Search, Shopping, Performance Max, Display and YouTube. The same service extends to Microsoft Advertising, Amazon Ads, Meta, TikTok and LinkedIn when those channels make sense for your business.',
+    answer: 'Google Ads is the most common starting point and covers Search, Shopping, Performance Max, Display and YouTube. The same service extends to Microsoft Advertising, Amazon Ads, Meta, TikTok and LinkedIn when those channels make sense for your business.',
   },
   {
     question: 'How quickly will you reply to an enquiry?',
-    answer: 'You will get a first reply within one working day, including after a weekend. That is the first reply to your enquiry. It is not a turnaround time for an audit.',
+    answer: 'A first reply comes within one working day. That covers weekends. It refers to the first reply to your enquiry and carries no turnaround promise for the audit.',
   },
 ];
 
@@ -63,16 +63,16 @@ const schema = {
 const glance = [
   'Founder-led PPC consultancy, London-based, founded by Boh Tjarks.',
   'Google Ads, Microsoft Advertising, Amazon Ads, Meta, TikTok and LinkedIn under one profit target.',
-  'Fees from £1,000 a month per channel plus VAT, with monthly hours stated for every tier.',
+  'Fees from £1,000 a month per channel plus VAT. Monthly hours are stated for every tier.',
   'Weekly calls or video updates and a fixed set of weekly budget rules.',
-  'A free profit audit to start, with a first reply inside one working day.',
+  'A free profit audit to start. First reply inside one working day.',
 ];
 
 const weekly = [
   { title: 'Tracking checked against real orders.', text: 'Platform conversions are compared with your shop, CRM or GA4 so decisions rest on sales that happened.' },
   { title: 'Waste removed.', text: 'Search terms, placements and audiences that spend without returning are excluded.' },
   { title: 'Budget moved on fixed rules.', text: 'Spend rises where the return supports it and drops where it does not.' },
-  { title: 'Ads and landing pages tested.', text: 'New copy, creative and offers run as controlled tests, with conversion rate work alongside.' },
+  { title: 'Ads and landing pages tested.', text: 'New copy, creative and offers run as controlled tests. Conversion rate work runs alongside.' },
   { title: 'A plain English update.', text: 'A weekly call or video update, a KPI dashboard and a quarterly review.' },
 ];
 
@@ -85,9 +85,9 @@ const rules = [
 ];
 
 const compare = [
-  { q: 'Who decides your weekly budget?', a: 'The founder-led team that wrote your plan, using the published rules below.', b: 'Often an account manager who reports to someone else.' },
+  { q: 'Who decides your weekly budget?', a: 'The founder-led team that wrote your plan. It applies the published rules below.', b: 'Often an account manager who reports to someone else.' },
   { q: 'How are hours stated?', a: '10, 20 or 35 hours a month, depending on the tier.', b: 'Often unstated, or shared across many accounts.' },
-  { q: 'Who is on your calls?', a: 'The people doing the work, weekly.', b: 'Often account management, with specialists brought in as needed.' },
+  { q: 'Who is on your calls?', a: 'The people doing the work, weekly.', b: 'Often account management. Specialists join as needed.' },
   { q: 'What suits it best?', a: 'Ecommerce and B2B brands with enough spend that waste shows on the P&L.', b: 'Very large multi-country programmes that need many specialists.' },
 ];
 ---
@@ -104,7 +104,7 @@ const compare = [
         <div class="lg:col-span-3">
           <span class="inline-block px-4 py-1.5 bg-electric/20 text-electric-light text-sm font-medium rounded-full mb-6">Google Partner, Microsoft Advertising Partner, Amazon Ads Verified Partner, Meta Business Partner</span>
           <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-6">PPC Consultant in London for Ecommerce and B2B Brands</h1>
-          <p class="text-lg sm:text-xl text-slate-light mb-8 leading-relaxed">Boh Tjarks founded Visible Ads, a founder-led PPC consultancy that manages your Google Ads and other paid channels every week and judges them against your margin. Fees start at £1,000 a month per channel plus VAT.</p>
+          <p class="text-lg sm:text-xl text-slate-light mb-8 leading-relaxed">Boh Tjarks founded Visible Ads. It is a founder-led PPC consultancy that manages your Google Ads and other paid channels every week and judges them against your margin. Fees start at £1,000 a month per channel plus VAT.</p>
           <div class="flex flex-col sm:flex-row gap-4">
             <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-8 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a free profit audit</a>
             <a href="/contact/" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/20 hover:bg-white/10 transition-colors">Talk to Boh</a>
@@ -136,8 +136,8 @@ const compare = [
   <section class="py-20 lg:py-24 bg-white" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Who you actually work with</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Visible Ads is a founder-led, London-based PPC consultancy. Boh Tjarks founded it, and your account sits with the people who set the strategy. The agency is a Google Partner, Microsoft Advertising Partner, Amazon Ads Verified Partner and Meta Business Partner, and it won at the UK Search Awards in 2022.</p>
-      <p class="text-lg text-gray-700 leading-relaxed">Visible Ads manages £3M of annual ad spend, mostly for ecommerce and B2B businesses turning over £1M to £20M a year in the UK, US and Europe. Clients across London, the home counties and the rest of the UK work with Visible Ads the same way, through weekly calls or video updates. You can read more about the people on the <a href="/about/" class="text-electric underline hover:text-electric-dark">about page</a>.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Visible Ads is a founder-led, London-based PPC consultancy. Boh Tjarks founded it. Your account sits with the people who set the strategy. The agency is a Google Partner, Microsoft Advertising Partner, Amazon Ads Verified Partner and Meta Business Partner. It won at the UK Search Awards in 2022.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">Visible Ads manages £3M of annual ad spend. The clients are mostly ecommerce and B2B businesses turning over £1M to £20M a year in the UK, US and Europe. Clients in the UK, US and Europe work with Visible Ads the same way through weekly calls or video updates. You can read more about the people on the <a href="/about/" class="text-electric underline hover:text-electric-dark">about page</a>.</p>
     </div>
   </section>
 
@@ -145,14 +145,14 @@ const compare = [
   <section class="py-20 lg:py-24 bg-sky-tint" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Why a founder-led consultancy works for PPC</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">PPC rewards fast, well informed decisions. Search terms change daily, margins differ by product and a budget rule is only useful if the person applying it understands why it exists. Every handover between a strategist, an account manager and a specialist adds delay and loses detail.</p>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">A consultancy keeps that chain short. The people who wrote your plan review your numbers each week, so a tracking problem or a wasteful campaign gets fixed in the same conversation it is spotted in. You also know what you are paying for, because each tier states its monthly hours.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">PPC rewards fast, well informed decisions. Search terms change daily. Margins differ by product. A budget rule is only useful if the person applying it understands why it exists. Every handover between a strategist, an account manager and a specialist adds delay and loses detail.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">A consultancy keeps that chain short. The people who wrote your plan review your numbers each week. A tracking problem or a wasteful campaign gets fixed in the conversation where it is spotted. Each tier states its monthly hours. You know what you are paying for.</p>
       <ul class="space-y-4 text-lg text-gray-700 leading-relaxed">
-        <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Silver, £1,000 a month.</strong> 10 hours a month for ad budgets up to £3,000.</li>
-        <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Gold, £1,500 a month.</strong> 20 hours a month for budgets up to £20,000.</li>
-        <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Platinum, £2,000 a month plus 5%.</strong> 35 hours a month for budgets over £20,000, with click-fraud protection.</li>
+        <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Silver at £1,000 a month.</strong> 10 hours a month for ad budgets up to £3,000.</li>
+        <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Gold at £1,500 a month.</strong> 20 hours a month for budgets up to £20,000.</li>
+        <li class="border-l-4 border-electric pl-5"><strong class="text-navy">Platinum at £2,000 a month plus 5%.</strong> 35 hours a month and click-fraud protection for budgets over £20,000.</li>
       </ul>
-      <p class="text-gray-700 mt-6 leading-relaxed">All fees are per channel, plus VAT, with unlimited campaigns on that channel. Creative is not included. Meta and Google need a one-off £1,000 tracking setup, and the minimum term is three months, then rolling monthly with 30 days notice. A performance model with a reduced or zero retainer and a revenue share is available by application. The full breakdown sits on the <a href="/ppc-management/" class="text-electric underline hover:text-electric-dark">PPC management services</a> page.</p>
+      <p class="text-gray-700 mt-6 leading-relaxed">All fees are per channel plus VAT and cover unlimited campaigns on that channel. Creative is not included. Meta and Google need a one-off £1,000 tracking setup. The minimum term is three months and then it rolls monthly on 30 days notice. A performance model with a reduced or zero retainer and a revenue share is available by application. The full breakdown sits on the <a href="/ppc-management/" class="text-electric underline hover:text-electric-dark">PPC management services</a> page.</p>
     </div>
   </section>
 
@@ -160,7 +160,7 @@ const compare = [
   <section class="py-20 lg:py-24 bg-white" data-animate>
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">PPC consultant or large agency: what to compare</h2>
-      <p class="text-lg text-gray-700 mb-8 leading-relaxed max-w-3xl">Neither model is right for everyone. These are the questions worth asking any firm before you sign, with how Visible Ads answers them and what is often the case elsewhere.</p>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed max-w-3xl">Ask any firm these questions before you sign. The table shows how Visible Ads answers them and what is often the case elsewhere.</p>
       <div class="overflow-x-auto rounded-2xl border border-gray-200">
         <table class="w-full text-left text-base">
           <caption class="sr-only">Founder-led consultancy compared with a typical large agency</caption>
@@ -193,7 +193,7 @@ const compare = [
   <section class="py-20 lg:py-24 bg-white" data-animate>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">The rules behind every budget decision</h2>
-      <p class="text-lg text-gray-700 mb-8 leading-relaxed">Profit is the goal and ROAS is the control the account is managed to. Each campaign sits in one weekly band and its budget moves to match, so the decision does not depend on mood or on the temptation to keep spending.</p>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">Profit is the goal and ROAS is the control the account is managed to. Each campaign sits in one weekly band and its budget moves to match. The decision does not depend on mood or on the temptation to keep spending.</p>
       <div class="overflow-x-auto rounded-2xl border border-gray-200">
         <table class="w-full text-left text-base">
           <caption class="sr-only">Weekly budget rules by return on ad spend</caption>
@@ -213,8 +213,8 @@ const compare = [
   <section class="py-20 lg:py-24 bg-sky-tint" data-animate>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">What the work has produced</h2>
-      <p class="text-lg text-gray-700 mb-6 leading-relaxed">For CFW.co.uk, Google Ads between 1 August 2023 and 30 September 2026 returned £6,735,546.63 in conversion value on £554,818.75 of spend, about 12x ROAS across 686,404 clicks. That figure is Google's reported conversion value, which is revenue and not profit.</p>
-      <p class="text-lg text-gray-700 leading-relaxed">More examples, with the channel and time window for each, are in the <a href="/case-studies/" class="text-electric underline hover:text-electric-dark">case studies</a>.</p>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Google Ads for CFW.co.uk between 1 August 2023 and 30 September 2026 returned £6,735,546.63 in conversion value on £554,818.75 of spend. That is about 12x ROAS across 686,404 clicks. The figure is Google's reported conversion value. It measures revenue and excludes profit.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">The <a href="/case-studies/" class="text-electric underline hover:text-electric-dark">case studies</a> list more examples with the channel and time window for each.</p>
     </div>
   </section>
 
@@ -227,7 +227,7 @@ const compare = [
         <li>Teams who want accountable people looking at the numbers every week.</li>
         <li>Owners who want to know the monthly hours and the fee before they sign.</li>
       </ul>
-      <p class="text-lg text-gray-700 leading-relaxed">Agencies looking for delivery under their own brand should see the <a href="/white-label-ppc-seo-pricing-uk/" class="text-electric underline hover:text-electric-dark">white-label PPC pricing</a>. If you are comparing options, start with a <a href="/free-ads-audit/" class="text-electric underline hover:text-electric-dark">free audit of your Google Ads, Amazon or Meta account</a> and see the findings before you commit to anything.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">Agencies looking for delivery under their own brand should see the <a href="/white-label-ppc-seo-pricing-uk/" class="text-electric underline hover:text-electric-dark">white-label PPC pricing</a>. Start with a <a href="/free-ads-audit/" class="text-electric underline hover:text-electric-dark">free audit of your Google Ads, Amazon or Meta account</a> if you are comparing options. You see the findings before you commit to anything.</p>
     </div>
   </section>
 
