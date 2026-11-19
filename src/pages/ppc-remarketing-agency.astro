@@ -1,0 +1,215 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PartnerBadges from '../components/PartnerBadges.astro';
+
+const faqs = [
+  {
+    question: 'What is PPC remarketing?',
+    answer: 'PPC remarketing is paid advertising aimed at people who have already visited your site, viewed a product, started a basket or bought before. It runs across search, social and display. The work is deciding which audience sees which ad on which channel and for how long.',
+  },
+  {
+    question: 'Does remarketing just claim credit for sales that would have happened anyway?',
+    answer: 'Partly. It depends on the audience. Someone who put a product in a basket may well have come back without an ad. Whether the platform reports the sale depends on its attribution settings and on whether the person saw or clicked an ad. A sound setup reports remarketing separately from new customer campaigns, excludes people who have just bought, and tests incrementality where volume allows. Where volume is too low for a clean test, judge remarketing on blended revenue and cost per new customer instead.',
+  },
+  {
+    question: 'How many people do I need on a list before remarketing works?',
+    answer: 'Google requires a data segment to hold at least 1,000 cookies before it can be used to tailor Search ads. Small sites often start with broad audiences and widen them as traffic grows. When a list is too small to use, the budget is usually better placed where it can learn.',
+  },
+  {
+    question: 'Can I remarket to people in any industry?',
+    answer: 'No. Google restricts personalised advertising for sensitive interest categories, and health is one of them. In those categories advertiser-curated audiences such as Customer Match and your data segments are not supported. If you advertise in a sensitive category, the account has to be planned around the audience options that remain.',
+  },
+  {
+    question: 'How much does PPC remarketing management cost?',
+    answer: 'Visible Ads fees are per channel managed plus VAT. Silver is £1,000 a month for ad budgets up to £3,000. Gold is £1,500 a month for budgets up to £20,000. Platinum is £2,000 a month plus 5% above that. Creative is not included. Meta and Google also need a one-off £1,000 tracking setup. The minimum term is three months and then it rolls monthly on 30 days notice.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'PPC Remarketing Agency',
+      serviceType: 'PPC remarketing management',
+      provider: { '@type': 'Organization', name: 'Visible Ads', url: 'https://visible-ads.com' },
+      description: 'PPC remarketing across Google Search audience lists, Meta retargeting and display, with a plain account of frequency caps and incrementality testing.',
+      url: 'https://visible-ads.com/ppc-remarketing-agency/',
+      areaServed: 'GB',
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://visible-ads.com/' },
+        { '@type': 'ListItem', position: 2, name: 'PPC Management', item: 'https://visible-ads.com/ppc-management/' },
+        { '@type': 'ListItem', position: 3, name: 'PPC Remarketing Agency', item: 'https://visible-ads.com/ppc-remarketing-agency/' },
+      ],
+    },
+  ],
+};
+
+const layers = [
+  { name: 'Search audience lists', body: 'Past visitors and customers can be layered onto Google Search campaigns. A remarketing setup usually raises bids on keywords you already run when the searcher has visited before, and can bid on broader keywords only for those people.' },
+  { name: 'Meta retargeting', body: 'Product viewers, basket abandoners and past buyers can each get their own ad set and their own message. Buyers are usually excluded from acquisition offers. Keeping prospecting apart stops it hiding behind remarketing results.' },
+  { name: 'Display', body: 'Display is often used for low cost reminders and is where frequency matters most. A setup usually caps it, reviews placements and keeps it separate from prospecting.' },
+];
+
+const rules = [
+  { rule: 'One audience map', detail: 'Name every list by stage (viewed product, basket, purchased) and give it one owner channel. That reduces overlap between platforms, but it cannot match one person across platforms or stop two platforms claiming the same sale.' },
+  { rule: 'Frequency caps', detail: 'Display and Video campaigns in Google Ads support frequency caps. Demand Gen does not, so exposure there is managed through audience size and budget.' },
+  { rule: 'Purchaser exclusions', detail: 'People who have just bought usually leave the reminder audiences and move into a separate repeat purchase journey.' },
+  { rule: 'Reported apart', detail: 'Remarketing is best reported on its own line, not blended into new customer results.' },
+];
+---
+
+<Layout title="PPC Remarketing Agency | Visible Ads" description="PPC remarketing across Google Search audience lists, Meta retargeting and display, with frequency caps and an honest answer on incrementality." schema={schema}>
+
+  <section class="relative py-20 lg:py-28 overflow-hidden bg-navy" data-animate>
+    <div class="absolute inset-0 bg-gradient-to-br from-navy to-navy-light"></div>
+    <div class="absolute inset-0 dot-pattern opacity-10"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-sm text-slate-light mb-8" aria-label="Breadcrumb"><a href="/" class="hover:text-white">Home</a><span class="mx-2">/</span><a href="/ppc-management/" class="hover:text-white">PPC Management</a><span class="mx-2">/</span><span class="text-white">PPC Remarketing Agency</span></nav>
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
+        <div class="lg:col-span-3">
+          <span class="inline-block px-4 py-1.5 bg-electric/20 text-electric-light text-sm font-medium rounded-full mb-6">Google Partner, Microsoft Advertising Partner, Meta Business Partner</span>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-6">PPC Remarketing Agency</h1>
+          <p class="text-lg sm:text-xl text-slate-light mb-8 leading-relaxed">Remarketing works best planned as one system across Google Search, Meta and display, with each audience owned by one channel and each platform's reported sales read with its attribution settings in mind.</p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="/free-ads-audit/" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-semibold px-8 py-4 rounded-xl hover:bg-electric transition-colors text-lg">Book a free profit audit</a>
+            <a href="/contact/" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/20 hover:bg-white/10 transition-colors">Talk to us</a>
+          </div>
+        </div>
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-lg">
+          <h2 class="text-lg font-heading font-bold text-navy mb-4">At a glance</h2>
+          <ul class="space-y-3 text-gray-700 text-sm leading-relaxed">
+            <li><strong class="text-navy">Channels:</strong> Google Search audience lists, Meta retargeting, display</li>
+            <li><strong class="text-navy">Controls to look for:</strong> frequency caps, purchaser exclusions, one audience map</li>
+            <li><strong class="text-navy">Measurement:</strong> remarketing reported on its own line, incrementality tests where volume allows</li>
+            <li><strong class="text-navy">Fees:</strong> per channel plus VAT, from £1,000 a month, three month minimum, one-off £1,000 Meta and Google tracking setup</li>
+            <li><strong class="text-navy">Next step:</strong> a free profit audit and a first reply within 1 working day</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 bg-sky-tint border-y border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <PartnerBadges compact />
+    </div>
+  </section>
+
+  <section class="py-20 lg:py-24 bg-white" data-animate>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">How the remarketing architecture fits together</h2>
+      <p class="text-lg text-gray-700 leading-relaxed mb-8">PPC remarketing is advertising to people who have already visited your site or bought from you. The audience is warm. It is also the easiest paid traffic to over credit. The architecture below shows one list of visitors and customers feeding three channels, with measurement across all of them.</p>
+      <figure class="mb-10">
+        <svg viewBox="0 0 720 300" role="img" aria-labelledby="arch-title arch-desc" class="w-full h-auto">
+          <title id="arch-title">PPC remarketing architecture</title>
+          <desc id="arch-desc">Site visitors and customers feed one audience map. The audience map feeds Search audience lists, Meta retargeting and display. All three channels feed one measurement layer that reports remarketing separately and tests incrementality.</desc>
+          <rect x="10" y="110" width="150" height="80" rx="12" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+          <text x="85" y="145" text-anchor="middle" font-size="15" font-weight="700" fill="#0A1628">Visitors and</text>
+          <text x="85" y="166" text-anchor="middle" font-size="15" font-weight="700" fill="#0A1628">customers</text>
+          <rect x="200" y="110" width="140" height="80" rx="12" fill="#0A1628"/>
+          <text x="270" y="145" text-anchor="middle" font-size="15" font-weight="700" fill="#FFFFFF">One audience</text>
+          <text x="270" y="166" text-anchor="middle" font-size="15" font-weight="700" fill="#FFFFFF">map</text>
+          <rect x="390" y="20" width="170" height="60" rx="12" fill="#FFFFFF" stroke="#2563EB" stroke-width="2"/>
+          <text x="475" y="56" text-anchor="middle" font-size="14" font-weight="700" fill="#0A1628">Search audience lists</text>
+          <rect x="390" y="120" width="170" height="60" rx="12" fill="#FFFFFF" stroke="#2563EB" stroke-width="2"/>
+          <text x="475" y="156" text-anchor="middle" font-size="14" font-weight="700" fill="#0A1628">Meta retargeting</text>
+          <rect x="390" y="220" width="170" height="60" rx="12" fill="#FFFFFF" stroke="#2563EB" stroke-width="2"/>
+          <text x="475" y="256" text-anchor="middle" font-size="13" font-weight="700" fill="#0A1628">Display, frequency capped</text>
+          <rect x="600" y="90" width="110" height="120" rx="12" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+          <text x="655" y="135" text-anchor="middle" font-size="14" font-weight="700" fill="#0A1628">Measurement</text>
+          <text x="655" y="156" text-anchor="middle" font-size="12" fill="#0A1628">reported apart,</text>
+          <text x="655" y="174" text-anchor="middle" font-size="12" fill="#0A1628">holdout tested</text>
+          <g stroke="#475569" stroke-width="2" fill="none">
+            <path d="M160 150H200"/><path d="M340 150H365V50H390"/><path d="M340 150H390"/><path d="M340 150H365V250H390"/>
+            <path d="M560 50H580V150H600"/><path d="M560 150H600"/><path d="M560 250H580V150H600"/>
+          </g>
+        </svg>
+        <figcaption class="text-sm text-gray-600 mt-3">Visitors and customers feed one audience map. The map feeds search, Meta and display. All three report into one measurement layer.</figcaption>
+      </figure>
+      <div class="space-y-6">
+        {layers.map((l) => (
+          <div class="border-l-4 border-electric pl-5">
+            <h3 class="font-heading text-xl font-bold text-navy mb-2">{l.name}</h3>
+            <p class="text-lg text-gray-700 leading-relaxed">{l.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 lg:py-24 bg-sky-tint" data-animate>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Search audience lists on Google</h2>
+      <p class="text-lg text-gray-700 leading-relaxed mb-5">Google lets you tailor Search campaigns for people who have visited your site before. The two uses are changing bids on keywords you already run and bidding on extra keywords only for past visitors or buyers.</p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-5">That matters for budgets. A searcher who has visited before is worth a higher bid on your core terms and often a broader keyword you would not pay for cold. Build the lists by buying stage and set the bid changes from your margin. The same weekly rules apply as across <a href="/ppc-management/" class="text-electric underline hover:text-electric-dark">PPC management</a>.</p>
+      <p class="text-lg text-gray-700 leading-relaxed">Small lists are a real constraint. Google's <a href="https://support.google.com/google-ads/answer/2701222" class="text-electric underline hover:text-electric-dark" target="_blank" rel="noopener noreferrer">help page on data segments for Search</a> requires at least 1,000 cookies in a segment before it can tailor Search ads. It also caps membership at 540 days. If your list is under the threshold, start with the larger audiences.</p>
+    </div>
+  </section>
+
+  <section class="py-20 lg:py-24 bg-white" data-animate>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Meta retargeting and display, in sequence</h2>
+      <p class="text-lg text-gray-700 leading-relaxed mb-5">A common way to split Meta retargeting is by what the person did: viewed a product, added to basket or bought. Each stage gets its own message and its own budget line. Buyers should move out of acquisition offers straight away.</p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-5">Display is the channel where frequency decides whether a reminder helps or irritates. Google Ads supports frequency caps in Display and Video campaigns. Its <a href="https://support.google.com/google-ads/answer/6034106" class="text-electric underline hover:text-electric-dark" target="_blank" rel="noopener noreferrer">frequency capping help page</a> states that Demand Gen campaigns do not support them. A cap can be set per audience stage. A basket abandoner sees more than someone who viewed a blog post a month ago. Placements, network choice and creative for this channel sit on the <a href="/display-advertising/" class="text-electric underline hover:text-electric-dark">display advertising</a> page. The <a href="/paid-social/" class="text-electric underline hover:text-electric-dark">paid social service</a> covers the wider Meta, TikTok and LinkedIn setup, including the prospecting that fills these audiences.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-8">
+        {rules.map((r) => (
+          <div class="bg-sky-tint rounded-2xl p-6 border border-gray-100">
+            <h3 class="font-heading font-bold text-navy mb-2">{r.rule}</h3>
+            <p class="text-gray-700 text-sm leading-relaxed">{r.detail}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 lg:py-24 bg-navy" data-animate>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">Does remarketing just claim credit for sales?</h2>
+      <p class="text-lg text-white/85 leading-relaxed mb-5">In part. Someone who put a pair of shoes in a basket has a high chance of coming back without an ad. Depending on the platform's attribution settings, the sale may still be recorded against an ad they saw or clicked. That is why remarketing can post a flattering ROAS.</p>
+      <p class="text-lg text-white/85 leading-relaxed mb-5">The way to separate the sales the ads caused from the sales that were coming anyway is a controlled comparison. Google describes this in its <a href="https://support.google.com/google-ads/answer/12003020" class="text-sky-light underline hover:text-white" target="_blank" rel="noopener noreferrer">Conversion Lift documentation</a>. One group sees the ads and a control group does not. The gap in conversions is the lift. Google also states that Conversion Lift is not available for every account and is arranged through your Google representative.</p>
+      <p class="text-lg text-white/85 leading-relaxed mb-3">A sensible approach to measuring remarketing looks like this.</p>
+      <ul class="space-y-3 text-lg text-white/85 leading-relaxed mb-5 list-disc pl-6">
+        <li>Report remarketing on its own line so it cannot flatter the whole account.</li>
+        <li>Judge the account on new customer revenue and blended profit as well as platform ROAS. The <a href="/roas-vs-profit/" class="text-sky-light underline hover:text-white">ROAS vs profit calculator</a> shows why those can disagree.</li>
+        <li>Pause a remarketing audience for a set period and compare periods. This before and after test is much weaker than Google Conversion Lift because seasonality, promotions and other account changes can move the results. Read it as a rough signal only.</li>
+        <li>Say plainly when volume is too low to test, and show no lift figure the data cannot support.</li>
+      </ul>
+      <p class="text-lg text-white/85 leading-relaxed">Consent shapes the audience too. The ICO's <a href="https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-on-the-use-of-storage-and-access-technologies/how-do-the-rules-apply-to-online-advertising/" class="text-sky-light underline hover:text-white" target="_blank" rel="noopener noreferrer">guidance on online advertising and PECR</a> says storage and access technologies used for online advertising generally need consent. Where a remarketing list is built from cookies or similar technologies, the size of that audience follows your consent rate. Google also restricts personalised advertising in sensitive categories such as health under its <a href="https://support.google.com/adspolicy/answer/143465" class="text-sky-light underline hover:text-white" target="_blank" rel="noopener noreferrer">personalised advertising policy</a>. Customer Match and your data segments are not supported there.</p>
+    </div>
+  </section>
+
+  <section class="py-20 lg:py-24 bg-white" data-animate>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-6">Fees and next step</h2>
+      <p class="text-lg text-gray-700 leading-relaxed mb-5">Visible Ads fees are per channel managed plus VAT. Silver is £1,000 a month for ad budgets up to £3,000. Gold is £1,500 a month up to £20,000. Platinum is £2,000 a month plus 5% above £20,000. Creative is not included. Meta and Google also need a one-off £1,000 tracking setup. The minimum term is three months and then it rolls monthly on 30 days notice.</p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-8">The next step is a free profit audit of your current remarketing, which looks at which audiences exist, what each channel claims and where the same sale may be counted twice. Visible Ads replies to enquiries within 1 working day. Full fee detail is in the <a href="/ppc-management/#pricing" class="text-electric underline hover:text-electric-dark">PPC management pricing</a> section.</p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="/free-ads-audit/" class="inline-flex items-center justify-center bg-cta text-white font-semibold px-8 py-4 rounded-xl hover:bg-electric transition-colors">Book a free profit audit</a>
+        <a href="/contact/" class="inline-flex items-center justify-center text-navy font-medium px-8 py-4 rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors">Contact us</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 lg:py-24 bg-gray-50" data-animate>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-navy mb-10 text-center">Frequently asked questions</h2>
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            <summary class="cursor-pointer text-lg font-heading font-bold text-navy">{faq.question}</summary>
+            <p class="text-gray-700 leading-relaxed mt-3">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Layout>
