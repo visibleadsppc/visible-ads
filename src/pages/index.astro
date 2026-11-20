@@ -1,6 +1,7 @@
 ﻿---
 import Layout from '../layouts/Layout.astro';
 import ChannelMap from '../components/visuals/ChannelMap.astro';
+import BlueprintCycle from '../components/visuals/BlueprintCycle.astro';
 import ResultBeforeAfter from '../components/visuals/ResultBeforeAfter.astro';
 import MarginSplit from '../components/visuals/MarginSplit.astro';
 import CountUp from '../components/CountUp.astro';
@@ -239,33 +240,38 @@ const schema = {
       <h2 class="font-heading text-3xl sm:text-4xl font-bold text-navy">The Visible Ads Blueprint</h2>
       <p class="mt-4 text-lg text-slate max-w-2xl mx-auto">A proven, four-phase methodology that turns ad spend into predictable, scalable revenue.</p>
     </div>
-    <div class="relative">
-      <div class="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-electric via-electric-light to-electric"></div>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
-        <div class="text-center relative">
-          <div class="w-20 h-20 rounded-full bg-electric text-white flex items-center justify-center text-2xl font-heading font-extrabold mx-auto relative z-10 shadow-lg shadow-electric/30">1</div>
-          <h3 class="font-heading text-xl font-bold text-navy mt-6 mb-3">Discover</h3>
-          <p class="text-slate text-sm leading-relaxed">Deep-dive audit of your accounts, competitors, market, and growth opportunities.</p>
-        </div>
-        <div class="text-center relative">
-          <div class="w-20 h-20 rounded-full bg-electric text-white flex items-center justify-center text-2xl font-heading font-extrabold mx-auto relative z-10 shadow-lg shadow-electric/30">2</div>
-          <h3 class="font-heading text-xl font-bold text-navy mt-6 mb-3">Strategise</h3>
-          <p class="text-slate text-sm leading-relaxed">Bespoke roadmap with clear KPIs, budget allocation, and channel prioritisation.</p>
-        </div>
-        <div class="text-center relative">
-          <div class="w-20 h-20 rounded-full bg-electric text-white flex items-center justify-center text-2xl font-heading font-extrabold mx-auto relative z-10 shadow-lg shadow-electric/30">3</div>
-          <h3 class="font-heading text-xl font-bold text-navy mt-6 mb-3">Execute</h3>
-          <p class="text-slate text-sm leading-relaxed">Campaign build, launch, and hands-on management across every active channel.</p>
-        </div>
-        <div class="text-center relative">
-          <div class="w-20 h-20 rounded-full bg-electric text-white flex items-center justify-center text-2xl font-heading font-extrabold mx-auto relative z-10 shadow-lg shadow-electric/30">4</div>
-          <h3 class="font-heading text-xl font-bold text-navy mt-6 mb-3">Optimise</h3>
-          <p class="text-slate text-sm leading-relaxed">Continuous testing, reporting, and refinement to compound results month on month.</p>
-        </div>
-      </div>
-    </div>
-    <div class="mt-14 flex justify-center">
-      <img src="/images/NoBackground.gif" alt="Visible Ads Blueprint animated" class="max-w-xs sm:max-w-sm rounded-2xl" loading="lazy" width="400" height="400" />
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center max-w-5xl mx-auto">
+      <ol class="grid gap-4">
+        <li class="flex gap-5 items-start bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
+          <span class="flex-none w-12 h-12 rounded-full bg-electric text-white flex items-center justify-center text-lg font-heading font-extrabold shadow-md shadow-electric/30">1</span>
+          <div>
+            <h3 class="font-heading text-xl font-bold text-navy mb-1">Discover</h3>
+            <p class="text-slate text-sm leading-relaxed">Deep-dive audit of your accounts, competitors, market, and growth opportunities.</p>
+          </div>
+        </li>
+        <li class="flex gap-5 items-start bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
+          <span class="flex-none w-12 h-12 rounded-full bg-electric text-white flex items-center justify-center text-lg font-heading font-extrabold shadow-md shadow-electric/30">2</span>
+          <div>
+            <h3 class="font-heading text-xl font-bold text-navy mb-1">Strategise</h3>
+            <p class="text-slate text-sm leading-relaxed">Bespoke roadmap with clear KPIs, budget allocation, and channel prioritisation.</p>
+          </div>
+        </li>
+        <li class="flex gap-5 items-start bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
+          <span class="flex-none w-12 h-12 rounded-full bg-electric text-white flex items-center justify-center text-lg font-heading font-extrabold shadow-md shadow-electric/30">3</span>
+          <div>
+            <h3 class="font-heading text-xl font-bold text-navy mb-1">Execute</h3>
+            <p class="text-slate text-sm leading-relaxed">Campaign build, launch, and hands-on management across every active channel.</p>
+          </div>
+        </li>
+        <li class="flex gap-5 items-start bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
+          <span class="flex-none w-12 h-12 rounded-full bg-electric text-white flex items-center justify-center text-lg font-heading font-extrabold shadow-md shadow-electric/30">4</span>
+          <div>
+            <h3 class="font-heading text-xl font-bold text-navy mb-1">Optimise</h3>
+            <p class="text-slate text-sm leading-relaxed">Continuous testing, reporting, and refinement to compound results month on month.</p>
+          </div>
+        </li>
+      </ol>
+      <BlueprintCycle class="w-full max-w-sm sm:max-w-md mx-auto" />
     </div>
     <div class="mt-10 text-center">
       <a href="/blueprint/" class="inline-flex items-center text-electric font-heading font-bold text-lg hover:underline">

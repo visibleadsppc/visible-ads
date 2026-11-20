@@ -1,0 +1,91 @@
+---
+// K11. The Blueprint as a loop: four phases on a ring, a light travelling round it. Replaces the 2.9MB GIF.
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+const nodes = [
+  { n: 1, label: 'Discover', x: 200, y: 60 },
+  { n: 2, label: 'Strategise', x: 340, y: 200 },
+  { n: 3, label: 'Execute', x: 200, y: 340 },
+  { n: 4, label: 'Optimise', x: 60, y: 200 },
+];
+const arcs = [
+  'M261.4 74.2 A140 140 0 0 1 325.8 138.6',
+  'M325.8 261.4 A140 140 0 0 1 261.4 325.8',
+  'M138.6 325.8 A140 140 0 0 1 74.2 261.4',
+  'M74.2 138.6 A140 140 0 0 1 138.6 74.2',
+];
+---
+<figure class={`bc ${cls}`} data-kit>
+  <svg viewBox="0 0 400 400" role="img" aria-labelledby="bc-title bc-desc">
+    <title id="bc-title">The Visible Ads Blueprint cycle</title>
+    <desc id="bc-desc">Four phases in a loop: Discover, Strategise, Execute and Optimise, then back to Discover. Continuous improvement, month on month.</desc>
+    <defs>
+      <marker id="bc-head" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M1 1 L8 5 L1 9" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      </marker>
+      <radialGradient id="bc-glow">
+        <stop offset="0" stop-color="#60A5FA" stop-opacity="0.9" />
+        <stop offset="1" stop-color="#60A5FA" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+    <circle class="bc-track" cx="200" cy="200" r="140" />
+    {arcs.map((d, i) => (
+      <path class="bc-arc" d={d} pathLength="1" marker-end="url(#bc-head)" style={`--i:${i}`} />
+    ))}
+    <g class="bc-orbit" aria-hidden="true">
+      <circle cx="200" cy="60" r="18" fill="url(#bc-glow)" />
+      <circle cx="200" cy="60" r="5" fill="#fff" stroke="#2563EB" stroke-width="2.5" />
+    </g>
+    {nodes.map((nd, i) => (
+      <g class="bc-node kit-fade" style={`--i:${i}`}>
+        <circle class="bc-pulse" cx={nd.x} cy={nd.y} r="46" style={`--d:${i * 3}s`} />
+        <circle cx={nd.x} cy={nd.y} r="46" fill="#2563EB" />
+        <circle cx={nd.x} cy={nd.y} r="46" fill="none" stroke="#fff" stroke-opacity="0.25" stroke-width="2" />
+        <text x={nd.x} y={nd.y - 6} class="bc-num">{nd.n}</text>
+        <text x={nd.x} y={nd.y + 14} class="bc-label">{nd.label}</text>
+      </g>
+    ))}
+    <g class="bc-centre kit-fade" style="--i:4">
+      <g class="bc-spin">
+        <path d="M184 166 A20 20 0 0 1 218 160" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" marker-end="url(#bc-head)" />
+        <path d="M216 184 A20 20 0 0 1 182 190" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" marker-end="url(#bc-head)" />
+      </g>
+      <text x="200" y="222" class="bc-c1">Continuous</text>
+      <text x="200" y="242" class="bc-c1">improvement</text>
+      <text x="200" y="262" class="bc-c2">month on month</text>
+    </g>
+  </svg>
+</figure>
+
+<style>
+  .bc { margin: 0; }
+  .bc svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .bc-track { fill: none; stroke: var(--color-gray-200); stroke-width: 2; stroke-dasharray: 2 6; stroke-linecap: round; }
+  .bc-arc { fill: none; stroke: #2563EB; stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.3s ease-out; transition-delay: calc(0.3s + var(--i, 0) * 0.18s); }
+  .bc-num { font-family: var(--font-heading); font-weight: 800; font-size: 22px; fill: #fff; text-anchor: middle; }
+  .bc-label { font-family: var(--font-heading); font-weight: 700; font-size: 13px; fill: #fff; text-anchor: middle; }
+  .bc-c1 { font-family: var(--font-heading); font-weight: 800; font-size: 17px; fill: var(--color-navy); text-anchor: middle; }
+  .bc-c2 { font-size: 12px; fill: var(--color-slate-dark); text-anchor: middle; }
+  .bc-pulse { fill: #2563EB; opacity: 0; transform-box: fill-box; transform-origin: center; }
+  .bc-orbit, .bc-spin { transform-box: view-box; transform-origin: 200px 200px; }
+  .bc-spin { transform-origin: 200px 176px; }
+  .bc-orbit { opacity: 0; transition: opacity 0.5s ease-out 1.1s; }
+  .bc.is-in .bc-orbit, html:not(.kit-ready) .bc-orbit { opacity: 1; }
+  :global(html.kit-ready) .bc:not(.is-in) .bc-arc { stroke-dashoffset: 1; opacity: 0; }
+  @media (prefers-reduced-motion: no-preference) {
+    .bc-orbit { animation: bc-orbit 12s linear infinite; }
+    .bc-pulse { animation: bc-pulse 12s ease-out infinite; animation-delay: var(--d); }
+    .bc-spin { animation: bc-orbit 12s linear infinite; }
+    .bc:not(.is-in) .bc-orbit, .bc:not(.is-in) .bc-pulse, .bc:not(.is-in) .bc-spin { animation-play-state: paused; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bc-orbit { opacity: 1; transition: none; }
+    .bc-arc { transition: none; }
+  }
+  @keyframes bc-orbit { to { transform: rotate(360deg); } }
+  @keyframes bc-pulse {
+    0% { opacity: 0.35; transform: scale(1); }
+    16% { opacity: 0; transform: scale(1.35); }
+    100% { opacity: 0; transform: scale(1.35); }
+  }
+</style>

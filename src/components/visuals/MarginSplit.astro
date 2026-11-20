@@ -1,59 +1,110 @@
 ---
-// K3. Same 4x ROAS on £1,000 spend at three margins. Arithmetic only, labelled as a worked example.
+// K3. Same 4x ROAS on £1,000 spend at three margins, as profit bars against a break-even line. Worked example only.
 interface Props { interactive?: boolean; id?: string; class?: string; calcHref?: string }
 const { interactive = false, id = 'ms', class: cls = '', calcHref = '/roas-vs-profit/#profit-calc' } = Astro.props;
-const spend = 1000, roas = 4, rev = spend * roas;
-const cols = [20, 25, 40].map((m) => ({ m, gross: rev * m / 100, profit: rev * m / 100 - spend }));
+const spend = 1000, roas = 4, rev = spend * roas, SCALE = 60, BE = 100 / roas;
 const gbp = (n: number) => (n < 0 ? '-' : '') + '£' + Math.abs(n).toLocaleString('en-GB');
-const Z = 160, K = 0.1;
 const label = (p: number) => (p < 0 ? `Loss of ${gbp(Math.abs(p))}` : p === 0 ? 'Break-even, £0' : `Profit of ${gbp(p)}`);
+const tone = (p: number) => (p < 0 ? 'loss' : p === 0 ? 'even' : 'profit');
+const pct = (m: number) => Math.min(m, SCALE) / SCALE * 100;
+const geo = (m: number) => ({ cover: pct(Math.min(m, BE)), gapL: pct(Math.min(m, BE)), gapW: Math.abs(pct(m) - pct(BE)) });
+const rows = [20, 25, 40].map((m) => ({ m, gross: rev * m / 100, profit: rev * m / 100 - spend }));
+const line = pct(BE);
 ---
-<figure class={`kit-fig kit-ms ${cls}`} data-kit data-ms={interactive ? '' : undefined} data-spend={spend} data-roas={roas}>
-  <p class="kit-fig-title">Same 4x ROAS, three different outcomes</p>
-  <svg viewBox="0 0 360 270" role="img" aria-labelledby={`${id}-t ${id}-d`} class="kit-ms-svg">
-    <title id={`${id}-t`}>Worked example: 4x ROAS on £1,000 of ad spend at three margins</title>
-    <desc id={`${id}-d`}>At a 20% margin the result is a loss of £200. At 25% it is break-even. At 40% it is a profit of £600. Worked example, not client data.</desc>
-    <line x1="0" y1={Z} x2="360" y2={Z} stroke="#94A3B8" stroke-width="1" />
-    {cols.map((c, i) => {
-      const x = 20 + i * (interactive ? 85 : 115);
-      const h = Math.min(Math.abs(c.profit) * K, 140);
+<figure class={`kit-fig ms ${cls}`} data-kit data-ms={interactive ? '' : undefined} data-spend={spend} data-roas={roas} data-scale={SCALE} style={`--be:${line}%`}>
+  <div class="ms-head">
+    <p class="kit-fig-title ms-title">Same 4x ROAS, three different outcomes</p>
+    <p class="ms-given"><span>£1,000 ad spend</span><span>4x ROAS</span><span>£4,000 revenue</span></p>
+  </div>
+  <ul class="ms-key" aria-hidden="true">
+    <li><i class="k-cover"></i>Pays back the ad spend</li>
+    <li><i class="k-profit"></i>Profit</li>
+    <li><i class="k-loss"></i>Shortfall</li>
+    <li><i class="k-line"></i>Break-even at 25% margin</li>
+  </ul>
+  <ol class="ms-rows">
+    {rows.map((r, i) => {
+      const g = geo(r.m);
       return (
-        <g>
-          {c.profit > 0 && <rect class="kit-barY kit-ms-up" x={x} y={Z - h} width="64" height={h} fill="#2563EB" style={`--i:${i}`} />}
-          {c.profit < 0 && <rect class="kit-barY kit-ms-dn" x={x} y={Z} width="64" height={h} fill="#fff" stroke="#B91C1C" stroke-width="2" stroke-dasharray="5 3" style={`--i:${i}`} />}
-          {c.profit === 0 && <rect x={x} y={Z - 2} width="64" height="4" fill="#475569" />}
-          <text x={x + 32} y={c.profit >= 0 ? Z - h - 8 : Z + h + 16} text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="#0A1628">{c.profit === 0 ? '£0' : gbp(c.profit)}</text>
-          <text x={x + 32} y="236" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#334155">{c.m}% margin</text>
-        </g>
+        <li class="ms-row" data-tone={tone(r.profit)}>
+          <p class="ms-m"><strong>{r.m}%</strong> margin</p>
+          <div class="ms-bar" aria-hidden="true">
+            <span class="ms-cover kit-bar" style={`--i:${i};width:${g.cover}%`}></span>
+            {r.profit !== 0 && <span class={`ms-gap kit-bar ms-gap-${tone(r.profit)}`} style={`--i:${i + 1};left:${g.gapL}%;width:${g.gapW}%`}></span>}
+            <span class="ms-line"></span>
+          </div>
+          <p class="ms-res"><strong>{r.profit === 0 ? '£0' : gbp(r.profit)}</strong><span>{label(r.profit)}</span></p>
+          <p class="ms-sub">{gbp(rev)} revenue × {r.m}% = {gbp(r.gross)} left after product costs, minus {gbp(spend)} ad spend.</p>
+        </li>
       );
     })}
     {interactive && (
-      <g class="kit-ms-live" display="none">
-        <rect class="kit-ms-liveup" x={275} y={Z - 1} width="64" height="1" fill="#2563EB" style="transform-box:fill-box;transform-origin:bottom" />
-        <rect class="kit-ms-livedn" x={275} y={Z} width="64" height="1" fill="#fff" stroke="#B91C1C" stroke-width="2" stroke-dasharray="5 3" style="transform-box:fill-box;transform-origin:top" />
-        <text class="kit-ms-livelabel" x={307} y={Z - 8} text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="#0A1628"></text>
-        <text x={307} y="236" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#334155">Your margin</text>
-      </g>
+      <li class="ms-row ms-you" data-tone="profit" hidden data-ms-ui>
+        <p class="ms-m"><label for={`${id}-m`}><strong data-ms-out>30%</strong> your margin</label></p>
+        <div class="ms-bar" aria-hidden="true">
+          <span class="ms-cover" data-ms-cover></span>
+          <span class="ms-gap" data-ms-gap></span>
+          <span class="ms-line"></span>
+        </div>
+        <p class="ms-res"><strong data-ms-big>£200</strong><span data-ms-label>Profit of £200</span></p>
+        <div class="ms-ctl">
+          <input id={`${id}-m`} type="range" min="1" max="60" step="1" value="30" aria-describedby={`${id}-r`} />
+          <p class="ms-live" id={`${id}-r`} aria-live="polite" data-ms-result></p>
+          <p class="ms-be">Your break-even ROAS: <strong data-ms-be>3.3x</strong>. Below that, every extra sale loses money.</p>
+        </div>
+      </li>
     )}
-  </svg>
-  <div class="kit-table-wrap">
-    <table class="kit-table">
-      <caption class="sr-only">Same 4x ROAS on £1,000 of ad spend at three contribution margins</caption>
-      <thead><tr><th scope="col">Margin</th><th scope="col">Ad spend</th><th scope="col">Revenue at 4x ROAS</th><th scope="col">Profit after product costs</th><th scope="col">Result after ad spend</th></tr></thead>
-      <tbody>
-        {cols.map((c) => (<tr><th scope="row">{c.m}%</th><td>{gbp(spend)}</td><td>{gbp(rev)}</td><td>{gbp(c.gross)}</td><td>{label(c.profit)}</td></tr>))}
-      </tbody>
-    </table>
-  </div>
-  {interactive && (
-    <div class="kit-ms-input" hidden data-ms-ui>
-      <label for={`${id}-m`}>Your margin: <output for={`${id}-m`} data-ms-out>30%</output></label>
-      <input id={`${id}-m`} type="range" min="1" max="80" step="1" value="30" aria-describedby={`${id}-r`} />
-      <p class="kit-ms-result" id={`${id}-r`} aria-live="polite" data-ms-result></p>
-    </div>
-  )}
+  </ol>
   <figcaption>Worked example, not client data. 4x ROAS means £4 of revenue for every £1 of ad spend. Profit here is revenue times margin, minus ad spend. <a href={calcHref}>Work out your own break-even ROAS</a>.</figcaption>
 </figure>
+
+<style>
+  .ms { padding: 24px; }
+  .ms-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; margin-bottom: 14px; }
+  .ms-title { margin: 0; }
+  .ms-given { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
+  .ms-given span { padding: 4px 10px; border-radius: 999px; background: var(--color-gray-50); border: 1px solid var(--color-gray-200); font-size: 0.8rem; font-weight: 600; color: var(--color-navy); }
+  .ms-key { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 18px; padding: 0; font-size: 0.8rem; color: var(--color-slate-dark); }
+  .ms-key li { display: flex; align-items: center; gap: 6px; }
+  .ms-key i { display: inline-block; width: 14px; height: 10px; border-radius: 3px; }
+  .k-cover { background: #BFDBFE; }
+  .k-profit { background: #2563EB; }
+  .k-loss { background: repeating-linear-gradient(135deg, #DC2626 0 3px, #FEE2E2 3px 6px); }
+  .k-line { width: 2px !important; height: 14px !important; border-radius: 0 !important; background: var(--color-navy); }
+  .ms-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .ms-row { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "m res" "bar bar" "sub sub"; gap: 8px 12px; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--color-gray-200); background: #fff; }
+  .ms-row[hidden] { display: none; }
+  .ms-m { grid-area: m; margin: 0; align-self: center; color: var(--color-slate-dark); font-size: 0.9rem; }
+  .ms-m strong { font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-navy); margin-right: 4px; }
+  .ms-res { grid-area: res; margin: 0; text-align: right; line-height: 1.15; }
+  .ms-res strong { display: block; font-family: var(--font-heading); font-size: 1.35rem; font-variant-numeric: tabular-nums; }
+  .ms-res span { font-size: 0.78rem; color: var(--color-slate-dark); }
+  [data-tone="loss"] .ms-res strong { color: #B91C1C; }
+  [data-tone="even"] .ms-res strong { color: var(--color-slate-dark); }
+  [data-tone="profit"] .ms-res strong { color: var(--color-electric-dark, #1D4ED8); }
+  .ms-bar { grid-area: bar; position: relative; height: 14px; border-radius: 999px; background: var(--color-gray-100, #F1F5F9); overflow: hidden; }
+  .ms-cover, .ms-gap { position: absolute; top: 0; bottom: 0; left: 0; }
+  .ms-cover { background: #BFDBFE; }
+  .ms-gap-profit, [data-tone="profit"] [data-ms-gap] { background: #2563EB; }
+  .ms-gap-loss, [data-tone="loss"] [data-ms-gap] { background: repeating-linear-gradient(135deg, #DC2626 0 3px, #FEE2E2 3px 6px); }
+  .ms-line { position: absolute; top: -2px; bottom: -2px; left: var(--be); width: 2px; margin-left: -1px; background: var(--color-navy); }
+  .ms-sub { grid-area: sub; margin: 0; font-size: 0.8rem; color: var(--color-slate-dark); }
+  .ms-you { grid-template-areas: "m res" "bar bar" "ctl ctl"; background: var(--color-sky-tint, #EFF6FF); border-color: #BFDBFE; }
+  .ms-you .ms-m label { cursor: pointer; }
+  .ms-you [data-ms-cover], .ms-you [data-ms-gap] { transition: width 0.25s ease-out, left 0.25s ease-out; }
+  .ms-ctl { grid-area: ctl; display: grid; gap: 6px; }
+  .ms-ctl input { width: 100%; accent-color: var(--color-electric-dark, #1D4ED8); }
+  .ms-live { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .ms-be { margin: 0; font-size: 0.85rem; color: var(--color-navy); }
+  @media (min-width: 640px) {
+    .ms { padding: 28px; }
+    .ms-row { grid-template-columns: 7.5rem 1fr 8.5rem; grid-template-areas: "m bar res" ". sub sub"; align-items: center; }
+    .ms-you { grid-template-areas: "m bar res" ". ctl ctl"; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ms-you [data-ms-cover], .ms-you [data-ms-gap] { transition: none; }
+  }
+</style>
 
 <script>
   document.addEventListener('astro:page-load', () => {
@@ -61,20 +112,24 @@ const label = (p: number) => (p < 0 ? `Loss of ${gbp(Math.abs(p))}` : p === 0 ? 
       const r = fig.querySelector('input') as HTMLInputElement | null;
       if (!r || (r as any)._b) return;
       (r as any)._b = 1;
-      const o = fig.querySelector('[data-ms-out]') as HTMLElement;
-      const res = fig.querySelector('[data-ms-result]') as HTMLElement;
-      fig.querySelector('[data-ms-ui]')?.removeAttribute('hidden');
-      fig.querySelector('.kit-ms-live')?.removeAttribute('display');
-      const up = fig.querySelector('.kit-ms-liveup') as SVGElement, dn = fig.querySelector('.kit-ms-livedn') as SVGElement, lb = fig.querySelector('.kit-ms-livelabel') as SVGTextElement;
-      const rev = Number(fig.dataset.spend) * Number(fig.dataset.roas), sp = Number(fig.dataset.spend);
+      const row = fig.querySelector('[data-ms-ui]') as HTMLElement;
+      row.removeAttribute('hidden');
+      const q = (s: string) => fig.querySelector(s) as HTMLElement;
+      const out = q('[data-ms-out]'), big = q('[data-ms-big]'), lab = q('[data-ms-label]'), res = q('[data-ms-result]'), be = q('[data-ms-be]');
+      const cover = q('[data-ms-cover]'), gap = q('[data-ms-gap]');
+      const sp = Number(fig.dataset.spend), roas = Number(fig.dataset.roas), rev = sp * roas, S = Number(fig.dataset.scale), B = 100 / roas;
+      const pct = (m: number) => Math.min(m, S) / S * 100;
       const go = () => {
-        const m = Number(r.value), p = Math.round(rev * m / 100 - sp), h = Math.min(Math.abs(p) * 0.1, 140);
-        o.textContent = m + '%';
-        up.style.transform = `scaleY(${p > 0 ? h : 0})`; dn.style.transform = `scaleY(${p < 0 ? h : 0})`;
-        lb.setAttribute('y', String(p >= 0 ? 160 - h - 8 : 160 + h + 16));
-        const amt = '£' + Math.abs(p).toLocaleString('en-GB');
-        lb.textContent = p === 0 ? '£0' : (p < 0 ? '-' : '') + amt;
-        res.textContent = `At a ${m}% margin, 4x ROAS on £1,000 of ad spend gives ` + (p < 0 ? `a loss of ${amt}` : p === 0 ? 'break-even, £0' : `a profit of ${amt}`) + '.';
+        const m = Number(r.value), p = Math.round(rev * m / 100 - sp), amt = '£' + Math.abs(p).toLocaleString('en-GB');
+        row.dataset.tone = p < 0 ? 'loss' : p === 0 ? 'even' : 'profit';
+        out.textContent = m + '%';
+        big.textContent = p === 0 ? '£0' : (p < 0 ? '-' : '') + amt;
+        lab.textContent = p < 0 ? `Loss of ${amt}` : p === 0 ? 'Break-even, £0' : `Profit of ${amt}`;
+        cover.style.width = pct(Math.min(m, B)) + '%';
+        gap.style.left = pct(Math.min(m, B)) + '%';
+        gap.style.width = Math.abs(pct(m) - pct(B)) + '%';
+        be.textContent = (100 / m).toFixed(1) + 'x';
+        res.textContent = `At a ${m}% margin, 4x ROAS on £1,000 of ad spend gives ` + (p < 0 ? `a loss of ${amt}` : p === 0 ? 'break-even, £0' : `a profit of ${amt}`) + `. Break-even ROAS is ${(100 / m).toFixed(1)}x.`;
       };
       r.addEventListener('input', go); go();
     });

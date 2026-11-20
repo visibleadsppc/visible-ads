@@ -174,21 +174,12 @@ html {
 .kit-scale-seg strong { font-family: var(--font-heading); color: var(--color-navy); font-size: 1rem; }
 .kit-scale-seg[aria-current="true"] { background: var(--color-sky-light); border: 2px solid var(--color-electric-dark); padding: 9px 11px; }
 .kit-fee-input { display: grid; gap: 6px; margin-bottom: 16px; max-width: 22rem; }
-.kit-fee-input label, .kit-ms-input label { font-weight: 600; color: var(--color-navy); font-size: 0.95rem; }
+.kit-fee-input label { font-weight: 600; color: var(--color-navy); font-size: 0.95rem; }
 .kit-fee-input input { border: 1px solid var(--color-slate); border-radius: 8px; padding: 10px 12px; font-size: 1rem; }
 .kit-fee-out { min-height: 1.4em; font-weight: 600; color: var(--color-electric-dark); margin: 0; }
 .kit-fig input:focus-visible { outline: 3px solid var(--color-electric); outline-offset: 2px; }
 
 /* K3 margin split */
-.kit-ms-svg { display: block; width: 100%; max-width: 420px; height: auto; margin: 0 auto 12px; }
-.kit-ms-up, .kit-ms-dn { transform-box: fill-box; }
-.kit-ms-up { transform-origin: bottom; }
-.kit-ms-dn { transform-origin: top; vector-effect: non-scaling-stroke; }
-.kit-ms-livedn { vector-effect: non-scaling-stroke; }
-.kit-ms-input { display: grid; gap: 8px; margin: 16px 0 0; max-width: 24rem; }
-.kit-ms-input[hidden] { display: none; }
-.kit-ms-result { margin: 0; font-weight: 600; color: var(--color-navy); font-size: 0.95rem; }
-.kit-ms-input input { width: 100%; accent-color: var(--color-electric-dark); }
 
 /* K4 steps */
 .kit-steps { list-style: none; margin: 0 auto; padding: 0; display: grid; gap: 28px; max-width: 56rem; }
@@ -255,7 +246,6 @@ html {
   .kit-barY { transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: calc(var(--i, 0) * 80ms); }
   .kit-fade { transition: opacity 0.5s ease-out; transition-delay: calc(var(--i, 0) * 80ms); }
   .kit-line { transform-origin: top; transition: transform 0.6s ease-out; transition-delay: calc(var(--i, 0) * 100ms); }
-  .kit-ms-liveup, .kit-ms-livedn { transition: transform 0.3s ease-out; }
   html.kit-ready [data-kit]:not(.is-in) .kit-bar { transform: scaleX(0); }
   html.kit-ready [data-kit]:not(.is-in) .kit-barY { transform: scaleY(0); }
   html.kit-ready [data-kit]:not(.is-in) .kit-fade { opacity: 0; }
