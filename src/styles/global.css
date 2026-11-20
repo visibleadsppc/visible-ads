@@ -139,7 +139,7 @@ html {
 
 
 /* ---------- Visual kit (src/components/visuals). Final state is the HTML; motion is gated. ---------- */
-@layer components { .kit-fig { margin: 2rem 0; } }
+@layer components { .kit-fig, .kit-proof { margin: 2rem 0; } }
 .kit-fig { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 16px; padding: 20px; }
 .kit-fig-title { font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; color: var(--color-navy); margin: 0 0 14px; }
 .kit-fig figcaption { margin-top: 14px; font-size: 0.9rem; line-height: 1.55; color: var(--color-slate-dark); }
@@ -224,7 +224,7 @@ html {
 /* K7 channels */
 
 /* K8 proof strip */
-.kit-proof { display: grid; gap: 16px 24px; margin: 2rem 0; padding: 20px; background: var(--color-navy); border-radius: 16px; color: #fff; }
+.kit-proof { display: grid; gap: 16px 24px; padding: 20px; background: var(--color-navy); border-radius: 16px; color: #fff; }
 .kit-proof-item dt { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-slate-light); margin-bottom: 4px; }
 .kit-proof-item dd { margin: 0; display: grid; gap: 4px; }
 .kit-proof-num { font-family: var(--font-heading); font-weight: 800; font-size: 2.25rem; line-height: 1.1; color: #fff; }
