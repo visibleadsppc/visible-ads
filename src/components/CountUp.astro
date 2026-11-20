@@ -5,20 +5,21 @@ interface Props {
   prefix?: string;
   suffix?: string;
   duration?: number;
+  bare?: boolean;
 }
 
-const { value, label, prefix = '', suffix = '' } = Astro.props;
+const { value, label, prefix = '', suffix = '', bare = false } = Astro.props;
 const numericValue = parseFloat(value.replace(/[^0-9.]/g, ''));
 const decimals = value.includes('.') ? value.split('.')[1].length : 0;
 const displayValue = decimals > 0 ? numericValue.toFixed(decimals) : numericValue.toLocaleString('en-GB');
 ---
 
-<div class="count-up-card glass-card p-6 sm:p-8 text-center group hover:shadow-xl hover:-translate-y-1 transition-[transform,box-shadow] duration-300" data-kit>
+<div class:list={['count-up-card group', bare ? 'text-left' : 'glass-card p-6 sm:p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-[transform,box-shadow] duration-300']} data-kit>
   <div class="text-4xl sm:text-5xl font-heading font-extrabold text-electric mb-2">
     <span class="count-wrap"><span class="count-real">{prefix}{displayValue}{suffix}</span></span>
   </div>
   <div class="text-sm font-semibold text-navy uppercase tracking-wide">{label}</div>
-  <div class="count-bar mt-3 h-1 w-full bg-gradient-to-r from-electric to-cyan-400 rounded-full mx-auto"></div>
+  <div class:list={['count-bar mt-3 h-1 rounded-full bg-gradient-to-r from-electric to-electric-light', bare ? 'w-16' : 'w-full mx-auto']}></div>
 </div>
 
 <style is:global>

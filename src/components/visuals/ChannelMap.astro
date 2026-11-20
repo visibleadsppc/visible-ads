@@ -7,10 +7,10 @@ const groups = [
     { n: 'Google Ads', h: '/google-ads/', p: 'Google Partner' },
     { n: 'Microsoft Advertising', h: '/bing-ads/', p: 'Microsoft Advertising Partner' },
   ] },
-  { name: 'Marketplace', role: 'Buyers shopping on Amazon', accent: '#EA580C', tint: '#FFF7ED', items: [
+  { name: 'Marketplace', role: 'Buyers shopping on Amazon', accent: '#2563EB', tint: '#EFF6FF', items: [
     { n: 'Amazon Ads', h: '/amazon/', p: 'Amazon Ads Verified Partner' },
   ] },
-  { name: 'Demand creation', role: 'Buyers before they search', accent: '#0D9488', tint: '#F0FDFA', items: [
+  { name: 'Demand creation', role: 'Buyers before they search', accent: '#2563EB', tint: '#EFF6FF', items: [
     { n: 'Meta', h: '/paid-social/', p: 'Meta Business Partner' },
     { n: 'TikTok and LinkedIn', h: '/paid-social/', p: 'Paid social' },
   ] },
@@ -43,8 +43,8 @@ const groups = [
   </ul>
   <svg class="cm-join kit-fade" style="--i:3" viewBox="0 0 300 48" preserveAspectRatio="none" aria-hidden="true">
     <path d="M50 0 C50 30 150 18 150 48" stroke="#2563EB" />
-    <path d="M150 0 L150 48" stroke="#EA580C" />
-    <path d="M250 0 C250 30 150 18 150 48" stroke="#0D9488" />
+    <path d="M150 0 L150 48" stroke="#2563EB" />
+    <path d="M250 0 C250 30 150 18 150 48" stroke="#2563EB" />
   </svg>
   <span class="cm-stem kit-fade" style="--i:3" aria-hidden="true"></span>
   <p class="cm-base kit-fade" style="--i:4">
@@ -79,6 +79,6 @@ const groups = [
     .cm-groups { grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .cm-stem { display: none; }
     .cm-join { display: block; width: 100%; height: 48px; }
-    .cm-join path { fill: none; stroke-width: 2; vector-effect: non-scaling-stroke; }
+    .cm-join path { opacity: 0.6; fill: none; stroke-width: 2; vector-effect: non-scaling-stroke; }
   }
 </style>
