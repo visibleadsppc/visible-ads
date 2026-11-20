@@ -1,91 +1,198 @@
 ---
-// K11. The Blueprint as a loop: four phases on a ring, a light travelling round it. Replaces the 2.9MB GIF.
+// K11. The Blueprint as a loop: step list and ring stay in sync. A comet hops phase to phase; hover, tap or focus a phase to take over.
 interface Props { class?: string }
 const { class: cls = '' } = Astro.props;
-const nodes = [
-  { n: 1, label: 'Discover', x: 200, y: 60 },
-  { n: 2, label: 'Strategise', x: 340, y: 200 },
-  { n: 3, label: 'Execute', x: 200, y: 340 },
-  { n: 4, label: 'Optimise', x: 60, y: 200 },
+const phases = [
+  { name: 'Discover', c: '#2563EB', ink: '#fff', x: 200, y: 60, ask: 'Where is the budget leaking?', body: 'Deep-dive audit of your accounts, competitors, market, and growth opportunities.',
+    icon: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/><path d="M8 10.5h5M10.5 8v5"/>' },
+  { name: 'Strategise', c: '#E5484D', ink: '#fff', x: 340, y: 200, ask: 'Where should the next pound go?', body: 'Bespoke roadmap with clear KPIs, budget allocation, and channel prioritisation.',
+    icon: '<path d="M3 6.5 9 3.5l6 3 6-3v14l-6 3-6-3-6 3z"/><path d="M9 3.5v14M15 6.5v14"/>' },
+  { name: 'Execute', c: '#0E9F6E', ink: '#fff', x: 200, y: 340, ask: 'Build it, launch it, run it.', body: 'Campaign build, launch, and hands-on management across every active channel.',
+    icon: '<path d="M13.5 3.5c3.5 0 7 3.5 7 7-2 4.5-6.5 7.5-9.5 8.5l-5-5c1-3 4-8.5 7.5-10.5z"/><circle cx="14.5" cy="9.5" r="1.6"/><path d="M6.5 14.5c-2 .5-3 2.5-3 6 3.5 0 5.5-1 6-3"/>' },
+  { name: 'Optimise', c: '#F5A524', ink: '#0A1628', x: 60, y: 200, ask: 'Test, learn, repeat.', body: 'Continuous testing, reporting, and refinement to compound results month on month.',
+    icon: '<path d="M3 17.5 9 11.5l4 4 8-8"/><path d="M15 7.5h6v6"/>' },
 ];
 const arcs = [
-  'M261.4 74.2 A140 140 0 0 1 325.8 138.6',
-  'M325.8 261.4 A140 140 0 0 1 261.4 325.8',
-  'M138.6 325.8 A140 140 0 0 1 74.2 261.4',
-  'M74.2 138.6 A140 140 0 0 1 138.6 74.2',
+  { d: 'M261.4 74.2 A140 140 0 0 1 325.8 138.6', a: [261.4, 74.2], b: [325.8, 138.6] },
+  { d: 'M325.8 261.4 A140 140 0 0 1 261.4 325.8', a: [325.8, 261.4], b: [261.4, 325.8] },
+  { d: 'M138.6 325.8 A140 140 0 0 1 74.2 261.4', a: [138.6, 325.8], b: [74.2, 261.4] },
+  { d: 'M74.2 138.6 A140 140 0 0 1 138.6 74.2', a: [74.2, 138.6], b: [138.6, 74.2] },
 ];
 ---
-<figure class={`bc ${cls}`} data-kit>
-  <svg viewBox="0 0 400 400" role="img" aria-labelledby="bc-title bc-desc">
-    <title id="bc-title">The Visible Ads Blueprint cycle</title>
-    <desc id="bc-desc">Four phases in a loop: Discover, Strategise, Execute and Optimise, then back to Discover. Continuous improvement, month on month.</desc>
-    <defs>
-      <marker id="bc-head" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-        <path d="M1 1 L8 5 L1 9" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-      </marker>
-      <radialGradient id="bc-glow">
-        <stop offset="0" stop-color="#60A5FA" stop-opacity="0.9" />
-        <stop offset="1" stop-color="#60A5FA" stop-opacity="0" />
-      </radialGradient>
-    </defs>
-    <circle class="bc-track" cx="200" cy="200" r="140" />
-    {arcs.map((d, i) => (
-      <path class="bc-arc" d={d} pathLength="1" marker-end="url(#bc-head)" style={`--i:${i}`} />
+<div class={`bc ${cls}`} data-kit data-bc style={`--c:${phases[0].c}`}>
+  <ol class="bc-list">
+    {phases.map((p, i) => (
+      <li class="bc-step" data-p={i} style={`--pc:${p.c};--pi:${p.ink}`}>
+        <span class="bc-step-n" aria-hidden="true">{i + 1}</span>
+        <div>
+          <h3 class="bc-step-h">{p.name}</h3>
+          <p class="bc-step-p">{p.body}</p>
+        </div>
+      </li>
     ))}
-    <g class="bc-orbit" aria-hidden="true">
-      <circle cx="200" cy="60" r="18" fill="url(#bc-glow)" />
-      <circle cx="200" cy="60" r="5" fill="#fff" stroke="#2563EB" stroke-width="2.5" />
-    </g>
-    {nodes.map((nd, i) => (
-      <g class="bc-node kit-fade" style={`--i:${i}`}>
-        <circle class="bc-pulse" cx={nd.x} cy={nd.y} r="46" style={`--d:${i * 3}s`} />
-        <circle cx={nd.x} cy={nd.y} r="46" fill="#2563EB" />
-        <circle cx={nd.x} cy={nd.y} r="46" fill="none" stroke="#fff" stroke-opacity="0.25" stroke-width="2" />
-        <text x={nd.x} y={nd.y - 6} class="bc-num">{nd.n}</text>
-        <text x={nd.x} y={nd.y + 14} class="bc-label">{nd.label}</text>
+  </ol>
+  <figure class="bc-fig">
+    <svg viewBox="0 0 400 400" role="group" aria-label="The Visible Ads Blueprint cycle: Discover, Strategise, Execute, Optimise, then back to Discover">
+      <defs>
+        {arcs.map((a, i) => (
+          <linearGradient id={`bc-g${i}`} gradientUnits="userSpaceOnUse" x1={a.a[0]} y1={a.a[1]} x2={a.b[0]} y2={a.b[1]}>
+            <stop offset="0" stop-color={phases[i].c} />
+            <stop offset="1" stop-color={phases[(i + 1) % 4].c} />
+          </linearGradient>
+        ))}
+        {phases.map((p, i) => (
+          <marker id={`bc-h${i}`} viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M1 1 L8 5 L1 9" fill="none" stroke={phases[(i + 1) % 4].c} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </marker>
+        ))}
+        <radialGradient id="bc-glow"><stop offset="0" stop-color="#fff" stop-opacity="0.95" /><stop offset="0.35" stop-color="currentColor" stop-opacity="0.6" /><stop offset="1" stop-color="currentColor" stop-opacity="0" /></radialGradient>
+      </defs>
+      <circle class="bc-track" cx="200" cy="200" r="140" />
+      {arcs.map((a, i) => (
+        <path class="bc-arc" d={a.d} pathLength="1" stroke={`url(#bc-g${i})`} marker-end={`url(#bc-h${i})`} style={`--i:${i}`} />
+      ))}
+      <g class="bc-orbit" aria-hidden="true">
+        <path class="bc-tail" d="M200 60 A140 140 0 0 0 131.7 77.8" pathLength="1" />
+        <circle class="bc-comet" cx="200" cy="60" r="22" fill="url(#bc-glow)" />
+        <circle cx="200" cy="60" r="6" fill="#fff" class="bc-core" />
       </g>
-    ))}
-    <g class="bc-centre kit-fade" style="--i:4">
-      <g class="bc-spin">
-        <path d="M184 166 A20 20 0 0 1 218 160" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" marker-end="url(#bc-head)" />
-        <path d="M216 184 A20 20 0 0 1 182 190" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" marker-end="url(#bc-head)" />
+      {phases.map((p, i) => (
+        <g class="bc-node kit-fade" data-p={i} tabindex="0" role="button" aria-label={`${i + 1}. ${p.name}: ${p.ask}`} style={`--i:${i};--pc:${p.c}`}>
+          <g class="bc-pop" style={`transform-origin:${p.x}px ${p.y}px`}>
+            <circle class="bc-halo" cx={p.x} cy={p.y} r="54" fill={p.c} />
+            <circle cx={p.x} cy={p.y} r="46" fill={p.c} />
+            <circle cx={p.x} cy={p.y} r="46" fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="2" />
+            <g transform={`translate(${p.x - 12} ${p.y - 30})`} fill="none" stroke={p.ink} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={p.icon} />
+            <text x={p.x} y={p.y + 16} class="bc-label" fill={p.ink}>{p.name}</text>
+            <circle cx={p.x + 33} cy={p.y - 33} r="11" fill="#0A1628" stroke="#fff" stroke-width="2" />
+            <text x={p.x + 33} y={p.y - 29} class="bc-badge">{i + 1}</text>
+          </g>
+        </g>
+      ))}
+      <g class="bc-say bc-say-d is-on">
+        <text x="200" y="196" class="bc-c1">Continuous</text>
+        <text x="200" y="216" class="bc-c1">improvement</text>
+        <text x="200" y="236" class="bc-c2">month on month</text>
       </g>
-      <text x="200" y="222" class="bc-c1">Continuous</text>
-      <text x="200" y="242" class="bc-c1">improvement</text>
-      <text x="200" y="262" class="bc-c2">month on month</text>
-    </g>
-  </svg>
-</figure>
+      {phases.map((p, i) => (
+        <g class="bc-say" data-say={i} aria-hidden="true">
+          <text x="200" y="186" class="bc-k" fill={p.c}>{`Phase ${i + 1}`}</text>
+          <text x="200" y="210" class="bc-c1">{p.name}</text>
+          <foreignObject x="128" y="220" width="144" height="48"><p class="bc-ask">{p.ask}</p></foreignObject>
+        </g>
+      ))}
+    </svg>
+    <figcaption class="bc-hint"><span class="bc-hint-h">Hover a phase to explore it.</span><span class="bc-hint-t">Tap a phase to explore it.</span> Optimise feeds the next Discover.</figcaption>
+  </figure>
+</div>
 
 <style>
-  .bc { margin: 0; }
-  .bc svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .bc { display: grid; gap: 40px; align-items: center; }
+  .bc-fig { order: -1; max-width: 340px; }
+  @media (min-width: 640px) { .bc-fig { max-width: 400px; } }
+  @media (min-width: 1024px) { .bc { grid-template-columns: 1fr 1fr; gap: 56px; } .bc-fig { order: 0; max-width: 440px; } }
+  .bc-hint-h { display: none; }
+  @media (hover: hover) { .bc-hint-h { display: inline; } .bc-hint-t { display: none; } }
+  .bc-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .bc-step { display: flex; gap: 18px; align-items: flex-start; padding: 18px 20px; background: #fff; border: 1px solid var(--color-gray-200); border-radius: 16px; box-shadow: 0 1px 2px rgba(10, 22, 40, 0.05); cursor: pointer; position: relative; overflow: hidden; transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.25s, box-shadow 0.25s; }
+  .bc-step::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--pc); transform: scaleY(0); transform-origin: top; transition: transform 0.35s ease-out; }
+  .bc-step-n { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 999px; background: var(--pc); color: var(--pi); font-family: var(--font-heading); font-weight: 800; font-size: 1.1rem; box-shadow: 0 6px 14px -4px color-mix(in srgb, var(--pc) 60%, transparent); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .bc-step-h { margin: 0 0 4px; font-family: var(--font-heading); font-weight: 700; font-size: 1.25rem; color: var(--color-navy); }
+  .bc-step-p { margin: 0; font-size: 0.9rem; line-height: 1.6; color: var(--color-slate); }
+  @media (max-width: 639px) {
+    .bc { gap: 28px; }
+    .bc-list { gap: 10px; }
+    .bc-step { gap: 14px; padding: 14px 16px; -webkit-tap-highlight-color: transparent; }
+    .bc-step-n { width: 40px; height: 40px; font-size: 1rem; }
+    .bc-step-h { font-size: 1.1rem; }
+    .bc-step-p { font-size: 0.875rem; line-height: 1.55; }
+  }
+  .bc-step.is-on { border-color: color-mix(in srgb, var(--pc) 45%, white); box-shadow: 0 12px 28px -12px color-mix(in srgb, var(--pc) 55%, transparent); transform: translateX(6px); }
+  @media (max-width: 1023px) { .bc-step.is-on { transform: none; } }
+  .bc-step.is-on::before { transform: scaleY(1); }
+  .bc-step.is-on .bc-step-n { transform: scale(1.08) rotate(-6deg); }
+  .bc-fig { margin: 0 auto; width: 100%; }
+  .bc-fig svg { display: block; width: 100%; height: auto; overflow: visible; }
   .bc-track { fill: none; stroke: var(--color-gray-200); stroke-width: 2; stroke-dasharray: 2 6; stroke-linecap: round; }
-  .bc-arc { fill: none; stroke: #2563EB; stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.3s ease-out; transition-delay: calc(0.3s + var(--i, 0) * 0.18s); }
-  .bc-num { font-family: var(--font-heading); font-weight: 800; font-size: 22px; fill: #fff; text-anchor: middle; }
-  .bc-label { font-family: var(--font-heading); font-weight: 700; font-size: 13px; fill: #fff; text-anchor: middle; }
-  .bc-c1 { font-family: var(--font-heading); font-weight: 800; font-size: 17px; fill: var(--color-navy); text-anchor: middle; }
-  .bc-c2 { font-size: 12px; fill: var(--color-slate-dark); text-anchor: middle; }
-  .bc-pulse { fill: #2563EB; opacity: 0; transform-box: fill-box; transform-origin: center; }
-  .bc-orbit, .bc-spin { transform-box: view-box; transform-origin: 200px 200px; }
-  .bc-spin { transform-origin: 200px 176px; }
-  .bc-orbit { opacity: 0; transition: opacity 0.5s ease-out 1.1s; }
-  .bc.is-in .bc-orbit, html:not(.kit-ready) .bc-orbit { opacity: 1; }
+  .bc-arc { fill: none; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.3s; transition-delay: calc(0.3s + var(--i, 0) * 0.18s); }
   :global(html.kit-ready) .bc:not(.is-in) .bc-arc { stroke-dashoffset: 1; opacity: 0; }
-  @media (prefers-reduced-motion: no-preference) {
-    .bc-orbit { animation: bc-orbit 12s linear infinite; }
-    .bc-pulse { animation: bc-pulse 12s ease-out infinite; animation-delay: var(--d); }
-    .bc-spin { animation: bc-orbit 12s linear infinite; }
-    .bc:not(.is-in) .bc-orbit, .bc:not(.is-in) .bc-pulse, .bc:not(.is-in) .bc-spin { animation-play-state: paused; }
-  }
+  .bc-orbit { color: var(--c); transform-box: view-box; transform-origin: 200px 200px; transition: transform 1.1s cubic-bezier(0.65, 0, 0.35, 1); }
+  .bc-tail { fill: none; stroke: var(--c); stroke-width: 4; stroke-linecap: round; opacity: 0; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke 0.6s; }
+  .bc.is-moving .bc-tail { animation: bc-tail 1.1s ease-out; }
+  .bc-core { stroke: var(--c); stroke-width: 3; transition: stroke 0.6s; }
+  .bc-node { cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent; }
+  .bc-pop { transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .bc-halo { opacity: 0; transform-box: fill-box; transform-origin: center; transition: opacity 0.3s; }
+  .bc-node.is-on .bc-pop { transform: scale(1.12); }
+  .bc-node.is-on .bc-halo { opacity: 0.22; animation: bc-halo 1.8s ease-out infinite; }
+  .bc-node:hover .bc-pop { transform: scale(1.08); }
+  .bc-node:focus-visible .bc-halo { opacity: 0.4; }
+  .bc-node:focus-visible circle:nth-of-type(3) { stroke: #0A1628; stroke-opacity: 1; stroke-width: 3; }
+  .bc-label { font-family: var(--font-heading); font-weight: 700; font-size: 14px; text-anchor: middle; }
+  .bc-badge { font-family: var(--font-heading); font-weight: 800; font-size: 11px; fill: #fff; text-anchor: middle; }
+  .bc-say { opacity: 0; transition: opacity 0.15s ease-in, transform 0.15s ease-in; transform: translateY(6px); transform-box: view-box; }
+  .bc-say.is-on { opacity: 1; transform: none; transition: opacity 0.35s ease-out 0.15s, transform 0.35s ease-out 0.15s; }
+  .bc-k { font-family: var(--font-heading); font-weight: 800; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; text-anchor: middle; }
+  .bc-c1 { font-family: var(--font-heading); font-weight: 800; font-size: 20px; fill: var(--color-navy); text-anchor: middle; }
+  .bc-c2 { font-size: 12px; fill: var(--color-slate-dark); text-anchor: middle; }
+  .bc-ask { margin: 0; font-size: 13px; line-height: 1.35; text-align: center; color: var(--color-slate-dark); }
+  .bc-hint { margin-top: 18px; text-align: center; font-size: 0.85rem; color: var(--color-slate-dark); }
+  @keyframes bc-halo { 0% { transform: scale(0.9); opacity: 0.35; } 100% { transform: scale(1.25); opacity: 0; } }
+  @keyframes bc-tail { 0% { opacity: 0.55; stroke-dashoffset: 0; } 100% { opacity: 0; stroke-dashoffset: 1; } }
   @media (prefers-reduced-motion: reduce) {
-    .bc-orbit { opacity: 1; transition: none; }
-    .bc-arc { transition: none; }
-  }
-  @keyframes bc-orbit { to { transform: rotate(360deg); } }
-  @keyframes bc-pulse {
-    0% { opacity: 0.35; transform: scale(1); }
-    16% { opacity: 0; transform: scale(1.35); }
-    100% { opacity: 0; transform: scale(1.35); }
+    .bc-orbit, .bc-pop, .bc-step, .bc-step-n, .bc-say, .bc-arc { transition: none; }
+    .bc-node.is-on .bc-halo { animation: none; }
+    .bc.is-moving .bc-tail { animation: none; }
   }
 </style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll<HTMLElement>('[data-bc]').forEach((root) => {
+      if ((root as any)._b) return;
+      (root as any)._b = 1;
+      const cols = ['#2563EB', '#E5484D', '#0E9F6E', '#F5A524'];
+      const nodes = root.querySelectorAll<SVGGElement>('.bc-node');
+      const steps = root.querySelectorAll<HTMLElement>('.bc-step');
+      const says = root.querySelectorAll<SVGGElement>('[data-say]');
+      const def = root.querySelector('.bc-say-d') as SVGGElement;
+      const orbit = root.querySelector('.bc-orbit') as SVGGElement;
+      const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let cur = -1, turns = 0, timer = 0, resume = 0, inView = false, held = false;
+      const set = (i: number) => {
+        if (i === cur) return;
+        const step = cur < 0 ? i : ((i - cur + 4) % 4);
+        turns += step;
+        cur = i;
+        root.style.setProperty('--c', cols[i]);
+        orbit.style.transform = `rotate(${turns * 90}deg)`;
+        root.classList.remove('is-moving'); void root.offsetWidth; root.classList.add('is-moving');
+        nodes.forEach((n, k) => { n.classList.toggle('is-on', k === i); n.setAttribute('aria-pressed', String(k === i)); });
+        steps.forEach((s, k) => s.classList.toggle('is-on', k === i));
+        says.forEach((s, k) => s.classList.toggle('is-on', k === i));
+        def.classList.remove('is-on');
+      };
+      const tick = () => { if (!held && inView) set((cur + 1) % 4); };
+      const play = () => { if (still) return; clearInterval(timer); timer = window.setInterval(tick, 2600); };
+      const take = (i: number) => { held = true; clearTimeout(resume); set(i); };
+      const release = () => { clearTimeout(resume); resume = window.setTimeout(() => { held = false; }, 3500); };
+      const bind = (el: Element, i: number) => {
+        el.addEventListener('mouseenter', () => take(i));
+        el.addEventListener('mouseleave', release);
+        el.addEventListener('focus', () => take(i));
+        el.addEventListener('blur', release);
+        el.addEventListener('click', () => { take(i); release(); });
+        el.addEventListener('keydown', (e) => { const k = (e as KeyboardEvent).key; if (k === 'Enter' || k === ' ') { e.preventDefault(); take(i); } });
+      };
+      nodes.forEach((n, i) => bind(n, i));
+      steps.forEach((s, i) => bind(s, i));
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver((es) => es.forEach((e) => {
+          inView = e.isIntersecting;
+          if (inView && cur < 0) window.setTimeout(() => set(0), still ? 0 : 1200);
+        }), { threshold: 0.35 }).observe(root);
+      } else { inView = true; set(0); }
+      play();
+    });
+  });
+</script>
