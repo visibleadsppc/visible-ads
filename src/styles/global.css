@@ -139,7 +139,8 @@ html {
 
 
 /* ---------- Visual kit (src/components/visuals). Final state is the HTML; motion is gated. ---------- */
-.kit-fig { margin: 2rem 0; background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 16px; padding: 20px; }
+@layer components { .kit-fig { margin: 2rem 0; } }
+.kit-fig { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 16px; padding: 20px; }
 .kit-fig-title { font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; color: var(--color-navy); margin: 0 0 14px; }
 .kit-fig figcaption { margin-top: 14px; font-size: 0.9rem; line-height: 1.55; color: var(--color-slate-dark); }
 .kit-fig figcaption a { color: var(--color-electric-dark); text-decoration: underline; }
@@ -221,18 +222,6 @@ html {
 }
 
 /* K7 channels */
-.kit-ch-groups { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; }
-.kit-ch-group { position: relative; padding-bottom: 22px; }
-.kit-ch-name { font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; color: var(--color-navy); margin: 0 0 8px; }
-.kit-ch-items { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.kit-ch-node { display: grid; gap: 2px; padding: 12px 14px; border: 1px solid var(--color-gray-200); border-radius: 12px; background: #fff; text-decoration: none; transition: transform 0.2s ease, border-color 0.2s ease; }
-.kit-ch-node:hover, .kit-ch-node:focus-visible { transform: translateY(-2px); border-color: var(--color-electric-dark); }
-.kit-ch-node:focus-visible { outline: 3px solid var(--color-electric); outline-offset: 2px; }
-.kit-ch-title { font-family: var(--font-heading); font-weight: 700; color: var(--color-navy); }
-.kit-ch-partner { font-size: 0.85rem; color: var(--color-slate-dark); }
-.kit-ch-stem { position: absolute; left: 50%; bottom: 0; width: 2px; height: 22px; margin-left: -1px; background: var(--color-slate-dark); }
-.kit-ch-base { margin: 0; padding: 12px 16px; border-radius: 12px; background: var(--color-navy); color: #fff; text-align: center; font-family: var(--font-heading); font-weight: 700; }
-@media (min-width: 768px) { .kit-ch-groups { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
 
 /* K8 proof strip */
 .kit-proof { display: grid; gap: 16px 24px; margin: 2rem 0; padding: 20px; background: var(--color-navy); border-radius: 16px; color: #fff; }
