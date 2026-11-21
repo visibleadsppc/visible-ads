@@ -1,39 +1,52 @@
 ---
-// K8. Fixed proof strip: one big number per tile. Facts only: visible-ads-facts (trust stats, certifications, awards, CFW).
+// K8. Fixed proof strip: one big number per tile, icon, colour accent and chips. Facts only: visible-ads-facts (trust stats, certifications, awards, CFW).
 interface Props { class?: string; cfw?: boolean; dark?: boolean }
 const { class: cls = '', cfw = false, dark = false } = Astro.props;
-const items = [
-  { num: '£3M', label: 'Annual ad spend managed', sub: 'Client ad budgets we run each year.' },
-  { num: '4', label: 'PPC platforms', sub: 'Google Partner, Microsoft Advertising Partner, Amazon Ads Verified Partner, Meta Business Partner.' },
-  { num: '4', label: 'Awards and nominations', sub: 'UK Search Awards 2022 winner. Finalist: UK Search Awards 2024, UK eCommerce Awards 2024, National Digital Awards 2026.' },
-  ...(cfw ? [{ num: '12x', label: 'ROAS achieved', sub: "CFW, Google Ads, Aug 2023 to Sep 2026: £6.7M Google-reported conversion value from £555K spend. Return means Google's conversion value, not profit." }] : []),
+type Tile = { num: string; label: string; c: string; icon: string; sub?: string; chips?: { t: string; win?: boolean }[]; note?: string };
+const items: Tile[] = [
+  { num: '£3M', label: 'Annual ad spend managed', c: '#60A5FA', sub: 'Client ad budgets we run each year.',
+    icon: '<path d="M4 19h16"/><path d="M7 15V9M12 15V5M17 15v-4"/>' },
+  { num: '4', label: 'PPC platforms', c: '#F87171',
+    chips: [{ t: 'Google Partner' }, { t: 'Microsoft Advertising Partner' }, { t: 'Amazon Ads Verified Partner' }, { t: 'Meta Business Partner' }],
+    icon: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>' },
+  { num: '4', label: 'Awards and nominations', c: '#FBBF24',
+    chips: [{ t: 'Winner, UK Search Awards 2022', win: true }, { t: 'Finalist, UK Search Awards 2024' }, { t: 'Finalist, UK eCommerce Awards 2024' }, { t: 'Finalist, National Digital Awards 2026' }],
+    icon: '<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4"/><path d="M12 13v4M9 20h6"/>' },
+  ...(cfw ? [{ num: '12x', label: 'ROAS achieved', c: '#34D399', sub: 'CFW, Google Ads, Aug 2023 to Sep 2026. £6.7M Google-reported conversion value from £555K spend.', note: "Return means Google's conversion value, not profit.",
+    icon: '<path d="M4 17l5-5 4 4 7-7"/><path d="M15 9h5v5"/>' }] : []),
 ];
 ---
 <dl class={`kit-proof ps ${dark ? 'kit-proof-dark' : ''} ${cls}`} data-kit style={`--n:${items.length}`}>
   {items.map((it, i) => (
-    <div class="ps-item kit-fade" style={`--i:${i}`}>
+    <div class="ps-item kit-fade" style={`--i:${i};--pc:${it.c}`}>
+      <span class="ps-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={it.icon} /></span>
       <dt class="ps-label">{it.label}</dt>
       <dd class="ps-num">{it.num}</dd>
-      <dd class="ps-sub">{it.sub}</dd>
+      {it.sub && <dd class="ps-sub">{it.sub}</dd>}
+      {it.chips && (
+        <dd class="ps-chips"><ul>{it.chips.map((ch) => <li class={ch.win ? 'is-win' : ''}>{ch.t}</li>)}</ul></dd>
+      )}
+      {it.note && <dd class="ps-note">{it.note}</dd>}
     </div>
   ))}
 </dl>
 
 <style>
-  .ps { gap: 0; padding: 8px; grid-template-columns: 1fr; }
-  .ps-item { display: flex; flex-direction: column; padding: 20px 18px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-  .ps-item:last-child { border-bottom: 0; }
-  .ps-num { order: 1; margin: 0; font-family: var(--font-heading); font-weight: 800; font-size: clamp(2.5rem, 5vw, 3.25rem); line-height: 1; letter-spacing: -0.02em; background: linear-gradient(180deg, #fff 30%, #93C5FD); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .ps-label { order: 2; margin: 10px 0 6px; font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; color: #fff; }
-  .ps-sub { order: 3; margin: 0; font-size: 0.85rem; line-height: 1.5; color: #CBD5E1; }
-  @media (min-width: 640px) {
-    .ps { grid-template-columns: repeat(2, 1fr); }
-    .ps-item { border-bottom: 0; }
-    .ps-item:nth-child(odd):not(:last-child) { border-right: 1px solid rgba(255, 255, 255, 0.1); }
-  }
-  @media (min-width: 1024px) {
-    .ps { grid-template-columns: repeat(var(--n), 1fr) !important; padding: 12px 8px; }
-    .ps-item { padding: 24px 24px; border-right: 1px solid rgba(255, 255, 255, 0.1); }
-    .ps-item:last-child { border-right: 0; }
-  }
+  .ps { position: relative; overflow: hidden; gap: 12px; padding: 12px; grid-template-columns: 1fr; background: radial-gradient(120% 140% at 0% 0%, #13294B 0%, var(--color-navy) 55%), var(--color-navy); }
+  .ps-item { position: relative; display: flex; flex-direction: column; padding: 22px 20px; border-radius: 14px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s, background 0.3s; }
+  .ps-item::before { content: ''; position: absolute; left: 20px; right: 20px; top: 0; height: 3px; border-radius: 0 0 3px 3px; background: var(--pc); opacity: 0.9; }
+  .ps-item:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--pc) 45%, transparent); background: rgba(255, 255, 255, 0.06); }
+  .ps-icon { order: 0; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; color: var(--pc); background: color-mix(in srgb, var(--pc) 16%, transparent); margin-bottom: 16px; }
+  .ps-icon svg { width: 22px; height: 22px; }
+  .ps-num { order: 1; margin: 0; font-family: var(--font-heading); font-weight: 800; font-size: clamp(2.75rem, 5vw, 3.5rem); line-height: 1; letter-spacing: -0.02em; color: #fff; }
+  .ps-label { order: 2; margin: 8px 0 12px; font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; color: var(--pc); }
+  .ps-sub { order: 3; margin: 0; font-size: 0.875rem; line-height: 1.55; color: #CBD5E1; }
+  .ps-note { order: 4; margin: 8px 0 0; font-size: 0.75rem; line-height: 1.5; color: #94A3B8; }
+  .ps-chips { order: 3; margin: 0; }
+  .ps-chips ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .ps-chips li { padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; line-height: 1.4; color: #E2E8F0; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1); }
+  .ps-chips li.is-win { color: var(--color-navy); background: var(--pc); border-color: var(--pc); }
+  @media (min-width: 640px) { .ps { grid-template-columns: repeat(2, 1fr); gap: 14px; padding: 14px; } }
+  @media (min-width: 1024px) { .ps { grid-template-columns: repeat(var(--n), 1fr) !important; } .ps-item { padding: 26px 22px; } }
+  @media (prefers-reduced-motion: reduce) { .ps-item { transition: none; } .ps-item:hover { transform: none; } }
 </style>
