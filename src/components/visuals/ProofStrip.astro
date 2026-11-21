@@ -1,29 +1,39 @@
 ---
-// K8. Fixed, non-scrolling proof strip. Facts only: visible-ads-facts (trust stats, certifications, awards).
+// K8. Fixed proof strip: one big number per tile. Facts only: visible-ads-facts (trust stats, certifications, awards, CFW).
 interface Props { class?: string; cfw?: boolean; dark?: boolean }
 const { class: cls = '', cfw = false, dark = false } = Astro.props;
+const items = [
+  { num: '£3M', label: 'Annual ad spend managed', sub: 'Client ad budgets we run each year.' },
+  { num: '4', label: 'PPC platforms', sub: 'Google Partner, Microsoft Advertising Partner, Amazon Ads Verified Partner, Meta Business Partner.' },
+  { num: '4', label: 'Awards and nominations', sub: 'UK Search Awards 2022 winner. Finalist: UK Search Awards 2024, UK eCommerce Awards 2024, National Digital Awards 2026.' },
+  ...(cfw ? [{ num: '12x', label: 'ROAS achieved', sub: "CFW, Google Ads, Aug 2023 to Sep 2026: £6.7M Google-reported conversion value from £555K spend. Return means Google's conversion value, not profit." }] : []),
+];
 ---
-<dl class={`kit-proof ${dark ? 'kit-proof-dark' : ''} ${cls}`} data-kit>
-  <div class="kit-proof-item">
-    <dt>Annual ad spend managed</dt>
-    <dd class="kit-proof-num"><span class="count-wrap"><span class="count-real">£3M</span></span></dd>
-  </div>
-  <div class="kit-proof-item">
-    <dt>Platform partner statuses</dt>
-    <dd><span class="kit-proof-num">4</span><span class="kit-proof-sub">Google Partner, Microsoft Advertising Partner, Amazon Ads Verified Partner, Meta Business Partner</span></dd>
-  </div>
-  <div class="kit-proof-item">
-    <dt>Award win</dt>
-    <dd><span class="kit-proof-sub kit-proof-lead">UK Search Awards 2022 winner</span></dd>
-  </div>
-  <div class="kit-proof-item">
-    <dt>Award finalist</dt>
-    <dd><span class="kit-proof-sub">UK Search Awards 2024, UK eCommerce Awards 2024, National Digital Awards 2026</span></dd>
-  </div>
-  {cfw && (
-    <div class="kit-proof-item">
-      <dt>CFW, Google Ads, Aug 2023 to Sep 2026</dt>
-      <dd><span class="kit-proof-sub kit-proof-lead">12x ROAS: £6.7M Google-reported conversion value from £555K spend</span><span class="kit-proof-sub">Return means Google's conversion value, not profit.</span></dd>
+<dl class={`kit-proof ps ${dark ? 'kit-proof-dark' : ''} ${cls}`} data-kit style={`--n:${items.length}`}>
+  {items.map((it, i) => (
+    <div class="ps-item kit-fade" style={`--i:${i}`}>
+      <dt class="ps-label">{it.label}</dt>
+      <dd class="ps-num">{it.num}</dd>
+      <dd class="ps-sub">{it.sub}</dd>
     </div>
-  )}
+  ))}
 </dl>
+
+<style>
+  .ps { gap: 0; padding: 8px; grid-template-columns: 1fr; }
+  .ps-item { display: flex; flex-direction: column; padding: 20px 18px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+  .ps-item:last-child { border-bottom: 0; }
+  .ps-num { order: 1; margin: 0; font-family: var(--font-heading); font-weight: 800; font-size: clamp(2.5rem, 5vw, 3.25rem); line-height: 1; letter-spacing: -0.02em; background: linear-gradient(180deg, #fff 30%, #93C5FD); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .ps-label { order: 2; margin: 10px 0 6px; font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; color: #fff; }
+  .ps-sub { order: 3; margin: 0; font-size: 0.85rem; line-height: 1.5; color: #CBD5E1; }
+  @media (min-width: 640px) {
+    .ps { grid-template-columns: repeat(2, 1fr); }
+    .ps-item { border-bottom: 0; }
+    .ps-item:nth-child(odd):not(:last-child) { border-right: 1px solid rgba(255, 255, 255, 0.1); }
+  }
+  @media (min-width: 1024px) {
+    .ps { grid-template-columns: repeat(var(--n), 1fr) !important; padding: 12px 8px; }
+    .ps-item { padding: 24px 24px; border-right: 1px solid rgba(255, 255, 255, 0.1); }
+    .ps-item:last-child { border-right: 0; }
+  }
+</style>
