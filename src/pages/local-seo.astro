@@ -1,0 +1,556 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PartnerBadges from '../components/PartnerBadges.astro';
+import Turnstile from '../components/Turnstile.astro';
+
+const canonical = "https://visible-ads.com/local-seo/";
+
+// The hero panel is a worked illustration of the position map, not a client's data. First
+// at the door, weaker a street or two out, gone at the edges of town, which is what
+// distance does to a single profile.
+const gridRanks: (number | string)[] = [
+  "20+", 14, 11, 15, "20+",
+  12, 7, 4, 8, 16,
+  9, 3, 1, 5, 13,
+  11, 6, 2, 7, 15,
+  "20+", 13, 10, 14, "20+"
+];
+
+// Pin centres sit in the blocks of the drawn town and every road runs down a gap between
+// them, so the street network stays readable underneath the results.
+const AXIS = [52, 126, 200, 274, 348];
+
+function band(rank: number | string): { fill: string; ink: string } {
+  if (typeof rank !== "number") return { fill: "#64748B", ink: "#FFFFFF" };  // slate
+  if (rank <= 3) return { fill: "#10B981", ink: "#FFFFFF" };                 // success
+  if (rank <= 10) return { fill: "#F59E0B", ink: "#0A1628" };                // amber, navy ink
+  return { fill: "#EA4335", ink: "#FFFFFF" };                                // cta
+}
+
+const pins = gridRanks.map((rank, i) => {
+  const { fill, ink } = band(rank);
+  const label = String(rank);
+  return {
+    x: AXIS[i % 5],
+    y: AXIS[Math.floor(i / 5)],
+    label,
+    fill,
+    ink,
+    size: label.length > 2 ? 11 : 15
+  };
+});
+
+// Each road is drawn twice, a grey casing then a white carriageway on top. That pairing is
+// what makes a line read as a street rather than a scribble.
+const roads = [
+  { d: "M 60 18 H 340 Q 382 18 382 60 V 340 Q 382 382 340 382 H 60 Q 18 382 18 340 V 60 Q 18 18 60 18 Z", w: 9 },
+  { d: "M 232 18 C 240 100 234 160 238 237 C 242 300 233 340 240 382", w: 10 },
+  { d: "M 18 158 C 92 168 150 150 238 163 C 312 174 342 156 382 166", w: 9 },
+  { d: "M 18 56 C 102 118 140 198 163 250 C 186 302 212 348 262 382", w: 7 },
+  { d: "M 89 18 V 382", w: 4 },
+  { d: "M 311 18 V 382", w: 4 },
+  { d: "M 18 89 H 382", w: 4 },
+  { d: "M 18 237 H 382", w: 4 },
+  { d: "M 89 311 H 311", w: 3 },
+  { d: "M 163 18 V 89", w: 3 },
+  { d: "M 311 274 H 382", w: 3 },
+  { d: "M 311 96 C 288 142 262 162 238 192", w: 3 },
+  { d: "M 89 244 C 112 268 134 288 160 311", w: 3 }
+];
+
+const checkItems = [
+  {
+    t: "A position map for your own search terms",
+    d: "We check your position in the map results from a grid of points across your area, not just at your own address. One profile can sit first at the shop door and nowhere by the ring road. The map shows where that line falls."
+  },
+  {
+    t: "A Google Business Profile audit",
+    d: "Primary and additional categories, services, products, hours, attributes, description, photos and the address or service area. The primary category decides which searches a profile is eligible for at all, so it is the first thing we read."
+  },
+  {
+    t: "The businesses appearing instead of you",
+    d: "For each search we list who Google shows, their review count and score, their categories and how far they are from each point. That is what tells you whether you are losing on distance, on relevance or on prominence."
+  },
+  {
+    t: "The page a buyer lands on",
+    d: "Where the profile sends people, and whether that page names the place, the service and a way to make contact. Many local profiles point at a homepage that never mentions the town."
+  },
+  {
+    t: "Your details across the web",
+    d: "Name, address and phone number on the directories that carry them. We list the ones that disagree with your profile so they can be corrected."
+  }
+];
+
+const signals = [
+  { signal: "Position by point", counts: "Your place in the map results for one search term, at each point on a grid across your area.", source: "Position map, repeated monthly" },
+  { signal: "Top three share", counts: "The share of points where you appear in the three map results Google shows first, before anyone taps to see more.", source: "Position map" },
+  { signal: "Profile actions", counts: "Calls, direction requests and website clicks taken directly from your Business Profile.", source: "Google Business Profile performance report" },
+  { signal: "Local sessions", counts: "Visits that arrive from your profile or from local search, and what they do next on the site.", source: "GA4" },
+  { signal: "Enquiries", counts: "Forms, calls and walk-ins, plus how the buyer says they found you.", source: "Your own enquiry tracking" }
+];
+
+const steps = [
+  {
+    t: "Make the profile accurate and complete",
+    d: "Categories first, then services, products, hours, attributes and the service area. Google's own guidance is that businesses with complete and accurate information are more likely to show up in local results. This is the cheapest work on the list and it is the most often skipped."
+  },
+  {
+    t: "Give each location a page worth landing on",
+    d: "A page that names the town, the services, the opening hours and the people, and that carries the same facts as the profile. Where you have several branches, each one gets its own page rather than a single contact page with nine addresses on it."
+  },
+  {
+    t: "Build the review habit",
+    d: "Asking at the point the job is finished, and replying to every review, good or bad. Google says that replying to reviews shows customers you value their feedback. We do not buy reviews, incentivise them or filter out the poor ones, and we will not work with anyone who wants that."
+  },
+  {
+    t: "Keep the profile active",
+    d: "Photos, offers and posts, and the products or services list kept current. A profile that has not been touched in two years looks closed to a buyer comparing three of you side by side."
+  },
+  {
+    t: "Correct your details everywhere else",
+    d: "The directories, review sites and listings that carry your name, address and phone number. Conflicting details are a problem we can fix once and then keep fixed."
+  }
+];
+
+const faqs = [
+  {
+    q: "What is local SEO?",
+    a: "Local SEO is the work of getting a business found in Google's map results and in searches that carry a place, such as \"kitchen showroom near me\" or \"podiatrist in Kingston\". It covers the Google Business Profile, the pages buyers land on, reviews and the directories that list your details."
+  },
+  {
+    q: "What does the free local visibility check include?",
+    a: "A position map for your main search terms across a grid of points in your area, an audit of your Google Business Profile, the list of businesses Google shows instead of you, a look at the page your profile points at, and the directory listings that disagree with it. You get the findings in priority order whether or not you hire us."
+  },
+  {
+    q: "Can you guarantee a number one position in the map results?",
+    a: "No, and nor can anyone else. Google's own help page says: \"There's no way to request or pay for a better local ranking on Google.\" Distance from the searcher is one of the main factors and nobody can change where a buyer is standing. We guarantee no positions, no rankings and no enquiry volume."
+  },
+  {
+    q: "How much does local SEO cost?",
+    a: "No price is published. The monthly fee is quoted per location after the free check, because the work on a single shop and the work on a twelve branch network are not the same job. The check itself is free and carries no obligation."
+  },
+  {
+    q: "What do you need from us to start?",
+    a: "Manager access to your Google Business Profile and access to the website. We never ask for the password to the account that owns the profile, and ownership stays with you. We can send written steps for granting manager access, which takes about two minutes."
+  },
+  {
+    q: "Does this work for a business with no shopfront?",
+    a: "Yes. A business that travels to its customers can hold a profile with a service area instead of a public address. The same work applies, though distance from the searcher still counts, so a service area business is usually competing hardest in the part of its patch nearest its base."
+  },
+  {
+    q: "How is this different from your SEO and GEO page?",
+    a: "Our SEO and GEO service is about organic visibility and how AI answer engines describe a brand, and it suits ecommerce and national B2B. Local SEO is about the map results and the Business Profile for a place a buyer can reach. Plenty of businesses need both, and we will say which one is doing the work for you."
+  },
+  {
+    q: "We have several branches. Can you cover all of them?",
+    a: "Yes. Each branch gets its own profile, its own page and its own position map, and the group gets one view across all of them so head office can see which branches are winning locally and which are not. Franchisees can also take it for a single branch on their own."
+  },
+  {
+    q: "How long before anything changes?",
+    a: "We give no date. Corrections to a profile can show in days. Movement in the map results varies by town, by how close the competition is and by how many reviews they hold. We repeat the same position map every month, so what changed is something you can see rather than something we assert."
+  }
+];
+
+const related = [
+  { href: "/seo/", t: "SEO and GEO", d: "Organic visibility and how AI answer engines describe your brand." },
+  { href: "/google-ads/", t: "Google Ads management", d: "Paid search that buys demand while the local work builds." },
+  { href: "/ppc-for-professional-services/", t: "Professional services and agencies", d: "Lead generation for firms that sell locally." },
+  { href: "/kingston-upon-thames/", t: "PPC in Kingston upon Thames", d: "Paid search from our own doorstep." },
+  { href: "/free-ads-audit/", t: "Free profit audit", d: "The paid media equivalent of the local check." }
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://visible-ads.com/#organization",
+      "name": "Visible Ads",
+      "url": "https://visible-ads.com/",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Kingston-Upon-Thames",
+        "addressCountry": "GB"
+      }
+    },
+    {
+      "@type": "Service",
+      "name": "Local SEO",
+      "serviceType": "Local search engine optimisation and Google Business Profile management",
+      "description": "Local SEO for UK businesses with a shopfront, branch or service area, starting with a free local visibility check that maps map-result positions across the area.",
+      "url": canonical,
+      "provider": { "@id": "https://visible-ads.com/#organization" },
+      "areaServed": [
+        { "@type": "Country", "name": "United Kingdom" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map((f) => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://visible-ads.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Local SEO", "item": canonical }
+      ]
+    }
+  ]
+};
+---
+
+<Layout title="Local SEO Agency UK | Google Business Profile and Map Results | Visible Ads" description="Local SEO for UK businesses with a shopfront, branch or service area. Start with a free local visibility check: a position map for your own search terms plus a Google Business Profile audit." canonical={canonical} schema={schema}>
+
+  <!-- Hero: the offer, and a picture of what the check hands over -->
+  <section class="relative py-14 lg:py-20 overflow-hidden bg-navy">
+    <div class="absolute inset-0 bg-gradient-to-br from-navy to-navy-light"></div>
+    <div class="absolute inset-0 dot-pattern opacity-10"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-sm text-slate-light mb-6" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <span class="mx-2 text-slate">/</span>
+        <span class="text-white" aria-current="page">Local SEO</span>
+      </nav>
+      <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14 items-start">
+        <div>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white leading-tight mb-5">Local SEO for businesses that sell to a place</h1>
+          <p class="text-lg sm:text-xl text-slate-light mb-6 leading-relaxed">Visible Ads gets shops, showrooms, clinics, branches and service area businesses found in Google's map results. We start with a free local visibility check, so you can see where you stand across your own town before you spend anything.</p>
+          <ol class="space-y-3 mb-8 text-white">
+            <li class="flex gap-3"><span class="shrink-0 w-7 h-7 rounded-full bg-white text-navy font-bold text-sm flex items-center justify-center" aria-hidden="true">1</span><span>We map your position in the map results point by point across your area, for the searches your buyers actually use.</span></li>
+            <li class="flex gap-3"><span class="shrink-0 w-7 h-7 rounded-full bg-white text-navy font-bold text-sm flex items-center justify-center" aria-hidden="true">2</span><span>You see which businesses Google shows instead of you, and what they hold that you do not.</span></li>
+            <li class="flex gap-3"><span class="shrink-0 w-7 h-7 rounded-full bg-white text-navy font-bold text-sm flex items-center justify-center" aria-hidden="true">3</span><span>You get the fixes in priority order, and a quote only if you want us to do the work.</span></li>
+          </ol>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#check" class="w-full sm:w-auto inline-flex items-center justify-center bg-cta text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors text-lg">Get your free local check</a>
+            <a href="#measure" class="w-full sm:w-auto inline-flex items-center justify-center text-white font-medium px-8 py-4 rounded-xl border border-white/30 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors">See how we measure it</a>
+          </div>
+          <p class="text-sm text-slate-light mt-5">The check is free and there is no tie-in. If you want the work done, the monthly fee is quoted per location afterwards. First reply within 1 working day.</p>
+        </div>
+
+        <!-- Position map panel. The town is drawn, so no point on it is a real place and no
+             figure on it is a real client's ranking. -->
+        <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-xl border border-gray-200">
+          <div class="flex items-baseline justify-between gap-4 mb-1">
+            <h2 class="text-lg font-heading font-bold text-navy">Position map</h2>
+            <span class="text-xs font-semibold text-slate uppercase tracking-wider">Illustration</span>
+          </div>
+          <p class="text-sm text-gray-700 mb-4">One search term, checked from 25 points across a town. Each pin is where this business comes up in the map results for somebody standing on that spot.</p>
+          <div class="rounded-xl overflow-hidden border border-gray-200">
+            <svg id="pmap" viewBox="0 0 400 400" class="block w-full h-auto font-heading" role="img" aria-labelledby="pmap-t pmap-d">
+              <title id="pmap-t">Example position map across a town</title>
+              <desc id="pmap-d">A street map of a town with a pin on each of twenty five points. The business ranks first at its own door in the middle, between fourth and tenth a street or two out, eleventh to twentieth beyond that, and outside the top twenty at the edges of town.</desc>
+
+              <rect width="400" height="400" fill="#E9EEF4" />
+
+              <!-- parkland and a river, so the drawing reads as a town and not as a chart -->
+              <path d="M 30 24 C 92 16 134 40 138 82 C 142 128 98 150 58 142 C 24 136 16 78 30 24 Z" fill="#D6E8DA" />
+              <ellipse cx="352" cy="244" rx="56" ry="74" fill="#D6E8DA" />
+              <path d="M -10 292 C 58 316 112 288 172 306 C 240 327 302 298 410 316" fill="none" stroke="#B9D7F2" stroke-width="24" stroke-linecap="round" />
+
+              <!-- blocks of buildings -->
+              <g fill="#DCE4EE">
+                <rect x="170" y="30" width="48" height="40" rx="4" />
+                <rect x="252" y="104" width="52" height="34" rx="4" />
+                <rect x="104" y="186" width="44" height="34" rx="4" />
+                <rect x="256" y="196" width="46" height="30" rx="4" />
+                <rect x="40" y="252" width="40" height="36" rx="4" />
+                <rect x="180" y="340" width="44" height="34" rx="4" />
+                <rect x="300" y="336" width="40" height="30" rx="4" />
+              </g>
+
+              <!-- streets -->
+              <g fill="none" stroke="#C5D1DF" stroke-linecap="round" stroke-linejoin="round">
+                {roads.map((r) => <path data-road="casing" d={r.d} stroke-width={r.w + 3} />)}
+              </g>
+              <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+                {roads.map((r) => <path data-road="surface" d={r.d} stroke-width={r.w} />)}
+              </g>
+
+              <!-- the business itself -->
+              <g data-shop="1">
+                <path d="M 163 176 C 163 170 149 160 149 148 A 14 14 0 1 1 177 148 C 177 160 163 170 163 176 Z" fill="#0A1628" stroke="#FFFFFF" stroke-width="2.5" />
+                <path d="M 155 148 L 163 140 L 171 148 Z M 157 148 H 169 V 156 H 157 Z" fill="#FFFFFF" />
+              </g>
+
+              <!-- one pin per point checked -->
+              {pins.map((p) => (
+                <g>
+                  <circle data-pin="1" data-rank={p.label} cx={p.x} cy={p.y} r="17" fill={p.fill} stroke="#FFFFFF" stroke-width="2.5" />
+                  <text x={p.x} y={p.y} fill={p.ink} font-size={p.size} font-weight="700" text-anchor="middle" dominant-baseline="central">{p.label}</text>
+                </g>
+              ))}
+            </svg>
+          </div>
+          <ul class="flex flex-wrap gap-x-4 gap-y-2 text-xs text-gray-700 mt-4">
+            <li class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-navy" aria-hidden="true"></span>The business</li>
+            <li class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-success" aria-hidden="true"></span>Top 3</li>
+            <li class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber" aria-hidden="true"></span>4 to 10</li>
+            <li class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-cta" aria-hidden="true"></span>11 to 20</li>
+            <li class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-slate" aria-hidden="true"></span>Outside 20</li>
+          </ul>
+          <p class="text-xs text-gray-700 leading-relaxed border-t border-gray-200 pt-4 mt-4">The town above is drawn and the figures on it are placeholders, with the points about a mile apart. Your check uses your own search terms, your own area and as many points as your travel distance needs. We check the same points every month for retained clients, so a change is something you can see.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-8 bg-sky-tint border-y border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <PartnerBadges compact />
+    </div>
+  </section>
+
+  <!-- What the check covers -->
+  <section class="py-16 lg:py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">What the free local visibility check covers</h2>
+      <p class="text-lg text-gray-700 mb-10 leading-relaxed">Five things, all of them read from your live profile and your live site. Nothing in it depends on you buying anything afterwards.</p>
+      <ul class="space-y-7">
+        {checkItems.map((c) => (
+          <li class="border-l-4 border-electric pl-5">
+            <h3 class="text-xl font-heading font-bold text-navy mb-2">{c.t}</h3>
+            <p class="text-gray-700 leading-relaxed">{c.d}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Why rank moves street by street -->
+  <section class="py-16 lg:py-20 bg-sky-tint">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Why you can rank first at your own door and nowhere across town</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">A single ranking number does not exist in local search. Your position changes with where the person searching is standing, which is why checking it from your own office tells you almost nothing. Google names three main factors, and only two of them are yours to work on.</p>
+      <dl class="space-y-5 mb-8">
+        <div class="bg-white rounded-xl border border-gray-200 p-5">
+          <dt class="font-heading font-bold text-navy mb-1">Relevance</dt>
+          <dd class="text-gray-700 leading-relaxed">"Relevance is how well a Business Profile matches what someone is searching for." This is categories, services, products and the words on the page behind the profile. We can change all of it.</dd>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 p-5">
+          <dt class="font-heading font-bold text-navy mb-1">Prominence</dt>
+          <dd class="text-gray-700 leading-relaxed">"Prominence means how well-known a business is." Google says this is partly based on how many websites link to your business and how many reviews you have. Slower to move, and it moves.</dd>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 p-5">
+          <dt class="font-heading font-bold text-navy mb-1">Distance</dt>
+          <dd class="text-gray-700 leading-relaxed">"Distance refers to how far each business is from the customer who's searching." Nobody can change this, so an honest local plan works out how far your profile can reasonably reach and puts the effort inside that.</dd>
+        </div>
+      </dl>
+      <p class="text-gray-700 mb-8 leading-relaxed">Definitions quoted from Google Business Profile Help, <a href="https://support.google.com/business/answer/7091" target="_blank" rel="noopener noreferrer" class="text-electric underline hover:text-electric-dark">Tips to improve your local ranking on Google</a>.</p>
+      <blockquote class="border-l-4 border-electric bg-white rounded-r-xl p-6">
+        <p class="text-lg text-navy leading-relaxed mb-3">"There's no way to request or pay for a better local ranking on Google."</p>
+        <footer class="text-sm text-gray-700">Google Business Profile Help, <a href="https://support.google.com/business/answer/7091" target="_blank" rel="noopener noreferrer" class="text-electric underline hover:text-electric-dark">Tips to improve your local ranking on Google</a></footer>
+      </blockquote>
+      <p class="text-lg text-gray-700 mt-6 leading-relaxed">That line sets the limit of what any local SEO agency can promise. Anyone offering you a guaranteed map position is either guessing or lying. What we can do is make the profile and the pages behind it the best match for what your buyers type, then show you the map every month.</p>
+    </div>
+  </section>
+
+  <!-- Measurement -->
+  <section id="measure" class="py-16 lg:py-20 bg-white scroll-mt-24">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">How we measure local SEO</h2>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">Five separate signals, reported next to each other and never merged into one score out of ten. Visibility that brings no call, no enquiry and no visit is a cost, so the last two rows are the ones that settle whether the work is paying.</p>
+      <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+        <table class="w-full text-left">
+          <caption class="sr-only">The five signals used to measure local SEO</caption>
+          <thead class="hidden sm:table-header-group bg-navy text-white text-sm">
+            <tr>
+              <th scope="col" class="px-5 py-3 font-semibold">Signal</th>
+              <th scope="col" class="px-5 py-3 font-semibold">What it counts</th>
+              <th scope="col" class="px-5 py-3 font-semibold">Where it comes from</th>
+            </tr>
+          </thead>
+          <tbody>
+            {signals.map((s) => (
+              <tr class="block sm:table-row border-b border-gray-200 last:border-b-0 px-5 py-4 sm:p-0">
+                <th scope="row" class="block sm:table-cell sm:px-5 sm:py-4 font-heading font-bold text-navy">{s.signal}</th>
+                <td class="block sm:table-cell sm:px-5 sm:py-4 text-gray-700">{s.counts}</td>
+                <td class="block sm:table-cell sm:px-5 sm:py-4 text-gray-700 text-sm sm:text-base"><span class="sm:hidden font-semibold text-navy">Source: </span>{s.source}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-lg text-gray-700 mt-8 leading-relaxed">The same grid and the same search terms are used every month, so a change is an observation rather than a claim. Where your enquiry tracking cannot tell a local call from any other call, fixing that is the first job, because without it nobody can say what the map positions were worth.</p>
+    </div>
+  </section>
+
+  <!-- The work -->
+  <section class="py-16 lg:py-20 bg-sky-tint">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">What the work involves</h2>
+      <p class="text-lg text-gray-700 mb-8 leading-relaxed">Five jobs, in this order. Each one is on your own profile, your own site or listings you control.</p>
+      <ol class="space-y-6 mb-10">
+        {steps.map((s, i) => (
+          <li class="flex gap-4">
+            <span class="shrink-0 w-9 h-9 rounded-full bg-navy text-white font-heading font-bold flex items-center justify-center" aria-hidden="true">{i + 1}</span>
+            <div>
+              <h3 class="text-xl font-heading font-bold text-navy mb-1">{s.t}</h3>
+              <p class="text-gray-700 leading-relaxed">{s.d}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <div class="bg-white rounded-2xl border border-gray-200 p-6">
+        <h3 class="font-heading font-bold text-navy mb-3">What we will not do</h3>
+        <ul class="space-y-2 text-gray-700">
+          <li class="flex gap-3"><span class="shrink-0 text-cta font-bold" aria-hidden="true">&#10007;</span><span>Buy reviews, write them for you or hide the bad ones.</span></li>
+          <li class="flex gap-3"><span class="shrink-0 text-cta font-bold" aria-hidden="true">&#10007;</span><span>Add profiles for addresses a business does not occupy.</span></li>
+          <li class="flex gap-3"><span class="shrink-0 text-cta font-bold" aria-hidden="true">&#10007;</span><span>Put a keyword in your business name that is not your business name.</span></li>
+          <li class="flex gap-3"><span class="shrink-0 text-cta font-bold" aria-hidden="true">&#10007;</span><span>Promise a map position, a ranking or a number of enquiries.</span></li>
+        </ul>
+        <p class="text-gray-700 mt-4 leading-relaxed">The first three are against Google's guidelines and can cost a profile its listing. The fourth is just honesty.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Branches, franchises, multi-location -->
+  <section id="branches" class="py-16 lg:py-20 bg-white scroll-mt-24">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">Branches, franchises and multi-location brands</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">A national brand with one profile cannot rank in nine towns, because distance is counted from the searcher to each location. The brand site can hold the brand name while every branch quietly loses the local searches that bring people through the door. Each location needs its own profile, its own page and its own position map.</p>
+      <p class="text-lg text-gray-700 mb-10 leading-relaxed">We work either way round: with the group, or with a single branch whose owner is not prepared to wait for head office.</p>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="rounded-2xl border border-gray-200 p-6 sm:p-7">
+          <h3 class="text-xl font-heading font-bold text-navy mb-3">If you run one branch</h3>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex gap-3"><span class="shrink-0 w-1.5 h-1.5 mt-2.5 rounded-full bg-electric" aria-hidden="true"></span><span>Your own profile, worked on properly rather than left on the default settings the group set up.</span></li>
+            <li class="flex gap-3"><span class="shrink-0 w-1.5 h-1.5 mt-2.5 rounded-full bg-electric" aria-hidden="true"></span><span>A page for your branch that names your town, your showroom or clinic and your team.</span></li>
+            <li class="flex gap-3"><span class="shrink-0 w-1.5 h-1.5 mt-2.5 rounded-full bg-electric" aria-hidden="true"></span><span>Your own position map every month, showing how far your reach actually extends.</span></li>
+            <li class="flex gap-3"><span class="shrink-0 w-1.5 h-1.5 mt-2.5 rounded-full bg-electric" aria-hidden="true"></span><span>Your own enquiries counted separately, so you can see what the spend returned.</span></li>
+          </ul>
+          <p class="text-gray-700 mt-4 leading-relaxed">Quoted per branch. You do not need the rest of the network to agree.</p>
+        </div>
+        <div class="rounded-2xl border border-gray-200 p-6 sm:p-7 bg-sky-tint">
+          <h3 class="text-xl font-heading font-bold text-navy mb-3">If you run the network</h3>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex gap-3"><span class="shrink-0 w-1.5 h-1.5 mt-2.5 rounded-full bg-electric" aria-hidden="true"></span><span>The same checks on every location, so the branches that are invisible locally are named rather than averaged away.</span></li>
+            <li class="flex gap-3"><span class="shrink-0 w-1.5 h-1.5 mt-2.5 rounded-full bg-electric" aria-hidden="true"></span><span>One set of facts per branch, used on the profile and on the page, so they stop contradicting each other.</span></li>
+            <li class="flex gap-3"><span class="shrink-0 w-1.5 h-1.5 mt-2.5 rounded-full bg-electric" aria-hidden="true"></span><span>A table across all locations each month, with the weakest towns at the top.</span></li>
+            <li class="flex gap-3"><span class="shrink-0 w-1.5 h-1.5 mt-2.5 rounded-full bg-electric" aria-hidden="true"></span><span>Territories drawn from what the map actually shows, not from a radius somebody picked.</span></li>
+          </ul>
+          <p class="text-gray-700 mt-4 leading-relaxed">Where branches also run their own paid search, the local pages are the pages those ads land on, so one fix does both jobs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alongside paid -->
+  <section class="py-16 lg:py-20 bg-sky-tint">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-6">How local SEO sits next to Google Ads</h2>
+      <p class="text-lg text-gray-700 mb-6 leading-relaxed">Visible Ads is a profit-first agency, and local work follows the same rule as paid media. Paid search buys demand while campaigns are running. The profile and the local pages aim to earn visits that continue after the campaigns stop, and they cost nothing per click.</p>
+      <p class="text-lg text-gray-700 mb-10 leading-relaxed">When we run both, each one informs the other. The search terms people really use before they call are in the ads account, and those are the terms the position map should be built from. The town pages the ads need are the same pages local search needs.</p>
+      <ul class="grid sm:grid-cols-2 gap-4">
+        {related.map((r) => (
+          <li>
+            <a href={r.href} class="block h-full rounded-xl border border-gray-200 bg-white p-5 hover:border-electric/40 hover:shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-electric transition-colors">
+              <span class="block font-heading font-bold text-navy mb-1">{r.t}</span>
+              <span class="block text-sm text-gray-700">{r.d}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 lg:py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy mb-8">Local SEO questions</h2>
+      <div class="space-y-4">
+        {faqs.map((f) => (
+          <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between gap-4 cursor-pointer p-5 font-heading font-semibold text-navy text-lg hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-electric">
+              {f.q}
+              <svg class="w-5 h-5 text-electric shrink-0 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-5 pb-5 text-gray-700 leading-relaxed">{f.a}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- The form -->
+  <section id="check" class="relative py-16 lg:py-24 bg-navy scroll-mt-24" data-hide-sticky-cta>
+    <div class="absolute inset-0 dot-pattern opacity-5"></div>
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-14 items-start">
+        <div>
+          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-5">Get your free local visibility check</h2>
+          <p class="text-lg text-slate-light mb-6 leading-relaxed">Tell us the town you want to be found in and the services that matter, and we will map where you currently stand. You get the findings and the fixes in priority order. A quote only follows if you ask for one.</p>
+          <ul class="space-y-3 text-white mb-6">
+            <li class="flex gap-3"><span class="shrink-0 text-success font-bold" aria-hidden="true">&#10003;</span><span>Free, and no tie-in.</span></li>
+            <li class="flex gap-3"><span class="shrink-0 text-success font-bold" aria-hidden="true">&#10003;</span><span>First reply within 1 working day.</span></li>
+            <li class="flex gap-3"><span class="shrink-0 text-success font-bold" aria-hidden="true">&#10003;</span><span>We guarantee no positions, rankings or enquiry volume.</span></li>
+          </ul>
+          <p class="text-slate-light leading-relaxed">Running several branches? Say how many and we will check a sample across the network rather than one town.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-gray-200">
+          <form id="local-seo-form" action="/api/submit" method="POST" data-astro-reload class="space-y-5">
+            <input type="hidden" name="_form" value="local_seo" />
+            <input type="hidden" name="_next" value="https://visible-ads.com/local-seo/?thanks=1&form=local_seo" />
+            <input type="hidden" name="request" value="Free local visibility check" />
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;pointer-events:none" />
+            <div>
+              <label for="ls-name" class="block text-sm font-medium text-navy mb-1.5">Name</label>
+              <input type="text" id="ls-name" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-electric focus:ring-2 focus:ring-electric/20 outline-none transition-all text-gray-700" placeholder="Your full name" />
+            </div>
+            <div>
+              <label for="ls-email" class="block text-sm font-medium text-navy mb-1.5">Email</label>
+              <input type="email" id="ls-email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-electric focus:ring-2 focus:ring-electric/20 outline-none transition-all text-gray-700" placeholder="you@company.com" />
+            </div>
+            <div>
+              <label for="ls-phone" class="block text-sm font-medium text-navy mb-1.5">Phone <span class="text-slate font-normal">(optional)</span></label>
+              <input type="tel" id="ls-phone" name="phone" class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-electric focus:ring-2 focus:ring-electric/20 outline-none transition-all text-gray-700" placeholder="+44 7XXX XXXXXX" />
+            </div>
+            <div>
+              <label for="ls-business" class="block text-sm font-medium text-navy mb-1.5">Business name</label>
+              <input type="text" id="ls-business" name="business_name" required class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-electric focus:ring-2 focus:ring-electric/20 outline-none transition-all text-gray-700" placeholder="As it appears on Google" />
+            </div>
+            <div>
+              <label for="ls-website" class="block text-sm font-medium text-navy mb-1.5">Website <span class="text-slate font-normal">(optional)</span></label>
+              <input type="text" inputmode="url" autocapitalize="none" autocorrect="off" spellcheck="false" id="ls-website" name="website" class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-electric focus:ring-2 focus:ring-electric/20 outline-none transition-all text-gray-700" placeholder="yoursite.co.uk" />
+            </div>
+            <div>
+              <label for="ls-town" class="block text-sm font-medium text-navy mb-1.5">Town or city you want to be found in</label>
+              <input type="text" id="ls-town" name="town" required class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-electric focus:ring-2 focus:ring-electric/20 outline-none transition-all text-gray-700" placeholder="Kingston upon Thames" />
+            </div>
+            <div>
+              <label for="ls-locations" class="block text-sm font-medium text-navy mb-1.5">How many locations</label>
+              <select id="ls-locations" name="locations" required class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-electric focus:ring-2 focus:ring-electric/20 outline-none transition-all text-gray-700">
+                <option value="" disabled selected>Select</option>
+                <option value="1">Just the one</option>
+                <option value="2 to 5">2 to 5</option>
+                <option value="6 to 20">6 to 20</option>
+                <option value="More than 20">More than 20</option>
+                <option value="One branch of a larger network">One branch of a larger network</option>
+              </select>
+            </div>
+            <div>
+              <label for="ls-message" class="block text-sm font-medium text-navy mb-1.5">Your main services, and the searches that matter</label>
+              <textarea id="ls-message" name="message" rows="4" required class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:border-electric focus:ring-2 focus:ring-electric/20 outline-none transition-all text-gray-700 resize-none" placeholder="For example: fitted kitchens, kitchen showroom near me, German kitchens"></textarea>
+            </div>
+            <Turnstile />
+            <button type="submit" class="w-full px-6 py-4 bg-cta text-white font-semibold rounded-lg hover:bg-electric transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-cta/25 text-lg">
+              Send my free local check request
+            </button>
+            <p class="text-xs text-gray-700 leading-relaxed">We use your details to answer your enquiry and nothing else. See our <a href="/privacy-policy/" class="text-electric underline hover:text-electric-dark">privacy policy</a>.</p>
+          </form>
+          <script>
+            if (window.location.search.includes('thanks=1')) {
+              const form = document.getElementById('local-seo-form');
+              if (form) form.innerHTML = '<div class="text-center py-12"><div class="w-16 h-16 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><h3 class="text-xl font-heading font-bold text-navy mb-2">Thank You!</h3><p class="text-gray-700">We have your request. Boh will reply within 1 working day.</p></div>';
+            }
+          </script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
